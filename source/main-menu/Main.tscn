@@ -62,5 +62,6 @@ text = "Quit"
 [node name="Panel" type="Panel" parent="MarginContainer"]
 show_behind_parent = true
 layout_mode = 2
+mouse_filter = 2
 
 [connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/Button4" to="." method="_on_quit_button_pressed"]

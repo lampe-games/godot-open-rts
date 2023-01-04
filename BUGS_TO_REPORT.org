@@ -1,0 +1,2 @@
+* Panel with "Show Behind Parent" consumes input of elements above it
+I think it was working fine in 3.x
