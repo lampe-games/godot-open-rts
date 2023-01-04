@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://b7cvevvcnfbmy"]
+[gd_scene load_steps=2 format=3 uid="uid://b7cvevvcnfbmy"]
+
+[ext_resource type="Script" path="res://source/Main.gd" id="1_i28sw"]
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -7,9 +9,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_i28sw")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
