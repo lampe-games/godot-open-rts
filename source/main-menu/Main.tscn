@@ -7,6 +7,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_2uj2d")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -45,7 +47,6 @@ text = "Play"
 [node name="Button2" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
-disabled = true
 text = "Options"
 
 [node name="Button3" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
@@ -63,5 +64,6 @@ show_behind_parent = true
 layout_mode = 2
 mouse_filter = 2
 
+[connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/Button2" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/Button3" to="." method="_on_credits_button_pressed"]
 [connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/Button4" to="." method="_on_quit_button_pressed"]

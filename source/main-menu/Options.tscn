@@ -1,0 +1,107 @@
+[gd_scene load_steps=2 format=3 uid="uid://bawu5eau3t4ek"]
+
+[ext_resource type="Script" path="res://source/main-menu/Options.gd" id="1_msrcd"]
+
+[node name="Options" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_msrcd")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -55.0
+offset_top = -97.0
+offset_right = 55.0
+offset_bottom = 97.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+offset_right = 449.0
+offset_bottom = 213.0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer"]
+custom_minimum_size = Vector2(400, 0)
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 429.0
+offset_bottom = 193.0
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/MarginContainer/VBoxContainer"]
+offset_right = 409.0
+offset_bottom = 61.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer/PanelContainer"]
+offset_right = 409.0
+offset_bottom = 61.0
+
+[node name="Label" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer"]
+offset_right = 409.0
+offset_bottom = 26.0
+text = "Video"
+horizontal_alignment = 1
+
+[node name="Screen" type="OptionButton" parent="MarginContainer/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer"]
+offset_top = 30.0
+offset_right = 409.0
+offset_bottom = 61.0
+focus_mode = 0
+item_count = 2
+selected = 0
+popup/item_0/text = "Fullscreen"
+popup/item_0/id = 0
+popup/item_1/text = "Window"
+popup/item_1/id = 1
+
+[node name="PanelContainer2" type="PanelContainer" parent="MarginContainer/MarginContainer/VBoxContainer"]
+offset_top = 71.0
+offset_right = 409.0
+offset_bottom = 132.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer/PanelContainer2"]
+offset_right = 409.0
+offset_bottom = 61.0
+
+[node name="Label" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/PanelContainer2/VBoxContainer"]
+offset_right = 409.0
+offset_bottom = 26.0
+text = "Mouse"
+horizontal_alignment = 1
+
+[node name="MouseMovementRestricted" type="CheckBox" parent="MarginContainer/MarginContainer/VBoxContainer/PanelContainer2/VBoxContainer"]
+offset_top = 30.0
+offset_right = 409.0
+offset_bottom = 61.0
+focus_mode = 0
+text = "Mouse movement restricted to the game window"
+
+[node name="Button" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
+offset_top = 142.0
+offset_right = 409.0
+offset_bottom = 173.0
+focus_mode = 0
+text = "Back"
+
+[node name="Panel" type="Panel" parent="MarginContainer"]
+show_behind_parent = true
+offset_right = 449.0
+offset_bottom = 213.0
+mouse_filter = 2
+
+[connection signal="item_selected" from="MarginContainer/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/Screen" to="." method="_on_screen_item_selected"]
+[connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/PanelContainer2/VBoxContainer/MouseMovementRestricted" to="." method="_on_mouse_movement_restricted_pressed"]
+[connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/Button" to="." method="_on_back_button_pressed"]
