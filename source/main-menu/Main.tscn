@@ -51,7 +51,6 @@ text = "Options"
 [node name="Button3" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
-disabled = true
 text = "Credits"
 
 [node name="Button4" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
@@ -64,4 +63,5 @@ show_behind_parent = true
 layout_mode = 2
 mouse_filter = 2
 
+[connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/Button3" to="." method="_on_credits_button_pressed"]
 [connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/Button4" to="." method="_on_quit_button_pressed"]

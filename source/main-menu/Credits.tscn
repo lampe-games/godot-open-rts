@@ -1,0 +1,82 @@
+[gd_scene load_steps=2 format=3 uid="uid://ds57esabi07np"]
+
+[ext_resource type="Script" path="res://source/main-menu/Credits.gd" id="1_33n17"]
+
+[node name="Credits" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_33n17")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -55.0
+offset_top = -97.0
+offset_right = 55.0
+offset_bottom = 97.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+offset_right = 440.0
+offset_bottom = 194.0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer"]
+custom_minimum_size = Vector2(400, 0)
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 420.0
+offset_bottom = 174.0
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Padding" type="Control" parent="MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 400.0
+offset_bottom = 23.0
+size_flags_vertical = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/MarginContainer/VBoxContainer"]
+offset_top = 33.0
+offset_right = 400.0
+offset_bottom = 79.0
+bbcode_enabled = true
+text = "[center][u]Contributors:[/u]
+- Pawel Lampe (Scony)"
+fit_content_height = true
+
+[node name="Padding2" type="Control" parent="MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 89.0
+offset_right = 400.0
+offset_bottom = 113.0
+size_flags_vertical = 3
+
+[node name="Button" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
+offset_top = 123.0
+offset_right = 400.0
+offset_bottom = 154.0
+focus_mode = 0
+text = "Back
+"
+
+[node name="Panel" type="Panel" parent="MarginContainer"]
+show_behind_parent = true
+offset_right = 440.0
+offset_bottom = 194.0
+mouse_filter = 2
+
+[connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/Button" to="." method="_on_back_button_pressed"]
