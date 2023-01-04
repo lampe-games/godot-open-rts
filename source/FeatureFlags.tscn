@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bh75puclpfc1a"]
+
+[ext_resource type="Script" path="res://source/FeatureFlags.gd" id="1_wihie"]
+
+[node name="FeatureFlags" type="Node"]
+script = ExtResource("1_wihie")
+save_user_files_in_tmp = true

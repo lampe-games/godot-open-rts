@@ -11,7 +11,7 @@ func _ready():
 
 func _on_mouse_movement_restricted_pressed():
 	Globals.options.mouse_restricted = _mouse_movement_restricted.button_pressed
-	ResourceSaver.save(Globals.options, "user://options.tres")
+	ResourceSaver.save(Globals.options, Constants.OPTIONS_FILE_PATH)
 
 
 func _on_screen_item_selected(index):
@@ -19,7 +19,7 @@ func _on_screen_item_selected(index):
 		0: Globals.options.Screen.FULL,
 		1: Globals.options.Screen.WINDOW,
 	}[index]
-	ResourceSaver.save(Globals.options, "user://options.tres")
+	ResourceSaver.save(Globals.options, Constants.OPTIONS_FILE_PATH)
 
 
 func _on_back_button_pressed():

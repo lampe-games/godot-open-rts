@@ -12,7 +12,6 @@ grow_vertical = 2
 script = ExtResource("1_2uj2d")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -26,7 +25,8 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
-layout_mode = 2
+offset_right = 440.0
+offset_bottom = 194.0
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
@@ -34,34 +34,45 @@ theme_override_constants/margin_bottom = 20
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer"]
 custom_minimum_size = Vector2(400, 0)
-layout_mode = 2
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 420.0
+offset_bottom = 174.0
 theme_override_constants/separation = 10
 alignment = 1
 
 [node name="Button" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
+offset_right = 400.0
+offset_bottom = 31.0
 focus_mode = 0
 disabled = true
 text = "Play"
 
 [node name="Button2" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
+offset_top = 41.0
+offset_right = 400.0
+offset_bottom = 72.0
 focus_mode = 0
 text = "Options"
 
 [node name="Button3" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
+offset_top = 82.0
+offset_right = 400.0
+offset_bottom = 113.0
 focus_mode = 0
 text = "Credits"
 
 [node name="Button4" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
+offset_top = 123.0
+offset_right = 400.0
+offset_bottom = 154.0
 focus_mode = 0
 text = "Quit"
 
 [node name="Panel" type="Panel" parent="MarginContainer"]
 show_behind_parent = true
-layout_mode = 2
+offset_right = 440.0
+offset_bottom = 194.0
 mouse_filter = 2
 
 [connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/Button2" to="." method="_on_options_button_pressed"]
