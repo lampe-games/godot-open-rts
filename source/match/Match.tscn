@@ -1,4 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://b3lht12npqoff"]
+[gd_scene load_steps=8 format=3 uid="uid://b3lht12npqoff"]
+
+[ext_resource type="Script" path="res://source/match/RTSCamera3D.gd" id="1_qy0tl"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1na00"]
 albedo_color = Color(1, 0.396078, 0.298039, 1)
@@ -22,6 +24,14 @@ ambient_light_color = Color(1, 1, 1, 1)
 
 [node name="Match" type="Node3D"]
 
+[node name="RTSCamera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.580703, -0.407058, 0.705045, 0, 0.866025, 0.5, -0.814116, -0.290351, 0.502904, 5.63543, 9.16272, 4.01645)
+projection = 1
+current = true
+size = 20.0
+script = ExtResource("1_qy0tl")
+size_max = 60
+
 [node name="DummyContent" type="Node3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="DummyContent"]
@@ -38,17 +48,6 @@ mesh = SubResource("BoxMesh_qv7qt")
 [node name="MeshInstance3D4" type="MeshInstance3D" parent="DummyContent"]
 transform = Transform3D(0.864134, 0, -0.503261, 0, 1, 0, 0.503261, 0, 0.864134, -2.42462, 0, 3.55337)
 mesh = SubResource("BoxMesh_qv7qt")
-
-[node name="Camera3D" type="Camera3D" parent="DummyContent"]
-transform = Transform3D(0.580191, -0.538039, 0.611467, 2.98023e-08, 0.750746, 0.660592, -0.81448, -0.383269, 0.435576, 3.45019, 7.613, 2.45773)
-projection = 1
-current = true
-size = 20.0
-
-[node name="Camera3D2" type="Camera3D" parent="DummyContent"]
-transform = Transform3D(0.580191, -0.538039, 0.611467, 2.98023e-08, 0.750746, 0.660592, -0.81448, -0.383269, 0.435576, 10.6065, 15.3442, 7.55549)
-fov = 22.6
-size = 20.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="DummyContent"]
 environment = SubResource("Environment_qxcnu")
