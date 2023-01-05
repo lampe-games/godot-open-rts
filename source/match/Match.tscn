@@ -1,0 +1,62 @@
+[gd_scene load_steps=7 format=3 uid="uid://b3lht12npqoff"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1na00"]
+albedo_color = Color(1, 0.396078, 0.298039, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_5wwb3"]
+material = SubResource("StandardMaterial3D_1na00")
+size = Vector2(100, 100)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qv7qt"]
+size = Vector3(1, 4, 1)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ysb0j"]
+
+[sub_resource type="Sky" id="Sky_kunr4"]
+sky_material = SubResource("ProceduralSkyMaterial_ysb0j")
+
+[sub_resource type="Environment" id="Environment_qxcnu"]
+background_mode = 2
+sky = SubResource("Sky_kunr4")
+ambient_light_color = Color(1, 1, 1, 1)
+
+[node name="Match" type="Node3D"]
+
+[node name="DummyContent" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="DummyContent"]
+mesh = SubResource("PlaneMesh_5wwb3")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="DummyContent"]
+transform = Transform3D(0.7979, 0, 0.60279, 0, 1, 0, -0.60279, 0, 0.7979, -4.79884, 0, -3.44205)
+mesh = SubResource("BoxMesh_qv7qt")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="DummyContent"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.36871, 0, -4.30402)
+mesh = SubResource("BoxMesh_qv7qt")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="DummyContent"]
+transform = Transform3D(0.864134, 0, -0.503261, 0, 1, 0, 0.503261, 0, 0.864134, -2.42462, 0, 3.55337)
+mesh = SubResource("BoxMesh_qv7qt")
+
+[node name="Camera3D" type="Camera3D" parent="DummyContent"]
+transform = Transform3D(0.580191, -0.538039, 0.611467, 2.98023e-08, 0.750746, 0.660592, -0.81448, -0.383269, 0.435576, 3.45019, 7.613, 2.45773)
+projection = 1
+current = true
+size = 20.0
+
+[node name="Camera3D2" type="Camera3D" parent="DummyContent"]
+transform = Transform3D(0.580191, -0.538039, 0.611467, 2.98023e-08, 0.750746, 0.660592, -0.81448, -0.383269, 0.435576, 10.6065, 15.3442, 7.55549)
+fov = 22.6
+size = 20.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="DummyContent"]
+environment = SubResource("Environment_qxcnu")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="DummyContent"]
+transform = Transform3D(1, 0, 0, 0, 0.621449, 0.783455, 0, -0.783455, 0.621449, 0, 38.7614, 0)
+shadow_enabled = true
+shadow_blur = 0.06
+directional_shadow_mode = 1
+directional_shadow_split_1 = 0.009
+directional_shadow_pancake_size = 1024.0
