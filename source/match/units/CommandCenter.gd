@@ -1,5 +1,7 @@
 extends Area3D
 
+const SIGHT_RANGE = 10.0
+
 var color:
 	set(a_color):
 		var material = StandardMaterial3D.new()

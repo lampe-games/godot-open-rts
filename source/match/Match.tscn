@@ -1,10 +1,14 @@
-[gd_scene load_steps=18 format=3 uid="uid://bq6nprrcp6nep"]
+[gd_scene load_steps=23 format=3 uid="uid://bq6nprrcp6nep"]
 
 [ext_resource type="Script" path="res://source/match/Match.gd" id="1_1555u"]
 [ext_resource type="Script" path="res://source/match/IsometricCamera3D.gd" id="1_qb2ry"]
 [ext_resource type="Script" path="res://source/model/PlayerSettings.gd" id="2_issh2"]
 [ext_resource type="Script" path="res://source/model/MatchSettings.gd" id="3_k87ed"]
+[ext_resource type="Script" path="res://source/match/FogOfWar.gd" id="5_eb52t"]
+[ext_resource type="Script" path="res://source/match/DummyMovingUnit.gd" id="5_gnrre"]
+[ext_resource type="PackedScene" uid="uid://ct0ejt0trkhrf" path="res://source/match/units/CommandCenter.tscn" id="5_ulpug"]
 [ext_resource type="Shader" path="res://source/shaders/3d/simple_fog_of_war.gdshader" id="6_bxic7"]
+[ext_resource type="PackedScene" uid="uid://clbjgy724q2si" path="res://source/generic-scenes-and-nodes/2d/DynamicCircle2D.tscn" id="6_ux0ef"]
 
 [sub_resource type="Resource" id="Resource_aehri"]
 script = ExtResource("2_issh2")
@@ -29,6 +33,13 @@ background_mode = 2
 sky = SubResource("Sky_kunr4")
 ambient_light_color = Color(1, 1, 1, 1)
 
+[sub_resource type="Curve3D" id="Curve3D_h350p"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 30, 0, 30, 0, 0, 0, 0, 0, 0, 70, 0, 30, 0, 0, 0, 0, 0, 0, 70, 0, 70, 0, 0, 0, 0, 0, 0, 30, 0, 70, 0, 0, 0, 0, 0, 0, 30, 0, 30),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+}
+point_count = 5
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1na00"]
 albedo_color = Color(1, 0.396078, 0.298039, 1)
 
@@ -47,7 +58,7 @@ resource_local_to_scene = true
 render_priority = 1
 shader = ExtResource("6_bxic7")
 shader_parameter/color = Color(0, 0, 0, 1)
-shader_parameter/world_visibility_texture_oversizing_factor = null
+shader_parameter/texture_units_per_world_unit = null
 shader_parameter/debug_texture_view = true
 shader_parameter/world_visibility_texture = SubResource("ViewportTexture_rm132")
 
@@ -81,6 +92,15 @@ directional_shadow_pancake_size = 1024.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="DummyContent"]
 environment = SubResource("Environment_qxcnu")
+
+[node name="Path3D" type="Path3D" parent="DummyContent"]
+curve = SubResource("Curve3D_h350p")
+
+[node name="DummyMovingUnit" type="PathFollow3D" parent="DummyContent/Path3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 30, 0, 30)
+script = ExtResource("5_gnrre")
+
+[node name="CommandCenter" parent="DummyContent/Path3D/DummyMovingUnit" groups=["units"] instance=ExtResource("5_ulpug")]
 
 [node name="Map" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 0, 50)
@@ -121,6 +141,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.1455, 0, 42.1901)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.679, 0, 41.4663)
 
 [node name="FogOfWar" type="Node3D" parent="."]
+script = ExtResource("5_eb52t")
 
 [node name="CombinedViewport" type="SubViewport" parent="FogOfWar"]
 disable_3d = true
@@ -136,7 +157,27 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
+[node name="FogViewportContainer" type="SubViewportContainer" parent="FogOfWar/CombinedViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FogViewport" type="SubViewport" parent="FogOfWar/CombinedViewport/FogViewportContainer"]
+disable_3d = true
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(200, 200)
+render_target_clear_mode = 2
+render_target_update_mode = 4
+
+[node name="EditorOnlyCircle" parent="FogOfWar/CombinedViewport" instance=ExtResource("6_ux0ef")]
+position = Vector2(100, 100)
+radius = 20
+
 [node name="Revealer" type="ColorRect" parent="FogOfWar/CombinedViewport"]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

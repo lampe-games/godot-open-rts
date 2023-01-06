@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" path="res://source/match/units/CommandCenter.gd" id="1_hpo2s"]
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_yd5bg"]
+[sub_resource type="CylinderMesh" id="CylinderMesh_2y2wl"]
 top_radius = 2.0
 bottom_radius = 2.0
 
-[sub_resource type="BoxMesh" id="BoxMesh_nefjb"]
+[sub_resource type="BoxMesh" id="BoxMesh_aqkce"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_bvwlc"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_yaeww"]
 radius = 2.0
 
 [node name="CommandCenter" type="Area3D"]
@@ -16,12 +16,12 @@ script = ExtResource("1_hpo2s")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-mesh = SubResource("CylinderMesh_yd5bg")
+mesh = SubResource("CylinderMesh_2y2wl")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.92513, 0)
-mesh = SubResource("BoxMesh_nefjb")
+mesh = SubResource("BoxMesh_aqkce")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CylinderShape3D_bvwlc")
+shape = SubResource("CylinderShape3D_yaeww")

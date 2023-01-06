@@ -23,6 +23,7 @@ func _spawn_initial_player_units():
 		var command_center = CommandCenter.instantiate()
 		command_center.color = settings.players[player_id].color
 		command_center.global_transform = spawn_points[player_id].global_transform
+		command_center.add_to_group("units")
 		add_child(command_center)
 
 

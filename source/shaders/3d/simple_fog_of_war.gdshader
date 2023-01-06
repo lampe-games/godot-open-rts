@@ -3,7 +3,7 @@ render_mode unshaded;
 
 uniform vec4 color : source_color = vec4(vec3(0.0), 1.0);
 uniform sampler2D world_visibility_texture : hint_default_white;
-uniform int world_visibility_texture_oversizing_factor = 2; // 2 units in texture = 1 unit in world
+uniform int texture_units_per_world_unit = 2;
 uniform bool debug_texture_view = false;
 
 void vertex()
@@ -43,8 +43,7 @@ void fragment()
   else
   {
     vec2 world_visibility_texture_uv = world_position.xz /
-        vec2(textureSize(world_visibility_texture, 0)) *
-        float(world_visibility_texture_oversizing_factor);
+        vec2(textureSize(world_visibility_texture, 0)) * float(texture_units_per_world_unit);
     if (world_visibility_texture_uv.x >= 0.0 && world_visibility_texture_uv.x <= 1.0 &&
         world_visibility_texture_uv.y >= 0.0 && world_visibility_texture_uv.y <= 1.0)
     {
