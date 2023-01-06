@@ -1,6 +1,22 @@
-[gd_scene load_steps=8 format=3 uid="uid://bq6nprrcp6nep"]
+[gd_scene load_steps=14 format=3 uid="uid://bq6nprrcp6nep"]
 
+[ext_resource type="Script" path="res://source/match/Match.gd" id="1_1555u"]
 [ext_resource type="Script" path="res://source/match/IsometricCamera3D.gd" id="1_qb2ry"]
+[ext_resource type="Script" path="res://source/model/PlayerSettings.gd" id="2_issh2"]
+[ext_resource type="Script" path="res://source/model/MatchSettings.gd" id="3_k87ed"]
+
+[sub_resource type="Resource" id="Resource_aehri"]
+script = ExtResource("2_issh2")
+color = Color(0, 0, 1, 1)
+
+[sub_resource type="Resource" id="Resource_ohrdq"]
+script = ExtResource("2_issh2")
+color = Color(1, 0, 0, 1)
+
+[sub_resource type="Resource" id="Resource_frabv"]
+script = ExtResource("3_k87ed")
+players = [SubResource("Resource_aehri"), SubResource("Resource_ohrdq")]
+controlled_player = 0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1na00"]
 albedo_color = Color(1, 0.396078, 0.298039, 1)
@@ -23,6 +39,8 @@ sky = SubResource("Sky_kunr4")
 ambient_light_color = Color(1, 1, 1, 1)
 
 [node name="Match" type="Node3D"]
+script = ExtResource("1_1555u")
+settings = SubResource("Resource_frabv")
 
 [node name="Map" type="Node3D" parent="."]
 
