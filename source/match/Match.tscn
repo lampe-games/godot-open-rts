@@ -1,6 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://b3lht12npqoff"]
+[gd_scene load_steps=8 format=3 uid="uid://bq6nprrcp6nep"]
 
-[ext_resource type="Script" path="res://source/match/RTSCamera3D.gd" id="1_qy0tl"]
+[ext_resource type="Script" path="res://source/match/IsometricCamera3D.gd" id="1_qb2ry"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1na00"]
 albedo_color = Color(1, 0.396078, 0.298039, 1)
@@ -24,12 +24,12 @@ ambient_light_color = Color(1, 1, 1, 1)
 
 [node name="Match" type="Node3D"]
 
-[node name="RTSCamera3D" type="Camera3D" parent="."]
+[node name="IsometricCamera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.580703, -0.407058, 0.705045, 0, 0.866025, 0.5, -0.814116, -0.290351, 0.502904, 5.63543, 9.16272, 4.01645)
 projection = 1
 current = true
 size = 20.0
-script = ExtResource("1_qy0tl")
+script = ExtResource("1_qb2ry")
 size_max = 60
 
 [node name="DummyContent" type="Node3D" parent="."]
