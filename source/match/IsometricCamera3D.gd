@@ -78,6 +78,10 @@ func set_size_safely(a_size):
 	_align_camera_properties_to_current_size()
 
 
+func set_position_safely(target_position: Vector3):
+	global_transform.origin = _target_position_to_camera_position(target_position)
+
+
 func get_ray_intersection_with_plane(mouse_pos, plane):
 	return plane.intersects_ray(project_ray_origin(mouse_pos), project_ray_normal(mouse_pos))
 
@@ -178,10 +182,14 @@ func _align_camera_position_to_size(a_size):
 	)
 	var target_camera_plane = Plane(Vector3.UP, target_height)
 	var camera_ray_normal = project_ray_normal(Vector2(0, 0))
-	var target_camera_pos = target_camera_plane.intersects_ray(transform.origin, camera_ray_normal)
+	var target_camera_pos = target_camera_plane.intersects_ray(
+		global_transform.origin, camera_ray_normal
+	)
 	if target_camera_pos == null:
-		target_camera_pos = target_camera_plane.intersects_ray(transform.origin, -camera_ray_normal)
-	transform.origin = target_camera_pos
+		target_camera_pos = target_camera_plane.intersects_ray(
+			global_transform.origin, -camera_ray_normal
+		)
+	global_transform.origin = target_camera_pos
 
 
 func _align_camera_far_to_size(a_size):
@@ -205,3 +213,13 @@ func _clamp_position_to_bounding_planes(position):
 		if not bounding_plane.is_point_over(position):
 			position = position - bounding_plane.normal * bounding_plane.distance_to(position)
 	return position
+
+
+func _target_position_to_camera_position(target_position: Vector3):
+	target_position = _clamp_position_to_bounding_planes(target_position)
+	var screen_center_pos_2d = get_viewport().size / 2.0
+	var camera_ray = project_ray_normal(screen_center_pos_2d)
+	var target_plane = Plane(Vector3.UP, target_position.y)
+	var intersection = target_plane.intersects_ray(global_transform.origin, camera_ray)
+	var offset_yless = (target_position - intersection) * Vector3(1, 0, 1)
+	return global_transform.origin + offset_yless
