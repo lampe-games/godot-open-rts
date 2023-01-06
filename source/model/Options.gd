@@ -1,5 +1,3 @@
-# TODO: fix gdtoolkit bugs
-# gdlint: disable=class-definitions-order, expression-not-assigned
 extends Resource
 
 enum Screen { FULL = 0, WINDOW = 1 }
@@ -30,14 +28,11 @@ func _apply_stored_options():
 
 
 func _apply_screen():
-	(
-		DisplayServer
-		. window_set_mode(
-			(
-				DisplayServer.WINDOW_MODE_FULLSCREEN
-				if screen == Screen.FULL
-				else DisplayServer.WINDOW_MODE_WINDOWED
-			)
+	DisplayServer.window_set_mode(
+		(
+			DisplayServer.WINDOW_MODE_FULLSCREEN
+			if screen == Screen.FULL
+			else DisplayServer.WINDOW_MODE_WINDOWED
 		)
 	)
 
