@@ -25,12 +25,14 @@ ambient_light_color = Color(1, 1, 1, 1)
 [node name="Match" type="Node3D"]
 
 [node name="IsometricCamera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.580703, -0.407058, 0.705045, 0, 0.866025, 0.5, -0.814116, -0.290351, 0.502904, 5.63543, 9.16272, 4.01645)
+transform = Transform3D(0.573577, -0.409576, 0.709407, 0, 0.866025, 0.5, -0.819152, -0.286788, 0.496732, 5.63543, 9.16272, 4.01645)
 projection = 1
 current = true
 size = 20.0
 script = ExtResource("1_qb2ry")
 size_max = 60
+bounding_planes = [Plane(1, 0, 0, -50), Plane(-1, 0, 0, -50), Plane(0, 0, 1, -50), Plane(0, 0, -1, -50)]
+default_y_rotation_degrees = 55.0
 
 [node name="DummyContent" type="Node3D" parent="."]
 
