@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://bq6nprrcp6nep"]
+[gd_scene load_steps=18 format=3 uid="uid://bq6nprrcp6nep"]
 
 [ext_resource type="Script" path="res://source/match/Match.gd" id="1_1555u"]
 [ext_resource type="Script" path="res://source/match/IsometricCamera3D.gd" id="1_qb2ry"]
 [ext_resource type="Script" path="res://source/model/PlayerSettings.gd" id="2_issh2"]
 [ext_resource type="Script" path="res://source/model/MatchSettings.gd" id="3_k87ed"]
+[ext_resource type="Shader" path="res://source/shaders/3d/simple_fog_of_war.gdshader" id="6_bxic7"]
 
 [sub_resource type="Resource" id="Resource_aehri"]
 script = ExtResource("2_issh2")
@@ -18,16 +19,6 @@ script = ExtResource("3_k87ed")
 players = [SubResource("Resource_aehri"), SubResource("Resource_ohrdq")]
 controlled_player = 0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1na00"]
-albedo_color = Color(1, 0.396078, 0.298039, 1)
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_5wwb3"]
-material = SubResource("StandardMaterial3D_1na00")
-size = Vector2(100, 100)
-
-[sub_resource type="BoxMesh" id="BoxMesh_qv7qt"]
-size = Vector3(1, 4, 1)
-
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ysb0j"]
 
 [sub_resource type="Sky" id="Sky_kunr4"]
@@ -38,11 +29,61 @@ background_mode = 2
 sky = SubResource("Sky_kunr4")
 ambient_light_color = Color(1, 1, 1, 1)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1na00"]
+albedo_color = Color(1, 0.396078, 0.298039, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_5wwb3"]
+material = SubResource("StandardMaterial3D_1na00")
+size = Vector2(100, 100)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qv7qt"]
+size = Vector3(1, 4, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_rm132"]
+viewport_path = NodePath("FogOfWar/CombinedViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5rcuq"]
+resource_local_to_scene = true
+render_priority = 1
+shader = ExtResource("6_bxic7")
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/world_visibility_texture_oversizing_factor = null
+shader_parameter/debug_texture_view = true
+shader_parameter/world_visibility_texture = SubResource("ViewportTexture_rm132")
+
+[sub_resource type="QuadMesh" id="QuadMesh_xttrh"]
+flip_faces = true
+size = Vector2(2, 2)
+
 [node name="Match" type="Node3D"]
 script = ExtResource("1_1555u")
 settings = SubResource("Resource_frabv")
 
+[node name="IsometricCamera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.573577, -0.409576, 0.709407, 0, 0.866025, 0.5, -0.819152, -0.286788, 0.496732, 55.635, 9.163, 54.016)
+projection = 1
+current = true
+size = 20.0
+script = ExtResource("1_qb2ry")
+size_max = 60
+bounding_planes = [Plane(1, 0, 0, 0), Plane(-1, 0, 0, -100), Plane(0, 0, 1, 0), Plane(0, 0, -1, -100)]
+default_y_rotation_degrees = 55.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.621449, 0.783455, 0, -0.783455, 0.621449, 0, 38.7614, 0)
+shadow_enabled = true
+shadow_blur = 0.06
+directional_shadow_mode = 1
+directional_shadow_split_1 = 0.009
+directional_shadow_pancake_size = 1024.0
+
+[node name="DummyContent" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="DummyContent"]
+environment = SubResource("Environment_qxcnu")
+
 [node name="Map" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 0, 50)
 
 [node name="Meshes" type="Node3D" parent="Map"]
 
@@ -79,25 +120,31 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.1455, 0, 42.1901)
 [node name="Marker3D4" type="Marker3D" parent="Map/SpawnPoints"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.679, 0, 41.4663)
 
-[node name="IsometricCamera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.573577, -0.409576, 0.709407, 0, 0.866025, 0.5, -0.819152, -0.286788, 0.496732, 5.63543, 9.16272, 4.01645)
-projection = 1
-current = true
-size = 20.0
-script = ExtResource("1_qb2ry")
-size_max = 60
-bounding_planes = [Plane(1, 0, 0, -50), Plane(-1, 0, 0, -50), Plane(0, 0, 1, -50), Plane(0, 0, -1, -50)]
-default_y_rotation_degrees = 55.0
+[node name="FogOfWar" type="Node3D" parent="."]
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.621449, 0.783455, 0, -0.783455, 0.621449, 0, 38.7614, 0)
-shadow_enabled = true
-shadow_blur = 0.06
-directional_shadow_mode = 1
-directional_shadow_split_1 = 0.009
-directional_shadow_pancake_size = 1024.0
+[node name="CombinedViewport" type="SubViewport" parent="FogOfWar"]
+disable_3d = true
+handle_input_locally = false
+size = Vector2i(200, 200)
+render_target_update_mode = 4
 
-[node name="DummyContent" type="Node3D" parent="."]
+[node name="Background" type="ColorRect" parent="FogOfWar/CombinedViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="DummyContent"]
-environment = SubResource("Environment_qxcnu")
+[node name="Revealer" type="ColorRect" parent="FogOfWar/CombinedViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScreenOverlay" type="MeshInstance3D" parent="FogOfWar"]
+material_override = SubResource("ShaderMaterial_5rcuq")
+cast_shadow = 0
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_xttrh")

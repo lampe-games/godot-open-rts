@@ -208,11 +208,11 @@ func _align_position_to_bounding_planes():
 	global_transform.origin += diff
 
 
-func _clamp_position_to_bounding_planes(position):
+func _clamp_position_to_bounding_planes(a_position):
 	for bounding_plane in bounding_planes:
-		if not bounding_plane.is_point_over(position):
-			position = position - bounding_plane.normal * bounding_plane.distance_to(position)
-	return position
+		if not bounding_plane.is_point_over(a_position):
+			a_position = a_position - bounding_plane.normal * bounding_plane.distance_to(a_position)
+	return a_position
 
 
 func _target_position_to_camera_position(target_position: Vector3):

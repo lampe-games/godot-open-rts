@@ -4,7 +4,7 @@ format-check:
 	find source/ -name '*.gd' | xargs gdformat --check
 
 shaders-format-check:
-	find source/ -name '*.shader' | xargs clang-format --style=file --dry-run -Werror
+	find source/ -name '*.gdshader' | xargs clang-format --style=file --dry-run -Werror
 
 lint:
 	find source/ -name '*.gd' | xargs gdlint

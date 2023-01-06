@@ -5,12 +5,14 @@ const CommandCenter = preload("res://source/match/units/CommandCenter.tscn")
 @export var settings: Resource = null
 
 var _controlled_player_id = null
+var _visible_player_ids = []
 
 @onready var _camera = find_child("IsometricCamera3D")
 
 
 func _ready():
 	_controlled_player_id = settings.controlled_player
+	_visible_player_ids = settings.controlled_player  # TODO: add dedicated field in settings
 	_spawn_initial_player_units()
 	_move_camera_to_controlled_player_spawn_point()
 
