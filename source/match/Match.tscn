@@ -24,6 +24,43 @@ ambient_light_color = Color(1, 1, 1, 1)
 
 [node name="Match" type="Node3D"]
 
+[node name="Map" type="Node3D" parent="."]
+
+[node name="Meshes" type="Node3D" parent="Map"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Map/Meshes"]
+mesh = SubResource("PlaneMesh_5wwb3")
+skeleton = NodePath("../../../DummyContent")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Map/Meshes"]
+transform = Transform3D(0.7979, 0, 0.60279, 0, 1, 0, -0.60279, 0, 0.7979, -4.79884, 0, -3.44205)
+mesh = SubResource("BoxMesh_qv7qt")
+skeleton = NodePath("../../../DummyContent")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Map/Meshes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.36871, 0, -4.30402)
+mesh = SubResource("BoxMesh_qv7qt")
+skeleton = NodePath("../../../DummyContent")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Map/Meshes"]
+transform = Transform3D(0.864134, 0, -0.503261, 0, 1, 0, 0.503261, 0, 0.864134, -2.42462, 0, 3.55337)
+mesh = SubResource("BoxMesh_qv7qt")
+skeleton = NodePath("../../../DummyContent")
+
+[node name="SpawnPoints" type="Node3D" parent="Map"]
+
+[node name="Marker3D" type="Marker3D" parent="Map/SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.3571, 0, -38.92)
+
+[node name="Marker3D2" type="Marker3D" parent="Map/SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.9382, 0, -40.4288)
+
+[node name="Marker3D3" type="Marker3D" parent="Map/SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.1455, 0, 42.1901)
+
+[node name="Marker3D4" type="Marker3D" parent="Map/SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.679, 0, 41.4663)
+
 [node name="IsometricCamera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.573577, -0.409576, 0.709407, 0, 0.866025, 0.5, -0.819152, -0.286788, 0.496732, 5.63543, 9.16272, 4.01645)
 projection = 1
@@ -34,30 +71,15 @@ size_max = 60
 bounding_planes = [Plane(1, 0, 0, -50), Plane(-1, 0, 0, -50), Plane(0, 0, 1, -50), Plane(0, 0, -1, -50)]
 default_y_rotation_degrees = 55.0
 
-[node name="DummyContent" type="Node3D" parent="."]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="DummyContent"]
-mesh = SubResource("PlaneMesh_5wwb3")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="DummyContent"]
-transform = Transform3D(0.7979, 0, 0.60279, 0, 1, 0, -0.60279, 0, 0.7979, -4.79884, 0, -3.44205)
-mesh = SubResource("BoxMesh_qv7qt")
-
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="DummyContent"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.36871, 0, -4.30402)
-mesh = SubResource("BoxMesh_qv7qt")
-
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="DummyContent"]
-transform = Transform3D(0.864134, 0, -0.503261, 0, 1, 0, 0.503261, 0, 0.864134, -2.42462, 0, 3.55337)
-mesh = SubResource("BoxMesh_qv7qt")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="DummyContent"]
-environment = SubResource("Environment_qxcnu")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="DummyContent"]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.621449, 0.783455, 0, -0.783455, 0.621449, 0, 38.7614, 0)
 shadow_enabled = true
 shadow_blur = 0.06
 directional_shadow_mode = 1
 directional_shadow_split_1 = 0.009
 directional_shadow_pancake_size = 1024.0
+
+[node name="DummyContent" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="DummyContent"]
+environment = SubResource("Environment_qxcnu")
