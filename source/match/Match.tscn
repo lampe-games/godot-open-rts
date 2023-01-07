@@ -59,7 +59,7 @@ render_priority = 1
 shader = ExtResource("6_bxic7")
 shader_parameter/color = Color(0, 0, 0, 1)
 shader_parameter/texture_units_per_world_unit = null
-shader_parameter/debug_texture_view = true
+shader_parameter/debug_texture_view = false
 shader_parameter/world_visibility_texture = SubResource("ViewportTexture_rm132")
 
 [sub_resource type="QuadMesh" id="QuadMesh_xttrh"]
@@ -71,17 +71,16 @@ script = ExtResource("1_1555u")
 settings = SubResource("Resource_frabv")
 
 [node name="IsometricCamera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.573577, -0.409576, 0.709407, 0, 0.866025, 0.5, -0.819152, -0.286788, 0.496732, 55.635, 9.163, 54.016)
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 49.5996, 12.4465, 65.9216)
 projection = 1
 current = true
 size = 20.0
 script = ExtResource("1_qb2ry")
 size_max = 60
 bounding_planes = [Plane(1, 0, 0, 0), Plane(-1, 0, 0, -100), Plane(0, 0, 1, 0), Plane(0, 0, -1, -100)]
-default_y_rotation_degrees = 55.0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.621449, 0.783455, 0, -0.783455, 0.621449, 0, 38.7614, 0)
+transform = Transform3D(-0.226651, 0.763299, -0.604983, 0, 0.621148, 0.783694, 0.973976, 0.177625, -0.140784, 0, 38.7614, 0)
 shadow_enabled = true
 shadow_blur = 0.06
 directional_shadow_mode = 1
@@ -189,3 +188,35 @@ material_override = SubResource("ShaderMaterial_5rcuq")
 cast_shadow = 0
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_xttrh")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Minimap" type="PanelContainer" parent="HUD/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD/MarginContainer/Minimap"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="TextureRect" type="TextureRect" parent="HUD/MarginContainer/Minimap/MarginContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+texture = SubResource("ViewportTexture_rm132")
+ignore_texture_size = true
+stretch_mode = 5
