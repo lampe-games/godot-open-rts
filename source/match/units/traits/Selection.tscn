@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://3c1h14nqdumt"]
+
+[ext_resource type="Script" path="res://source/match/units/traits/Selection.gd" id="1_be1f2"]
+[ext_resource type="PackedScene" uid="uid://ct3aeixgpxl65" path="res://source/generic-scenes-and-nodes/3d/FadedCircle3D.tscn" id="1_fvq0j"]
+
+[node name="Selection" type="Node3D"]
+script = ExtResource("1_be1f2")
+
+[node name="FadedCircle3D" parent="." instance=ExtResource("1_fvq0j")]

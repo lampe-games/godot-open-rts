@@ -17,6 +17,11 @@ func _ready():
 	_move_camera_to_controlled_player_spawn_point()
 
 
+func _unhandled_input(event):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		MatchSignals.deselect_all.emit()
+
+
 func _spawn_initial_player_units():
 	var spawn_points = find_child("SpawnPoints").get_children()
 	for player_id in range(settings.players.size()):

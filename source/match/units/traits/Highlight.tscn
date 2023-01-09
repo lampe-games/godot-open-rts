@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cgsi062w5fjia"]
+
+[ext_resource type="Script" path="res://source/match/units/traits/Highlight.gd" id="1_68q8u"]
+[ext_resource type="PackedScene" uid="uid://doixk58lw6coo" path="res://source/generic-scenes-and-nodes/3d/Circle3D.tscn" id="2_u8emv"]
+
+[node name="Highlight" type="Node3D"]
+script = ExtResource("1_68q8u")
+
+[node name="Circle3D" parent="." instance=ExtResource("2_u8emv")]
