@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ct3aeixgpxl65"]
+
+[ext_resource type="Script" path="res://source/generic-scenes-and-nodes/3d/FadedCircle3D.gd" id="1_mbhwa"]
+
+[node name="FadedCircle3D" type="Node3D"]
+script = ExtResource("1_mbhwa")

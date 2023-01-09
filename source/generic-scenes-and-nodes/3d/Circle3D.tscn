@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://doixk58lw6coo"]
+
+[ext_resource type="Script" path="res://source/generic-scenes-and-nodes/3d/Circle3D.gd" id="1_l65r6"]
+
+[node name="Circle3D" type="Node3D"]
+script = ExtResource("1_l65r6")
