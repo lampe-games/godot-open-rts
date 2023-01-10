@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bq6nprrcp6nep"]
+[gd_scene load_steps=24 format=3 uid="uid://doitvquurtufi"]
 
 [ext_resource type="Script" path="res://source/match/Match.gd" id="1_1555u"]
 [ext_resource type="Script" path="res://source/match/IsometricCamera3D.gd" id="1_qb2ry"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://ct0ejt0trkhrf" path="res://source/match/units/CommandCenter.tscn" id="5_ulpug"]
 [ext_resource type="Shader" path="res://source/shaders/3d/simple_fog_of_war.gdshader" id="6_bxic7"]
 [ext_resource type="PackedScene" uid="uid://clbjgy724q2si" path="res://source/generic-scenes-and-nodes/2d/DynamicCircle2D.tscn" id="6_ux0ef"]
+[ext_resource type="PackedScene" uid="uid://fhjyrjmlo6wf" path="res://source/match/debug/GodModeHud.tscn" id="10_p6gno"]
 
 [sub_resource type="Resource" id="Resource_aehri"]
 script = ExtResource("2_issh2")
@@ -220,3 +221,5 @@ layout_mode = 2
 texture = SubResource("ViewportTexture_rm132")
 ignore_texture_size = true
 stretch_mode = 5
+
+[node name="GodModeHUD" parent="." instance=ExtResource("10_p6gno")]

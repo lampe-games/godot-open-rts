@@ -1,2 +1,3 @@
 * Panel with "Show Behind Parent" consumes input of elements above it
 I think it was working fine in 3.x
+* SpinBox on CanvasLayer - when clicking on it, mouse is not restricted to window anymore

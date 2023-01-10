@@ -7,3 +7,17 @@ var options = (
 	if ResourceLoader.exists(Constants.OPTIONS_FILE_PATH)
 	else Options.new()
 )
+var god_mode = false
+
+
+func _unhandled_input(event):
+	if event.is_action_pressed("god_mode_toggle"):
+		_toggle_god_mode()
+
+
+func _toggle_god_mode():
+	god_mode = not god_mode
+	if god_mode:
+		Signals.emit_signal("god_mode_enabled")
+	else:
+		Signals.emit_signal("god_mode_disabled")
