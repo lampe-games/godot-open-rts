@@ -8,7 +8,7 @@ extends Node3D
 
 var _selected = false
 
-@onready var _parent = get_parent()
+@onready var _unit = get_parent()
 @onready var _circle = find_child("FadedCircle3D")
 
 
@@ -17,7 +17,7 @@ func _ready():
 	if Engine.is_editor_hint():
 		return
 	MatchSignals.deselect_all.connect(deselect)
-	_parent.input_event.connect(_on_input_event)
+	_unit.input_event.connect(_on_input_event)
 	_circle.hide()
 
 
@@ -25,8 +25,8 @@ func select():
 	if _selected:
 		return
 	_selected = true
-	if not _parent.is_in_group("selected_units"):
-		_parent.add_to_group("selected_units")
+	if not _unit.is_in_group("selected_units"):
+		_unit.add_to_group("selected_units")
 	_update_circle_color()
 	_circle.show()
 
@@ -35,8 +35,8 @@ func deselect():
 	if not _selected:
 		return
 	_selected = false
-	if _parent.is_in_group("selected_units"):
-		_parent.remove_from_group("selected_units")
+	if _unit.is_in_group("selected_units"):
+		_unit.remove_from_group("selected_units")
 	_circle.hide()
 
 
@@ -51,7 +51,12 @@ func _set_width(a_width):
 
 
 func _update_circle_color():
-	_circle.color = Color.GREEN
+	if _unit.is_in_group("controlled_units"):
+		_circle.color = Constants.Match.OWNED_PLAYER_CIRCLE_COLOR
+	elif _unit.is_in_group("adversary_units"):
+		_circle.color = Constants.Match.ADVERSARY_PLAYER_CIRCLE_COLOR
+	else:
+		_circle.color = Constants.Match.DEFAULT_CIRCLE_COLOR
 
 
 func _update_circle_params():

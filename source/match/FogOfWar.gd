@@ -20,7 +20,7 @@ func _ready():
 
 func _physics_process(_delta):
 	var units_synced = {}
-	var units_to_sync = get_tree().get_nodes_in_group("units")
+	var units_to_sync = get_tree().get_nodes_in_group("revealed_units")
 	for unit in units_to_sync:
 		if not unit.visible:
 			continue

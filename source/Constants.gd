@@ -1,5 +1,7 @@
 extends Node
 
+const Match = preload("res://source/match/MatchConstants.gd")
+
 # gdlint: ignore=class-variable-name
 var OPTIONS_FILE_PATH:
 	set(_value):

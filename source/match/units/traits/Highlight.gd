@@ -9,7 +9,7 @@ extends Node3D
 var _activated = false
 var _forced = false
 
-@onready var _parent = get_parent()
+@onready var _unit = get_parent()
 @onready var _circle = find_child("Circle3D")
 
 
@@ -17,8 +17,8 @@ func _ready():
 	_update_circle_params()
 	if Engine.is_editor_hint():
 		return
-	_parent.mouse_entered.connect(_activate)
-	_parent.mouse_exited.connect(_deactivate)
+	_unit.mouse_entered.connect(_activate)
+	_unit.mouse_exited.connect(_deactivate)
 	_circle.hide()
 
 
@@ -44,7 +44,12 @@ func _update_circle_params():
 
 
 func _update_circle_color():
-	_circle.color = Color.GREEN
+	if _unit.is_in_group("controlled_units"):
+		_circle.color = Constants.Match.OWNED_PLAYER_CIRCLE_COLOR
+	elif _unit.is_in_group("adversary_units"):
+		_circle.color = Constants.Match.ADVERSARY_PLAYER_CIRCLE_COLOR
+	else:
+		_circle.color = Constants.Match.DEFAULT_CIRCLE_COLOR
 
 
 func _set_radius(a_radius):
