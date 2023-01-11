@@ -1,0 +1,3 @@
+* high_level NavigationMap API
+for get_closest_point() etc.
+would be get_world_3d().get_navigation_map().get_closest_point(to_point) or so

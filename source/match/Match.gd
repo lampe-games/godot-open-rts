@@ -28,6 +28,13 @@ func _ready():
 func _unhandled_input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		MatchSignals.deselect_all.emit()
+	if (
+		event is InputEventMouseButton
+		and event.button_index == MOUSE_BUTTON_RIGHT
+		and event.pressed
+	):
+		var target_point = get_viewport().get_camera_3d().get_ray_intersection(event.position)
+		_navigate_selected_units_towards(target_point)
 
 
 func _set_controlled_player_id(id):
@@ -51,14 +58,19 @@ func _spawn_initial_player_units():
 		)
 		_spawn_unit(
 			Drone.instantiate(),
-			spawn_points[player_id].global_transform.translated(Vector3(3, 3, 3)),
+			spawn_points[player_id].global_transform.translated(Vector3(2, 5, 2)),
+			player_id
+		)
+		_spawn_unit(
+			Drone.instantiate(),
+			spawn_points[player_id].global_transform.translated(Vector3(-2, 3, -2)),
 			player_id
 		)
 
 
-func _spawn_unit(unit, transform, player_id):
+func _spawn_unit(unit, a_transform, player_id):
 	unit.color = settings.players[player_id].color
-	unit.global_transform = transform
+	unit.global_transform = a_transform
 	unit.add_to_group("units")
 	unit.add_to_group("player_{0}_units".format([player_id]))
 	if player_id == controlled_player_id:
@@ -67,7 +79,6 @@ func _spawn_unit(unit, transform, player_id):
 		unit.add_to_group("adversary_units")
 	if player_id in visible_player_ids:
 		unit.add_to_group("revealed_units")
-	# TODO: auto-align position to navigation
 	add_child(unit)
 
 
@@ -99,3 +110,10 @@ func _reveal_player_units(player_id):
 func _conceal_player_units(player_id):
 	for unit in get_tree().get_nodes_in_group("player_{0}_units".format([player_id])):
 		unit.remove_from_group("revealed_units")
+
+
+func _navigate_selected_units_towards(target_point):
+	for unit in get_tree().get_nodes_in_group("selected_units"):
+		var movement_trait = unit.find_child("Movement")
+		if movement_trait != null:
+			movement_trait.move(target_point)

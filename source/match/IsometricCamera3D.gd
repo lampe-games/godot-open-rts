@@ -82,6 +82,10 @@ func set_position_safely(target_position: Vector3):
 	global_transform.origin = _target_position_to_camera_position(target_position)
 
 
+func get_ray_intersection(mouse_pos):
+	return get_ray_intersection_with_plane(mouse_pos, reference_plane_for_rotation)
+
+
 func get_ray_intersection_with_plane(mouse_pos, plane):
 	return plane.intersects_ray(project_ray_origin(mouse_pos), project_ray_normal(mouse_pos))
 
