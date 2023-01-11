@@ -1,6 +1,7 @@
 extends Node3D
 
 const CommandCenter = preload("res://source/match/units/CommandCenter.tscn")
+const Drone = preload("res://source/match/units/Drone.tscn")
 
 @export var settings: Resource = null
 
@@ -45,18 +46,29 @@ func _set_visible_player_id(id):
 func _spawn_initial_player_units():
 	var spawn_points = find_child("SpawnPoints").get_children()
 	for player_id in range(settings.players.size()):
-		var command_center = CommandCenter.instantiate()
-		command_center.color = settings.players[player_id].color
-		command_center.global_transform = spawn_points[player_id].global_transform
-		command_center.add_to_group("units")
-		command_center.add_to_group("player_{0}_units".format([player_id]))
-		if player_id == controlled_player_id:
-			command_center.add_to_group("controlled_units")
-		else:
-			command_center.add_to_group("adversary_units")
-		if player_id in visible_player_ids:
-			command_center.add_to_group("revealed_units")
-		add_child(command_center)
+		_spawn_unit(
+			CommandCenter.instantiate(), spawn_points[player_id].global_transform, player_id
+		)
+		_spawn_unit(
+			Drone.instantiate(),
+			spawn_points[player_id].global_transform.translated(Vector3(3, 3, 3)),
+			player_id
+		)
+
+
+func _spawn_unit(unit, transform, player_id):
+	unit.color = settings.players[player_id].color
+	unit.global_transform = transform
+	unit.add_to_group("units")
+	unit.add_to_group("player_{0}_units".format([player_id]))
+	if player_id == controlled_player_id:
+		unit.add_to_group("controlled_units")
+	else:
+		unit.add_to_group("adversary_units")
+	if player_id in visible_player_ids:
+		unit.add_to_group("revealed_units")
+	# TODO: auto-align position to navigation
+	add_child(unit)
 
 
 func _move_camera_to_controlled_player_spawn_point():
