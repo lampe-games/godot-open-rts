@@ -142,7 +142,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.1455, 0, 42.1901)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.679, 0, 41.4663)
 
 [node name="FogOfWar" type="Node3D" parent="."]
-visible = false
 script = ExtResource("5_eb52t")
 
 [node name="CombinedViewport" type="SubViewport" parent="FogOfWar"]
