@@ -1,12 +1,10 @@
-[gd_scene load_steps=29 format=3 uid="uid://doitvquurtufi"]
+[gd_scene load_steps=26 format=3 uid="uid://doitvquurtufi"]
 
 [ext_resource type="Script" path="res://source/match/Match.gd" id="1_1555u"]
 [ext_resource type="Script" path="res://source/match/IsometricCamera3D.gd" id="1_qb2ry"]
 [ext_resource type="Script" path="res://source/model/PlayerSettings.gd" id="2_issh2"]
 [ext_resource type="Script" path="res://source/model/MatchSettings.gd" id="3_k87ed"]
 [ext_resource type="Script" path="res://source/match/FogOfWar.gd" id="5_eb52t"]
-[ext_resource type="Script" path="res://source/match/DummyMovingUnit.gd" id="5_gnrre"]
-[ext_resource type="PackedScene" uid="uid://ct0ejt0trkhrf" path="res://source/match/units/CommandCenter.tscn" id="5_ulpug"]
 [ext_resource type="Shader" path="res://source/shaders/3d/simple_fog_of_war.gdshader" id="6_bxic7"]
 [ext_resource type="PackedScene" uid="uid://clbjgy724q2si" path="res://source/generic-scenes-and-nodes/2d/DynamicCircle2D.tscn" id="6_ux0ef"]
 [ext_resource type="Script" path="res://source/match/Navigation.gd" id="10_1wfp1"]
@@ -34,13 +32,6 @@ sky_material = SubResource("ProceduralSkyMaterial_ysb0j")
 background_mode = 2
 sky = SubResource("Sky_kunr4")
 ambient_light_color = Color(1, 1, 1, 1)
-
-[sub_resource type="Curve3D" id="Curve3D_h350p"]
-_data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 30, 0, 30, 0, 0, 0, 0, 0, 0, 70, 0, 30, 0, 0, 0, 0, 0, 0, 70, 0, 70, 0, 0, 0, 0, 0, 0, 30, 0, 70, 0, 0, 0, 0, 0, 0, 30, 0, 30),
-"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
-}
-point_count = 5
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1na00"]
 albedo_color = Color(1, 0.396078, 0.298039, 1)
@@ -111,15 +102,6 @@ directional_shadow_pancake_size = 1024.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="DummyContent"]
 environment = SubResource("Environment_qxcnu")
-
-[node name="Path3D" type="Path3D" parent="DummyContent"]
-curve = SubResource("Curve3D_h350p")
-
-[node name="DummyMovingUnit" type="PathFollow3D" parent="DummyContent/Path3D"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 30, 0, 30)
-script = ExtResource("5_gnrre")
-
-[node name="CommandCenter" parent="DummyContent/Path3D/DummyMovingUnit" groups=["units"] instance=ExtResource("5_ulpug")]
 
 [node name="Map" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 0, 50)
