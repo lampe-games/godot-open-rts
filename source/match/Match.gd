@@ -16,6 +16,8 @@ var visible_player_ids = null:
 	get:
 		return [visible_player_id]
 
+@onready var navigation = find_child("Navigation")
+
 @onready var _camera = find_child("IsometricCamera3D")
 
 

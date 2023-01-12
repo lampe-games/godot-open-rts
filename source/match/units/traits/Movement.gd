@@ -1,5 +1,6 @@
 extends NavigationAgent3D
 
+@onready var _match = find_parent("Match")
 @onready var _unit = get_parent()
 
 @export var speed: float = 4.0
@@ -20,6 +21,7 @@ func _physics_process(delta):
 func _ready():
 	velocity_computed.connect(_on_velocity_computed)
 	navigation_finished.connect(_on_navigation_finished)
+	set_navigation_map(_match.navigation.get_navigation_map_rid_by_layer(navigation_layers))
 	_align_unit_position_to_navigation()
 
 

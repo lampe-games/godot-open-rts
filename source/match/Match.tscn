@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://doitvquurtufi"]
+[gd_scene load_steps=29 format=3 uid="uid://doitvquurtufi"]
 
 [ext_resource type="Script" path="res://source/match/Match.gd" id="1_1555u"]
 [ext_resource type="Script" path="res://source/match/IsometricCamera3D.gd" id="1_qb2ry"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://ct0ejt0trkhrf" path="res://source/match/units/CommandCenter.tscn" id="5_ulpug"]
 [ext_resource type="Shader" path="res://source/shaders/3d/simple_fog_of_war.gdshader" id="6_bxic7"]
 [ext_resource type="PackedScene" uid="uid://clbjgy724q2si" path="res://source/generic-scenes-and-nodes/2d/DynamicCircle2D.tscn" id="6_ux0ef"]
+[ext_resource type="Script" path="res://source/match/Navigation.gd" id="10_1wfp1"]
 [ext_resource type="PackedScene" uid="uid://b6n7cwv706x5n" path="res://source/match/debug/GodModeHud.tscn" id="10_p6gno"]
 
 [sub_resource type="Resource" id="Resource_aehri"]
@@ -169,6 +170,7 @@ size = Vector2i(200, 200)
 render_target_update_mode = 4
 
 [node name="Background" type="ColorRect" parent="FogOfWar/CombinedViewport"]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
@@ -177,6 +179,7 @@ color = Color(0, 0, 0, 1)
 
 [node name="FogViewportContainer" type="SubViewportContainer" parent="FogOfWar/CombinedViewport"]
 visible = false
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
@@ -196,6 +199,7 @@ radius = 20
 
 [node name="Revealer" type="ColorRect" parent="FogOfWar/CombinedViewport"]
 visible = false
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
@@ -208,6 +212,7 @@ extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_xttrh")
 
 [node name="Navigation" type="Node3D" parent="."]
+script = ExtResource("10_1wfp1")
 
 [node name="Air" type="Node3D" parent="Navigation"]
 
@@ -233,6 +238,7 @@ navigation_layers = 2
 [node name="HUD" type="CanvasLayer" parent="."]
 
 [node name="MarginContainer" type="MarginContainer" parent="HUD"]
+anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
