@@ -5,13 +5,13 @@
 [ext_resource type="PackedScene" uid="uid://3c1h14nqdumt" path="res://source/match/units/traits/Selection.tscn" id="2_5w4nl"]
 [ext_resource type="PackedScene" uid="uid://ivlo0e66qocl" path="res://source/match/units/traits/Movement.tscn" id="4_wemaw"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_4nkql"]
+[sub_resource type="BoxMesh" id="BoxMesh_7h67k"]
 size = Vector3(1, 0.5, 1)
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_t3dr2"]
+[sub_resource type="CylinderMesh" id="CylinderMesh_3xdnw"]
 height = 0.2
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_ahqoo"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_ndmnt"]
 size = Vector3(2, 0.6, 2)
 
 [node name="Drone" type="Area3D"]
@@ -21,28 +21,28 @@ script = ExtResource("1_5qo4j")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Meshes"]
-mesh = SubResource("BoxMesh_4nkql")
+mesh = SubResource("BoxMesh_7h67k")
 skeleton = NodePath("../..")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Meshes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.332, 0.5)
-mesh = SubResource("CylinderMesh_t3dr2")
+mesh = SubResource("CylinderMesh_3xdnw")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="Meshes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.332, -0.5)
-mesh = SubResource("CylinderMesh_t3dr2")
+mesh = SubResource("CylinderMesh_3xdnw")
 
 [node name="MeshInstance3D4" type="MeshInstance3D" parent="Meshes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.332, 0.5)
-mesh = SubResource("CylinderMesh_t3dr2")
+mesh = SubResource("CylinderMesh_3xdnw")
 
 [node name="MeshInstance3D5" type="MeshInstance3D" parent="Meshes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.332, -0.5)
-mesh = SubResource("CylinderMesh_t3dr2")
+mesh = SubResource("CylinderMesh_3xdnw")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
-shape = SubResource("BoxShape3D_ahqoo")
+shape = SubResource("BoxShape3D_ndmnt")
 
 [node name="Highlight" parent="." instance=ExtResource("1_44soy")]
 radius = 1.4
@@ -51,3 +51,4 @@ radius = 1.4
 radius = 1.4
 
 [node name="Movement" parent="." instance=ExtResource("4_wemaw")]
+radius = 1.4

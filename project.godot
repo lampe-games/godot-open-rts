@@ -40,3 +40,4 @@ god_mode_toggle={
 [layer_names]
 
 3d_navigation/layer_1="air"
+3d_navigation/layer_2="terrain"

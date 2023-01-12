@@ -2,6 +2,7 @@ extends Node3D
 
 const CommandCenter = preload("res://source/match/units/CommandCenter.tscn")
 const Drone = preload("res://source/match/units/Drone.tscn")
+const Worker = preload("res://source/match/units/Worker.tscn")
 
 @export var settings: Resource = null
 
@@ -64,6 +65,16 @@ func _spawn_initial_player_units():
 		_spawn_unit(
 			Drone.instantiate(),
 			spawn_points[player_id].global_transform.translated(Vector3(-2, 3, -2)),
+			player_id
+		)
+		_spawn_unit(
+			Worker.instantiate(),
+			spawn_points[player_id].global_transform.translated(Vector3(-3, 0, 3)),
+			player_id
+		)
+		_spawn_unit(
+			Worker.instantiate(),
+			spawn_points[player_id].global_transform.translated(Vector3(3, 0, -3)),
 			player_id
 		)
 
