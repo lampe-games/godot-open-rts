@@ -23,6 +23,7 @@ func _ready():
 	navigation_finished.connect(_on_navigation_finished)
 	set_navigation_map(_match.navigation.get_navigation_map_rid_by_layer(navigation_layers))
 	_align_unit_position_to_navigation()
+	move(_unit.global_transform.origin)
 
 
 func move(movement_target: Vector3):
