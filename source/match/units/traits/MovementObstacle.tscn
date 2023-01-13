@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://d4cwip5hpxlmo"]
+
+[ext_resource type="Script" path="res://source/match/units/traits/MovementObstacle.gd" id="1_myphg"]
+
+[node name="MovementObstacle" type="NavigationObstacle3D"]
+script = ExtResource("1_myphg")
