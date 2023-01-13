@@ -8,12 +8,12 @@ extends NavigationObstacle3D
 
 
 func _ready():
+	await get_tree().process_frame  # wait for navigation to be operational
 	set_navigation_map(_match.navigation.get_navigation_map_rid_by_layer(navigation_layers))
 	_align_unit_position_to_navigation()
 
 
 func _align_unit_position_to_navigation():
-	await get_tree().process_frame  # wait for navigation to be operational
 	# TODO: use new API once available
 	_unit.global_transform.origin = (
 		NavigationServer3D.map_get_closest_point(

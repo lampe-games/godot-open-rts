@@ -1,10 +1,12 @@
-[gd_scene load_steps=27 format=3 uid="uid://doitvquurtufi"]
+[gd_scene load_steps=28 format=3 uid="uid://doitvquurtufi"]
 
 [ext_resource type="Script" path="res://source/match/Match.gd" id="1_1555u"]
 [ext_resource type="Script" path="res://source/match/IsometricCamera3D.gd" id="1_qb2ry"]
 [ext_resource type="Script" path="res://source/model/PlayerSettings.gd" id="2_issh2"]
 [ext_resource type="Script" path="res://source/model/MatchSettings.gd" id="3_k87ed"]
 [ext_resource type="Script" path="res://source/match/FogOfWar.gd" id="5_eb52t"]
+[ext_resource type="PackedScene" uid="uid://bf3jjdafqvh0w" path="res://source/match/units/non-player/ResourceA.tscn" id="5_f840u"]
+[ext_resource type="PackedScene" uid="uid://bufgjfa3ne3uk" path="res://source/match/units/non-player/ResourceB.tscn" id="6_7kua8"]
 [ext_resource type="Shader" path="res://source/shaders/3d/simple_fog_of_war.gdshader" id="6_bxic7"]
 [ext_resource type="PackedScene" uid="uid://clbjgy724q2si" path="res://source/generic-scenes-and-nodes/2d/DynamicCircle2D.tscn" id="6_ux0ef"]
 [ext_resource type="Script" path="res://source/match/hud/Resources.gd" id="9_hrt2q"]
@@ -40,9 +42,6 @@ albedo_color = Color(1, 0.396078, 0.298039, 1)
 [sub_resource type="PlaneMesh" id="PlaneMesh_5wwb3"]
 material = SubResource("StandardMaterial3D_1na00")
 size = Vector2(100, 100)
-
-[sub_resource type="BoxMesh" id="BoxMesh_qv7qt"]
-size = Vector3(1, 4, 1)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_rm132"]
 viewport_path = NodePath("FogOfWar/CombinedViewport")
@@ -113,21 +112,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 0, 50)
 mesh = SubResource("PlaneMesh_5wwb3")
 skeleton = NodePath("../../../DummyContent")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Map/Meshes"]
-transform = Transform3D(0.7979, 0, 0.60279, 0, 1, 0, -0.60279, 0, 0.7979, -4.79884, 0, -3.44205)
-mesh = SubResource("BoxMesh_qv7qt")
-skeleton = NodePath("../../../DummyContent")
-
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="Map/Meshes"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.36871, 0, -4.30402)
-mesh = SubResource("BoxMesh_qv7qt")
-skeleton = NodePath("../../../DummyContent")
-
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="Map/Meshes"]
-transform = Transform3D(0.864134, 0, -0.503261, 0, 1, 0, 0.503261, 0, 0.864134, -2.42462, 0, 3.55337)
-mesh = SubResource("BoxMesh_qv7qt")
-skeleton = NodePath("../../../DummyContent")
-
 [node name="SpawnPoints" type="Node3D" parent="Map"]
 
 [node name="Marker3D" type="Marker3D" parent="Map/SpawnPoints"]
@@ -141,6 +125,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.1455, 0, 42.1901)
 
 [node name="Marker3D4" type="Marker3D" parent="Map/SpawnPoints"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.679, 0, 41.4663)
+
+[node name="Units" type="Node3D" parent="Map"]
+
+[node name="ResourceA" parent="Map/Units" instance=ExtResource("5_f840u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.7654, 4.76837e-07, -33.2048)
+
+[node name="ResourceA2" parent="Map/Units" instance=ExtResource("5_f840u")]
+transform = Transform3D(0.157813, 0, -0.987469, 0, 1, 0, 0.987469, 0, 0.157813, -38.5751, 4.76837e-07, -32.4638)
+
+[node name="ResourceA3" parent="Map/Units" instance=ExtResource("5_f840u")]
+transform = Transform3D(-0.984384, 0, 0.176037, 0, 1, 0, -0.176037, 0, -0.984384, -39.2217, 0, -31.639)
+
+[node name="ResourceB" parent="Map/Units" instance=ExtResource("6_7kua8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.8014, 0, -29.1446)
 
 [node name="FogOfWar" type="Node3D" parent="."]
 script = ExtResource("5_eb52t")
@@ -176,7 +174,7 @@ render_target_clear_mode = 2
 render_target_update_mode = 0
 
 [node name="EditorOnlyCircle" parent="FogOfWar/CombinedViewport" instance=ExtResource("6_ux0ef")]
-position = Vector2(100, 100)
+position = Vector2(25, 25)
 radius = 20
 
 [node name="Revealer" type="ColorRect" parent="FogOfWar/CombinedViewport"]

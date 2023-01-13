@@ -48,6 +48,8 @@ func _update_circle_color():
 		_circle.color = Constants.Match.OWNED_PLAYER_CIRCLE_COLOR
 	elif _unit.is_in_group("adversary_units"):
 		_circle.color = Constants.Match.ADVERSARY_PLAYER_CIRCLE_COLOR
+	elif _unit.is_in_group("resources"):
+		_circle.color = Constants.Match.RESOURCE_CIRCLE_COLOR
 	else:
 		_circle.color = Constants.Match.DEFAULT_CIRCLE_COLOR
 
