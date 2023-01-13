@@ -6,3 +6,11 @@ enum NavigationLayers {
 const OWNED_PLAYER_CIRCLE_COLOR = Color.GREEN
 const ADVERSARY_PLAYER_CIRCLE_COLOR = Color.RED
 const DEFAULT_CIRCLE_COLOR = Color.WHITE
+
+
+class Resources:
+	class A:
+		const COLOR = Color.BLUE
+
+	class B:
+		const COLOR = Color.RED

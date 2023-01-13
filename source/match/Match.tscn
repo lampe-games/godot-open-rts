@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://doitvquurtufi"]
+[gd_scene load_steps=27 format=3 uid="uid://doitvquurtufi"]
 
 [ext_resource type="Script" path="res://source/match/Match.gd" id="1_1555u"]
 [ext_resource type="Script" path="res://source/match/IsometricCamera3D.gd" id="1_qb2ry"]
@@ -7,16 +7,17 @@
 [ext_resource type="Script" path="res://source/match/FogOfWar.gd" id="5_eb52t"]
 [ext_resource type="Shader" path="res://source/shaders/3d/simple_fog_of_war.gdshader" id="6_bxic7"]
 [ext_resource type="PackedScene" uid="uid://clbjgy724q2si" path="res://source/generic-scenes-and-nodes/2d/DynamicCircle2D.tscn" id="6_ux0ef"]
+[ext_resource type="Script" path="res://source/match/hud/Resources.gd" id="9_hrt2q"]
 [ext_resource type="Script" path="res://source/match/Navigation.gd" id="10_1wfp1"]
 [ext_resource type="PackedScene" uid="uid://b6n7cwv706x5n" path="res://source/match/debug/GodModeHud.tscn" id="10_p6gno"]
 
 [sub_resource type="Resource" id="Resource_aehri"]
 script = ExtResource("2_issh2")
-color = Color(0, 0, 1, 1)
+color = Color(0.4, 0.694118, 1, 1)
 
 [sub_resource type="Resource" id="Resource_ohrdq"]
 script = ExtResource("2_issh2")
-color = Color(1, 0, 0, 1)
+color = Color(1, 0.360784, 0.45098, 1)
 
 [sub_resource type="Resource" id="Resource_frabv"]
 script = ExtResource("3_k87ed")
@@ -247,5 +248,43 @@ layout_mode = 2
 texture = SubResource("ViewportTexture_rm132")
 ignore_texture_size = true
 stretch_mode = 5
+
+[node name="MarginContainer2" type="MarginContainer" parent="HUD"]
+offset_right = 40.0
+offset_bottom = 11.0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+
+[node name="Resources" type="PanelContainer" parent="HUD/MarginContainer2"]
+layout_mode = 2
+script = ExtResource("9_hrt2q")
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD/MarginContainer2/Resources"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/MarginContainer2/Resources/MarginContainer"]
+layout_mode = 2
+
+[node name="ResourceAColorRect" type="ColorRect" parent="HUD/MarginContainer2/Resources/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(26, 0)
+layout_mode = 2
+
+[node name="ResourceALabel" type="Label" parent="HUD/MarginContainer2/Resources/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "0"
+
+[node name="ResourceBColorRect" type="ColorRect" parent="HUD/MarginContainer2/Resources/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(26, 0)
+layout_mode = 2
+
+[node name="ResourceBLabel" type="Label" parent="HUD/MarginContainer2/Resources/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "0"
 
 [node name="GodModeHUD" parent="." instance=ExtResource("10_p6gno")]
