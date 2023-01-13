@@ -48,4 +48,4 @@ func _on_velocity_computed(safe_velocity: Vector3):
 
 
 func _on_navigation_finished():
-	set_target_location(Vector3(INF, INF, INF))
+	set_target_location(Vector3.INF)

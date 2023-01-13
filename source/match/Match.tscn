@@ -246,7 +246,6 @@ theme_override_constants/margin_bottom = 5
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 texture = SubResource("ViewportTexture_rm132")
-ignore_texture_size = true
 stretch_mode = 5
 
 [node name="MarginContainer2" type="MarginContainer" parent="HUD"]
