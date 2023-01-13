@@ -1,11 +1,11 @@
 extends NavigationAgent3D
 
-@onready var _match = find_parent("Match")
-@onready var _unit = get_parent()
-
 @export var speed: float = 4.0
 
 var _interim_speed: float = 0.0
+
+@onready var _match = find_parent("Match")
+@onready var _unit = get_parent()
 
 
 func _physics_process(delta):
