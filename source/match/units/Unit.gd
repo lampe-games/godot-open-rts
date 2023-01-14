@@ -15,8 +15,8 @@ func _set_action(action_node):
 	_teardown_current_action()
 	action = action_node
 	if action != null:
-		var action_copy = action
-		action.tree_exited.connect(func(): _on_action_node_tree_exited(action_copy))
+		var action_copy = action  # TODO: check if bind creates copy itself - remove if so
+		action.tree_exited.connect(_on_action_node_tree_exited.bind(action_copy))
 		add_child(action_node)
 	_action_locked = false
 	action_changed.emit(action)

@@ -1,12 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://b6n7cwv706x5n"]
+[gd_scene load_steps=5 format=3 uid="uid://b6n7cwv706x5n"]
 
 [ext_resource type="Script" path="res://source/match/debug/GodModeHud.gd" id="1_n4lpk"]
 [ext_resource type="Script" path="res://source/match/debug/PlayerManager.gd" id="2_julod"]
 [ext_resource type="Script" path="res://source/match/debug/UnitsManager.gd" id="3_1fe88"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_0h5ms"]
-
-[sub_resource type="ButtonGroup" id="ButtonGroup_yosiq"]
+resource_local_to_scene = false
 
 [node name="GodModeHUD" type="CanvasLayer"]
 script = ExtResource("1_n4lpk")
@@ -120,7 +119,7 @@ text = "Selected"
 
 [node name="AllUnitsCheckBox" type="CheckBox" parent="MarginContainer/UnitsManager/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-button_group = SubResource("ButtonGroup_yosiq")
+button_group = SubResource("ButtonGroup_0h5ms")
 text = "All"
 
 [node name="ActionCaptionToggleButton" type="Button" parent="MarginContainer/UnitsManager/MarginContainer/VBoxContainer"]
