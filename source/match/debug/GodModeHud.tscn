@@ -114,12 +114,12 @@ alignment = 1
 
 [node name="SelectedUnitsCheckBox" type="CheckBox" parent="MarginContainer/UnitsManager/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+button_pressed = true
 button_group = SubResource("ButtonGroup_0h5ms")
 text = "Selected"
 
 [node name="AllUnitsCheckBox" type="CheckBox" parent="MarginContainer/UnitsManager/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-button_pressed = true
 button_group = SubResource("ButtonGroup_yosiq")
 text = "All"
 

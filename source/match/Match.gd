@@ -1,11 +1,14 @@
 extends Node3D
 
+const Player = preload("res://source/match/model/Player.gd")
+
 const CommandCenter = preload("res://source/match/units/CommandCenter.tscn")
 const Drone = preload("res://source/match/units/Drone.tscn")
 const Worker = preload("res://source/match/units/Worker.tscn")
 
 @export var settings: Resource = null
 
+var players = []
 var controlled_player_id = null:
 	set = _set_controlled_player_id
 var visible_player_id = null:
@@ -22,6 +25,7 @@ var visible_player_ids = null:
 
 
 func _ready():
+	_create_players()
 	controlled_player_id = settings.controlled_player
 	visible_player_id = settings.controlled_player  # TODO: add dedicated field in settings
 	_spawn_initial_player_units()
@@ -38,12 +42,18 @@ func _set_controlled_player_id(id):
 	_renounce_control_of_player_units(controlled_player_id)
 	_assume_control_of_player_units(id)
 	controlled_player_id = id
+	MatchSignals.controlled_player_changed.emit(controlled_player_id)
 
 
 func _set_visible_player_id(id):
 	_conceal_player_units(visible_player_id)
 	_reveal_player_units(id)
 	visible_player_id = id
+
+
+func _create_players():
+	for _player_settings in settings.players:
+		players.append(Player.new())
 
 
 func _spawn_initial_player_units():

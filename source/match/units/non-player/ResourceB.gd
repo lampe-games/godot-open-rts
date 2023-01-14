@@ -1,6 +1,8 @@
 # TODO: deduplicate (see ResourceA)
 extends Area3D
 
+@export var resource_b = 300  # TODO: default from constants
+
 
 func _ready():
 	_setup_mesh_colors()

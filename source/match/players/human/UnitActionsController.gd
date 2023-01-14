@@ -27,7 +27,9 @@ func _navigate_selected_units_towards_position(target_point):
 
 func _navigate_selected_units_towards_unit(target_unit):
 	for unit in get_tree().get_nodes_in_group("selected_units"):
+		if not unit.is_in_group("controlled_units"):
+			continue
 		if Actions.CollectingResources.is_applicable(unit, target_unit):
-			unit.action = Actions.CollectingResources.new()
+			unit.action = Actions.CollectingResources.new(target_unit)
 		else:
 			unit.action = null
