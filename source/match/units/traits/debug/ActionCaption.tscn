@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://b80lnni2yfdyd"]
+
+[ext_resource type="Script" path="res://source/match/units/traits/debug/ActionCaption.gd" id="1_a3ucc"]
+
+[node name="ActionCaption" type="Label3D"]
+pixel_size = 0.0006
+billboard = 1
+no_depth_test = true
+fixed_size = true
+text = "<null>"
+script = ExtResource("1_a3ucc")

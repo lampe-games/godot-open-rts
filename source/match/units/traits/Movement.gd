@@ -30,6 +30,10 @@ func move(movement_target: Vector3):
 	set_target_location(movement_target)
 
 
+func stop():
+	set_target_location(Vector3.INF)
+
+
 func _align_unit_position_to_navigation():
 	await get_tree().process_frame  # wait for navigation to be operational
 	# TODO: use new API once available

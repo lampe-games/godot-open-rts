@@ -1,7 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://b6n7cwv706x5n"]
+[gd_scene load_steps=6 format=3 uid="uid://b6n7cwv706x5n"]
 
 [ext_resource type="Script" path="res://source/match/debug/GodModeHud.gd" id="1_n4lpk"]
 [ext_resource type="Script" path="res://source/match/debug/PlayerManager.gd" id="2_julod"]
+[ext_resource type="Script" path="res://source/match/debug/UnitsManager.gd" id="3_1fe88"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_0h5ms"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_yosiq"]
 
 [node name="GodModeHUD" type="CanvasLayer"]
 script = ExtResource("1_n4lpk")
@@ -18,69 +23,110 @@ theme_override_constants/margin_left = 5
 script = ExtResource("2_julod")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PlayerManager"]
-offset_left = 5.0
-offset_right = 149.0
-offset_bottom = 147.0
+layout_mode = 2
 theme_override_constants/separation = 5
 
 [node name="PanelContainer" type="PanelContainer" parent="PlayerManager/VBoxContainer"]
-offset_right = 144.0
-offset_bottom = 71.0
+layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="PlayerManager/VBoxContainer/PanelContainer"]
-offset_right = 144.0
-offset_bottom = 71.0
+layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PlayerManager/VBoxContainer/PanelContainer/MarginContainer"]
-offset_left = 5.0
-offset_top = 5.0
-offset_right = 139.0
-offset_bottom = 66.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="PlayerManager/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
-offset_right = 134.0
-offset_bottom = 26.0
+layout_mode = 2
 text = "Controlled player"
 horizontal_alignment = 1
 
 [node name="ControlledPlayerSpinBox" type="SpinBox" parent="PlayerManager/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
-offset_top = 30.0
-offset_right = 134.0
-offset_bottom = 61.0
+layout_mode = 2
 
 [node name="PanelContainer2" type="PanelContainer" parent="PlayerManager/VBoxContainer"]
-offset_top = 76.0
-offset_right = 144.0
-offset_bottom = 147.0
+layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="PlayerManager/VBoxContainer/PanelContainer2"]
-offset_right = 144.0
-offset_bottom = 71.0
+layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PlayerManager/VBoxContainer/PanelContainer2/MarginContainer"]
-offset_left = 5.0
-offset_top = 5.0
-offset_right = 139.0
-offset_bottom = 66.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="PlayerManager/VBoxContainer/PanelContainer2/MarginContainer/VBoxContainer"]
-offset_right = 134.0
-offset_bottom = 26.0
+layout_mode = 2
 text = "Visible Player"
 horizontal_alignment = 1
 
 [node name="VisiblePlayerSpinBox" type="SpinBox" parent="PlayerManager/VBoxContainer/PanelContainer2/MarginContainer/VBoxContainer"]
-offset_top = 30.0
-offset_right = 134.0
-offset_bottom = 61.0
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -20.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="UnitsManager" type="PanelContainer" parent="MarginContainer"]
+layout_mode = 2
+script = ExtResource("3_1fe88")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/UnitsManager"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/UnitsManager/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/UnitsManager/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Units"
+horizontal_alignment = 1
+
+[node name="Panel" type="Panel" parent="MarginContainer/UnitsManager/MarginContainer/VBoxContainer/Label"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/UnitsManager/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="SelectedUnitsCheckBox" type="CheckBox" parent="MarginContainer/UnitsManager/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+button_group = SubResource("ButtonGroup_0h5ms")
+text = "Selected"
+
+[node name="AllUnitsCheckBox" type="CheckBox" parent="MarginContainer/UnitsManager/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+button_pressed = true
+button_group = SubResource("ButtonGroup_yosiq")
+text = "All"
+
+[node name="ActionCaptionToggleButton" type="Button" parent="MarginContainer/UnitsManager/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Action Caption"
 
 [connection signal="value_changed" from="PlayerManager/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/ControlledPlayerSpinBox" to="PlayerManager" method="_on_controlled_player_spin_box_value_changed"]
 [connection signal="value_changed" from="PlayerManager/VBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/VisiblePlayerSpinBox" to="PlayerManager" method="_on_visible_player_spin_box_value_changed"]
+[connection signal="pressed" from="MarginContainer/UnitsManager/MarginContainer/VBoxContainer/ActionCaptionToggleButton" to="MarginContainer/UnitsManager" method="_on_action_caption_toggle_button_pressed"]
