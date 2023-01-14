@@ -7,6 +7,10 @@ var _action_finished = false
 @onready var _movement_trait = _unit.find_child("Movement")
 
 
+static func is_applicable(unit):
+	return unit.find_child("Movement") != null
+
+
 func _init(target_position):
 	_target_position = target_position
 
@@ -19,10 +23,6 @@ func _ready():
 func _exit_tree():
 	if not _action_finished:
 		_movement_trait.stop()
-
-
-static func is_applicable(unit):
-	return unit.find_child("Movement") != null
 
 
 func _on_movement_finished():

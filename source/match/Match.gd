@@ -3,7 +3,6 @@ extends Node3D
 const CommandCenter = preload("res://source/match/units/CommandCenter.tscn")
 const Drone = preload("res://source/match/units/Drone.tscn")
 const Worker = preload("res://source/match/units/Worker.tscn")
-const MovingAction = preload("res://source/match/units/actions/Moving.gd")
 
 @export var settings: Resource = null
 
@@ -32,13 +31,6 @@ func _ready():
 func _unhandled_input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		MatchSignals.deselect_all.emit()
-	if (
-		event is InputEventMouseButton
-		and event.button_index == MOUSE_BUTTON_RIGHT
-		and event.pressed
-	):
-		var target_point = get_viewport().get_camera_3d().get_ray_intersection(event.position)
-		_navigate_selected_units_towards(target_point)
 
 
 func _set_controlled_player_id(id):
@@ -124,9 +116,3 @@ func _reveal_player_units(player_id):
 func _conceal_player_units(player_id):
 	for unit in get_tree().get_nodes_in_group("player_{0}_units".format([player_id])):
 		unit.remove_from_group("revealed_units")
-
-
-func _navigate_selected_units_towards(target_point):
-	for unit in get_tree().get_nodes_in_group("selected_units"):
-		if unit.is_in_group("controlled_units") and MovingAction.is_applicable(unit):
-			unit.action = MovingAction.new(target_point)

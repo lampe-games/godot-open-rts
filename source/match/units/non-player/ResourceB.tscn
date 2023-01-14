@@ -12,7 +12,7 @@ height = 1.0
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_msmnm"]
 height = 0.8
 
-[node name="ResourceB" type="Area3D" groups=["resources"]]
+[node name="ResourceB" type="Area3D" groups=["resource_units"]]
 script = ExtResource("1_57n8v")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

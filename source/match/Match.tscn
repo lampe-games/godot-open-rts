@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://doitvquurtufi"]
+[gd_scene load_steps=31 format=3 uid="uid://doitvquurtufi"]
 
 [ext_resource type="Script" path="res://source/match/Match.gd" id="1_1555u"]
 [ext_resource type="Script" path="res://source/match/IsometricCamera3D.gd" id="1_qb2ry"]
@@ -9,9 +9,11 @@
 [ext_resource type="PackedScene" uid="uid://bufgjfa3ne3uk" path="res://source/match/units/non-player/ResourceB.tscn" id="6_7kua8"]
 [ext_resource type="Shader" path="res://source/shaders/3d/simple_fog_of_war.gdshader" id="6_bxic7"]
 [ext_resource type="PackedScene" uid="uid://clbjgy724q2si" path="res://source/generic-scenes-and-nodes/2d/DynamicCircle2D.tscn" id="6_ux0ef"]
+[ext_resource type="Script" path="res://source/match/Terrain.gd" id="7_ccpu4"]
 [ext_resource type="Script" path="res://source/match/hud/Resources.gd" id="9_hrt2q"]
 [ext_resource type="Script" path="res://source/match/Navigation.gd" id="10_1wfp1"]
 [ext_resource type="PackedScene" uid="uid://b6n7cwv706x5n" path="res://source/match/debug/GodModeHud.tscn" id="10_p6gno"]
+[ext_resource type="Script" path="res://source/match/players/human/UnitActionsController.gd" id="14_qgu1g"]
 
 [sub_resource type="Resource" id="Resource_aehri"]
 script = ExtResource("2_issh2")
@@ -42,6 +44,9 @@ albedo_color = Color(1, 0.396078, 0.298039, 1)
 [sub_resource type="PlaneMesh" id="PlaneMesh_5wwb3"]
 material = SubResource("StandardMaterial3D_1na00")
 size = Vector2(100, 100)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_45mtw"]
+data = PackedVector3Array(50, 0, 50, -50, 0, 50, 50, 0, -50, -50, 0, 50, -50, 0, -50, 50, 0, -50)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_rm132"]
 viewport_path = NodePath("FogOfWar/CombinedViewport")
@@ -139,6 +144,13 @@ transform = Transform3D(-0.984384, 0, 0.176037, 0, 1, 0, -0.176037, 0, -0.984384
 
 [node name="ResourceB" parent="Map/Units" instance=ExtResource("6_7kua8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.8014, 0, -29.1446)
+
+[node name="Terrain" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 0, 50)
+script = ExtResource("7_ccpu4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain"]
+shape = SubResource("ConcavePolygonShape3D_45mtw")
 
 [node name="FogOfWar" type="Node3D" parent="."]
 script = ExtResource("5_eb52t")
@@ -285,3 +297,10 @@ layout_mode = 2
 text = "0"
 
 [node name="GodModeHUD" parent="." instance=ExtResource("10_p6gno")]
+
+[node name="Players" type="Node" parent="."]
+
+[node name="Human" type="Node" parent="Players"]
+
+[node name="UnitActionsController" type="Node" parent="Players/Human"]
+script = ExtResource("14_qgu1g")

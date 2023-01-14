@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://d4cm4yhtf11ur"]
+
+[ext_resource type="Script" path="res://source/match/units/traits/Targetability.gd" id="1_75uog"]
+
+[node name="Targetability" type="Node3D"]
+script = ExtResource("1_75uog")
