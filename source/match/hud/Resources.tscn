@@ -1,0 +1,34 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqauc87cdn5pw"]
+
+[ext_resource type="Script" path="res://source/match/hud/Resources.gd" id="1_saxre"]
+
+[node name="Resources" type="PanelContainer"]
+script = ExtResource("1_saxre")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="ResourceAColorRect" type="ColorRect" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(26, 0)
+layout_mode = 2
+
+[node name="ResourceALabel" type="Label" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "0"
+
+[node name="ResourceBColorRect" type="ColorRect" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(26, 0)
+layout_mode = 2
+
+[node name="ResourceBLabel" type="Label" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "0"

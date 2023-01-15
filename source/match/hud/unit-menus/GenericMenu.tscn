@@ -1,0 +1,74 @@
+[gd_scene load_steps=2 format=3 uid="uid://pawymiv0p8ab"]
+
+[ext_resource type="Script" path="res://source/match/hud/unit-menus/GenericMenu.gd" id="1_i7s8m"]
+
+[node name="GenericMenu" type="GridContainer"]
+columns = 4
+script = ExtResource("1_i7s8m")
+
+[node name="Padding" type="Control" parent="."]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+
+[node name="Padding2" type="Control" parent="."]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+
+[node name="Padding3" type="Control" parent="."]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+
+[node name="CancelActionButton" type="Button" parent="."]
+layout_mode = 2
+focus_mode = 0
+text = "X"
+
+[node name="Padding5" type="Control" parent="."]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+
+[node name="Padding6" type="Control" parent="."]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+
+[node name="Padding7" type="Control" parent="."]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+
+[node name="Padding8" type="Control" parent="."]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+
+[node name="Padding9" type="Control" parent="."]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+
+[node name="Padding10" type="Control" parent="."]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+
+[node name="Padding11" type="Control" parent="."]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+
+[node name="Padding12" type="Control" parent="."]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+
+[node name="Padding13" type="Control" parent="."]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+
+[node name="Padding14" type="Control" parent="."]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+
+[node name="Padding15" type="Control" parent="."]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+
+[node name="Padding16" type="Control" parent="."]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+
+[connection signal="pressed" from="CancelActionButton" to="." method="_on_cancel_action_button_pressed"]

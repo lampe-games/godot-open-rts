@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://doitvquurtufi"]
+[gd_scene load_steps=32 format=3 uid="uid://doitvquurtufi"]
 
 [ext_resource type="Script" path="res://source/match/Match.gd" id="1_1555u"]
 [ext_resource type="Script" path="res://source/match/IsometricCamera3D.gd" id="1_qb2ry"]
@@ -10,9 +10,10 @@
 [ext_resource type="Shader" path="res://source/shaders/3d/simple_fog_of_war.gdshader" id="6_bxic7"]
 [ext_resource type="PackedScene" uid="uid://clbjgy724q2si" path="res://source/generic-scenes-and-nodes/2d/DynamicCircle2D.tscn" id="6_ux0ef"]
 [ext_resource type="Script" path="res://source/match/Terrain.gd" id="7_ccpu4"]
-[ext_resource type="Script" path="res://source/match/hud/Resources.gd" id="9_hrt2q"]
 [ext_resource type="Script" path="res://source/match/Navigation.gd" id="10_1wfp1"]
 [ext_resource type="PackedScene" uid="uid://b6n7cwv706x5n" path="res://source/match/debug/GodModeHud.tscn" id="10_p6gno"]
+[ext_resource type="PackedScene" uid="uid://cqauc87cdn5pw" path="res://source/match/hud/Resources.tscn" id="12_r13sk"]
+[ext_resource type="PackedScene" uid="uid://cwcedr6jj7yty" path="res://source/match/hud/UnitMenus.tscn" id="13_6cypl"]
 [ext_resource type="Script" path="res://source/match/players/human/UnitActionsController.gd" id="14_qgu1g"]
 
 [sub_resource type="Resource" id="Resource_aehri"]
@@ -170,7 +171,6 @@ grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="FogViewportContainer" type="SubViewportContainer" parent="FogOfWar/CombinedViewport"]
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -183,7 +183,7 @@ transparent_bg = true
 handle_input_locally = false
 size = Vector2i(200, 200)
 render_target_clear_mode = 2
-render_target_update_mode = 0
+render_target_update_mode = 4
 
 [node name="EditorOnlyCircle" parent="FogOfWar/CombinedViewport" instance=ExtResource("6_ux0ef")]
 position = Vector2(25, 25)
@@ -230,16 +230,13 @@ navigation_layers = 2
 [node name="HUD" type="CanvasLayer" parent="."]
 
 [node name="MarginContainer" type="MarginContainer" parent="HUD"]
-anchors_preset = 3
-anchor_left = 1.0
+anchors_preset = 2
 anchor_top = 1.0
-anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -40.0
-offset_top = -40.0
-grow_horizontal = 0
+offset_top = -215.0
+offset_right = 215.0
 grow_vertical = 0
-theme_override_constants/margin_right = 5
+theme_override_constants/margin_left = 5
 theme_override_constants/margin_bottom = 5
 
 [node name="Minimap" type="PanelContainer" parent="HUD/MarginContainer"]
@@ -264,37 +261,24 @@ offset_bottom = 11.0
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 
-[node name="Resources" type="PanelContainer" parent="HUD/MarginContainer2"]
+[node name="Resources" parent="HUD/MarginContainer2" instance=ExtResource("12_r13sk")]
 layout_mode = 2
-script = ExtResource("9_hrt2q")
 
-[node name="MarginContainer" type="MarginContainer" parent="HUD/MarginContainer2/Resources"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
+[node name="MarginContainer3" type="MarginContainer" parent="HUD"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HUD/MarginContainer2/Resources/MarginContainer"]
+[node name="UnitMenus" parent="HUD/MarginContainer3" instance=ExtResource("13_6cypl")]
 layout_mode = 2
-
-[node name="ResourceAColorRect" type="ColorRect" parent="HUD/MarginContainer2/Resources/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(26, 0)
-layout_mode = 2
-
-[node name="ResourceALabel" type="Label" parent="HUD/MarginContainer2/Resources/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
-text = "0"
-
-[node name="ResourceBColorRect" type="ColorRect" parent="HUD/MarginContainer2/Resources/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(26, 0)
-layout_mode = 2
-
-[node name="ResourceBLabel" type="Label" parent="HUD/MarginContainer2/Resources/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
-text = "0"
 
 [node name="GodModeHUD" parent="." instance=ExtResource("10_p6gno")]
 

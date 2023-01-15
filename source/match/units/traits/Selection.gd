@@ -29,6 +29,7 @@ func select():
 		_unit.add_to_group("selected_units")
 	_update_circle_color()
 	_circle.show()
+	MatchSignals.unit_selected.emit(_unit)
 
 
 func deselect():
@@ -38,6 +39,7 @@ func deselect():
 	if _unit.is_in_group("selected_units"):
 		_unit.remove_from_group("selected_units")
 	_circle.hide()
+	MatchSignals.unit_deselected.emit(_unit)
 
 
 func _set_radius(a_radius):
