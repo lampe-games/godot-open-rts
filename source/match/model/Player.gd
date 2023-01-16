@@ -8,3 +8,15 @@ extends Resource
 	set(value):
 		resource_b = value
 		emit_changed()
+
+
+func has_resources(resources):
+	for resource in resources:
+		if get(resource) < resources[resource]:
+			return false
+	return true
+
+
+func subtract_resources(resources):
+	for resource in resources:
+		set(resource, get(resource) - resources[resource])

@@ -2,10 +2,18 @@ extends Area3D
 
 signal action_changed(new_action)
 
+var player_id = null:
+	set(value):
+		assert(player_id == null)
+		player_id = value
 var action = null:
 	set = _set_action
 
 var _action_locked = false
+
+
+func _ready():
+	assert(player_id != null)
 
 
 func _set_action(action_node):

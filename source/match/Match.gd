@@ -25,6 +25,7 @@ var visible_player_ids = null:
 
 
 func _ready():
+	MatchSignals.setup_and_spawn_unit.connect(_setup_and_spawn_unit)
 	_create_players()
 	controlled_player_id = settings.controlled_player
 	visible_player_id = settings.controlled_player  # TODO: add dedicated field in settings
@@ -59,32 +60,33 @@ func _create_players():
 func _spawn_initial_player_units():
 	var spawn_points = find_child("SpawnPoints").get_children()
 	for player_id in range(settings.players.size()):
-		_spawn_unit(
+		_setup_and_spawn_unit(
 			CommandCenter.instantiate(), spawn_points[player_id].global_transform, player_id
 		)
-		_spawn_unit(
+		_setup_and_spawn_unit(
 			Drone.instantiate(),
 			spawn_points[player_id].global_transform.translated(Vector3(2, 5, 2)),
 			player_id
 		)
-		_spawn_unit(
+		_setup_and_spawn_unit(
 			Drone.instantiate(),
 			spawn_points[player_id].global_transform.translated(Vector3(-2, 3, -2)),
 			player_id
 		)
-		_spawn_unit(
+		_setup_and_spawn_unit(
 			Worker.instantiate(),
 			spawn_points[player_id].global_transform.translated(Vector3(-3, 0, 3)),
 			player_id
 		)
-		_spawn_unit(
+		_setup_and_spawn_unit(
 			Worker.instantiate(),
 			spawn_points[player_id].global_transform.translated(Vector3(3, 0, -3)),
 			player_id
 		)
 
 
-func _spawn_unit(unit, a_transform, player_id):
+func _setup_and_spawn_unit(unit, a_transform, player_id):
+	unit.player_id = player_id
 	unit.color = settings.players[player_id].color
 	unit.global_transform = a_transform
 	unit.add_to_group("units")

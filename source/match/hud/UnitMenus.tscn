@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cwcedr6jj7yty"]
+[gd_scene load_steps=4 format=3 uid="uid://cwcedr6jj7yty"]
 
 [ext_resource type="PackedScene" uid="uid://pawymiv0p8ab" path="res://source/match/hud/unit-menus/GenericMenu.tscn" id="1_4ci70"]
 [ext_resource type="Script" path="res://source/match/hud/UnitMenus.gd" id="1_hugbq"]
+[ext_resource type="PackedScene" uid="uid://d4iqf0mjt5ub3" path="res://source/match/hud/unit-menus/CommandCenterMenu.tscn" id="3_hqirh"]
 
 [node name="UnitMenus" type="PanelContainer"]
 script = ExtResource("1_hugbq")
@@ -82,4 +83,7 @@ custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 
 [node name="GenericMenu" parent="MarginContainer" instance=ExtResource("1_4ci70")]
+layout_mode = 2
+
+[node name="CommandCenterMenu" parent="MarginContainer" instance=ExtResource("3_hqirh")]
 layout_mode = 2

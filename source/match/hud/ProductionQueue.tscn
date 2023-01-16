@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=3 uid="uid://nnsih72ih7qr"]
+
+[ext_resource type="Script" path="res://source/match/hud/ProductionQueue.gd" id="1_iis45"]
+
+[node name="ProductionQueue" type="MarginContainer"]
+theme_override_constants/margin_right = 5
+script = ExtResource("1_iis45")
+
+[node name="QueueElements" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 5
+alignment = 2
+
+[node name="ColorRect" type="ColorRect" parent="QueueElements"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+color = Color(1, 0.466667, 0.435294, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="QueueElements"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+color = Color(1, 0.466667, 0.435294, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="QueueElements"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+color = Color(1, 0.466667, 0.435294, 1)
+
+[node name="ColorRect4" type="ColorRect" parent="QueueElements"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+color = Color(1, 0.466667, 0.435294, 1)
+
+[node name="ColorRect5" type="ColorRect" parent="QueueElements"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+color = Color(1, 0.466667, 0.435294, 1)

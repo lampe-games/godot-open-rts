@@ -1,7 +1,8 @@
 extends Node
 
 # requests
-signal deselect_all
+signal deselect_all  # TODO: rename to deselect_all_units
+signal setup_and_spawn_unit(unit, transform, player_id)
 
 # notifications
 signal terrain_targeted(position)

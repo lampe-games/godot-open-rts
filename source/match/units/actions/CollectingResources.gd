@@ -22,6 +22,7 @@ func _init(resource_unit):
 
 
 func _ready():
+	# TODO: detect player through _unit
 	_player = (
 		_match.players[_match.controlled_player_id]
 		if _match.controlled_player_id >= 0 and _match.controlled_player_id < _match.players.size()

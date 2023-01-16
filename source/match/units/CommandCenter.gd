@@ -1,5 +1,7 @@
 extends "res://source/match/units/Unit.gd"
 
+const ManagingProduction = preload("res://source/match/units/actions/ManagingProduction.gd")
+
 const SIGHT_RANGE = 10.0
 
 var color:
@@ -7,3 +9,7 @@ var color:
 		var material = StandardMaterial3D.new()
 		material.albedo_color = a_color
 		find_child("MeshInstance3D2").material_override = material
+
+
+func _ready():
+	action = ManagingProduction.new()

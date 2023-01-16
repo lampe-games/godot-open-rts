@@ -1,6 +1,7 @@
 extends PanelContainer
 
 @onready var _generic_menu = find_child("GenericMenu")
+@onready var _command_center_menu = find_child("CommandCenterMenu")
 
 
 func _ready():
@@ -19,10 +20,18 @@ func _reset_menus():
 
 func _hide_all_menus():
 	_generic_menu.hide()
+	_command_center_menu.hide()
 
 
 func _try_showing_any_menu():
 	var selected_controlled_units = _get_selected_controlled_units()
+	if (
+		selected_controlled_units.size() == 1
+		and selected_controlled_units[0].is_in_group("command_center_units")
+	):
+		_command_center_menu.unit = selected_controlled_units[0]
+		_command_center_menu.show()
+		return true
 	if selected_controlled_units.size() > 0:
 		_generic_menu.units = selected_controlled_units
 		_generic_menu.show()

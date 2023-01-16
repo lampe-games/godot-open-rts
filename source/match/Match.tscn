@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://doitvquurtufi"]
+[gd_scene load_steps=33 format=3 uid="uid://doitvquurtufi"]
 
 [ext_resource type="Script" path="res://source/match/Match.gd" id="1_1555u"]
 [ext_resource type="Script" path="res://source/match/IsometricCamera3D.gd" id="1_qb2ry"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://b6n7cwv706x5n" path="res://source/match/debug/GodModeHud.tscn" id="10_p6gno"]
 [ext_resource type="PackedScene" uid="uid://cqauc87cdn5pw" path="res://source/match/hud/Resources.tscn" id="12_r13sk"]
 [ext_resource type="PackedScene" uid="uid://cwcedr6jj7yty" path="res://source/match/hud/UnitMenus.tscn" id="13_6cypl"]
+[ext_resource type="PackedScene" uid="uid://nnsih72ih7qr" path="res://source/match/hud/ProductionQueue.tscn" id="13_qv3xn"]
 [ext_resource type="Script" path="res://source/match/players/human/UnitActionsController.gd" id="14_qgu1g"]
 
 [sub_resource type="Resource" id="Resource_aehri"]
@@ -277,8 +278,16 @@ grow_vertical = 0
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="UnitMenus" parent="HUD/MarginContainer3" instance=ExtResource("13_6cypl")]
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/MarginContainer3"]
 layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="ProductionQueue" parent="HUD/MarginContainer3/VBoxContainer" instance=ExtResource("13_qv3xn")]
+layout_mode = 2
+
+[node name="UnitMenus" parent="HUD/MarginContainer3/VBoxContainer" instance=ExtResource("13_6cypl")]
+layout_mode = 2
+size_flags_horizontal = 8
 
 [node name="GodModeHUD" parent="." instance=ExtResource("10_p6gno")]
 
