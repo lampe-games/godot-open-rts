@@ -28,3 +28,14 @@ class Units:
 	const PRODUCTION_TIMES = {
 		"res://source/match/units/Worker.tscn": 5.0,
 	}
+	const BUILDING_BLUEPRINTS = {
+		"res://source/match/units/CommandCenter.tscn":
+		"res://source/match/units/building-blueprints/CommandCenter.tscn",
+	}
+	const CONSTRUCTION_COSTS = {
+		"res://source/match/units/CommandCenter.tscn":
+		{
+			"resource_a": 5,
+			"resource_b": 5,
+		}
+	}

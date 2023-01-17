@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://cwcedr6jj7yty"]
+[gd_scene load_steps=5 format=3 uid="uid://cwcedr6jj7yty"]
 
 [ext_resource type="PackedScene" uid="uid://pawymiv0p8ab" path="res://source/match/hud/unit-menus/GenericMenu.tscn" id="1_4ci70"]
 [ext_resource type="Script" path="res://source/match/hud/UnitMenus.gd" id="1_hugbq"]
 [ext_resource type="PackedScene" uid="uid://d4iqf0mjt5ub3" path="res://source/match/hud/unit-menus/CommandCenterMenu.tscn" id="3_hqirh"]
+[ext_resource type="PackedScene" uid="uid://btvii654eytjr" path="res://source/match/hud/unit-menus/WorkerMenu.tscn" id="4_1s3pp"]
 
 [node name="UnitMenus" type="PanelContainer"]
 script = ExtResource("1_hugbq")
@@ -86,4 +87,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="CommandCenterMenu" parent="MarginContainer" instance=ExtResource("3_hqirh")]
+layout_mode = 2
+
+[node name="WorkerMenu" parent="MarginContainer" instance=ExtResource("4_1s3pp")]
 layout_mode = 2

@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://doitvquurtufi"]
+[gd_scene load_steps=34 format=3 uid="uid://doitvquurtufi"]
 
 [ext_resource type="Script" path="res://source/match/Match.gd" id="1_1555u"]
 [ext_resource type="Script" path="res://source/match/IsometricCamera3D.gd" id="1_qb2ry"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://cwcedr6jj7yty" path="res://source/match/hud/UnitMenus.tscn" id="13_6cypl"]
 [ext_resource type="PackedScene" uid="uid://nnsih72ih7qr" path="res://source/match/hud/ProductionQueue.tscn" id="13_qv3xn"]
 [ext_resource type="Script" path="res://source/match/players/human/UnitActionsController.gd" id="14_qgu1g"]
+[ext_resource type="PackedScene" uid="uid://b0lxagyi6a5td" path="res://source/match/handlers/BuildingPlacementHandler.tscn" id="17_8ku5t"]
 
 [sub_resource type="Resource" id="Resource_aehri"]
 script = ExtResource("2_issh2")
@@ -149,6 +150,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.8014, 0, -29.1446)
 
 [node name="Terrain" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 0, 50)
+collision_mask = 0
 script = ExtResource("7_ccpu4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain"]
@@ -297,3 +299,7 @@ size_flags_horizontal = 8
 
 [node name="UnitActionsController" type="Node" parent="Players/Human"]
 script = ExtResource("14_qgu1g")
+
+[node name="Handlers" type="Node3D" parent="."]
+
+[node name="BuildingPlacementHandler" parent="Handlers" instance=ExtResource("17_8ku5t")]

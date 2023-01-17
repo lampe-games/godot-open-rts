@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://ngfcyy85hvfs"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_fbon8"]
+top_radius = 2.0
+bottom_radius = 2.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_0c0kt"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_mtg3s"]
+radius = 5.0
+
+[node name="CommandCenter" type="Area3D"]
+collision_layer = 0
+collision_mask = 3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CylinderMesh_fbon8")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.92513, 0)
+mesh = SubResource("BoxMesh_0c0kt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01, 0)
+shape = SubResource("CylinderShape3D_mtg3s")
