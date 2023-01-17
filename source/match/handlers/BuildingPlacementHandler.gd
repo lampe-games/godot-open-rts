@@ -100,7 +100,7 @@ func _calculate_blueprint_position_validity():
 
 func _player_has_enough_resources():
 	var construction_cost = Constants.Match.Units.CONSTRUCTION_COSTS[
-		_pending_building_prototype . resource_path
+		_pending_building_prototype.resource_path
 	]
 	return _match.players[_match.controlled_player_id].has_resources(construction_cost)
 
@@ -186,7 +186,7 @@ func _cancel_building_placement():
 func _finish_building_placement():
 	if _player_has_enough_resources():
 		var construction_cost = Constants.Match.Units.CONSTRUCTION_COSTS[
-			_pending_building_prototype . resource_path
+			_pending_building_prototype.resource_path
 		]
 		_match.players[_match.controlled_player_id].subtract_resources(construction_cost)
 		MatchSignals.setup_and_spawn_unit.emit(
@@ -205,7 +205,7 @@ func _try_rotating_blueprint_by(degrees):
 	if not _building_placement_started():
 		return
 	_active_blueprint_node.global_transform.basis = (
-		_active_blueprint_node . global_transform . basis . rotated(Vector3.UP, deg_to_rad(degrees))
+		_active_blueprint_node.global_transform.basis.rotated(Vector3.UP, deg_to_rad(degrees))
 	)
 
 
