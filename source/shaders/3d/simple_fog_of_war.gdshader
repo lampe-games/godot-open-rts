@@ -52,6 +52,10 @@ void fragment()
           textureLod(world_visibility_texture, world_visibility_texture_uv, 0.0).r;
       ALPHA = max(ALPHA, 1.0 - transparency_from_world_visibility_texture);
     }
+    else
+    {
+      ALPHA = 1.0;
+    }
   }
 
   if (debug_texture_view && UV.x <= 0.2 && UV.y <= 0.2)
