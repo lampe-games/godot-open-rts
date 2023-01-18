@@ -1,5 +1,7 @@
 extends Area3D
 
+signal selected
+signal deselected
 signal action_changed(new_action)
 
 var player_id = null:
