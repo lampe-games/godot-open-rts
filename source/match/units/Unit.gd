@@ -2,7 +2,17 @@ extends Area3D
 
 signal selected
 signal deselected
+signal hp_changed
 signal action_changed(new_action)
+
+var hp = null:
+	set(value):
+		hp = value
+		hp_changed.emit()
+var hp_max = null:
+	set(value):
+		hp_max = value
+		hp_changed.emit()
 
 var player_id = null:
 	set(value):
@@ -16,6 +26,10 @@ var _action_locked = false
 
 func _ready():
 	assert(player_id != null)
+	# TODO: extract to method
+	var default_properties = Constants.Match.Units.DEFAULT_PROPERTIES[get_script().resource_path]
+	for property in default_properties:
+		set(property, default_properties[property])
 
 
 func _set_action(action_node):

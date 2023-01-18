@@ -29,7 +29,8 @@ func select():
 		_unit.add_to_group("selected_units")
 	_update_circle_color()
 	_circle.show()
-	_unit.selected.emit()
+	if "selected" in _unit:
+		_unit.selected.emit()
 	MatchSignals.unit_selected.emit(_unit)
 
 
@@ -40,7 +41,8 @@ func deselect():
 	if _unit.is_in_group("selected_units"):
 		_unit.remove_from_group("selected_units")
 	_circle.hide()
-	_unit.deselected.emit()
+	if "deselected" in _unit:
+		_unit.deselected.emit()
 	MatchSignals.unit_deselected.emit(_unit)
 
 

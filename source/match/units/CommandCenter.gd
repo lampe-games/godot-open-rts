@@ -12,4 +12,5 @@ var color:
 
 
 func _ready():
+	super()
 	action = ManagingProduction.new()

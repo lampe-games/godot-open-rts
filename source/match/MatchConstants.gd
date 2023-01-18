@@ -37,5 +37,10 @@ class Units:
 		{
 			"resource_a": 5,
 			"resource_b": 5,
-		}
+		},
+	}
+	const DEFAULT_PROPERTIES = {
+		"res://source/match/units/Drone.gd": {"hp": 10, "hp_max": 10},
+		"res://source/match/units/Worker.gd": {"hp": 10, "hp_max": 10},
+		"res://source/match/units/CommandCenter.gd": {"hp": 10, "hp_max": 10},
 	}
