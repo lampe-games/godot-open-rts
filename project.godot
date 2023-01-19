@@ -22,6 +22,7 @@ Constants="*res://source/Constants.gd"
 Globals="*res://source/Globals.gd"
 MatchSignals="*res://source/match/MatchSignals.gd"
 Signals="*res://source/Signals.gd"
+Utils="*res://source/Utils.gd"
 
 [display]
 

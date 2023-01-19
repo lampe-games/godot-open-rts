@@ -70,6 +70,7 @@ func _update():
 	if not _selecting():
 		return
 	_rect_on_screen.end = get_viewport().get_mouse_position()
+	# TODO: add export to control emit frequency
 	changed.emit(_screen_rect_2d_to_topdown_polygon_2d(_rect_on_screen.abs()))
 
 
@@ -82,13 +83,10 @@ func _screen_rect_2d_to_topdown_polygon_2d(rect_2d):
 		rect_2d.end,
 		Vector2(rect_2d.end.x, rect_2d.position.y),
 	]
-	var polygon_points_3d = []
+	var polygon_points_2d = []
 	for rect_point_2d in rect_points_2d:
-		var rect_point_3d = get_viewport().get_camera_3d().get_ray_intersection_with_plane(
+		var polygon_point_3d = get_viewport().get_camera_3d().get_ray_intersection_with_plane(
 			rect_point_2d, polygon_plane
 		)
-		polygon_points_3d.append(rect_point_3d)
-	var polygon_points_2d = []
-	for polygon_point_3d in polygon_points_3d:
 		polygon_points_2d.append(Vector2(polygon_point_3d.x, polygon_point_3d.z))
 	return polygon_points_2d
