@@ -24,6 +24,10 @@ MatchSignals="*res://source/match/MatchSignals.gd"
 Signals="*res://source/Signals.gd"
 Utils="*res://source/Utils.gd"
 
+[debug]
+
+gdscript/warnings/standalone_expression=0
+
 [display]
 
 window/size/viewport_width=1920
