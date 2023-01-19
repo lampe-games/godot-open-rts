@@ -14,6 +14,8 @@ var hp_max = null:
 	set(value):
 		hp_max = value
 		hp_changed.emit()
+var damage = null
+var damage_interval = null
 var radius = null:
 	set(_value):
 		pass

@@ -40,8 +40,22 @@ class Units:
 		},
 	}
 	const DEFAULT_PROPERTIES = {
-		"res://source/match/units/Drone.gd": {"hp": 10, "hp_max": 10},
-		"res://source/match/units/Worker.gd": {"hp": 10, "hp_max": 10},
-		"res://source/match/units/CommandCenter.gd": {"hp": 10, "hp_max": 10},
+		"res://source/match/units/Drone.gd":
+		{
+			"hp": 10,
+			"hp_max": 10,
+			"damage": 1,
+			"damage_interval": 1.0,
+		},
+		"res://source/match/units/Worker.gd":
+		{
+			"hp": 10,
+			"hp_max": 10,
+		},
+		"res://source/match/units/CommandCenter.gd":
+		{
+			"hp": 10,
+			"hp_max": 10,
+		},
 	}
 	const ADHERENCE_MARGIN = 0.1
