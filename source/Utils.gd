@@ -1,5 +1,7 @@
 extends Node
 
+const Match = preload("res://source/match/MatchUtils.gd")
+
 
 class Set:
 	extends "res://source/utils/Set.gd"
@@ -16,3 +18,11 @@ class Set:
 			if not subtrahend.has(item):
 				difference.add(item)
 		return difference
+
+
+class Dict:
+	static func items(d):
+		var pairs = []
+		for k in d:
+			pairs.append([k, d[k]])
+		return pairs

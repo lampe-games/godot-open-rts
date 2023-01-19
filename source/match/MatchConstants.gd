@@ -44,3 +44,4 @@ class Units:
 		"res://source/match/units/Worker.gd": {"hp": 10, "hp_max": 10},
 		"res://source/match/units/CommandCenter.gd": {"hp": 10, "hp_max": 10},
 	}
+	const ADHERENCE_MARGIN = 0.1

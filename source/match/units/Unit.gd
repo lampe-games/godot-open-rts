@@ -5,6 +5,7 @@ signal deselected
 signal hp_changed
 signal action_changed(new_action)
 
+# TODO: move setters/getters to separate functions
 var hp = null:
 	set(value):
 		hp = value
@@ -13,6 +14,15 @@ var hp_max = null:
 	set(value):
 		hp_max = value
 		hp_changed.emit()
+var radius = null:
+	set(_value):
+		pass
+	get:
+		if find_child("Movement") != null:
+			return find_child("Movement").radius
+		if find_child("MovementObstacle") != null:
+			return find_child("MovementObstacle").radius
+		return null
 
 var player_id = null:
 	set(value):
