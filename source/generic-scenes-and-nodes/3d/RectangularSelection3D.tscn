@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://co800e4shs7bh"]
+
+[ext_resource type="Script" path="res://source/generic-scenes-and-nodes/3d/RectangularSelection3D.gd" id="1_1ahea"]
+
+[node name="RectangularSelection3D" type="Node3D"]
+script = ExtResource("1_1ahea")

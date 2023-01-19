@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://doitvquurtufi"]
+[gd_scene load_steps=36 format=3 uid="uid://doitvquurtufi"]
 
 [ext_resource type="Script" path="res://source/match/Match.gd" id="1_1555u"]
 [ext_resource type="Script" path="res://source/match/IsometricCamera3D.gd" id="1_qb2ry"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://source/model/MatchSettings.gd" id="3_k87ed"]
 [ext_resource type="Script" path="res://source/match/FogOfWar.gd" id="5_eb52t"]
 [ext_resource type="PackedScene" uid="uid://bf3jjdafqvh0w" path="res://source/match/units/non-player/ResourceA.tscn" id="5_f840u"]
+[ext_resource type="PackedScene" uid="uid://co800e4shs7bh" path="res://source/generic-scenes-and-nodes/3d/RectangularSelection3D.tscn" id="5_yi0pu"]
 [ext_resource type="PackedScene" uid="uid://bufgjfa3ne3uk" path="res://source/match/units/non-player/ResourceB.tscn" id="6_7kua8"]
 [ext_resource type="Shader" path="res://source/shaders/3d/simple_fog_of_war.gdshader" id="6_bxic7"]
 [ext_resource type="PackedScene" uid="uid://clbjgy724q2si" path="res://source/generic-scenes-and-nodes/2d/DynamicCircle2D.tscn" id="6_ux0ef"]
@@ -16,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://cwcedr6jj7yty" path="res://source/match/hud/UnitMenus.tscn" id="13_6cypl"]
 [ext_resource type="PackedScene" uid="uid://nnsih72ih7qr" path="res://source/match/hud/ProductionQueue.tscn" id="13_qv3xn"]
 [ext_resource type="Script" path="res://source/match/players/human/UnitActionsController.gd" id="14_qgu1g"]
+[ext_resource type="PackedScene" uid="uid://dk7sa3fkyxks5" path="res://source/generic-scenes-and-nodes/control/RectangularSelection2D.tscn" id="16_ccb0o"]
 [ext_resource type="PackedScene" uid="uid://b0lxagyi6a5td" path="res://source/match/handlers/BuildingPlacementHandler.tscn" id="17_8ku5t"]
 
 [sub_resource type="Resource" id="Resource_aehri"]
@@ -110,6 +112,8 @@ directional_shadow_pancake_size = 1024.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="DummyContent"]
 environment = SubResource("Environment_qxcnu")
+
+[node name="RectangularSelection3D" parent="." instance=ExtResource("5_yi0pu")]
 
 [node name="Map" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 0, 50)
@@ -292,6 +296,10 @@ layout_mode = 2
 size_flags_horizontal = 8
 
 [node name="GodModeHUD" parent="." instance=ExtResource("10_p6gno")]
+
+[node name="TopmostUI" type="CanvasLayer" parent="."]
+
+[node name="RectangularSelection2D" parent="TopmostUI" instance=ExtResource("16_ccb0o")]
 
 [node name="Players" type="Node" parent="."]
 
