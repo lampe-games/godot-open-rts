@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://dt5j58c8a2ohk"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_35fi7"]
+size = Vector3(1.5, 1, 1.5)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_rvl1c"]
+height = 1.0
+radius = 2.0
+
+[node name="VehicleFactory" type="Area3D"]
+collision_layer = 0
+collision_mask = 3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_35fi7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.501, 0)
+shape = SubResource("CylinderShape3D_rvl1c")

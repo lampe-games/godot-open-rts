@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://ch30phgampbik"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_jgnb3"]
+size = Vector3(1.5, 1, 1.5)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_5pcg7"]
+top_radius = 0.75
+bottom_radius = 0.75
+height = 0.25
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_8kitc"]
+height = 1.0
+radius = 2.0
+
+[node name="AircraftFactory" type="Area3D"]
+collision_layer = 0
+collision_mask = 3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_jgnb3")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.125, 0)
+mesh = SubResource("CylinderMesh_5pcg7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.501, 0)
+shape = SubResource("CylinderShape3D_8kitc")

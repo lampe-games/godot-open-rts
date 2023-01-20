@@ -21,7 +21,7 @@ class Units:
 	const PRODUCTION_COSTS = {
 		"res://source/match/units/Worker.tscn":
 		{
-			"resource_a": 5,
+			"resource_a": 0,
 			"resource_b": 0,
 		}
 	}
@@ -31,12 +31,40 @@ class Units:
 	const BUILDING_BLUEPRINTS = {
 		"res://source/match/units/CommandCenter.tscn":
 		"res://source/match/units/building-blueprints/CommandCenter.tscn",
+		"res://source/match/units/VehicleFactory.tscn":
+		"res://source/match/units/building-blueprints/VehicleFactory.tscn",
+		"res://source/match/units/AircraftFactory.tscn":
+		"res://source/match/units/building-blueprints/AircraftFactory.tscn",
+		"res://source/match/units/AntiGroundTurret.tscn":
+		"res://source/match/units/building-blueprints/AntiGroundTurret.tscn",
+		"res://source/match/units/AntiAirTurret.tscn":
+		"res://source/match/units/building-blueprints/AntiAirTurret.tscn",
 	}
 	const CONSTRUCTION_COSTS = {
 		"res://source/match/units/CommandCenter.tscn":
 		{
-			"resource_a": 5,
-			"resource_b": 5,
+			"resource_a": 0,
+			"resource_b": 0,
+		},
+		"res://source/match/units/VehicleFactory.tscn":
+		{
+			"resource_a": 0,
+			"resource_b": 0,
+		},
+		"res://source/match/units/AircraftFactory.tscn":
+		{
+			"resource_a": 0,
+			"resource_b": 0,
+		},
+		"res://source/match/units/AntiGroundTurret.tscn":
+		{
+			"resource_a": 0,
+			"resource_b": 0,
+		},
+		"res://source/match/units/AntiAirTurret.tscn":
+		{
+			"resource_a": 0,
+			"resource_b": 0,
 		},
 	}
 	const DEFAULT_PROPERTIES = {
@@ -53,6 +81,26 @@ class Units:
 			"hp_max": 10,
 		},
 		"res://source/match/units/CommandCenter.gd":
+		{
+			"hp": 10,
+			"hp_max": 10,
+		},
+		"res://source/match/units/VehicleFactory.gd":
+		{
+			"hp": 10,
+			"hp_max": 10,
+		},
+		"res://source/match/units/AircraftFactory.gd":
+		{
+			"hp": 10,
+			"hp_max": 10,
+		},
+		"res://source/match/units/AntiGroundTurret.gd":
+		{
+			"hp": 10,
+			"hp_max": 10,
+		},
+		"res://source/match/units/AntiAirTurret.gd":
 		{
 			"hp": 10,
 			"hp_max": 10,

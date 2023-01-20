@@ -47,15 +47,15 @@ custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Padding10" type="Control" parent="."]
-custom_minimum_size = Vector2(48, 48)
+[node name="PlaceAntiGroundTurretButton" type="Button" parent="."]
 layout_mode = 2
-mouse_filter = 2
+focus_mode = 0
+text = "AG"
 
-[node name="Padding11" type="Control" parent="."]
-custom_minimum_size = Vector2(48, 48)
+[node name="PlaceAntiAirTurretButton" type="Button" parent="."]
 layout_mode = 2
-mouse_filter = 2
+focus_mode = 0
+text = "AA"
 
 [node name="Padding12" type="Control" parent="."]
 custom_minimum_size = Vector2(48, 48)
@@ -72,19 +72,23 @@ layout_mode = 2
 focus_mode = 0
 text = "CC"
 
-[node name="Padding14" type="Control" parent="."]
-custom_minimum_size = Vector2(48, 48)
+[node name="PlaceVehicleFactoryButton" type="Button" parent="."]
 layout_mode = 2
-mouse_filter = 2
+focus_mode = 0
+text = "VF"
 
-[node name="Padding15" type="Control" parent="."]
-custom_minimum_size = Vector2(48, 48)
+[node name="PlaceAircraftFactoryButton" type="Button" parent="."]
 layout_mode = 2
-mouse_filter = 2
+focus_mode = 0
+text = "AF"
 
 [node name="Padding16" type="Control" parent="."]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 mouse_filter = 2
 
+[connection signal="pressed" from="PlaceAntiGroundTurretButton" to="." method="_on_place_anti_ground_turret_button_pressed"]
+[connection signal="pressed" from="PlaceAntiAirTurretButton" to="." method="_on_place_anti_air_turret_button_pressed"]
 [connection signal="pressed" from="PlaceCommandCenterButton" to="." method="_on_place_command_center_button_pressed"]
+[connection signal="pressed" from="PlaceVehicleFactoryButton" to="." method="_on_place_vehicle_factory_button_pressed"]
+[connection signal="pressed" from="PlaceAircraftFactoryButton" to="." method="_on_place_aircraft_factory_button_pressed"]

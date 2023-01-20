@@ -27,6 +27,7 @@ func _hide_all_menus():
 
 func _try_showing_any_menu():
 	var selected_controlled_units = _get_selected_controlled_units()
+	# TODO: get rid of command_center_units
 	if (
 		selected_controlled_units.size() == 1
 		and selected_controlled_units[0].is_in_group("command_center_units")
@@ -34,11 +35,11 @@ func _try_showing_any_menu():
 		_command_center_menu.unit = selected_controlled_units[0]
 		_command_center_menu.show()
 		return true
+	# TODO: get rid of worker_units
 	if (
 		selected_controlled_units.size() == 1
 		and selected_controlled_units[0].is_in_group("worker_units")
 	):
-		_worker_menu.unit = selected_controlled_units[0]
 		_worker_menu.show()
 	if selected_controlled_units.size() > 0:
 		_generic_menu.units = selected_controlled_units

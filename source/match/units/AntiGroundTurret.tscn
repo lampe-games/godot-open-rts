@@ -1,0 +1,50 @@
+[gd_scene load_steps=9 format=3 uid="uid://bq3mxxflrbkad"]
+
+[ext_resource type="PackedScene" uid="uid://cgsi062w5fjia" path="res://source/match/units/traits/Highlight.tscn" id="1_5gp2d"]
+[ext_resource type="Script" path="res://source/match/units/AntiGroundTurret.gd" id="1_6hw4x"]
+[ext_resource type="PackedScene" uid="uid://3c1h14nqdumt" path="res://source/match/units/traits/Selection.tscn" id="2_f1d12"]
+[ext_resource type="PackedScene" uid="uid://d4cwip5hpxlmo" path="res://source/match/units/traits/MovementObstacle.tscn" id="3_ds80w"]
+[ext_resource type="PackedScene" uid="uid://c3ssj2p6voauk" path="res://source/match/units/traits/HealthBar.tscn" id="4_r6emo"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_wrrbq"]
+size = Vector3(1, 1, 0.5)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_dn3gq"]
+top_radius = 0.25
+bottom_radius = 0.25
+height = 1.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_k0bdq"]
+size = Vector3(1.5, 1.1, 1)
+
+[node name="AntiGroundTurret" type="Area3D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_6hw4x")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_wrrbq")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.5, 1, 0)
+mesh = SubResource("CylinderMesh_dn3gq")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.5, 1, 0)
+mesh = SubResource("CylinderMesh_dn3gq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
+shape = SubResource("BoxShape3D_k0bdq")
+
+[node name="Highlight" parent="." instance=ExtResource("1_5gp2d")]
+
+[node name="Selection" parent="." instance=ExtResource("2_f1d12")]
+
+[node name="MovementObstacle" parent="." instance=ExtResource("3_ds80w")]
+estimate_radius = false
+agent_height_offset = 0.5
+
+[node name="HealthBar" parent="." instance=ExtResource("4_r6emo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)

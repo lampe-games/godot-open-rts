@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://brxlc7k0md5gw"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_uk3ei"]
+size = Vector3(1, 1, 0.5)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_eykqj"]
+top_radius = 0.25
+bottom_radius = 0.25
+height = 1.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_bkg4f"]
+height = 1.0
+radius = 2.0
+
+[node name="AntiGroundTurret" type="Area3D"]
+collision_layer = 0
+collision_mask = 3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_uk3ei")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.5, 1, 0)
+mesh = SubResource("CylinderMesh_eykqj")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.5, 1, 0)
+mesh = SubResource("CylinderMesh_eykqj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.501, 0)
+shape = SubResource("CylinderShape3D_bkg4f")
