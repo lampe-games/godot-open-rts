@@ -5,6 +5,7 @@ uniform vec4 color : source_color = vec4(vec3(0.0), 1.0);
 uniform sampler2D world_visibility_texture : hint_default_white;
 uniform int texture_units_per_world_unit = 2;
 uniform bool debug_texture_view = false;
+uniform sampler2D depth_texture : hint_depth_texture;
 
 void vertex()
 {
@@ -26,7 +27,7 @@ void fragment()
   ALPHA = 0.0;
 
   // depth is encoded on the first channel and is <0; 1>
-  float depth = textureLod(DEPTH_TEXTURE, SCREEN_UV, 0.0).x;
+  float depth = textureLod(depth_texture, SCREEN_UV, 0.0).x;
   // transform depth from <0; 1> value to corresponding point in projection space <-1,-1,0; 1,1,1>*
   // * note that projection space in Vulkan is different than in OpenGL
   vec3 normalized_device_coordinates = vec3(SCREEN_UV * 2.0 - 1.0, depth);
