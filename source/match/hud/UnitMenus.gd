@@ -1,7 +1,12 @@
 extends PanelContainer
 
+const VehicleFactory = preload("res://source/match/units/VehicleFactory.gd")
+const AircraftFactory = preload("res://source/match/units/AircraftFactory.gd")
+
 @onready var _generic_menu = find_child("GenericMenu")
 @onready var _command_center_menu = find_child("CommandCenterMenu")
+@onready var _vehicle_factory_menu = find_child("VehicleFactoryMenu")
+@onready var _aircraft_factory_menu = find_child("AircraftFactoryMenu")
 @onready var _worker_menu = find_child("WorkerMenu")
 
 
@@ -22,6 +27,8 @@ func _reset_menus():
 func _hide_all_menus():
 	_generic_menu.hide()
 	_command_center_menu.hide()
+	_vehicle_factory_menu.hide()
+	_aircraft_factory_menu.hide()
 	_worker_menu.hide()
 
 
@@ -34,6 +41,14 @@ func _try_showing_any_menu():
 	):
 		_command_center_menu.unit = selected_controlled_units[0]
 		_command_center_menu.show()
+		return true
+	if selected_controlled_units.size() == 1 and selected_controlled_units[0] is VehicleFactory:
+		_vehicle_factory_menu.unit = selected_controlled_units[0]
+		_vehicle_factory_menu.show()
+		return true
+	if selected_controlled_units.size() == 1 and selected_controlled_units[0] is AircraftFactory:
+		_aircraft_factory_menu.unit = selected_controlled_units[0]
+		_aircraft_factory_menu.show()
 		return true
 	# TODO: get rid of worker_units
 	if (

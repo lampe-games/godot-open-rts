@@ -1,0 +1,55 @@
+[gd_scene load_steps=9 format=3 uid="uid://e7tko4kpeiau"]
+
+[ext_resource type="Script" path="res://source/match/units/Helicopter.gd" id="1_4fna5"]
+[ext_resource type="PackedScene" uid="uid://cgsi062w5fjia" path="res://source/match/units/traits/Highlight.tscn" id="1_nqs7t"]
+[ext_resource type="PackedScene" uid="uid://3c1h14nqdumt" path="res://source/match/units/traits/Selection.tscn" id="2_lki1x"]
+[ext_resource type="PackedScene" uid="uid://ivlo0e66qocl" path="res://source/match/units/traits/Movement.tscn" id="3_4ms8e"]
+[ext_resource type="PackedScene" uid="uid://c3ssj2p6voauk" path="res://source/match/units/traits/HealthBar.tscn" id="4_fmrjm"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_hgs7a"]
+size = Vector3(0.5, 0.5, 1.5)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_10gqn"]
+top_radius = 0.05
+bottom_radius = 0.05
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4d17w"]
+size = Vector3(1, 0.8, 1.5)
+
+[node name="Helicopter" type="Area3D"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_4fna5")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.993586, 0.113082, 0, -0.113082, 0.993586, 0, 0.25, 0)
+mesh = SubResource("BoxMesh_hgs7a")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.808955, 0.58787, 0, 2.56966e-08, -3.53606e-08, -1, -0.58787, 0.808955, -4.37114e-08, 0, 0.574231, 3.17029e-08)
+mesh = SubResource("CylinderMesh_10gqn")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.431456, 0.902134, 0, 3.94335e-08, -1.88595e-08, -1, -0.902134, 0.431456, -4.37114e-08, 0, 0.574231, 3.17029e-08)
+mesh = SubResource("CylinderMesh_10gqn")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.387339, 0.921938, 0, 4.02992e-08, 1.69311e-08, -1, -0.921938, -0.387339, -4.37114e-08, 0, 0.574231, 3.17029e-08)
+mesh = SubResource("CylinderMesh_10gqn")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.79469, 0.607015, 0, 2.65335e-08, 3.4737e-08, -1, -0.607015, -0.79469, -4.37114e-08, 0, 0.574231, 3.17029e-08)
+mesh = SubResource("CylinderMesh_10gqn")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+shape = SubResource("BoxShape3D_4d17w")
+
+[node name="Highlight" parent="." instance=ExtResource("1_nqs7t")]
+
+[node name="Selection" parent="." instance=ExtResource("2_lki1x")]
+
+[node name="Movement" parent="." instance=ExtResource("3_4ms8e")]
+
+[node name="HealthBar" parent="." instance=ExtResource("4_fmrjm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)

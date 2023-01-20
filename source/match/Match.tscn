@@ -62,7 +62,7 @@ resource_local_to_scene = true
 render_priority = 1
 shader = ExtResource("6_bxic7")
 shader_parameter/color = Color(0, 0, 0, 1)
-shader_parameter/texture_units_per_world_unit = null
+shader_parameter/texture_units_per_world_unit = 2
 shader_parameter/debug_texture_view = false
 shader_parameter/world_visibility_texture = SubResource("ViewportTexture_rm132")
 

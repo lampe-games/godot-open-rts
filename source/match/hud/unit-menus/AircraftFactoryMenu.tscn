@@ -1,0 +1,74 @@
+[gd_scene load_steps=2 format=3 uid="uid://dk3no87nfpp8i"]
+
+[ext_resource type="Script" path="res://source/match/hud/unit-menus/AircraftFactoryMenu.gd" id="1_l3uuu"]
+
+[node name="AircraftFactoryMenu" type="GridContainer"]
+columns = 4
+script = ExtResource("1_l3uuu")
+
+[node name="Padding" type="Control" parent="."]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+
+[node name="Padding2" type="Control" parent="."]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+
+[node name="Padding3" type="Control" parent="."]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+
+[node name="Padding5" type="Control" parent="."]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+
+[node name="Padding6" type="Control" parent="."]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+
+[node name="Padding7" type="Control" parent="."]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+
+[node name="Padding8" type="Control" parent="."]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+
+[node name="Padding9" type="Control" parent="."]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+
+[node name="Padding10" type="Control" parent="."]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+
+[node name="Padding11" type="Control" parent="."]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+
+[node name="Padding12" type="Control" parent="."]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+
+[node name="Padding13" type="Control" parent="."]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+
+[node name="ProduceHelicopterButton" type="Button" parent="."]
+layout_mode = 2
+focus_mode = 0
+text = "H"
+
+[node name="Padding14" type="Control" parent="."]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+
+[node name="Padding15" type="Control" parent="."]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+
+[node name="Padding16" type="Control" parent="."]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+
+[connection signal="pressed" from="ProduceHelicopterButton" to="." method="_on_produce_helicopter_button_pressed"]

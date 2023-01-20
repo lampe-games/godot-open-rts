@@ -23,10 +23,22 @@ class Units:
 		{
 			"resource_a": 0,
 			"resource_b": 0,
-		}
+		},
+		"res://source/match/units/Helicopter.tscn":
+		{
+			"resource_a": 0,
+			"resource_b": 0,
+		},
+		"res://source/match/units/Tank.tscn":
+		{
+			"resource_a": 0,
+			"resource_b": 0,
+		},
 	}
 	const PRODUCTION_TIMES = {
 		"res://source/match/units/Worker.tscn": 5.0,
+		"res://source/match/units/Helicopter.tscn": 5.0,
+		"res://source/match/units/Tank.tscn": 5.0,
 	}
 	const BUILDING_BLUEPRINTS = {
 		"res://source/match/units/CommandCenter.tscn":
@@ -72,13 +84,25 @@ class Units:
 		{
 			"hp": 10,
 			"hp_max": 10,
-			"damage": 1,
-			"damage_interval": 1.0,
 		},
 		"res://source/match/units/Worker.gd":
 		{
 			"hp": 10,
 			"hp_max": 10,
+		},
+		"res://source/match/units/Helicopter.gd":
+		{
+			"hp": 10,
+			"hp_max": 10,
+			"damage": 1,
+			"damage_interval": 1.0,
+		},
+		"res://source/match/units/Tank.gd":
+		{
+			"hp": 10,
+			"hp_max": 10,
+			"damage": 1,
+			"damage_interval": 1.0,
 		},
 		"res://source/match/units/CommandCenter.gd":
 		{

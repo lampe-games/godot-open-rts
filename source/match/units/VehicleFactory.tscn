@@ -6,10 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://d4cwip5hpxlmo" path="res://source/match/units/traits/MovementObstacle.tscn" id="3_cp6bx"]
 [ext_resource type="PackedScene" uid="uid://c3ssj2p6voauk" path="res://source/match/units/traits/HealthBar.tscn" id="4_xd2eg"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_flpl6"]
+[sub_resource type="BoxMesh" id="BoxMesh_f7ulh"]
 size = Vector3(1.5, 1, 1.5)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_65vin"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_t3qhv"]
 size = Vector3(1.5, 1, 1.5)
 
 [node name="VehicleFactory" type="Area3D"]
@@ -19,16 +19,18 @@ script = ExtResource("1_1a20j")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-mesh = SubResource("BoxMesh_flpl6")
+mesh = SubResource("BoxMesh_f7ulh")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-shape = SubResource("BoxShape3D_65vin")
+shape = SubResource("BoxShape3D_t3qhv")
 
 [node name="Highlight" parent="." instance=ExtResource("1_8fcgb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
 radius = 1.25
 
 [node name="Selection" parent="." instance=ExtResource("2_h27kt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
 radius = 1.25
 
 [node name="MovementObstacle" parent="." instance=ExtResource("3_cp6bx")]

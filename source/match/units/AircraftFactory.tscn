@@ -6,15 +6,15 @@
 [ext_resource type="PackedScene" uid="uid://d4cwip5hpxlmo" path="res://source/match/units/traits/MovementObstacle.tscn" id="3_j1buj"]
 [ext_resource type="PackedScene" uid="uid://c3ssj2p6voauk" path="res://source/match/units/traits/HealthBar.tscn" id="4_igtfr"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_kbuk0"]
+[sub_resource type="BoxMesh" id="BoxMesh_jev7a"]
 size = Vector3(1.5, 1, 1.5)
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_kbwf0"]
+[sub_resource type="CylinderMesh" id="CylinderMesh_s34sk"]
 top_radius = 0.75
 bottom_radius = 0.75
 height = 0.25
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_j8kl8"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_txtkf"]
 size = Vector3(1.5, 1.2, 1.5)
 
 [node name="AircraftFactory" type="Area3D"]
@@ -24,20 +24,22 @@ script = ExtResource("1_n6n1v")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-mesh = SubResource("BoxMesh_kbuk0")
+mesh = SubResource("BoxMesh_jev7a")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.125, 0)
-mesh = SubResource("CylinderMesh_kbwf0")
+mesh = SubResource("CylinderMesh_s34sk")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
-shape = SubResource("BoxShape3D_j8kl8")
+shape = SubResource("BoxShape3D_txtkf")
 
 [node name="Highlight" parent="." instance=ExtResource("1_r5i7t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
 radius = 1.25
 
 [node name="Selection" parent="." instance=ExtResource("2_56ml3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
 radius = 1.25
 
 [node name="MovementObstacle" parent="." instance=ExtResource("3_j1buj")]

@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://cwcedr6jj7yty"]
+[gd_scene load_steps=7 format=3 uid="uid://cwcedr6jj7yty"]
 
 [ext_resource type="PackedScene" uid="uid://pawymiv0p8ab" path="res://source/match/hud/unit-menus/GenericMenu.tscn" id="1_4ci70"]
 [ext_resource type="Script" path="res://source/match/hud/UnitMenus.gd" id="1_hugbq"]
 [ext_resource type="PackedScene" uid="uid://d4iqf0mjt5ub3" path="res://source/match/hud/unit-menus/CommandCenterMenu.tscn" id="3_hqirh"]
 [ext_resource type="PackedScene" uid="uid://btvii654eytjr" path="res://source/match/hud/unit-menus/WorkerMenu.tscn" id="4_1s3pp"]
+[ext_resource type="PackedScene" uid="uid://d1b3uq81171lf" path="res://source/match/hud/unit-menus/VehicleFactoryMenu.tscn" id="4_ngnkq"]
+[ext_resource type="PackedScene" uid="uid://dk3no87nfpp8i" path="res://source/match/hud/unit-menus/AircraftFactoryMenu.tscn" id="5_jocca"]
 
 [node name="UnitMenus" type="PanelContainer"]
 script = ExtResource("1_hugbq")
@@ -85,9 +87,19 @@ layout_mode = 2
 
 [node name="GenericMenu" parent="MarginContainer" instance=ExtResource("1_4ci70")]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="CommandCenterMenu" parent="MarginContainer" instance=ExtResource("3_hqirh")]
 layout_mode = 2
+mouse_filter = 2
+
+[node name="VehicleFactoryMenu" parent="MarginContainer" instance=ExtResource("4_ngnkq")]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="AircraftFactoryMenu" parent="MarginContainer" instance=ExtResource("5_jocca")]
+layout_mode = 2
+mouse_filter = 2
 
 [node name="WorkerMenu" parent="MarginContainer" instance=ExtResource("4_1s3pp")]
 layout_mode = 2

@@ -57,3 +57,4 @@ rotate_building={
 3d_navigation/layer_1="air"
 3d_physics/layer_2="TerrainObjects"
 3d_navigation/layer_2="terrain"
+3d_physics/layer_3="AirObjects"

@@ -1,48 +1,51 @@
-[gd_scene load_steps=8 format=3 uid="uid://0gow0ughqu8u"]
+[gd_scene load_steps=9 format=3 uid="uid://0gow0ughqu8u"]
 
 [ext_resource type="Script" path="res://source/match/units/Drone.gd" id="1_5qo4j"]
 [ext_resource type="PackedScene" uid="uid://cgsi062w5fjia" path="res://source/match/units/traits/Highlight.tscn" id="1_44soy"]
 [ext_resource type="PackedScene" uid="uid://3c1h14nqdumt" path="res://source/match/units/traits/Selection.tscn" id="2_5w4nl"]
 [ext_resource type="PackedScene" uid="uid://ivlo0e66qocl" path="res://source/match/units/traits/Movement.tscn" id="4_wemaw"]
+[ext_resource type="PackedScene" uid="uid://c3ssj2p6voauk" path="res://source/match/units/traits/HealthBar.tscn" id="5_vqiw1"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_c1htm"]
+[sub_resource type="BoxMesh" id="BoxMesh_hd7v7"]
 size = Vector3(1, 0.5, 1)
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_42xfl"]
+[sub_resource type="CylinderMesh" id="CylinderMesh_jay7x"]
 height = 0.2
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_kn4n7"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_krfo3"]
 size = Vector3(2, 0.6, 2)
 
 [node name="Drone" type="Area3D"]
+collision_layer = 4
+collision_mask = 0
 script = ExtResource("1_5qo4j")
 
 [node name="Meshes" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Meshes"]
-mesh = SubResource("BoxMesh_c1htm")
+mesh = SubResource("BoxMesh_hd7v7")
 skeleton = NodePath("../..")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Meshes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.332, 0.5)
-mesh = SubResource("CylinderMesh_42xfl")
+mesh = SubResource("CylinderMesh_jay7x")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="Meshes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.332, -0.5)
-mesh = SubResource("CylinderMesh_42xfl")
+mesh = SubResource("CylinderMesh_jay7x")
 
 [node name="MeshInstance3D4" type="MeshInstance3D" parent="Meshes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.332, 0.5)
-mesh = SubResource("CylinderMesh_42xfl")
+mesh = SubResource("CylinderMesh_jay7x")
 
 [node name="MeshInstance3D5" type="MeshInstance3D" parent="Meshes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.332, -0.5)
-mesh = SubResource("CylinderMesh_42xfl")
+mesh = SubResource("CylinderMesh_jay7x")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
-shape = SubResource("BoxShape3D_kn4n7")
+shape = SubResource("BoxShape3D_krfo3")
 
 [node name="Highlight" parent="." instance=ExtResource("1_44soy")]
 radius = 1.4
@@ -52,3 +55,6 @@ radius = 1.4
 
 [node name="Movement" parent="." instance=ExtResource("4_wemaw")]
 radius = 1.4
+
+[node name="HealthBar" parent="." instance=ExtResource("5_vqiw1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
