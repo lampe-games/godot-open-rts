@@ -1,52 +1,41 @@
-[gd_scene load_steps=9 format=3 uid="uid://bq3mxxflrbkad"]
+[gd_scene load_steps=8 format=3 uid="uid://bq3mxxflrbkad"]
 
 [ext_resource type="PackedScene" uid="uid://cgsi062w5fjia" path="res://source/match/units/traits/Highlight.tscn" id="1_5gp2d"]
 [ext_resource type="Script" path="res://source/match/units/AntiGroundTurret.gd" id="1_6hw4x"]
 [ext_resource type="PackedScene" uid="uid://3c1h14nqdumt" path="res://source/match/units/traits/Selection.tscn" id="2_f1d12"]
 [ext_resource type="PackedScene" uid="uid://d4cwip5hpxlmo" path="res://source/match/units/traits/MovementObstacle.tscn" id="3_ds80w"]
 [ext_resource type="PackedScene" uid="uid://c3ssj2p6voauk" path="res://source/match/units/traits/HealthBar.tscn" id="4_r6emo"]
+[ext_resource type="PackedScene" uid="uid://c6byun73jesch" path="res://assets/models/kenney-spacekit/turret_single.glb" id="6_y0npg"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_bb2ay"]
-size = Vector3(1, 1, 0.5)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_btv5a"]
-top_radius = 0.25
-bottom_radius = 0.25
-height = 1.0
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_spo37"]
-size = Vector3(1.5, 1.1, 1)
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_7ewa6"]
+height = 0.8
+radius = 0.6
 
 [node name="AntiGroundTurret" type="Area3D"]
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_6hw4x")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-mesh = SubResource("BoxMesh_bb2ay")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.5, 1, 0)
-mesh = SubResource("CylinderMesh_btv5a")
-
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.5, 1, 0)
-mesh = SubResource("CylinderMesh_btv5a")
+[node name="turret_single" parent="." instance=ExtResource("6_y0npg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -1.5)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
-shape = SubResource("BoxShape3D_spo37")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+shape = SubResource("CylinderShape3D_7ewa6")
 
 [node name="Highlight" parent="." instance=ExtResource("1_5gp2d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
+radius = 0.75
 
 [node name="Selection" parent="." instance=ExtResource("2_f1d12")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
+radius = 0.75
 
 [node name="MovementObstacle" parent="." instance=ExtResource("3_ds80w")]
 estimate_radius = false
+radius = 0.75
 agent_height_offset = 0.5
 
 [node name="HealthBar" parent="." instance=ExtResource("4_r6emo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
+size = Vector2(150, 20)

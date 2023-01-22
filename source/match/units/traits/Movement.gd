@@ -46,6 +46,18 @@ func _align_unit_position_to_navigation():
 
 
 func _on_velocity_computed(safe_velocity: Vector3):
+	var direction = safe_velocity
+	var rotation_target = _unit.global_transform.origin + direction
+	if (
+		not is_zero_approx(direction.length())
+		and not rotation_target.is_equal_approx(_unit.global_transform.origin)
+		and not (
+			is_zero_approx(direction.x)
+			and not is_zero_approx(direction.y)
+			and is_zero_approx(direction.z)
+		)
+	):
+		_unit.global_transform = _unit.global_transform.looking_at(rotation_target)
 	_unit.global_transform.origin = _unit.global_transform.origin.move_toward(
 		_unit.global_transform.origin + safe_velocity, _interim_speed
 	)
