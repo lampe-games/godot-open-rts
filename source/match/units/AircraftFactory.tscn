@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://c3ssj2p6voauk" path="res://source/match/units/traits/HealthBar.tscn" id="4_igtfr"]
 [ext_resource type="PackedScene" uid="uid://ju36oirvvb61" path="res://assets/models/kenney-spacekit/hangar_smallA.glb" id="6_eoxt8"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_c57fu"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_a4px2"]
 height = 1.0
 radius = 1.5
 
@@ -18,30 +18,33 @@ collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_n6n1v")
 
-[node name="hangar_smallA" parent="." instance=ExtResource("6_eoxt8")]
+[node name="Geometry" type="Node3D" parent="."]
+transform = Transform3D(0.95, 0, 0, 0, 0.95, 0, 0, 0, 0.95, 0, 0, 0)
+
+[node name="hangar_smallA" parent="Geometry" instance=ExtResource("6_eoxt8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -1.5)
 
-[node name="supports_low" parent="." instance=ExtResource("3_xe0oc")]
+[node name="supports_low" parent="Geometry" instance=ExtResource("3_xe0oc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.77729, 0.973011, -1.09501)
 
-[node name="platform_small" parent="." instance=ExtResource("4_7xinw")]
+[node name="platform_small" parent="Geometry" instance=ExtResource("4_7xinw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.77729, 1.39766, -1.09501)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-shape = SubResource("CylinderShape3D_c57fu")
+shape = SubResource("CylinderShape3D_a4px2")
 
 [node name="Highlight" parent="." instance=ExtResource("1_r5i7t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
-radius = 1.75
+radius = 1.5
 
 [node name="Selection" parent="." instance=ExtResource("2_56ml3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
-radius = 1.75
+radius = 1.5
 
 [node name="MovementObstacle" parent="." instance=ExtResource("3_j1buj")]
 estimate_radius = false
-radius = 1.75
+radius = 1.5
 agent_height_offset = 0.5
 
 [node name="HealthBar" parent="." instance=ExtResource("4_igtfr")]

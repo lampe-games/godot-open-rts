@@ -96,7 +96,7 @@ settings = SubResource("Resource_frabv")
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 49.5996, 12.4465, 65.9216)
 projection = 1
 current = true
-size = 30.0
+size = 15.0
 script = ExtResource("1_qb2ry")
 size_max = 60
 bounding_planes = [Plane(1, 0, 0, 0), Plane(-1, 0, 0, -100), Plane(0, 0, 1, 0), Plane(0, 0, -1, -100)]
@@ -128,16 +128,16 @@ skeleton = NodePath("../../../DummyContent")
 [node name="SpawnPoints" type="Node3D" parent="Map"]
 
 [node name="Marker3D" type="Marker3D" parent="Map/SpawnPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.3571, 0, -38.92)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -38.3571, 0, -38.92)
 
 [node name="Marker3D2" type="Marker3D" parent="Map/SpawnPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.9382, 0, -40.4288)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 40.9382, 0, -40.4288)
 
 [node name="Marker3D3" type="Marker3D" parent="Map/SpawnPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.1455, 0, 42.1901)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 41.1455, 0, 42.1901)
 
 [node name="Marker3D4" type="Marker3D" parent="Map/SpawnPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.679, 0, 41.4663)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -37.679, 0, 41.4663)
 
 [node name="Units" type="Node3D" parent="Map"]
 
