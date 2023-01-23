@@ -2,7 +2,7 @@ shader_type spatial;
 render_mode unshaded;
 
 uniform vec4 color : source_color = vec4(vec3(0.0), 1.0);
-uniform sampler2D world_visibility_texture : hint_default_white;
+uniform sampler2D world_visibility_texture : hint_default_white, filter_linear, repeat_disable;
 uniform int texture_units_per_world_unit = 2;
 uniform bool debug_texture_view = false;
 uniform sampler2D depth_texture : hint_depth_texture;

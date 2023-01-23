@@ -51,7 +51,7 @@ func _map_unit_to_new_circles(unit):
 
 func _sync_circles_to_unit(unit):
 	var unit_pos_3d = unit.global_transform.origin
-	var unit_pos_2d = Vector2(unit_pos_3d.x, unit_pos_3d.z) * 2.0
+	var unit_pos_2d = Vector2(unit_pos_3d.x, unit_pos_3d.z) * TEXTURE_UNITS_PER_WORLD_UNIT
 	_unit_to_circles_mapping[unit][0].position = unit_pos_2d
 	_unit_to_circles_mapping[unit][1].position = unit_pos_2d
 
