@@ -6,6 +6,7 @@
 script = ExtResource("1_0os23")
 
 [node name="FeedbackLabel3D" type="Label3D" parent="."]
+visible = false
 pixel_size = 0.0006
 billboard = 1
 no_depth_test = true

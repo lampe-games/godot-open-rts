@@ -58,3 +58,9 @@ rotate_building={
 3d_physics/layer_2="TerrainObjects"
 3d_navigation/layer_2="terrain"
 3d_physics/layer_3="AirObjects"
+
+[rendering]
+
+lights_and_shadows/directional_shadow/size=16384
+lights_and_shadows/directional_shadow/soft_shadow_filter_quality=5
+textures/default_filters/anisotropic_filtering_level=4

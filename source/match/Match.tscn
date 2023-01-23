@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://co800e4shs7bh" path="res://source/generic-scenes-and-nodes/3d/RectangularSelection3D.tscn" id="5_yi0pu"]
 [ext_resource type="PackedScene" uid="uid://bufgjfa3ne3uk" path="res://source/match/units/non-player/ResourceB.tscn" id="6_7kua8"]
 [ext_resource type="Shader" path="res://source/shaders/3d/simple_fog_of_war.gdshader" id="6_bxic7"]
+[ext_resource type="Material" uid="uid://co8vfcoqqs5i8" path="res://source/match/resources/materials/terrain.material.tres" id="6_u47mu"]
 [ext_resource type="PackedScene" uid="uid://clbjgy724q2si" path="res://source/generic-scenes-and-nodes/2d/DynamicCircle2D.tscn" id="6_ux0ef"]
 [ext_resource type="Script" path="res://source/match/Terrain.gd" id="7_ccpu4"]
 [ext_resource type="Script" path="res://source/match/Navigation.gd" id="10_1wfp1"]
@@ -35,20 +36,25 @@ players = [SubResource("Resource_aehri"), SubResource("Resource_ohrdq")]
 controlled_player = 0
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ysb0j"]
+sun_angle_max = 200.0
 
 [sub_resource type="Sky" id="Sky_kunr4"]
 sky_material = SubResource("ProceduralSkyMaterial_ysb0j")
 
 [sub_resource type="Environment" id="Environment_qxcnu"]
 background_mode = 2
+background_energy_multiplier = 1.2
 sky = SubResource("Sky_kunr4")
 ambient_light_color = Color(1, 1, 1, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1na00"]
-albedo_color = Color(1, 0.396078, 0.298039, 1)
+tonemap_mode = 3
+tonemap_exposure = 0.9
+fog_light_color = Color(0.960784, 0.745098, 0.654902, 1)
+fog_density = 0.0016
+fog_height = 0.25
+fog_height_density = 1.2
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_5wwb3"]
-material = SubResource("StandardMaterial3D_1na00")
+material = ExtResource("6_u47mu")
 size = Vector2(100, 100)
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_45mtw"]
@@ -104,15 +110,17 @@ bounding_planes = [Plane(1, 0, 0, 0), Plane(-1, 0, 0, -100), Plane(0, 0, 1, 0), 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.512043, 0.673162, -0.533541, 0, 0.621148, 0.783694, 0.85896, -0.401285, 0.318054, 0, 38.7614, 0)
 shadow_enabled = true
-shadow_blur = 0.06
-directional_shadow_mode = 1
-directional_shadow_split_1 = 0.009
-directional_shadow_pancake_size = 1024.0
+shadow_blur = 0.05
+directional_shadow_split_1 = 0.45
+directional_shadow_split_2 = 0.5
+directional_shadow_split_3 = 0.55
+directional_shadow_blend_splits = true
+directional_shadow_pancake_size = 100.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_qxcnu")
 
 [node name="DummyContent" type="Node3D" parent="."]
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="DummyContent"]
-environment = SubResource("Environment_qxcnu")
 
 [node name="RectangularSelection3D" parent="." instance=ExtResource("5_yi0pu")]
 
@@ -121,7 +129,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 0, 50)
 
 [node name="Meshes" type="Node3D" parent="Map"]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Map/Meshes"]
+[node name="Terrain" type="MeshInstance3D" parent="Map/Meshes"]
 mesh = SubResource("PlaneMesh_5wwb3")
 skeleton = NodePath("../../../DummyContent")
 
@@ -222,6 +230,7 @@ visible = false
 mesh = SubResource("PlaneMesh_g1mtu")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="Navigation/Air"]
+visible = false
 navigation_mesh = SubResource("NavigationMesh_8emvl")
 
 [node name="Terrain" type="Node3D" parent="Navigation"]
@@ -232,6 +241,7 @@ visible = false
 mesh = SubResource("PlaneMesh_u4w5p")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="Navigation/Terrain"]
+visible = false
 navigation_mesh = SubResource("NavigationMesh_exfwj")
 navigation_layers = 2
 
