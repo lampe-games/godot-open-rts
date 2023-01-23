@@ -11,3 +11,6 @@ lint:
 
 cc:
 	find source/ -name '*.gd' | xargs gdradon cc
+
+todo:
+	ack ' todo' -i source/

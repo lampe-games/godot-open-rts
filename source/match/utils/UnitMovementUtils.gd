@@ -8,6 +8,8 @@ const DISTANCE_REDUCTION_BY_SUBTRACTION_ITERATIONS_MAX = 10
 
 static func crowd_moved_to_new_pivot(units, new_pivot):
 	"""calculates new unit positions relative to new_pivot"""
+	if units.is_empty():
+		return []
 	if units.size() == 1:
 		return [[units[0], new_pivot]]
 	var old_pivot = _calculate_aabb_crowd_pivot_yless(units)

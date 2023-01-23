@@ -31,11 +31,6 @@ func _navigate_selected_units_towards_position(target_point):
 		var unit = tuple[0]
 		var new_target = tuple[1]
 		unit.action = Actions.Moving.new(new_target)
-	# # 	if unit.movement.is_movable():
-	# # 		StageSignals.emit_signal("set_unit_action", unit, UnitActions.Movement.new(new_target))
-	# for unit in get_tree().get_nodes_in_group("selected_units"):
-	# 	if unit.is_in_group("controlled_units") and Actions.Moving.is_applicable(unit):
-	# 		unit.action = Actions.Moving.new(target_point)
 
 
 func _navigate_selected_units_towards_unit(target_unit):
