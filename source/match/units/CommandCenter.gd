@@ -4,8 +4,6 @@ const ManagingProduction = preload("res://source/match/units/actions/ManagingPro
 
 const SIGHT_RANGE = 10.0
 
-var color = null
-
 
 func _ready():
 	super()

@@ -5,6 +5,8 @@ signal deselected
 signal hp_changed
 signal action_changed(new_action)
 
+const MATERIAL_COLOR_TO_REPLACE = Color(0.99, 0.81, 0.48)
+
 # TODO: move setters/getters to separate functions
 var hp = null:
 	set(value):
@@ -30,6 +32,8 @@ var player_id = null:
 	set(value):
 		assert(player_id == null)
 		player_id = value
+var color = null:
+	set = _set_color
 var action = null:
 	set = _set_action
 
@@ -42,6 +46,31 @@ func _ready():
 	var default_properties = Constants.Match.Units.DEFAULT_PROPERTIES[get_script().resource_path]
 	for property in default_properties:
 		set(property, default_properties[property])
+
+
+func _set_color(a_color):
+	color = a_color
+	# TODO: use path from constants and preload
+	var material = StandardMaterial3D.new()
+	material.vertex_color_use_as_albedo = true
+	material.albedo_color = color
+	material.metallic = 1
+	var geometry_root = find_child("Geometry")
+	if geometry_root == null:
+		return
+	for child in geometry_root.find_children("*"):
+		if not "mesh" in child:
+			continue
+		for surface_id in range(child.mesh.get_surface_count()):
+			var surface_material = child.mesh.get("surface_{0}/material".format([surface_id]))
+			# TODO: create utility function
+			if (
+				surface_material != null
+				and abs(surface_material.albedo_color.r - MATERIAL_COLOR_TO_REPLACE.r) < 0.1
+				and abs(surface_material.albedo_color.g - MATERIAL_COLOR_TO_REPLACE.g) < 0.1
+				and abs(surface_material.albedo_color.b - MATERIAL_COLOR_TO_REPLACE.b) < 0.1
+			):
+				child.set("surface_material_override/{0}".format([surface_id]), material)
 
 
 func _set_action(action_node):
