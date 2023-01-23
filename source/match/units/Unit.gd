@@ -6,32 +6,21 @@ signal hp_changed
 signal action_changed(new_action)
 
 const MATERIAL_COLOR_TO_REPLACE = Color(0.99, 0.81, 0.48)
+const MATERIAL_COLOR_TO_REPLACE_EPSILON = 0.05
 
-# TODO: move setters/getters to separate functions
 var hp = null:
-	set(value):
-		hp = value
-		hp_changed.emit()
+	set = _set_hp
 var hp_max = null:
-	set(value):
-		hp_max = value
-		hp_changed.emit()
+	set = _set_hp_max
 var damage = null
 var damage_interval = null
 var radius = null:
-	set(_value):
-		pass
-	get:
-		if find_child("Movement") != null:
-			return find_child("Movement").radius
-		if find_child("MovementObstacle") != null:
-			return find_child("MovementObstacle").radius
-		return null
+	set = _ignore,
+	get = _get_radius
+var sight_range = null
 
 var player_id = null:
-	set(value):
-		assert(player_id == null)
-		player_id = value
+	set = _set_player_id
 var color = null:
 	set = _set_color
 var action = null:
@@ -42,15 +31,39 @@ var _action_locked = false
 
 func _ready():
 	assert(player_id != null)
-	# TODO: extract to method
-	var default_properties = Constants.Match.Units.DEFAULT_PROPERTIES[get_script().resource_path]
-	for property in default_properties:
-		set(property, default_properties[property])
+	_setup_default_properties_from_constants()
+
+
+func _ignore(_value):
+	pass
+
+
+func _set_hp(value):
+	hp = value
+	hp_changed.emit()
+
+
+func _set_hp_max(value):
+	hp_max = value
+	hp_changed.emit()
+
+
+func _get_radius():
+	if find_child("Movement") != null:
+		return find_child("Movement").radius
+	if find_child("MovementObstacle") != null:
+		return find_child("MovementObstacle").radius
+	return null
+
+
+func _set_player_id(value):
+	assert(player_id == null)
+	player_id = value
 
 
 func _set_color(a_color):
 	color = a_color
-	# TODO: use path from constants and preload
+	# TODO: cache material per player and reuse
 	var material = StandardMaterial3D.new()
 	material.vertex_color_use_as_albedo = true
 	material.albedo_color = color
@@ -63,12 +76,13 @@ func _set_color(a_color):
 			continue
 		for surface_id in range(child.mesh.get_surface_count()):
 			var surface_material = child.mesh.get("surface_{0}/material".format([surface_id]))
-			# TODO: create utility function
 			if (
 				surface_material != null
-				and abs(surface_material.albedo_color.r - MATERIAL_COLOR_TO_REPLACE.r) < 0.1
-				and abs(surface_material.albedo_color.g - MATERIAL_COLOR_TO_REPLACE.g) < 0.1
-				and abs(surface_material.albedo_color.b - MATERIAL_COLOR_TO_REPLACE.b) < 0.1
+				and Utils.Colour.is_equal_approx_with_epsilon(
+					surface_material.albedo_color,
+					MATERIAL_COLOR_TO_REPLACE,
+					MATERIAL_COLOR_TO_REPLACE_EPSILON
+				)
 			):
 				child.set("surface_material_override/{0}".format([surface_id]), material)
 
@@ -91,6 +105,12 @@ func _teardown_current_action():
 	if action != null and action.is_inside_tree():
 		action.queue_free()
 		remove_child(action)  # triggers _on_action_node_tree_exited immediately
+
+
+func _setup_default_properties_from_constants():
+	var default_properties = Constants.Match.Units.DEFAULT_PROPERTIES[get_script().resource_path]
+	for property in default_properties:
+		set(property, default_properties[property])
 
 
 func _on_action_node_tree_exited(action_node):

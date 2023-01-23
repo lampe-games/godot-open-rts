@@ -14,7 +14,6 @@ func _ready():
 
 
 func _align_unit_position_to_navigation():
-	# TODO: use new API once available
 	_unit.global_transform.origin = (
 		NavigationServer3D.map_get_closest_point(
 			get_navigation_map(), get_parent().global_transform.origin

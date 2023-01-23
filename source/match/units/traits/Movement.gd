@@ -36,7 +36,6 @@ func stop():
 
 func _align_unit_position_to_navigation():
 	await get_tree().process_frame  # wait for navigation to be operational
-	# TODO: use new API once available
 	_unit.global_transform.origin = (
 		NavigationServer3D.map_get_closest_point(
 			get_navigation_map(), get_parent().global_transform.origin

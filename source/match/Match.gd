@@ -35,11 +35,11 @@ func _ready():
 
 func _unhandled_input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		MatchSignals.deselect_all.emit()
+		MatchSignals.deselect_all_units.emit()
 
 
 func _set_controlled_player_id(id):
-	MatchSignals.deselect_all.emit()
+	MatchSignals.deselect_all_units.emit()
 	_renounce_control_of_player_units(controlled_player_id)
 	_assume_control_of_player_units(id)
 	controlled_player_id = id

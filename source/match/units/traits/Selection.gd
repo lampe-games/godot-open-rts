@@ -16,7 +16,7 @@ func _ready():
 	_update_circle_params()
 	if Engine.is_editor_hint():
 		return
-	MatchSignals.deselect_all.connect(deselect)
+	MatchSignals.deselect_all_units.connect(deselect)
 	_unit.input_event.connect(_on_input_event)
 	_circle.hide()
 

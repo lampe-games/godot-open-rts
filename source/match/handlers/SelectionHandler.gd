@@ -45,7 +45,7 @@ func _get_controlled_units_within_topdown_polygon_2d(topdown_polygon_2d):
 func _select_controlled_units_within_topdown_polygon_2d(topdown_polygon_2d):
 	var units_to_select = _get_controlled_units_within_topdown_polygon_2d(topdown_polygon_2d)
 	if not units_to_select.empty():
-		MatchSignals.deselect_all.emit()
+		MatchSignals.deselect_all_units.emit()
 	for unit in units_to_select.iterate():
 		var selection = unit.find_child("Selection")
 		if selection != null:

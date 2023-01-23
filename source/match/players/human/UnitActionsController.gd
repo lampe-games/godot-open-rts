@@ -20,6 +20,7 @@ func _on_unit_targeted(unit):
 
 
 func _navigate_selected_units_towards_position(target_point):
+	# TODO: split groups into domains
 	var selected_controlled_units = []
 	for unit in get_tree().get_nodes_in_group("selected_units"):
 		if unit.is_in_group("controlled_units") and Actions.Moving.is_applicable(unit):

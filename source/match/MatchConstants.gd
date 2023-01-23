@@ -82,16 +82,19 @@ class Units:
 	const DEFAULT_PROPERTIES = {
 		"res://source/match/units/Drone.gd":
 		{
+			"sight_range": 10.0,
 			"hp": 10,
 			"hp_max": 10,
 		},
 		"res://source/match/units/Worker.gd":
 		{
+			"sight_range": 10.0,
 			"hp": 10,
 			"hp_max": 10,
 		},
 		"res://source/match/units/Helicopter.gd":
 		{
+			"sight_range": 10.0,
 			"hp": 10,
 			"hp_max": 10,
 			"damage": 1,
@@ -99,6 +102,7 @@ class Units:
 		},
 		"res://source/match/units/Tank.gd":
 		{
+			"sight_range": 10.0,
 			"hp": 10,
 			"hp_max": 10,
 			"damage": 1,
@@ -106,26 +110,31 @@ class Units:
 		},
 		"res://source/match/units/CommandCenter.gd":
 		{
+			"sight_range": 10.0,
 			"hp": 10,
 			"hp_max": 10,
 		},
 		"res://source/match/units/VehicleFactory.gd":
 		{
+			"sight_range": 10.0,
 			"hp": 10,
 			"hp_max": 10,
 		},
 		"res://source/match/units/AircraftFactory.gd":
 		{
+			"sight_range": 10.0,
 			"hp": 10,
 			"hp_max": 10,
 		},
 		"res://source/match/units/AntiGroundTurret.gd":
 		{
+			"sight_range": 10.0,
 			"hp": 10,
 			"hp_max": 10,
 		},
 		"res://source/match/units/AntiAirTurret.gd":
 		{
+			"sight_range": 10.0,
 			"hp": 10,
 			"hp_max": 10,
 		},

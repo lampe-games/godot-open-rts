@@ -40,11 +40,11 @@ func _unit_is_mapped(unit):
 func _map_unit_to_new_circles(unit):
 	var shroud_circle = DynamicCircle2D.instantiate()
 	shroud_circle.color = FOG_CIRCLE_COLOR
-	shroud_circle.radius = unit.SIGHT_RANGE * TEXTURE_UNITS_PER_WORLD_UNIT
+	shroud_circle.radius = unit.sight_range * TEXTURE_UNITS_PER_WORLD_UNIT
 	_fog_viewport.add_child(shroud_circle)
 	var fow_circle = DynamicCircle2D.instantiate()
 	fow_circle.color = SHROUD_CIRCLE_COLOR
-	fow_circle.radius = unit.SIGHT_RANGE * TEXTURE_UNITS_PER_WORLD_UNIT
+	fow_circle.radius = unit.sight_range * TEXTURE_UNITS_PER_WORLD_UNIT
 	_fog_viewport_container.add_sibling(fow_circle)
 	_unit_to_circles_mapping[unit] = [shroud_circle, fow_circle]
 

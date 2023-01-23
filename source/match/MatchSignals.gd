@@ -1,7 +1,7 @@
 extends Node
 
 # requests
-signal deselect_all  # TODO: rename to deselect_all_units
+signal deselect_all_units
 signal setup_and_spawn_unit(unit, transform, player_id)
 signal place_building(building_prototype)
 

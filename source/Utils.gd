@@ -26,3 +26,17 @@ class Dict:
 		for k in d:
 			pairs.append([k, d[k]])
 		return pairs
+
+
+class Float:
+	static func is_equal_approx_with_epsilon(a: float, b: float, epsilon):
+		return abs(a - b) <= epsilon
+
+
+class Colour:
+	static func is_equal_approx_with_epsilon(a: Color, b: Color, epsilon: float):
+		return (
+			Float.is_equal_approx_with_epsilon(a.r, b.r, epsilon)
+			and Float.is_equal_approx_with_epsilon(a.g, b.g, epsilon)
+			and Float.is_equal_approx_with_epsilon(a.b, b.b, epsilon)
+		)
