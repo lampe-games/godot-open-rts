@@ -2,6 +2,8 @@ extends PanelContainer
 
 const VehicleFactory = preload("res://source/match/units/VehicleFactory.gd")
 const AircraftFactory = preload("res://source/match/units/AircraftFactory.gd")
+const CommandCenter = preload("res://source/match/units/CommandCenter.gd")
+const Worker = preload("res://source/match/units/Worker.gd")
 
 @onready var _generic_menu = find_child("GenericMenu")
 @onready var _command_center_menu = find_child("CommandCenterMenu")
@@ -33,12 +35,10 @@ func _hide_all_menus():
 
 
 func _try_showing_any_menu():
-	var selected_controlled_units = _get_selected_controlled_units()
-	# TODO: get rid of command_center_units
-	if (
-		selected_controlled_units.size() == 1
-		and selected_controlled_units[0].is_in_group("command_center_units")
-	):
+	var selected_controlled_units = get_tree().get_nodes_in_group("selected_units").filter(
+		func(unit): return unit.is_in_group("controlled_units")
+	)
+	if selected_controlled_units.size() == 1 and selected_controlled_units[0] is CommandCenter:
 		_command_center_menu.unit = selected_controlled_units[0]
 		_command_center_menu.show()
 		return true
@@ -50,22 +50,10 @@ func _try_showing_any_menu():
 		_aircraft_factory_menu.unit = selected_controlled_units[0]
 		_aircraft_factory_menu.show()
 		return true
-	# TODO: get rid of worker_units
-	if (
-		selected_controlled_units.size() == 1
-		and selected_controlled_units[0].is_in_group("worker_units")
-	):
+	if selected_controlled_units.size() == 1 and selected_controlled_units[0] is Worker:
 		_worker_menu.show()
 	if selected_controlled_units.size() > 0:
 		_generic_menu.units = selected_controlled_units
 		_generic_menu.show()
 		return true
 	return false
-
-
-func _get_selected_controlled_units():
-	var units = []
-	for unit in get_tree().get_nodes_in_group("selected_units"):
-		if unit.is_in_group("controlled_units"):
-			units.append(unit)
-	return units

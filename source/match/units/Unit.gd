@@ -5,8 +5,8 @@ signal deselected
 signal hp_changed
 signal action_changed(new_action)
 
-const MATERIAL_COLOR_TO_REPLACE = Color(0.99, 0.81, 0.48)
-const MATERIAL_COLOR_TO_REPLACE_EPSILON = 0.05
+const MATERIAL_ALBEDO_TO_REPLACE = Color(0.99, 0.81, 0.48)
+const MATERIAL_ALBEDO_TO_REPLACE_EPSILON = 0.05
 
 var hp = null:
 	set = _set_hp
@@ -19,8 +19,8 @@ var radius = null:
 	get = _get_radius
 var sight_range = null
 
-var player_id = null:
-	set = _set_player_id
+var player_id = null
+var player = null
 var color = null:
 	set = _set_color
 var action = null:
@@ -31,6 +31,7 @@ var _action_locked = false
 
 func _ready():
 	assert(player_id != null)
+	assert(player != null)
 	_setup_default_properties_from_constants()
 
 
@@ -56,35 +57,16 @@ func _get_radius():
 	return null
 
 
-func _set_player_id(value):
-	assert(player_id == null)
-	player_id = value
-
-
 func _set_color(a_color):
 	color = a_color
-	# TODO: cache material per player and reuse
-	var material = StandardMaterial3D.new()
-	material.vertex_color_use_as_albedo = true
-	material.albedo_color = color
-	material.metallic = 1
-	var geometry_root = find_child("Geometry")
-	if geometry_root == null:
-		return
-	for child in geometry_root.find_children("*"):
-		if not "mesh" in child:
-			continue
-		for surface_id in range(child.mesh.get_surface_count()):
-			var surface_material = child.mesh.get("surface_{0}/material".format([surface_id]))
-			if (
-				surface_material != null
-				and Utils.Colour.is_equal_approx_with_epsilon(
-					surface_material.albedo_color,
-					MATERIAL_COLOR_TO_REPLACE,
-					MATERIAL_COLOR_TO_REPLACE_EPSILON
-				)
-			):
-				child.set("surface_material_override/{0}".format([surface_id]), material)
+	assert(player != null)
+	var material = player.get_color_material()
+	Utils.Match.traverse_node_tree_and_replace_materials_matching_albedo(
+		find_child("Geometry"),
+		MATERIAL_ALBEDO_TO_REPLACE,
+		MATERIAL_ALBEDO_TO_REPLACE_EPSILON,
+		material
+	)
 
 
 func _set_action(action_node):
@@ -94,7 +76,7 @@ func _set_action(action_node):
 	_teardown_current_action()
 	action = action_node
 	if action != null:
-		var action_copy = action  # TODO: check if bind creates copy itself - remove if so
+		var action_copy = action  # bind() performs copy itself, but lets force copy just in case
 		action.tree_exited.connect(_on_action_node_tree_exited.bind(action_copy))
 		add_child(action_node)
 	_action_locked = false

@@ -1,6 +1,5 @@
 extends GridContainer
 
-# TODO: consider using class_name for those:
 const CommandCenter = preload("res://source/match/units/CommandCenter.tscn")
 const VehicleFactory = preload("res://source/match/units/VehicleFactory.tscn")
 const AircraftFactory = preload("res://source/match/units/AircraftFactory.tscn")

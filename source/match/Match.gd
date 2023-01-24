@@ -53,8 +53,10 @@ func _set_visible_player_id(id):
 
 
 func _create_players():
-	for _player_settings in settings.players:
-		players.append(Player.new())
+	for player_settings in settings.players:
+		var player = Player.new()
+		player.color = player_settings.color
+		players.append(player)
 
 
 func _spawn_initial_player_units():
@@ -87,7 +89,8 @@ func _spawn_initial_player_units():
 
 func _setup_and_spawn_unit(unit, a_transform, player_id):
 	unit.player_id = player_id
-	unit.color = settings.players[player_id].color
+	unit.player = players[player_id]
+	unit.color = unit.player.color
 	unit.global_transform = a_transform
 	unit.add_to_group("units")
 	unit.add_to_group("player_{0}_units".format([player_id]))

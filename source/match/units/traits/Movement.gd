@@ -1,5 +1,7 @@
 extends NavigationAgent3D
 
+signal movement_finished
+
 @export var speed: float = 4.0
 
 var _interim_speed: float = 0.0
@@ -64,3 +66,4 @@ func _on_velocity_computed(safe_velocity: Vector3):
 
 func _on_navigation_finished():
 	set_target_location(Vector3.INF)
+	movement_finished.emit()

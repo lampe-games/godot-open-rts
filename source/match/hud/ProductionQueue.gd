@@ -29,7 +29,9 @@ func _remove_queue_elements():
 
 
 func _try_observing_production_manager():
-	var selected_controlled_units = _get_selected_controlled_units()
+	var selected_controlled_units = get_tree().get_nodes_in_group("selected_units").filter(
+		func(unit): return unit.is_in_group("controlled_units")
+	)
 	if selected_controlled_units.size() != 1:
 		return false
 	var selected_unit = selected_controlled_units[0]
@@ -70,15 +72,6 @@ func _update_queue():
 		return
 	if _production_manager.queue.size() < _queue_elements.get_child_count():
 		_queue_elements.get_children()[0].queue_free()
-
-
-# TODO: deduplicate (create util)
-func _get_selected_controlled_units():
-	var units = []
-	for unit in get_tree().get_nodes_in_group("selected_units"):
-		if unit.is_in_group("controlled_units"):
-			units.append(unit)
-	return units
 
 
 func _on_queue_changed():

@@ -17,11 +17,11 @@
 [ext_resource type="PackedScene" uid="uid://chdvounyjvbof" path="res://assets/models/kenney-spacekit/machine_wireless.glb" id="15_ew7v2"]
 [ext_resource type="PackedScene" uid="uid://bu8d3o14vaesp" path="res://assets/models/kenney-spacekit/barrels.glb" id="16_s1jkw"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_jrf24"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_m261j"]
 height = 0.8
 radius = 1.8
 
-[node name="CommandCenter" type="Area3D" groups=["command_center_units"]]
+[node name="CommandCenter" type="Area3D"]
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_hpo2s")
@@ -73,7 +73,7 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
-shape = SubResource("CylinderShape3D_jrf24")
+shape = SubResource("CylinderShape3D_m261j")
 
 [node name="Highlight" parent="." instance=ExtResource("2_c41i5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)

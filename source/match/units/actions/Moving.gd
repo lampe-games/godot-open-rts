@@ -17,7 +17,7 @@ func _init(target_position):
 
 func _ready():
 	_movement_trait.move(_target_position)
-	_movement_trait.navigation_finished.connect(_on_movement_finished)  # TODO: use custom signal
+	_movement_trait.movement_finished.connect(_on_movement_finished)
 
 
 func _exit_tree():

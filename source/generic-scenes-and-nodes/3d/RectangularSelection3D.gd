@@ -8,12 +8,14 @@ signal finished(topdown_polygon_2d)
 @export var polygon_plane = Plane(Vector3.UP, 0)
 @export var interrupt_on_hitting_screen_margin = true
 @export var screen_margin = 1
+@export var changed_signal_interval_lower_bound = 1.0 / 60.0 * 5.0  # s
 
 var _rect_on_screen = null
+var _time_since_last_update = 0.0  # s
 
 
-func _physics_process(_delta):
-	_update()
+func _physics_process(delta):
+	_throttle_update(delta)
 	if _screen_margin_hit():
 		_interrupt()
 
@@ -66,11 +68,20 @@ func _finish():
 	_rect_on_screen = null
 
 
+func _throttle_update(delta):
+	if not _selecting():
+		_time_since_last_update = 0.0
+		return
+	_time_since_last_update += delta
+	if _time_since_last_update >= changed_signal_interval_lower_bound:
+		_time_since_last_update = 0.0
+		_update()
+
+
 func _update():
 	if not _selecting():
 		return
 	_rect_on_screen.end = get_viewport().get_mouse_position()
-	# TODO: add export to control emit frequency
 	changed.emit(_screen_rect_2d_to_topdown_polygon_2d(_rect_on_screen.abs()))
 
 

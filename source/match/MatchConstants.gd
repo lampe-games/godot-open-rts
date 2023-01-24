@@ -12,9 +12,11 @@ const DEFAULT_CIRCLE_COLOR = Color.WHITE
 class Resources:
 	class A:
 		const COLOR = Color.BLUE
+		const MATERIAL_PATH = "res://source/match/resources/materials/resource_a.material.tres"
 
 	class B:
 		const COLOR = Color.RED
+		const MATERIAL_PATH = "res://source/match/resources/materials/resource_b.material.tres"
 
 
 class Units:
