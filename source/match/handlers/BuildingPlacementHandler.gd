@@ -126,14 +126,13 @@ func _active_bluprint_collides_with_object():
 
 func _update_feedback_label(blueprint_position_validity):
 	_feedback_label.visible = (blueprint_position_validity != BlueprintPositionValidity.VALID)
-	# TODO: use translations
 	match blueprint_position_validity:
 		BlueprintPositionValidity.COLLIDES_WITH_OBJECT:
-			_feedback_label.text = "Something already ocuppies that spot"
+			_feedback_label.text = tr("BLUEPRINT_COLLIDES_WITH_OBJECT")
 		BlueprintPositionValidity.COLLIDES_WITH_TERRAIN:
-			_feedback_label.text = "Irregular terrain"
+			_feedback_label.text = tr("BLUEPRINT_COLLIDES_WITH_TERRAIN")
 		BlueprintPositionValidity.NOT_ENOUGH_RESOURCES:
-			_feedback_label.text = "Not enough resources"
+			_feedback_label.text = tr("BLUEPRINT_NOT_ENOUGH_RESOURCES")
 
 
 func _start_building_placement(building_prototype):

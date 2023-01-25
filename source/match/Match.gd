@@ -28,7 +28,7 @@ func _ready():
 	MatchSignals.setup_and_spawn_unit.connect(_setup_and_spawn_unit)
 	_create_players()
 	controlled_player_id = settings.controlled_player
-	visible_player_id = settings.controlled_player  # TODO: add dedicated field in settings
+	visible_player_id = settings.visible_player
 	_spawn_initial_player_units()
 	_move_camera_to_controlled_player_spawn_point()
 

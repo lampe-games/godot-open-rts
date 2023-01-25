@@ -47,6 +47,10 @@ rotate_building={
 ]
 }
 
+[internationalization]
+
+locale/translations=PackedStringArray("res://assets/translations/match.en.translation", "res://assets/translations/match.pl.translation")
+
 [layer_names]
 
 3d_physics/layer_1="Terrain"

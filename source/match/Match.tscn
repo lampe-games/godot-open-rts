@@ -34,6 +34,7 @@ color = Color(1, 0.360784, 0.45098, 1)
 script = ExtResource("3_k87ed")
 players = [SubResource("Resource_aehri"), SubResource("Resource_ohrdq")]
 controlled_player = 0
+visible_player = 0
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ysb0j"]
 sun_angle_max = 200.0
