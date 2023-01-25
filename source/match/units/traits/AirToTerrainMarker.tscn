@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://b1r67ex7h3veu"]
+
+[ext_resource type="Script" path="res://source/match/units/traits/AirToTerrainMarker.gd" id="1_w4abx"]
+[ext_resource type="Material" uid="uid://cyb6kpjqfdv1b" path="res://source/match/resources/materials/controlled_unit_air_to_terrain_marker.material.tres" id="2_c1nej"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ge34e"]
+top_radius = 0.05
+bottom_radius = 0.05
+height = 3.1
+
+[node name="AirToTerrainMarker" type="Node3D"]
+script = ExtResource("1_w4abx")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.55, 0)
+material_override = ExtResource("2_c1nej")
+mesh = SubResource("CylinderMesh_ge34e")

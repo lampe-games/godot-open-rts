@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cihpauvyhfqek"]
+
+[ext_resource type="Shader" path="res://source/shaders/3d/air_to_terrain_marker.gdshader" id="1_p67ob"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_p67ob")
+shader_parameter/albedo = Color(1, 0, 0, 1)
+shader_parameter/invisible_height = 0.0
+shader_parameter/visible_height = -5.0
