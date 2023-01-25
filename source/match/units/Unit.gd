@@ -17,6 +17,9 @@ var damage_interval = null
 var radius = null:
 	set = _ignore,
 	get = _get_radius
+var movement_domain = null:
+	set = _ignore,
+	get = _get_movement_domain
 var sight_range = null
 
 var player_id = null
@@ -54,6 +57,14 @@ func _get_radius():
 		return find_child("Movement").radius
 	if find_child("MovementObstacle") != null:
 		return find_child("MovementObstacle").radius
+	return null
+
+
+func _get_movement_domain():
+	if find_child("Movement") != null:
+		return find_child("Movement").domain
+	if find_child("MovementObstacle") != null:
+		return find_child("MovementObstacle").domain
 	return null
 
 

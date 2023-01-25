@@ -244,7 +244,6 @@ mesh = SubResource("PlaneMesh_u4w5p")
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="Navigation/Terrain"]
 visible = false
 navigation_mesh = SubResource("NavigationMesh_exfwj")
-navigation_layers = 2
 
 [node name="HUD" type="CanvasLayer" parent="."]
 

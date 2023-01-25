@@ -18,11 +18,11 @@ func _ready():
 	_setup_air_navigation_map()
 
 
-func get_navigation_map_rid_by_layer(layer):
+func get_navigation_map_rid_by_domain(domain):
 	return {
-		Constants.Match.NavigationLayers.AIR: air.navigation_map_rid,
-		Constants.Match.NavigationLayers.TERRAIN: terrain.navigation_map_rid,
-	}[layer]
+		Constants.Match.Navigation.Domain.AIR: air.navigation_map_rid,
+		Constants.Match.Navigation.Domain.TERRAIN: terrain.navigation_map_rid,
+	}[domain]
 
 
 func _setup_air_navigation_map():

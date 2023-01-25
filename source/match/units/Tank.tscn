@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://chmayxp3itowx" path="res://assets/models/kenney-spacekit/craft_miner.glb" id="3_putds"]
 [ext_resource type="PackedScene" uid="uid://c3ssj2p6voauk" path="res://source/match/units/traits/HealthBar.tscn" id="4_7l0rt"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_ipysn"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_b5vm1"]
 height = 0.6
 radius = 0.8
 
@@ -28,7 +28,7 @@ transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -1.4, 0.586939, -1.6692
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
-shape = SubResource("CylinderShape3D_ipysn")
+shape = SubResource("CylinderShape3D_b5vm1")
 
 [node name="Highlight" parent="." instance=ExtResource("1_n4t54")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
@@ -38,7 +38,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
 
 [node name="Movement" parent="." instance=ExtResource("3_4m8ma")]
 agent_height_offset = 0.5
-navigation_layers = 2
 
 [node name="HealthBar" parent="." instance=ExtResource("4_7l0rt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

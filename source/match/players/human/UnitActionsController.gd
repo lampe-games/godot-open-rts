@@ -20,13 +20,25 @@ func _on_unit_targeted(unit):
 
 
 func _navigate_selected_units_towards_position(target_point):
-	# TODO: split groups into domains
-	var selected_controlled_units = []
-	for unit in get_tree().get_nodes_in_group("selected_units"):
-		if unit.is_in_group("controlled_units") and Actions.Moving.is_applicable(unit):
-			selected_controlled_units.append(unit)
+	var terrain_units_to_move = get_tree().get_nodes_in_group("selected_units").filter(
+		func(unit): return (
+			unit.is_in_group("controlled_units")
+			and unit.movement_domain == Constants.Match.Navigation.Domain.TERRAIN
+			and Actions.Moving.is_applicable(unit)
+		)
+	)
+	var air_units_to_move = get_tree().get_nodes_in_group("selected_units").filter(
+		func(unit): return (
+			unit.is_in_group("controlled_units")
+			and unit.movement_domain == Constants.Match.Navigation.Domain.AIR
+			and Actions.Moving.is_applicable(unit)
+		)
+	)
 	var new_unit_targets = Utils.Match.Unit.Movement.crowd_moved_to_new_pivot(
-		selected_controlled_units, target_point
+		terrain_units_to_move, target_point
+	)
+	new_unit_targets += Utils.Match.Unit.Movement.crowd_moved_to_new_pivot(
+		air_units_to_move, target_point
 	)
 	for tuple in new_unit_targets:
 		var unit = tuple[0]

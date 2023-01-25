@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c3ssj2p6voauk" path="res://source/match/units/traits/HealthBar.tscn" id="5_vqiw1"]
 [ext_resource type="PackedScene" uid="uid://cmvtt1w71wso2" path="res://assets/models/kenney-spacekit/craft_speederA.glb" id="6_88s7t"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_7kxus"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_45pkb"]
 height = 0.3
 
 [node name="Drone" type="Area3D"]
@@ -22,7 +22,7 @@ transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -0.6, 0, -0.45)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
-shape = SubResource("CylinderShape3D_7kxus")
+shape = SubResource("CylinderShape3D_45pkb")
 
 [node name="Highlight" parent="." instance=ExtResource("1_44soy")]
 radius = 0.6
@@ -32,6 +32,7 @@ radius = 0.6
 
 [node name="Movement" parent="." instance=ExtResource("4_wemaw")]
 radius = 0.6
+domain = 0
 
 [node name="HealthBar" parent="." instance=ExtResource("5_vqiw1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
