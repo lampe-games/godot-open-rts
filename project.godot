@@ -27,6 +27,7 @@ Utils="*res://source/Utils.gd"
 [debug]
 
 gdscript/warnings/standalone_expression=0
+gdscript/warnings/assert_always_false=0
 
 [display]
 

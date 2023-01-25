@@ -29,12 +29,14 @@ func _unforce_highlight(units_not_to_highlight_anymore):
 			highlight.unforce()
 
 
-func _get_controlled_units_within_topdown_polygon_2d(topdown_polygon_2d):
+func _get_controlled_units_from_navigation_domain_within_topdown_polygon_2d(
+	navigation_domain, topdown_polygon_2d
+):
 	if topdown_polygon_2d == null:
 		return Utils.Set.new()
 	var units_within_polygon = Utils.Set.new()
 	for unit in get_tree().get_nodes_in_group("controlled_units"):
-		if not unit.visible:
+		if not unit.visible or unit.movement_domain != navigation_domain:
 			continue
 		var unit_position_2d = Vector2(unit.transform.origin.x, unit.transform.origin.z)
 		if Geometry2D.is_point_in_polygon(unit_position_2d, topdown_polygon_2d):
@@ -42,8 +44,7 @@ func _get_controlled_units_within_topdown_polygon_2d(topdown_polygon_2d):
 	return units_within_polygon
 
 
-func _select_controlled_units_within_topdown_polygon_2d(topdown_polygon_2d):
-	var units_to_select = _get_controlled_units_within_topdown_polygon_2d(topdown_polygon_2d)
+func _select_units(units_to_select):
 	if not units_to_select.empty():
 		MatchSignals.deselect_all_units.emit()
 	for unit in units_to_select.iterate():
@@ -52,12 +53,37 @@ func _select_controlled_units_within_topdown_polygon_2d(topdown_polygon_2d):
 			selection.select()
 
 
+func _rebase_topdown_polygon_2d_to_different_plane(topdown_polygon_2d, plane):
+	var rebased_topdown_polygon_2d = []
+	# TODO: fix once fixed in gdtoolkit
+	# gdlint: ignore=constant-name
+	const original_y_3d = Constants.Match.Terrain.PLANE.d
+	var camera = get_viewport().get_camera_3d()
+	for polygon_point_2d in topdown_polygon_2d:
+		var screen_point_2d = camera.unproject_position(
+			Vector3(polygon_point_2d.x, original_y_3d, polygon_point_2d.y)
+		)
+		var rebased_point_3d = camera.get_ray_intersection_with_plane(screen_point_2d, plane)
+		rebased_topdown_polygon_2d.append(Vector2(rebased_point_3d.x, rebased_point_3d.z))
+	return rebased_topdown_polygon_2d
+
+
 func _on_selection_started():
 	_rectangular_selection_3d.changed.connect(_on_selection_changed)
 
 
 func _on_selection_changed(topdown_polygon_2d):
-	var units_to_highlight = _get_controlled_units_within_topdown_polygon_2d(topdown_polygon_2d)
+	var units_to_highlight = _get_controlled_units_from_navigation_domain_within_topdown_polygon_2d(
+		Constants.Match.Navigation.Domain.TERRAIN, topdown_polygon_2d
+	)
+	units_to_highlight.merge(
+		_get_controlled_units_from_navigation_domain_within_topdown_polygon_2d(
+			Constants.Match.Navigation.Domain.AIR,
+			_rebase_topdown_polygon_2d_to_different_plane(
+				topdown_polygon_2d, Constants.Match.Air.PLANE
+			)
+		)
+	)
 	var units_not_to_highlight_anymore = Utils.Set.subtracted(
 		_highlighted_units, units_to_highlight
 	)
@@ -76,4 +102,15 @@ func _on_selection_finished(topdown_polygon_2d):
 	_rectangular_selection_3d.changed.disconnect(_on_selection_changed)
 	_unforce_highlight(_highlighted_units)
 	_highlighted_units = Utils.Set.new()
-	_select_controlled_units_within_topdown_polygon_2d(topdown_polygon_2d)
+	var units_to_select = _get_controlled_units_from_navigation_domain_within_topdown_polygon_2d(
+		Constants.Match.Navigation.Domain.TERRAIN, topdown_polygon_2d
+	)
+	units_to_select.merge(
+		_get_controlled_units_from_navigation_domain_within_topdown_polygon_2d(
+			Constants.Match.Navigation.Domain.AIR,
+			_rebase_topdown_polygon_2d_to_different_plane(
+				topdown_polygon_2d, Constants.Match.Air.PLANE
+			)
+		)
+	)
+	_select_units(units_to_select)

@@ -8,6 +8,14 @@ class Navigation:
 	enum Domain { AIR, TERRAIN }
 
 
+class Air:
+	const PLANE = Plane(Vector3.UP, 3)
+
+
+class Terrain:
+	const PLANE = Plane(Vector3.UP, 0)
+
+
 class Resources:
 	class A:
 		const COLOR = Color.BLUE
