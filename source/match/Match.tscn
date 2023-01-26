@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://doitvquurtufi"]
+[gd_scene load_steps=41 format=3 uid="uid://doitvquurtufi"]
 
 [ext_resource type="Script" path="res://source/match/Match.gd" id="1_1555u"]
 [ext_resource type="Script" path="res://source/match/IsometricCamera3D.gd" id="1_qb2ry"]
@@ -8,14 +8,15 @@
 [ext_resource type="PackedScene" uid="uid://bf3jjdafqvh0w" path="res://source/match/units/non-player/ResourceA.tscn" id="5_f840u"]
 [ext_resource type="PackedScene" uid="uid://co800e4shs7bh" path="res://source/generic-scenes-and-nodes/3d/RectangularSelection3D.tscn" id="5_yi0pu"]
 [ext_resource type="PackedScene" uid="uid://bufgjfa3ne3uk" path="res://source/match/units/non-player/ResourceB.tscn" id="6_7kua8"]
-[ext_resource type="Shader" path="res://source/shaders/3d/simple_fog_of_war.gdshader" id="6_bxic7"]
 [ext_resource type="Material" uid="uid://co8vfcoqqs5i8" path="res://source/match/resources/materials/terrain.material.tres" id="6_u47mu"]
 [ext_resource type="PackedScene" uid="uid://clbjgy724q2si" path="res://source/generic-scenes-and-nodes/2d/DynamicCircle2D.tscn" id="6_ux0ef"]
 [ext_resource type="Script" path="res://source/match/Terrain.gd" id="7_ccpu4"]
 [ext_resource type="Script" path="res://source/match/Navigation.gd" id="10_1wfp1"]
 [ext_resource type="PackedScene" uid="uid://b6n7cwv706x5n" path="res://source/match/debug/GodModeHud.tscn" id="10_p6gno"]
+[ext_resource type="Shader" path="res://source/shaders/2d/blurr.gdshader" id="12_pow7t"]
 [ext_resource type="PackedScene" uid="uid://cqauc87cdn5pw" path="res://source/match/hud/Resources.tscn" id="12_r13sk"]
 [ext_resource type="PackedScene" uid="uid://cwcedr6jj7yty" path="res://source/match/hud/UnitMenus.tscn" id="13_6cypl"]
+[ext_resource type="Shader" path="res://source/shaders/3d/simple_fog_of_war.gdshader" id="13_jo8b7"]
 [ext_resource type="PackedScene" uid="uid://nnsih72ih7qr" path="res://source/match/hud/ProductionQueue.tscn" id="13_qv3xn"]
 [ext_resource type="Script" path="res://source/match/players/human/UnitActionsController.gd" id="14_qgu1g"]
 [ext_resource type="PackedScene" uid="uid://dk7sa3fkyxks5" path="res://source/generic-scenes-and-nodes/control/RectangularSelection2D.tscn" id="16_ccb0o"]
@@ -62,17 +63,23 @@ size = Vector2(100, 100)
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_45mtw"]
 data = PackedVector3Array(50, 0, 50, -50, 0, 50, 50, 0, -50, -50, 0, 50, -50, 0, -50, 50, 0, -50)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_rm132"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c3tkw"]
+shader = ExtResource("12_pow7t")
+shader_parameter/blurr_factor = 1.0
+shader_parameter/remove_alpha = false
+shader_parameter/overlay = true
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_7yqgo"]
 viewport_path = NodePath("FogOfWar/CombinedViewport")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5rcuq"]
 resource_local_to_scene = true
 render_priority = 1
-shader = ExtResource("6_bxic7")
+shader = ExtResource("13_jo8b7")
 shader_parameter/color = Color(0, 0, 0, 1)
 shader_parameter/texture_units_per_world_unit = 2
 shader_parameter/debug_texture_view = false
-shader_parameter/world_visibility_texture = SubResource("ViewportTexture_rm132")
+shader_parameter/world_visibility_texture = SubResource("ViewportTexture_7yqgo")
 
 [sub_resource type="QuadMesh" id="QuadMesh_xttrh"]
 flip_faces = true
@@ -95,6 +102,9 @@ vertices = PackedVector3Array(6.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 6.5, 0.5, 
 polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(5, 4, 3), PackedInt32Array(8, 7, 6), PackedInt32Array(11, 10, 9), PackedInt32Array(13, 12, 14), PackedInt32Array(14, 12, 15), PackedInt32Array(17, 16, 18), PackedInt32Array(18, 16, 19), PackedInt32Array(21, 20, 22), PackedInt32Array(22, 20, 23), PackedInt32Array(26, 25, 24), PackedInt32Array(29, 28, 27), PackedInt32Array(31, 30, 32), PackedInt32Array(32, 30, 33), PackedInt32Array(35, 34, 36), PackedInt32Array(36, 34, 37), PackedInt32Array(39, 38, 40), PackedInt32Array(40, 38, 41), PackedInt32Array(43, 42, 44), PackedInt32Array(44, 42, 45), PackedInt32Array(47, 46, 48), PackedInt32Array(48, 46, 49), PackedInt32Array(51, 50, 52), PackedInt32Array(52, 50, 53), PackedInt32Array(55, 54, 56), PackedInt32Array(56, 54, 57), PackedInt32Array(59, 58, 60), PackedInt32Array(60, 58, 61), PackedInt32Array(63, 62, 64), PackedInt32Array(64, 62, 65), PackedInt32Array(67, 66, 68), PackedInt32Array(68, 66, 69), PackedInt32Array(71, 70, 72), PackedInt32Array(72, 70, 73), PackedInt32Array(75, 74, 76), PackedInt32Array(76, 74, 77), PackedInt32Array(79, 78, 80), PackedInt32Array(80, 78, 81), PackedInt32Array(83, 82, 84), PackedInt32Array(84, 82, 85), PackedInt32Array(91, 90, 86), PackedInt32Array(86, 90, 89), PackedInt32Array(86, 89, 88), PackedInt32Array(86, 88, 87), PackedInt32Array(93, 92, 94), PackedInt32Array(94, 92, 95), PackedInt32Array(97, 96, 98), PackedInt32Array(98, 96, 99), PackedInt32Array(101, 100, 102), PackedInt32Array(102, 100, 103), PackedInt32Array(105, 104, 106), PackedInt32Array(106, 104, 107), PackedInt32Array(109, 108, 110), PackedInt32Array(110, 108, 111), PackedInt32Array(113, 112, 114), PackedInt32Array(114, 112, 115), PackedInt32Array(117, 116, 118), PackedInt32Array(118, 116, 119), PackedInt32Array(121, 120, 122), PackedInt32Array(122, 120, 123), PackedInt32Array(125, 124, 126), PackedInt32Array(126, 124, 127)]
 geometry_source_geometry_mode = 2
 geometry_source_group_name = &"terrain_navigation_input"
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_rm132"]
+viewport_path = NodePath("FogOfWar/CombinedViewport")
 
 [node name="Match" type="Node3D"]
 script = ExtResource("1_1555u")
@@ -209,6 +219,14 @@ radius = 20
 
 [node name="Revealer" type="ColorRect" parent="FogOfWar/CombinedViewport"]
 visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BlurrOverlay" type="ColorRect" parent="FogOfWar/CombinedViewport"]
+material = SubResource("ShaderMaterial_c3tkw")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
