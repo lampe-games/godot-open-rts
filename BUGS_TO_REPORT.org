@@ -29,4 +29,5 @@ Downloading 0.00 MB source file /usr/src/debug/glibc/nptl/pthread_kill.c
 #13 0x000055f87c2c7c63 in ?? ()
 #14 0x00007f7f33d8b8fd in start_thread (arg=<optimized out>) at pthread_create.c:442
 #15 0x00007f7f33e0cc74 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:100
-* TODO radio buttons are visually broken (logic works fine tho)
+* DONE radio buttons are visually broken (logic works fine tho)
+* TODO inherited scenes not working

@@ -11,14 +11,6 @@ func _ready():
 	MatchSignals.unit_targeted.connect(_on_unit_targeted)
 
 
-func _on_terrain_targeted(position):
-	_navigate_selected_units_towards_position(position)
-
-
-func _on_unit_targeted(unit):
-	_navigate_selected_units_towards_unit(unit)
-
-
 func _navigate_selected_units_towards_position(target_point):
 	var terrain_units_to_move = get_tree().get_nodes_in_group("selected_units").filter(
 		func(unit): return (
@@ -54,3 +46,11 @@ func _navigate_selected_units_towards_unit(target_unit):
 			unit.action = Actions.CollectingResources.new(target_unit)
 		else:
 			unit.action = null
+
+
+func _on_terrain_targeted(position):
+	_navigate_selected_units_towards_position(position)
+
+
+func _on_unit_targeted(unit):
+	_navigate_selected_units_towards_unit(unit)
