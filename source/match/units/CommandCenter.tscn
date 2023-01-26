@@ -17,7 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://chdvounyjvbof" path="res://assets/models/kenney-spacekit/machine_wireless.glb" id="15_ew7v2"]
 [ext_resource type="PackedScene" uid="uid://bu8d3o14vaesp" path="res://assets/models/kenney-spacekit/barrels.glb" id="16_s1jkw"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_m261j"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_g7eak"]
 height = 0.8
 radius = 1.8
 
@@ -73,7 +73,7 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
-shape = SubResource("CylinderShape3D_m261j")
+shape = SubResource("CylinderShape3D_g7eak")
 
 [node name="Highlight" parent="." instance=ExtResource("2_c41i5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
@@ -89,5 +89,5 @@ radius = 2.0
 agent_height_offset = 0.5
 
 [node name="HealthBar" parent="." instance=ExtResource("5_xuulo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
-size = Vector2(400, 20)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+size = Vector2(380, 10)

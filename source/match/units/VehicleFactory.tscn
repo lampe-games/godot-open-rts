@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c3ssj2p6voauk" path="res://source/match/units/traits/HealthBar.tscn" id="4_xd2eg"]
 [ext_resource type="PackedScene" uid="uid://ju36oirvvb61" path="res://assets/models/kenney-spacekit/hangar_smallA.glb" id="6_3ls2e"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_lwsyg"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_7lpf1"]
 height = 1.0
 radius = 1.5
 
@@ -24,7 +24,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -1.5)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-shape = SubResource("CylinderShape3D_lwsyg")
+shape = SubResource("CylinderShape3D_7lpf1")
 
 [node name="Highlight" parent="." instance=ExtResource("1_8fcgb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
@@ -41,4 +41,4 @@ agent_height_offset = 0.5
 
 [node name="HealthBar" parent="." instance=ExtResource("4_xd2eg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, 0)
-size = Vector2(250, 20)
+size = Vector2(250, 10)
