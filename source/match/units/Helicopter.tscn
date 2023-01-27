@@ -8,24 +8,24 @@
 [ext_resource type="PackedScene" uid="uid://d1ekv61cse3bl" path="res://assets/models/kenney-spacekit/craft_racer.glb" id="6_3gekj"]
 [ext_resource type="PackedScene" uid="uid://b1r67ex7h3veu" path="res://source/match/units/traits/AirToTerrainMarker.tscn" id="7_5wh2l"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0m12t"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_itens"]
 resource_name = "metal"
 vertex_color_use_as_albedo = true
 albedo_color = Color(0.9276, 0.940805, 0.959256, 1)
 metallic = 1.0
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_jv1og"]
+[sub_resource type="CylinderMesh" id="CylinderMesh_2hy5o"]
 top_radius = 0.05
 bottom_radius = 0.05
 height = 1.5
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l1lxd"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6eu5f"]
 resource_name = "metal"
 vertex_color_use_as_albedo = true
 albedo_color = Color(0.9276, 0.940805, 0.959256, 1)
 metallic = 1.0
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_vlau2"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_0yhrk"]
 height = 0.8
 radius = 0.8
 
@@ -41,19 +41,19 @@ transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -1.4, 0, -1.05)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry"]
 transform = Transform3D(-3.09086e-08, -0.707107, 0.707107, 1, -4.37114e-08, 0, 3.09086e-08, 0.707107, 0.707107, 0, 0.531828, 0)
-material_override = SubResource("StandardMaterial3D_0m12t")
-mesh = SubResource("CylinderMesh_jv1og")
+material_override = SubResource("StandardMaterial3D_itens")
+mesh = SubResource("CylinderMesh_2hy5o")
 skeleton = NodePath("../..")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Geometry"]
 transform = Transform3D(-3.09086e-08, -0.707107, -0.707107, 1, -4.37114e-08, 0, -3.09086e-08, -0.707107, 0.707107, 0, 0.531828, 0)
-material_override = SubResource("StandardMaterial3D_l1lxd")
-mesh = SubResource("CylinderMesh_jv1og")
+material_override = SubResource("StandardMaterial3D_6eu5f")
+mesh = SubResource("CylinderMesh_2hy5o")
 skeleton = NodePath("../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
-shape = SubResource("CylinderShape3D_vlau2")
+shape = SubResource("CylinderShape3D_0yhrk")
 
 [node name="Highlight" parent="." instance=ExtResource("1_nqs7t")]
 radius = 0.8
@@ -62,6 +62,8 @@ radius = 0.8
 radius = 0.8
 
 [node name="Movement" parent="." instance=ExtResource("3_4ms8e")]
+path_desired_distance = 0.1
+target_desired_distance = 0.1
 radius = 0.8
 domain = 0
 
