@@ -64,6 +64,7 @@ func _render_queue():
 
 func _update_queue():
 	if _production_manager.queue.size() > _queue_elements.get_child_count():
+		assert(_production_manager.queue.size() == _queue_elements.get_child_count() + 1)
 		var queue_element = _production_manager.queue.back()
 		var queue_element_node = ProductionQueueElement.instantiate()
 		queue_element_node.queue_element = queue_element
@@ -71,7 +72,7 @@ func _update_queue():
 		_queue_elements.move_child(queue_element_node, 0)
 		return
 	if _production_manager.queue.size() < _queue_elements.get_child_count():
-		_queue_elements.get_children()[0].queue_free()
+		_queue_elements.get_children()[-1].queue_free()
 
 
 func _on_queue_changed():
