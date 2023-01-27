@@ -1,5 +1,11 @@
 extends Node3D
 
+
+class HardcodedMap:
+	func get_topdown_polygon_2d():
+		return [Vector2(0, 0), Vector2(100, 0), Vector2(100, 100), Vector2(0, 100)]
+
+
 const Player = preload("res://source/match/model/Player.gd")
 
 const CommandCenter = preload("res://source/match/units/CommandCenter.tscn")
@@ -18,6 +24,7 @@ var visible_player_ids = null:
 		pass
 	get:
 		return [visible_player_id]
+var map = HardcodedMap.new()  # TODO: use actual map
 
 @onready var navigation = find_child("Navigation")
 

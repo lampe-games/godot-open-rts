@@ -5,6 +5,7 @@ enum BlueprintPositionValidity {
 	COLLIDES_WITH_OBJECT,
 	COLLIDES_WITH_TERRAIN,
 	NOT_ENOUGH_RESOURCES,
+	OUT_OF_MAP,
 }
 
 const ROTATION_BY_KEY_STEP = 45.0
@@ -89,6 +90,8 @@ func _blueprint_rotation_started():
 
 
 func _calculate_blueprint_position_validity():
+	if _active_bluprint_out_of_map():
+		return BlueprintPositionValidity.OUT_OF_MAP
 	if not _player_has_enough_resources():
 		return BlueprintPositionValidity.NOT_ENOUGH_RESOURCES
 	if _active_bluprint_collides_with_terrain():
@@ -103,6 +106,16 @@ func _player_has_enough_resources():
 		_pending_building_prototype.resource_path
 	]
 	return _match.players[_match.controlled_player_id].has_resources(construction_cost)
+
+
+func _active_bluprint_out_of_map():
+	return not Geometry2D.is_point_in_polygon(
+		Vector2(
+			_active_blueprint_node.global_transform.origin.x,
+			_active_blueprint_node.global_transform.origin.z
+		),
+		_match.map.get_topdown_polygon_2d()
+	)
 
 
 func _active_bluprint_collides_with_terrain():
@@ -133,6 +146,8 @@ func _update_feedback_label(blueprint_position_validity):
 			_feedback_label.text = tr("BLUEPRINT_COLLIDES_WITH_TERRAIN")
 		BlueprintPositionValidity.NOT_ENOUGH_RESOURCES:
 			_feedback_label.text = tr("BLUEPRINT_NOT_ENOUGH_RESOURCES")
+		BlueprintPositionValidity.OUT_OF_MAP:
+			_feedback_label.text = tr("BLUEPRINT_OUT_OF_MAP")
 
 
 func _start_building_placement(building_prototype):

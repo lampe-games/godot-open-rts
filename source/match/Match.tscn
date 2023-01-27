@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://doitvquurtufi"]
+[gd_scene load_steps=42 format=3 uid="uid://doitvquurtufi"]
 
 [ext_resource type="Script" path="res://source/match/Match.gd" id="1_1555u"]
 [ext_resource type="Script" path="res://source/match/IsometricCamera3D.gd" id="1_qb2ry"]
@@ -59,6 +59,9 @@ fog_height_density = 1.2
 [sub_resource type="PlaneMesh" id="PlaneMesh_5wwb3"]
 material = ExtResource("6_u47mu")
 size = Vector2(100, 100)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dua43"]
+size = Vector3(1, 1, 100)
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_45mtw"]
 data = PackedVector3Array(50, 0, 50, -50, 0, 50, 50, 0, -50, -50, 0, 50, -50, 0, -50, 50, 0, -50)
@@ -139,11 +142,47 @@ environment = SubResource("Environment_qxcnu")
 [node name="Map" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 0, 50)
 
-[node name="Meshes" type="Node3D" parent="Map"]
+[node name="Geometry" type="Node3D" parent="Map"]
 
-[node name="Terrain" type="MeshInstance3D" parent="Map/Meshes"]
+[node name="Terrain" type="MeshInstance3D" parent="Map/Geometry"]
 mesh = SubResource("PlaneMesh_5wwb3")
 skeleton = NodePath("../../../DummyContent")
+
+[node name="Boundry" type="Area3D" parent="Map/Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 0, 0)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Geometry/Boundry"]
+shape = SubResource("BoxShape3D_dua43")
+
+[node name="Boundry2" type="Area3D" parent="Map/Geometry"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -50)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Geometry/Boundry2"]
+shape = SubResource("BoxShape3D_dua43")
+
+[node name="Boundry3" type="Area3D" parent="Map/Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 0, 0)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Geometry/Boundry3"]
+shape = SubResource("BoxShape3D_dua43")
+
+[node name="Boundry4" type="Area3D" parent="Map/Geometry"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 50)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Geometry/Boundry4"]
+shape = SubResource("BoxShape3D_dua43")
 
 [node name="SpawnPoints" type="Node3D" parent="Map"]
 

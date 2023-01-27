@@ -2,3 +2,4 @@ keys,en,pl
 BLUEPRINT_COLLIDES_WITH_OBJECT,Something already ocuppies that spot,Inny obiekt jest zbyt blisko
 BLUEPRINT_COLLIDES_WITH_TERRAIN,Irregular terrain,Nierówny teren
 BLUEPRINT_NOT_ENOUGH_RESOURCES,Not enough resources,Brakuje zasobów
+BLUEPRINT_OUT_OF_MAP,Out of map limits,Poza granicami mapy
