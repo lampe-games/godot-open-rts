@@ -13,7 +13,7 @@ var _interim_speed: float = 0.0
 
 func _physics_process(delta):
 	_interim_speed = speed * delta
-	var next_path_position: Vector3 = get_next_location()
+	var next_path_position: Vector3 = get_next_path_position()
 	var current_agent_position: Vector3 = _unit.global_transform.origin
 	var new_velocity: Vector3 = (
 		(next_path_position - current_agent_position).normalized() * _interim_speed
@@ -30,11 +30,11 @@ func _ready():
 
 
 func move(movement_target: Vector3):
-	set_target_location(movement_target)
+	target_position = movement_target
 
 
 func stop():
-	set_target_location(Vector3.INF)
+	target_position = Vector3.INF
 
 
 func _align_unit_position_to_navigation():
@@ -66,5 +66,5 @@ func _on_velocity_computed(safe_velocity: Vector3):
 
 
 func _on_navigation_finished():
-	set_target_location(Vector3.INF)
+	target_position = Vector3.INF
 	movement_finished.emit()
