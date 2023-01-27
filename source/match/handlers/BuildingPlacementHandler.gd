@@ -233,8 +233,11 @@ func _rotate_blueprint_towards_mouse_pos():
 	var blueprint_pos_yless = blueprint_pos_3d * Vector3(-999, 0, -999)
 	if mouse_pos_yless.distance_to(blueprint_pos_yless) < ROTATION_DEAD_ZONE_DISTANCE:
 		return
+	var rotation_target = Vector3(mouse_pos_yless.x, blueprint_pos_3d.y, mouse_pos_yless.z)
+	if rotation_target.is_equal_approx(_active_blueprint_node.global_transform.origin):
+		return
 	_active_blueprint_node.global_transform = _active_blueprint_node.global_transform.looking_at(
-		Vector3(mouse_pos_yless.x, blueprint_pos_3d.y, mouse_pos_yless.z), Vector3.UP
+		rotation_target, Vector3.UP
 	)
 
 
