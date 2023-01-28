@@ -4,7 +4,7 @@
 # 3. moving to closest CC
 # 4. adding collected resources to player resources
 # back to 1.
-extends Node
+extends "res://source/match/units/actions/Action.gd"
 
 var _accumulated_delta = 0.0
 var _resouce_unit = null

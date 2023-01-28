@@ -4,6 +4,7 @@ signal selected
 signal deselected
 signal hp_changed
 signal action_changed(new_action)
+signal action_updated
 
 const MATERIAL_ALBEDO_TO_REPLACE = Color(0.99, 0.81, 0.48)
 const MATERIAL_ALBEDO_TO_REPLACE_EPSILON = 0.05
@@ -12,8 +13,9 @@ var hp = null:
 	set = _set_hp
 var hp_max = null:
 	set = _set_hp_max
-var damage = null
-var damage_interval = null
+var attack_damage = null
+var attack_interval = null
+var attack_range = null
 var radius = null:
 	set = _ignore,
 	get = _get_radius

@@ -190,7 +190,7 @@ shape = SubResource("BoxShape3D_dua43")
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -38.3571, 0, -38.92)
 
 [node name="Marker3D2" type="Marker3D" parent="Map/SpawnPoints"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 40.9382, 0, -40.4288)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -17.7141, 0, -34.1728)
 
 [node name="Marker3D3" type="Marker3D" parent="Map/SpawnPoints"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 41.1455, 0, 42.1901)

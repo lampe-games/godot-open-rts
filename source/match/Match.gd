@@ -11,6 +11,7 @@ const Player = preload("res://source/match/model/Player.gd")
 const CommandCenter = preload("res://source/match/units/CommandCenter.tscn")
 const Drone = preload("res://source/match/units/Drone.tscn")
 const Worker = preload("res://source/match/units/Worker.tscn")
+const AGTurret = preload("res://source/match/units/AntiGroundTurret.tscn")
 
 @export var settings: Resource = null
 
@@ -88,7 +89,7 @@ func _spawn_initial_player_units():
 			player_id
 		)
 		_setup_and_spawn_unit(
-			Worker.instantiate(),
+			AGTurret.instantiate(),
 			spawn_points[player_id].global_transform.translated(Vector3(3, 0, -3)),
 			player_id
 		)

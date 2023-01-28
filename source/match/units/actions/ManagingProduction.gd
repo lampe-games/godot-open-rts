@@ -1,4 +1,4 @@
-extends Node
+extends "res://source/match/units/actions/Action.gd"
 
 signal queue_changed
 

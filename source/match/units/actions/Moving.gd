@@ -1,4 +1,4 @@
-extends Node
+extends "res://source/match/units/actions/Action.gd"
 
 var _target_position = null
 var _action_finished = false

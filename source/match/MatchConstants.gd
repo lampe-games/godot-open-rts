@@ -106,16 +106,18 @@ class Units:
 			"sight_range": 10.0,
 			"hp": 10,
 			"hp_max": 10,
-			"damage": 1,
-			"damage_interval": 1.0,
+			"attack_damage": 1,
+			"attack_interval": 1.0,
+			"attack_range": 5.0,
 		},
 		"res://source/match/units/Tank.gd":
 		{
 			"sight_range": 10.0,
 			"hp": 10,
 			"hp_max": 10,
-			"damage": 1,
-			"damage_interval": 1.0,
+			"attack_damage": 1,
+			"attack_interval": 1.0,
+			"attack_range": 5.0,
 		},
 		"res://source/match/units/CommandCenter.gd":
 		{
@@ -140,12 +142,18 @@ class Units:
 			"sight_range": 10.0,
 			"hp": 10,
 			"hp_max": 10,
+			"attack_damage": 1,
+			"attack_interval": 1.0,
+			"attack_range": 8.0,
 		},
 		"res://source/match/units/AntiAirTurret.gd":
 		{
 			"sight_range": 10.0,
 			"hp": 10,
 			"hp_max": 10,
+			"attack_damage": 1,
+			"attack_interval": 1.0,
+			"attack_range": 8.0,
 		},
 	}
 	const ADHERENCE_MARGIN = 0.1
