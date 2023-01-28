@@ -31,3 +31,6 @@ billboard = 1
 transparent = false
 no_depth_test = true
 texture = SubResource("ViewportTexture_70o0j")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
