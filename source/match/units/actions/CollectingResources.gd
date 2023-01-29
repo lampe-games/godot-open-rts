@@ -6,6 +6,8 @@
 # back to 1.
 extends "res://source/match/units/actions/Action.gd"
 
+const Worker = preload("res://source/match/units/Worker.gd")
+
 var _accumulated_delta = 0.0
 var _resouce_unit = null
 var _player = null
@@ -14,7 +16,7 @@ var _player = null
 
 
 static func is_applicable(source_unit, target_unit):
-	return source_unit.is_in_group("worker_units") and target_unit.is_in_group("resource_units")
+	return source_unit is Worker and target_unit.is_in_group("resource_units")
 
 
 func _init(resource_unit):
