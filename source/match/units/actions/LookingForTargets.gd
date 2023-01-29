@@ -4,15 +4,10 @@ const AttackingWhileInRange = preload("res://source/match/units/actions/Attackin
 
 const REFRESH_INTERVAL = 1.0 / 60.0 * 10.0
 
-var _target_domains = []
 var _timer = null
 var _sub_action = null
 
 @onready var _unit = Utils.NodeEx.find_parent_with_group(self, "units")
-
-
-func _init(_domains):
-	_target_domains = _domains
 
 
 func _ready():
@@ -31,7 +26,7 @@ func _get_units_to_attack():
 	return get_tree().get_nodes_in_group("units").filter(
 		func(unit): return (
 			unit.player_id != _unit.player_id
-			and unit.movement_domain in _target_domains
+			and unit.movement_domain in _unit.attack_domains
 			and (
 				self_position_yless.distance_to(unit.global_position * Vector3(1, 0, 1))
 				<= _unit.attack_range

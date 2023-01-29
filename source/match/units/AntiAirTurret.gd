@@ -5,4 +5,4 @@ const LookingForTargets = preload("res://source/match/units/actions/LookingForTa
 
 func _ready():
 	super()
-	action = LookingForTargets.new([Constants.Match.Navigation.Domain.AIR])
+	action = LookingForTargets.new()
