@@ -18,6 +18,6 @@ func _unhandled_input(event):
 func _toggle_god_mode():
 	god_mode = not god_mode
 	if god_mode:
-		Signals.emit_signal("god_mode_enabled")
+		Signals.god_mode_enabled.emit()
 	else:
-		Signals.emit_signal("god_mode_disabled")
+		Signals.god_mode_disabled.emit()
