@@ -1,8 +1,10 @@
-# TODO: teardown ASAP
 extends "res://source/match/units/actions/Action.gd"
+
+const RANGE_CHECK_INTERVAL = 1.0 / 60.0 * 10.0
 
 var _target_unit = null
 var _one_shot_timer = null
+var _range_check_timer = null
 
 @onready var _unit = Utils.NodeEx.find_parent_with_group(self, "units")
 
@@ -14,11 +16,23 @@ func _init(target_unit):
 func _ready():
 	if _teardown_if_out_of_range():
 		return
+	_setup_one_shot_timer()
+	_setup_range_check_timer()
+	_schedule_hit()
+
+
+func _setup_one_shot_timer():
 	_one_shot_timer = Timer.new()
 	_one_shot_timer.one_shot = true
 	_one_shot_timer.timeout.connect(_hit_target)
 	add_child(_one_shot_timer)
-	_schedule_hit()
+
+
+func _setup_range_check_timer():
+	_range_check_timer = Timer.new()
+	_range_check_timer.timeout.connect(_teardown_if_out_of_range)
+	add_child(_range_check_timer)
+	_range_check_timer.start(RANGE_CHECK_INTERVAL)
 
 
 func _schedule_hit():
