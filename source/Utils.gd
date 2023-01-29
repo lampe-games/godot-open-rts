@@ -40,3 +40,13 @@ class Colour:
 			and Float.is_equal_approx_with_epsilon(a.g, b.g, epsilon)
 			and Float.is_equal_approx_with_epsilon(a.b, b.b, epsilon)
 		)
+
+
+class NodeEx:
+	static func find_parent_with_group(node, group_for_parent_to_be_in):
+		var ancestor = node.get_parent()
+		while ancestor != null:
+			if ancestor.is_in_group(group_for_parent_to_be_in):
+				return ancestor
+			ancestor = ancestor.get_parent()
+		return null

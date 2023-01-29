@@ -16,6 +16,7 @@ var hp_max = null:
 var attack_damage = null
 var attack_interval = null
 var attack_range = null
+var attack_domains = []
 var radius = null:
 	set = _ignore,
 	get = _get_radius

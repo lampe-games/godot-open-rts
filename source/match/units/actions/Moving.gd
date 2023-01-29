@@ -3,7 +3,7 @@ extends "res://source/match/units/actions/Action.gd"
 var _target_position = null
 var _action_finished = false
 
-@onready var _unit = get_parent()
+@onready var _unit = Utils.NodeEx.find_parent_with_group(self, "units")
 @onready var _movement_trait = _unit.find_child("Movement")
 
 

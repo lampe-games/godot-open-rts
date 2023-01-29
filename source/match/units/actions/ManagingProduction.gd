@@ -19,7 +19,7 @@ class ProductionQueueElement:
 var queue = []
 
 @onready var _match = find_parent("Match")
-@onready var _unit = get_parent()
+@onready var _unit = Utils.NodeEx.find_parent_with_group(self, "units")
 
 
 func _process(delta):

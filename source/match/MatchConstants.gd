@@ -109,6 +109,7 @@ class Units:
 			"attack_damage": 1,
 			"attack_interval": 1.0,
 			"attack_range": 5.0,
+			"attack_domains": [Navigation.Domain.TERRAIN, Navigation.Domain.AIR],
 		},
 		"res://source/match/units/Tank.gd":
 		{
@@ -118,6 +119,7 @@ class Units:
 			"attack_damage": 1,
 			"attack_interval": 1.0,
 			"attack_range": 5.0,
+			"attack_domains": [Navigation.Domain.TERRAIN],
 		},
 		"res://source/match/units/CommandCenter.gd":
 		{
@@ -145,6 +147,7 @@ class Units:
 			"attack_damage": 1,
 			"attack_interval": 1.0,
 			"attack_range": 8.0,
+			"attack_domains": [Navigation.Domain.TERRAIN],
 		},
 		"res://source/match/units/AntiAirTurret.gd":
 		{
@@ -154,6 +157,7 @@ class Units:
 			"attack_damage": 1,
 			"attack_interval": 1.0,
 			"attack_range": 8.0,
+			"attack_domains": [Navigation.Domain.AIR],
 		},
 	}
 	const ADHERENCE_MARGIN = 0.1

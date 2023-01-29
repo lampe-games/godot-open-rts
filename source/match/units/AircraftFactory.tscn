@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cxilu6668nda6"]
+[gd_scene load_steps=11 format=3 uid="uid://cxilu6668nda6"]
 
 [ext_resource type="Script" path="res://source/match/units/AircraftFactory.gd" id="1_n6n1v"]
 [ext_resource type="PackedScene" uid="uid://cgsi062w5fjia" path="res://source/match/units/traits/Highlight.tscn" id="1_r5i7t"]
@@ -8,8 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://dwlxojdatqbl7" path="res://assets/models/kenney-spacekit/platform_small.glb" id="4_7xinw"]
 [ext_resource type="PackedScene" uid="uid://c3ssj2p6voauk" path="res://source/match/units/traits/HealthBar.tscn" id="4_igtfr"]
 [ext_resource type="PackedScene" uid="uid://ju36oirvvb61" path="res://assets/models/kenney-spacekit/hangar_smallA.glb" id="6_eoxt8"]
+[ext_resource type="PackedScene" uid="uid://d4cm4yhtf11ur" path="res://source/match/units/traits/Targetability.tscn" id="9_qqlap"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_8ts8y"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_uvm5u"]
 height = 1.0
 radius = 1.5
 
@@ -32,7 +33,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.77729, 1.39766, -1.09501)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-shape = SubResource("CylinderShape3D_8ts8y")
+shape = SubResource("CylinderShape3D_uvm5u")
 
 [node name="Highlight" parent="." instance=ExtResource("1_r5i7t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
@@ -50,3 +51,5 @@ agent_height_offset = 0.5
 [node name="HealthBar" parent="." instance=ExtResource("4_igtfr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 size = Vector2(250, 10)
+
+[node name="Targetability" parent="." instance=ExtResource("9_qqlap")]

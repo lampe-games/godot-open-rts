@@ -1,9 +1,10 @@
+# TODO: teardown ASAP
 extends "res://source/match/units/actions/Action.gd"
 
 var _target_unit = null
 var _one_shot_timer = null
 
-@onready var _unit = get_parent()
+@onready var _unit = Utils.NodeEx.find_parent_with_group(self, "units")
 
 
 func _init(target_unit):

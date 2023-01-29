@@ -8,7 +8,7 @@ var _target_domains = []
 var _timer = null
 var _sub_action = null
 
-@onready var _unit = get_parent()
+@onready var _unit = Utils.NodeEx.find_parent_with_group(self, "units")
 
 
 func _init(_domains):
@@ -20,11 +20,6 @@ func _ready():
 	_timer.timeout.connect(_on_timer_timeout)
 	add_child(_timer)
 	_timer.start(REFRESH_INTERVAL)
-
-
-func _exit_tree():
-	if _sub_action != null:
-		_sub_action.queue_free()
 
 
 func _to_string():
@@ -49,7 +44,7 @@ func _attack_unit(unit):
 	_timer.timeout.disconnect(_on_timer_timeout)
 	_sub_action = AttackingWhileInRange.new(unit)
 	_sub_action.tree_exited.connect(_on_attack_finished)
-	_unit.add_child(_sub_action)
+	add_child(_sub_action)
 	_unit.action_updated.emit()
 
 
@@ -60,6 +55,8 @@ func _on_timer_timeout():
 
 
 func _on_attack_finished():
+	if not is_inside_tree():
+		return
 	_sub_action = null
 	_unit.action_updated.emit()
 	_timer.timeout.connect(_on_timer_timeout)
