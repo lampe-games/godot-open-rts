@@ -126,6 +126,11 @@ text = "All"
 layout_mode = 2
 text = "Action Caption"
 
+[node name="DebugVisualsToggleButton" type="Button" parent="MarginContainer/UnitsManager/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Debug Visuals"
+
 [connection signal="value_changed" from="PlayerManager/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/ControlledPlayerSpinBox" to="PlayerManager" method="_on_controlled_player_spin_box_value_changed"]
 [connection signal="value_changed" from="PlayerManager/VBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/VisiblePlayerSpinBox" to="PlayerManager" method="_on_visible_player_spin_box_value_changed"]
 [connection signal="pressed" from="MarginContainer/UnitsManager/MarginContainer/VBoxContainer/ActionCaptionToggleButton" to="MarginContainer/UnitsManager" method="_on_action_caption_toggle_button_pressed"]
+[connection signal="pressed" from="MarginContainer/UnitsManager/MarginContainer/VBoxContainer/DebugVisualsToggleButton" to="MarginContainer/UnitsManager" method="_on_debug_visuals_toggle_button_pressed"]
