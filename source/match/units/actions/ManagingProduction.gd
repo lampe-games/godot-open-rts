@@ -18,7 +18,6 @@ class ProductionQueueElement:
 
 var queue = []
 
-@onready var _match = find_parent("Match")
 @onready var _unit = Utils.NodeEx.find_parent_with_group(self, "units")
 
 
@@ -35,9 +34,9 @@ func _process(delta):
 
 func produce(unit_prototype):
 	var production_cost = Constants.Match.Units.PRODUCTION_COSTS[unit_prototype.resource_path]
-	if not _match.players[_unit.player_id].has_resources(production_cost):
+	if not _unit.player.has_resources(production_cost):
 		return
-	_match.players[_unit.player_id].subtract_resources(production_cost)
+	_unit.player.subtract_resources(production_cost)
 	var queue_element = ProductionQueueElement.new()
 	queue_element.unit_prototype = unit_prototype
 	queue_element.time_total = Constants.Match.Units.PRODUCTION_TIMES[unit_prototype.resource_path]
@@ -50,5 +49,5 @@ func _finalize_production(former_queue_element):
 	MatchSignals.setup_and_spawn_unit.emit(
 		former_queue_element.unit_prototype.instantiate(),
 		_unit.global_transform.translated(Vector3(0, 0, 5)),
-		_unit.player_id
+		_unit.player
 	)

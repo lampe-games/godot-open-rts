@@ -2,7 +2,6 @@ extends PanelContainer
 
 var _watched_player = null
 
-@onready var _match = find_parent("Match")
 @onready var _resource_a_label = find_child("ResourceALabel")
 @onready var _resource_b_label = find_child("ResourceBLabel")
 @onready var _resource_a_color_rect = find_child("ResourceAColorRect")
@@ -15,15 +14,15 @@ func _ready():
 	MatchSignals.controlled_player_changed.connect(_on_controlled_player_changed)
 
 
-func _on_controlled_player_changed(player_id):
+func _on_controlled_player_changed(player):
 	if _watched_player != null:
 		_watched_player.changed.disconnect(_on_player_changed)
 		_watched_player = null
-	if player_id < 0 or player_id >= _match.players.size():
+	if player == null:
 		_resource_a_label.text = "N/A"
 		_resource_b_label.text = "N/A"
 		return
-	_watched_player = _match.players[player_id]
+	_watched_player = player
 	_on_player_changed(_watched_player)
 	_watched_player.changed.connect(_on_player_changed.bind(_watched_player))
 

@@ -26,7 +26,6 @@ var movement_domain = null:
 	get = _get_movement_domain
 var sight_range = null
 
-var player_id = null
 var player = null
 var color = null:
 	set = _set_color
@@ -37,7 +36,6 @@ var _action_locked = false
 
 
 func _ready():
-	assert(player_id != null)
 	assert(player != null)
 	_setup_default_properties_from_constants()
 

@@ -10,9 +10,8 @@ const Worker = preload("res://source/match/units/Worker.gd")
 
 var _accumulated_delta = 0.0
 var _resouce_unit = null
-var _player = null
 
-@onready var _match = find_parent("Match")
+@onready var _unit = Utils.NodeEx.find_parent_with_group(self, "units")
 
 
 static func is_applicable(source_unit, target_unit):
@@ -23,26 +22,15 @@ func _init(resource_unit):
 	_resouce_unit = resource_unit
 
 
-func _ready():
-	# TODO: detect player through _unit
-	_player = (
-		_match.players[_match.controlled_player_id]
-		if _match.controlled_player_id >= 0 and _match.controlled_player_id < _match.players.size()
-		else null
-	)
-
-
 func _process(delta):
 	# TODO: change dummy algorithm to actual one
-	if _player == null:
-		return
 	_accumulated_delta += delta
 	if _accumulated_delta < 1.0:
 		return
 	_accumulated_delta -= 1.0
 	if "resource_a" in _resouce_unit:
 		_resouce_unit.resource_a -= 1
-		_player.resource_a += 1
+		_unit.player.resource_a += 1
 	if "resource_b" in _resouce_unit:
 		_resouce_unit.resource_b -= 1
-		_player.resource_b += 1
+		_unit.player.resource_b += 1

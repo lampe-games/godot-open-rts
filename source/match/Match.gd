@@ -18,15 +18,15 @@ const AGTurret = preload("res://source/match/units/AntiGroundTurret.tscn")
 @export var settings: Resource = null
 
 var players = []
-var controlled_player_id = null:
-	set = _set_controlled_player_id
-var visible_player_id = null:
-	set = _set_visible_player_id
-var visible_player_ids = null:
+var controlled_player = null:
+	set = _set_controlled_player
+var visible_player = null:
+	set = _set_visible_player
+var visible_players = null:
 	set(_value):
 		pass
 	get:
-		return [visible_player_id]
+		return [visible_player]
 var map = HardcodedMap.new()  # TODO: use actual map
 
 @onready var navigation = find_child("Navigation")
@@ -37,8 +37,8 @@ var map = HardcodedMap.new()  # TODO: use actual map
 func _ready():
 	MatchSignals.setup_and_spawn_unit.connect(_setup_and_spawn_unit)
 	_create_players()
-	controlled_player_id = settings.controlled_player
-	visible_player_id = settings.visible_player
+	controlled_player = players[settings.controlled_player]
+	visible_player = players[settings.visible_player]
 	_spawn_initial_player_units()
 	_move_camera_to_controlled_player_spawn_point()
 
@@ -48,18 +48,18 @@ func _unhandled_input(event):
 		MatchSignals.deselect_all_units.emit()
 
 
-func _set_controlled_player_id(id):
+func _set_controlled_player(player):
 	MatchSignals.deselect_all_units.emit()
-	_renounce_control_of_player_units(controlled_player_id)
-	_assume_control_of_player_units(id)
-	controlled_player_id = id
-	MatchSignals.controlled_player_changed.emit(controlled_player_id)
+	_renounce_control_of_player_units(controlled_player)
+	_assume_control_of_player_units(player)
+	controlled_player = player
+	MatchSignals.controlled_player_changed.emit(controlled_player)
 
 
-func _set_visible_player_id(id):
-	_conceal_player_units(visible_player_id)
-	_reveal_player_units(id)
-	visible_player_id = id
+func _set_visible_player(player):
+	_conceal_player_units(visible_player)
+	_reveal_player_units(player)
+	visible_player = player
 
 
 func _create_players():
@@ -71,83 +71,79 @@ func _create_players():
 
 func _spawn_initial_player_units():
 	var spawn_points = find_child("SpawnPoints").get_children()
-	for player_id in range(settings.players.size()):
+	for player_id in range(players.size()):
+		var spawn_transform = spawn_points[player_id].global_transform
+		var player = players[player_id]
+		_setup_and_spawn_unit(CommandCenter.instantiate(), spawn_transform, player)
 		_setup_and_spawn_unit(
-			CommandCenter.instantiate(), spawn_points[player_id].global_transform, player_id
+			Drone.instantiate(), spawn_transform.translated(Vector3(2, 5, 2)), player
 		)
 		_setup_and_spawn_unit(
-			Drone.instantiate(),
-			spawn_points[player_id].global_transform.translated(Vector3(2, 5, 2)),
-			player_id
+			Drone.instantiate(), spawn_transform.translated(Vector3(-2, 3, -2)), player
 		)
 		_setup_and_spawn_unit(
-			Drone.instantiate(),
-			spawn_points[player_id].global_transform.translated(Vector3(-2, 3, -2)),
-			player_id
+			Worker.instantiate(), spawn_transform.translated(Vector3(-3, 0, 3)), player
 		)
 		_setup_and_spawn_unit(
-			Worker.instantiate(),
-			spawn_points[player_id].global_transform.translated(Vector3(-3, 0, 3)),
-			player_id
+			AGTurret.instantiate(), spawn_transform.translated(Vector3(3, 0, -3)), player
 		)
 		_setup_and_spawn_unit(
-			AGTurret.instantiate(),
-			spawn_points[player_id].global_transform.translated(Vector3(3, 0, -3)),
-			player_id
+			Tank.instantiate(), spawn_transform.translated(Vector3(3, 0, 3)), player
 		)
 		_setup_and_spawn_unit(
-			Tank.instantiate(),
-			spawn_points[player_id].global_transform.translated(Vector3(3, 0, 3)),
-			player_id
-		)
-		_setup_and_spawn_unit(
-			Helicopter.instantiate(),
-			spawn_points[player_id].global_transform.translated(Vector3(-3, 0, -3)),
-			player_id
+			Helicopter.instantiate(), spawn_transform.translated(Vector3(-3, 0, -3)), player
 		)
 
 
-func _setup_and_spawn_unit(unit, a_transform, player_id):
-	unit.player_id = player_id
-	unit.player = players[player_id]
+func _setup_and_spawn_unit(unit, a_transform, player):
+	unit.player = player
 	unit.color = unit.player.color
 	unit.global_transform = a_transform
 	unit.add_to_group("units")
-	unit.add_to_group("player_{0}_units".format([player_id]))
-	if player_id == controlled_player_id:
+	unit.add_to_group("player_{0}_units".format([players.find(player)]))
+	if player == controlled_player:
 		unit.add_to_group("controlled_units")
 	else:
 		unit.add_to_group("adversary_units")
-	if player_id in visible_player_ids:
+	if player in visible_players:
 		unit.add_to_group("revealed_units")
 	add_child(unit)
 
 
 func _move_camera_to_controlled_player_spawn_point():
 	var spawn_points = find_child("SpawnPoints").get_children()
-	for player_id in range(settings.players.size()):
-		if player_id == controlled_player_id:
-			_camera.set_position_safely(spawn_points[player_id].global_transform.origin)
+	for player_id in range(players.size()):
+		var player = players[player_id]
+		if player == controlled_player:
+			_camera.set_position_safely(spawn_points[player_id].global_position)
 			break
 
 
-func _assume_control_of_player_units(player_id):
-	for unit in get_tree().get_nodes_in_group("player_{0}_units".format([player_id])):
+func _assume_control_of_player_units(player):
+	if player == null:
+		return
+	for unit in get_tree().get_nodes_in_group("player_{0}_units".format([players.find(player)])):
 		unit.add_to_group("controlled_units")
 		unit.remove_from_group("adversary_units")
 
 
-func _renounce_control_of_player_units(player_id):
-	for unit in get_tree().get_nodes_in_group("player_{0}_units".format([player_id])):
+func _renounce_control_of_player_units(player):
+	if player == null:
+		return
+	for unit in get_tree().get_nodes_in_group("player_{0}_units".format([players.find(player)])):
 		unit.add_to_group("adversary_units")
 		unit.remove_from_group("controlled_units")
 
 
-func _reveal_player_units(player_id):
-	for unit in get_tree().get_nodes_in_group("player_{0}_units".format([player_id])):
+func _reveal_player_units(player):
+	if player == null:
+		return
+	for unit in get_tree().get_nodes_in_group("player_{0}_units".format([players.find(player)])):
 		unit.add_to_group("revealed_units")
 
 
-func _conceal_player_units(player_id):
-	for unit in get_tree().get_nodes_in_group("player_{0}_units".format([player_id])):
+func _conceal_player_units(player):
+	if player == null:
+		return
+	for unit in get_tree().get_nodes_in_group("player_{0}_units".format([players.find(player)])):
 		unit.remove_from_group("revealed_units")

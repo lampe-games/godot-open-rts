@@ -31,3 +31,4 @@ Downloading 0.00 MB source file /usr/src/debug/glibc/nptl/pthread_kill.c
 #15 0x00007f7f33e0cc74 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:100
 * DONE radio buttons are visually broken (logic works fine tho)
 * TODO inherited scenes not working
+* TODO Resouce.get_rid().get_id() is always 0

@@ -8,13 +8,17 @@ extends MarginContainer
 
 func _ready():
 	await _match.ready
-	_controlled_player.value = _match.controlled_player_id
-	_visible_player.value = _match.visible_player_id
+	_controlled_player.value = _match.players.find(_match.controlled_player)
+	_visible_player.value = _match.players.find(_match.visible_player)
 
 
 func _on_controlled_player_spin_box_value_changed(value):
-	_match.controlled_player_id = value
+	_match.controlled_player = (
+		_match.players[value] if value >= 0 and value < _match.players.size() else null
+	)
 
 
 func _on_visible_player_spin_box_value_changed(value):
-	_match.visible_player_id = value
+	_match.visible_player = (
+		_match.players[value] if value >= 0 and value < _match.players.size() else null
+	)

@@ -105,7 +105,7 @@ func _player_has_enough_resources():
 	var construction_cost = Constants.Match.Units.CONSTRUCTION_COSTS[
 		_pending_building_prototype.resource_path
 	]
-	return _match.players[_match.controlled_player_id].has_resources(construction_cost)
+	return _match.controlled_player.has_resources(construction_cost)
 
 
 func _active_bluprint_out_of_map():
@@ -202,11 +202,11 @@ func _finish_building_placement():
 		var construction_cost = Constants.Match.Units.CONSTRUCTION_COSTS[
 			_pending_building_prototype.resource_path
 		]
-		_match.players[_match.controlled_player_id].subtract_resources(construction_cost)
+		_match.controlled_player.subtract_resources(construction_cost)
 		MatchSignals.setup_and_spawn_unit.emit(
 			_pending_building_prototype.instantiate(),
 			_active_blueprint_node.global_transform,
-			_match.controlled_player_id
+			_match.controlled_player
 		)
 	_cancel_building_placement()
 

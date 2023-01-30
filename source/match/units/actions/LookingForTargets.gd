@@ -25,7 +25,7 @@ func _get_units_to_attack():
 	var self_position_yless = _unit.global_position * Vector3(1, 0, 1)
 	return get_tree().get_nodes_in_group("units").filter(
 		func(unit): return (
-			unit.player_id != _unit.player_id
+			unit.player != _unit.player
 			and unit.movement_domain in _unit.attack_domains
 			and (
 				self_position_yless.distance_to(unit.global_position * Vector3(1, 0, 1))
