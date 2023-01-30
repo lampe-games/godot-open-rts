@@ -23,6 +23,7 @@ func _init(target_unit):
 
 
 func _ready():
+	_target_unit.died.connect(_on_target_unit_died)
 	_attack_or_move_closer()
 
 
@@ -49,8 +50,11 @@ func _attack_or_move_closer():
 	_unit.action_updated.emit()
 
 
+func _on_target_unit_died():
+	queue_free()
+
+
 func _on_sub_action_finished():
 	if not is_inside_tree():
 		return
-	# TODO: handle unit death
 	_attack_or_move_closer()

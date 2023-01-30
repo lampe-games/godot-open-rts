@@ -5,6 +5,7 @@ signal deselected
 signal hp_changed
 signal action_changed(new_action)
 signal action_updated
+signal died
 
 const MATERIAL_ALBEDO_TO_REPLACE = Color(0.99, 0.81, 0.48)
 const MATERIAL_ALBEDO_TO_REPLACE_EPSILON = 0.05
@@ -46,8 +47,10 @@ func _ignore(_value):
 
 
 func _set_hp(value):
-	hp = value
+	hp = max(0, value)
 	hp_changed.emit()
+	if hp == 0:
+		_handle_unit_death()
 
 
 func _set_hp_max(value):
@@ -101,6 +104,12 @@ func _teardown_current_action():
 	if action != null and action.is_inside_tree():
 		action.queue_free()
 		remove_child(action)  # triggers _on_action_node_tree_exited immediately
+
+
+func _handle_unit_death():
+	MatchSignals.unit_died.emit(self)
+	died.emit()
+	queue_free()
 
 
 func _setup_default_properties_from_constants():

@@ -16,6 +16,7 @@ func _init(target_unit):
 func _ready():
 	if _teardown_if_out_of_range():
 		return
+	_target_unit.died.connect(_on_target_unit_died)
 	_setup_one_shot_timer()
 	_setup_range_check_timer()
 	_schedule_hit()
@@ -67,3 +68,7 @@ func _teardown_if_out_of_range():
 		queue_free()
 		return true
 	return false
+
+
+func _on_target_unit_died():
+	queue_free()
