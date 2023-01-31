@@ -2,6 +2,8 @@ extends NavigationAgent3D
 
 signal movement_finished
 
+const INITIAL_DISPERSION_FACTOR = 0.1
+
 @export var domain = Constants.Match.Navigation.Domain.TERRAIN
 @export var speed: float = 4.0
 
@@ -26,7 +28,12 @@ func _ready():
 	navigation_finished.connect(_on_navigation_finished)
 	set_navigation_map(_match.navigation.get_navigation_map_rid_by_domain(domain))
 	_align_unit_position_to_navigation()
-	move(_unit.global_transform.origin)
+	move(
+		(
+			_unit.global_position
+			+ Vector3(randf(), 0, randf()).normalized() * INITIAL_DISPERSION_FACTOR
+		)
+	)
 
 
 func move(movement_target: Vector3):
