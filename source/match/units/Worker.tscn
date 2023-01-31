@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://c3ssj2p6voauk" path="res://source/match/units/traits/HealthBar.tscn" id="5_50cqd"]
 [ext_resource type="PackedScene" uid="uid://d4cm4yhtf11ur" path="res://source/match/units/traits/Targetability.tscn" id="7_i4ri4"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_s1hhf"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_hiufi"]
 height = 0.6
 
 [node name="Worker" type="Area3D"]
@@ -23,7 +23,7 @@ transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -4, 0, -3)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
-shape = SubResource("CylinderShape3D_s1hhf")
+shape = SubResource("CylinderShape3D_hiufi")
 
 [node name="Highlight" parent="." instance=ExtResource("2_bt6lt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)

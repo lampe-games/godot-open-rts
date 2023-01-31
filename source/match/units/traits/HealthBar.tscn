@@ -1,36 +1,28 @@
-[gd_scene load_steps=5 format=3 uid="uid://c3ssj2p6voauk"]
+[gd_scene load_steps=4 format=3 uid="uid://c3ssj2p6voauk"]
 
 [ext_resource type="Script" path="res://source/match/units/traits/HealthBar.gd" id="1_md17c"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1lun2"]
+[sub_resource type="Gradient" id="Gradient_gked8"]
+resource_local_to_scene = true
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.75)
+colors = PackedColorArray(0, 1, 0, 1, 0.292969, 0.292969, 0.292969, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ghlm"]
-bg_color = Color(0, 1, 0, 1)
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_70o0j"]
-viewport_path = NodePath("SubViewport")
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_p6fyg"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_gked8")
+width = 200
+height = 20
 
 [node name="HealthBar" type="Node3D"]
 script = ExtResource("1_md17c")
 
-[node name="SubViewport" type="SubViewport" parent="."]
-handle_input_locally = false
-size = Vector2i(200, 20)
-
-[node name="ActualBar" type="ProgressBar" parent="SubViewport"]
-offset_right = 200.0
-offset_bottom = 20.0
-theme_override_styles/background = SubResource("StyleBoxEmpty_1lun2")
-theme_override_styles/fill = SubResource("StyleBoxFlat_0ghlm")
-max_value = 1.0
-value = 0.75
-show_percentage = false
-
-[node name="VisibleBar" type="Sprite3D" parent="."]
+[node name="ActualBar" type="Sprite3D" parent="."]
 billboard = 1
 transparent = false
 no_depth_test = true
-texture = SubResource("ViewportTexture_70o0j")
+texture_filter = 2
+texture = SubResource("GradientTexture2D_p6fyg")
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
