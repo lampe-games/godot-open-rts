@@ -1,6 +1,7 @@
 extends "res://source/match/units/actions/Action.gd"
 
 const AttackingWhileInRange = preload("res://source/match/units/actions/AttackingWhileInRange.gd")
+const AutoAttacking = preload("res://source/match/units/actions/AutoAttacking.gd")
 
 const REFRESH_INTERVAL = 1.0 / 60.0 * 10.0
 
@@ -37,7 +38,9 @@ func _get_units_to_attack():
 
 func _attack_unit(unit):
 	_timer.timeout.disconnect(_on_timer_timeout)
-	_sub_action = AttackingWhileInRange.new(unit)
+	_sub_action = (
+		AutoAttacking.new(unit) if _unit.movement_speed > 0.0 else AttackingWhileInRange.new(unit)
+	)
 	_sub_action.tree_exited.connect(_on_attack_finished)
 	add_child(_sub_action)
 	_unit.action_updated.emit()

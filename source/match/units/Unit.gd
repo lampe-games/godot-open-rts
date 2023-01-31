@@ -24,6 +24,9 @@ var radius = null:
 var movement_domain = null:
 	set = _ignore,
 	get = _get_movement_domain
+var movement_speed = null:
+	set = _ignore,
+	get = _get_movement_speed
 var sight_range = null
 
 var player = null
@@ -72,6 +75,12 @@ func _get_movement_domain():
 	return null
 
 
+func _get_movement_speed():
+	if find_child("Movement") != null:
+		return find_child("Movement").speed
+	return 0.0
+
+
 func _set_color(a_color):
 	color = a_color
 	assert(player != null)
@@ -85,7 +94,9 @@ func _set_color(a_color):
 
 
 func _set_action(action_node):
-	if _action_locked:
+	if not is_inside_tree() or _action_locked:
+		if action_node != null:
+			action_node.queue_free()
 		return
 	_action_locked = true
 	_teardown_current_action()
