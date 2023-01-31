@@ -34,7 +34,7 @@ color = Color(1, 0.360784, 0.45098, 1)
 
 [sub_resource type="Resource" id="Resource_frabv"]
 script = ExtResource("3_k87ed")
-players = [SubResource("Resource_aehri"), SubResource("Resource_ohrdq")]
+players = Array[Resource]([SubResource("Resource_aehri"), SubResource("Resource_ohrdq")])
 controlled_player = 0
 visible_player = 0
 
@@ -120,7 +120,7 @@ current = true
 size = 15.0
 script = ExtResource("1_qb2ry")
 size_max = 60
-bounding_planes = [Plane(1, 0, 0, 0), Plane(-1, 0, 0, -100), Plane(0, 0, 1, 0), Plane(0, 0, -1, -100)]
+bounding_planes = Array[Plane]([Plane(1, 0, 0, 0), Plane(-1, 0, 0, -100), Plane(0, 0, 1, 0), Plane(0, 0, -1, -100)])
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.512043, 0.673162, -0.533541, 0, 0.621148, 0.783694, 0.85896, -0.401285, 0.318054, 0, 38.7614, 0)
