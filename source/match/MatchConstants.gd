@@ -45,9 +45,9 @@ class Units:
 		},
 	}
 	const PRODUCTION_TIMES = {
-		"res://source/match/units/Worker.tscn": 5.0,
-		"res://source/match/units/Helicopter.tscn": 5.0,
-		"res://source/match/units/Tank.tscn": 5.0,
+		"res://source/match/units/Worker.tscn": 0.75,
+		"res://source/match/units/Helicopter.tscn": 0.75,
+		"res://source/match/units/Tank.tscn": 0.75,
 	}
 	const BUILDING_BLUEPRINTS = {
 		"res://source/match/units/CommandCenter.tscn":
