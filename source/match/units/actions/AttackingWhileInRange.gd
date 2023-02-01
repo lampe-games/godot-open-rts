@@ -22,6 +22,10 @@ func _ready():
 	_schedule_hit()
 
 
+func _physics_process(_delta):
+	_rotate_unit_towards_target()
+
+
 func _setup_one_shot_timer():
 	_one_shot_timer = Timer.new()
 	_one_shot_timer.one_shot = true
@@ -34,6 +38,15 @@ func _setup_range_check_timer():
 	_range_check_timer.timeout.connect(_teardown_if_out_of_range)
 	add_child(_range_check_timer)
 	_range_check_timer.start(RANGE_CHECK_INTERVAL)
+
+
+func _rotate_unit_towards_target():
+	_unit.global_transform = _unit.global_transform.looking_at(
+		Vector3(
+			_target_unit.global_position.x, _unit.global_position.y, _target_unit.global_position.z
+		),
+		Vector3(0, 1, 0)
+	)
 
 
 func _schedule_hit():

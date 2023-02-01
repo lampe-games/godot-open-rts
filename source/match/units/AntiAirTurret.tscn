@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://c3ssj2p6voauk" path="res://source/match/units/traits/HealthBar.tscn" id="4_qhoj1"]
 [ext_resource type="PackedScene" uid="uid://d4cm4yhtf11ur" path="res://source/match/units/traits/Targetability.tscn" id="7_6bghh"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_tywkt"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_wj5i2"]
 height = 0.8
 radius = 0.6
 
@@ -17,17 +17,32 @@ collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_ec2s5")
 
-[node name="Geometry" type="Node3D" parent="."]
+[node name="PositionSynchronizer" type="RemoteTransform3D" parent="."]
+remote_path = NodePath("../DetachTransform/Geometry")
+update_rotation = false
+update_scale = false
 
-[node name="turret_double" parent="Geometry" instance=ExtResource("2_2exyb")]
+[node name="UpwardsRotation" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0, 0, 0)
+
+[node name="RotationSynchronizer" type="RemoteTransform3D" parent="UpwardsRotation"]
+remote_path = NodePath("../../DetachTransform/Geometry/turret_double/tmpParent/turret_double2/turret")
+update_position = false
+update_scale = false
+
+[node name="DetachTransform" type="Node" parent="."]
+
+[node name="Geometry" type="Node3D" parent="DetachTransform"]
+
+[node name="turret_double" parent="DetachTransform/Geometry" instance=ExtResource("2_2exyb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -1.5)
 
-[node name="turret" parent="Geometry/turret_double/tmpParent/turret_double2" index="0"]
+[node name="turret" parent="DetachTransform/Geometry/turret_double/tmpParent/turret_double2" index="0"]
 transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0, 0.3, -0.025)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
-shape = SubResource("CylinderShape3D_tywkt")
+shape = SubResource("CylinderShape3D_wj5i2")
 
 [node name="Highlight" parent="." instance=ExtResource("1_tbjvv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
@@ -48,4 +63,4 @@ size = Vector2(110, 10)
 
 [node name="Targetability" parent="." instance=ExtResource("7_6bghh")]
 
-[editable path="Geometry/turret_double"]
+[editable path="DetachTransform/Geometry/turret_double"]
