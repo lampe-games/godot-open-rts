@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://source/match/utils/MouseClickAnimation.gd" id="1_y322a"]
 [ext_resource type="Texture2D" uid="uid://c8tsarvah8jit" path="res://assets/ui/kenney-crosshairs/crosshair062.png" id="2_kyj8v"]
 
-[sub_resource type="Animation" id="Animation_hnvvo"]
+[sub_resource type="Animation" id="Animation_u21qe"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -18,7 +18,7 @@ tracks/0/keys = {
 "values": [Vector3(1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_gmtwc"]
+[sub_resource type="Animation" id="Animation_2qki2"]
 resource_name = "fade_out"
 length = 0.5
 tracks/0/type = "value"
@@ -34,10 +34,10 @@ tracks/0/keys = {
 "values": [Vector3(1, 1, 1), Vector3(0.1, 0.1, 0.1)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_dvqu6"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mryvw"]
 _data = {
-"RESET": SubResource("Animation_hnvvo"),
-"fade_out": SubResource("Animation_gmtwc")
+"RESET": SubResource("Animation_u21qe"),
+"fade_out": SubResource("Animation_2qki2")
 }
 
 [node name="MouseClickAnimation" type="Node3D"]
@@ -48,9 +48,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
 modulate = Color(0, 1, 0, 1)
 pixel_size = 0.005
 axis = 1
+render_priority = 127
 texture = ExtResource("2_kyj8v")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_dvqu6")
+"": SubResource("AnimationLibrary_mryvw")
 }

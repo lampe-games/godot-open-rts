@@ -22,6 +22,7 @@ billboard = 1
 transparent = false
 no_depth_test = true
 texture_filter = 2
+render_priority = 127
 texture = SubResource("GradientTexture2D_p6fyg")
 
 [node name="Timer" type="Timer" parent="."]
