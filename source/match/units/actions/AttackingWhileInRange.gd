@@ -62,14 +62,16 @@ func _schedule_hit():
 func _hit_target():
 	if _teardown_if_out_of_range():
 		return
+	_rotate_unit_towards_target()
 	_unit.set_meta(
 		"next_attack_availability_time", Time.get_ticks_msec() + int(_unit.attack_interval * 1000.0)
 	)
-	_target_unit.hp -= _unit.attack_damage
-	if _target_unit.hp > 0:
-		_schedule_hit()
-	else:
-		queue_free()
+	var projectile = (
+		load(Constants.Match.Units.PROJECTILES[_unit.get_script().resource_path]).instantiate()
+	)
+	projectile.target_unit = _target_unit
+	_unit.add_child(projectile)
+	_schedule_hit()
 
 
 func _teardown_if_out_of_range():

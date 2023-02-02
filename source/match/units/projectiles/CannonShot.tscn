@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=3 uid="uid://dfj77luhlr2e"]
+
+[ext_resource type="Script" path="res://source/match/units/projectiles/CannonShot.gd" id="1_hyk5q"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_te2m4"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_sccs4"]
+offsets = PackedFloat32Array(0, 0.675258, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_65753"]
+gradient = SubResource("Gradient_sccs4")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ujvjw"]
+direction = Vector3(0, 0, -1)
+spread = 5.0
+gravity = Vector3(0, 30, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 7.0
+damping_min = 45.72
+damping_max = 57.9
+scale_min = 0.05
+scale_max = 0.05
+color_ramp = SubResource("GradientTexture1D_65753")
+
+[sub_resource type="QuadMesh" id="QuadMesh_xgywx"]
+
+[node name="CannonShot" type="Node3D"]
+script = ExtResource("1_hyk5q")
+
+[node name="DetachTransform" type="Node" parent="."]
+
+[node name="OriginParticles" type="GPUParticles3D" parent="DetachTransform"]
+material_override = SubResource("StandardMaterial3D_te2m4")
+emitting = false
+amount = 32
+one_shot = true
+explosiveness = 0.9
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_ujvjw")
+draw_pass_1 = SubResource("QuadMesh_xgywx")
+
+[node name="Timer" type="Timer" parent="."]
