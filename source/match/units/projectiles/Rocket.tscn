@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://bjatf4aos6ec3"]
+
+[ext_resource type="Script" path="res://source/match/units/projectiles/Rocket.gd" id="1_dy0dc"]
+
+[sub_resource type="Curve3D" id="Curve3D_ae30h"]
+resource_local_to_scene = true
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 5),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_45jbp"]
+shading_mode = 0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_vlm3w"]
+radius = 0.02
+height = 0.2
+
+[node name="Rocket" type="Node3D"]
+script = ExtResource("1_dy0dc")
+
+[node name="DetachTransform" type="Node" parent="."]
+
+[node name="Path3D" type="Path3D" parent="DetachTransform"]
+curve = SubResource("Curve3D_ae30h")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="DetachTransform/Path3D"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0)
+
+[node name="Node3D" type="Node3D" parent="DetachTransform/Path3D/PathFollow3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="DetachTransform/Path3D/PathFollow3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_45jbp")
+mesh = SubResource("CapsuleMesh_vlm3w")

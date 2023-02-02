@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://c3ssj2p6voauk" path="res://source/match/units/traits/HealthBar.tscn" id="4_qhoj1"]
 [ext_resource type="PackedScene" uid="uid://d4cm4yhtf11ur" path="res://source/match/units/traits/Targetability.tscn" id="7_6bghh"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_wj5i2"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_8ldxd"]
 height = 0.8
 radius = 0.6
 
@@ -40,9 +40,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -1.5)
 [node name="turret" parent="DetachTransform/Geometry/turret_double/tmpParent/turret_double2" index="0"]
 transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0, 0.3, -0.025)
 
+[node name="ProjectileOrigin" type="Marker3D" parent="DetachTransform/Geometry/turret_double/tmpParent/turret_double2/turret" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.326622, 0.12029, -0.315091)
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
-shape = SubResource("CylinderShape3D_wj5i2")
+shape = SubResource("CylinderShape3D_8ldxd")
 
 [node name="Highlight" parent="." instance=ExtResource("1_tbjvv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)

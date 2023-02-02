@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://c6byun73jesch" path="res://assets/models/kenney-spacekit/turret_single.glb" id="6_y0npg"]
 [ext_resource type="PackedScene" uid="uid://d4cm4yhtf11ur" path="res://source/match/units/traits/Targetability.tscn" id="7_4hifs"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_4u4ht"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_m5n20"]
 height = 0.8
 radius = 0.6
 
@@ -39,7 +39,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.13715, -0.412822)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
-shape = SubResource("CylinderShape3D_4u4ht")
+shape = SubResource("CylinderShape3D_m5n20")
 
 [node name="Highlight" parent="." instance=ExtResource("1_5gp2d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
