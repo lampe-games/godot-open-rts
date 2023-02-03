@@ -163,9 +163,9 @@ class Units:
 	const PROJECTILES = {
 		"res://source/match/units/Helicopter.gd":
 		"res://source/match/units/projectiles/Rocket.tscn",
-		"res://source/match/units/Tank.gd": "res://source/match/units/projectiles/CannonShot.tscn",
+		"res://source/match/units/Tank.gd": "res://source/match/units/projectiles/CannonShell.tscn",
 		"res://source/match/units/AntiGroundTurret.gd":
-		"res://source/match/units/projectiles/CannonShot.tscn",
+		"res://source/match/units/projectiles/CannonShell.tscn",
 		"res://source/match/units/AntiAirTurret.gd":
 		"res://source/match/units/projectiles/Rocket.tscn"
 	}

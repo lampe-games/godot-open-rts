@@ -1,6 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://dfj77luhlr2e"]
+[gd_scene load_steps=7 format=3 uid="uid://fprgooo87y83"]
 
-[ext_resource type="Script" path="res://source/match/units/projectiles/CannonShot.gd" id="1_hyk5q"]
+[ext_resource type="Script" path="res://source/match/units/projectiles/CannonShell.gd" id="1_hyk5q"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_te2m4"]
 transparency = 1
@@ -32,7 +32,7 @@ color_ramp = SubResource("GradientTexture1D_65753")
 
 [sub_resource type="QuadMesh" id="QuadMesh_xgywx"]
 
-[node name="CannonShot" type="Node3D"]
+[node name="CannonShell" type="Node3D"]
 script = ExtResource("1_hyk5q")
 
 [node name="DetachTransform" type="Node" parent="."]
