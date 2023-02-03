@@ -1,14 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bjatf4aos6ec3"]
+[gd_scene load_steps=13 format=3 uid="uid://bjatf4aos6ec3"]
 
 [ext_resource type="Script" path="res://source/match/units/projectiles/Rocket.gd" id="1_dy0dc"]
 
-[sub_resource type="Curve3D" id="Curve3D_ae30h"]
+[sub_resource type="Curve3D" id="Curve3D_n2fv6"]
 resource_local_to_scene = true
-_data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 5),
-"tilts": PackedFloat32Array(0, 0)
-}
-point_count = 2
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_45jbp"]
 shading_mode = 0
@@ -17,13 +12,159 @@ shading_mode = 0
 radius = 0.02
 height = 0.2
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xyj84"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+billboard_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_b34yk"]
+offsets = PackedFloat32Array(0, 0.675258, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_36doo"]
+gradient = SubResource("Gradient_b34yk")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ymmm3"]
+emission_shape = 1
+emission_sphere_radius = 0.15
+spread = 0.0
+gravity = Vector3(0, 1.5, 0)
+color_ramp = SubResource("GradientTexture1D_36doo")
+
+[sub_resource type="QuadMesh" id="QuadMesh_gpge5"]
+size = Vector2(0.05, 0.05)
+
+[sub_resource type="Animation" id="Animation_ud13x"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DetachTransform/Path3D/PathFollow3D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DetachTransform/Path3D/PathFollow3D/Node3D/MeshInstance3D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DetachTransform/GPUParticles3D:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("DetachTransform/GPUParticles3D:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_vcktp"]
+resource_name = "animate"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DetachTransform/Path3D/PathFollow3D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1.68179, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_perform_hit"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DetachTransform/Path3D/PathFollow3D/Node3D/MeshInstance3D:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("DetachTransform/GPUParticles3D:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("DetachTransform/GPUParticles3D:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_omaxx"]
+_data = {
+"RESET": SubResource("Animation_ud13x"),
+"animate": SubResource("Animation_vcktp")
+}
+
 [node name="Rocket" type="Node3D"]
 script = ExtResource("1_dy0dc")
 
 [node name="DetachTransform" type="Node" parent="."]
 
 [node name="Path3D" type="Path3D" parent="DetachTransform"]
-curve = SubResource("Curve3D_ae30h")
+curve = SubResource("Curve3D_n2fv6")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="DetachTransform/Path3D"]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0)
@@ -34,3 +175,22 @@ transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_45jbp")
 mesh = SubResource("CapsuleMesh_vlm3w")
+
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="DetachTransform/Path3D/PathFollow3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.129522)
+remote_path = NodePath("../../../../GPUParticles3D")
+update_rotation = false
+update_scale = false
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="DetachTransform"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0915859, 0, -0.0915859)
+material_override = SubResource("StandardMaterial3D_xyj84")
+emitting = false
+amount = 32
+process_material = SubResource("ParticleProcessMaterial_ymmm3")
+draw_pass_1 = SubResource("QuadMesh_gpge5")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_omaxx")
+}
