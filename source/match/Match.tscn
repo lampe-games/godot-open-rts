@@ -200,16 +200,22 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -37.67
 
 [node name="Units" type="Node3D" parent="Map"]
 
-[node name="ResourceA" parent="Map/Units" instance=ExtResource("5_f840u")]
+[node name="Player0" type="Node3D" parent="Map/Units"]
+
+[node name="Player1" type="Node3D" parent="Map/Units"]
+
+[node name="Misc" type="Node3D" parent="Map"]
+
+[node name="ResourceA" parent="Map/Misc" instance=ExtResource("5_f840u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.7654, 4.76837e-07, -33.2048)
 
-[node name="ResourceA2" parent="Map/Units" instance=ExtResource("5_f840u")]
+[node name="ResourceA2" parent="Map/Misc" instance=ExtResource("5_f840u")]
 transform = Transform3D(0.157813, 0, -0.987469, 0, 1, 0, 0.987469, 0, 0.157813, -38.5751, 4.76837e-07, -32.4638)
 
-[node name="ResourceA3" parent="Map/Units" instance=ExtResource("5_f840u")]
+[node name="ResourceA3" parent="Map/Misc" instance=ExtResource("5_f840u")]
 transform = Transform3D(-0.984384, 0, 0.176037, 0, 1, 0, -0.176037, 0, -0.984384, -39.2217, 0, -31.639)
 
-[node name="ResourceB" parent="Map/Units" instance=ExtResource("6_7kua8")]
+[node name="ResourceB" parent="Map/Misc" instance=ExtResource("6_7kua8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.8014, 0, -29.1446)
 
 [node name="Terrain" type="StaticBody3D" parent="."]

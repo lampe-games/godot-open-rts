@@ -12,7 +12,7 @@ static func crowd_moved_to_new_pivot(units, new_pivot):
 		return []
 	if units.size() == 1:
 		return [[units[0], new_pivot]]
-	var old_pivot = _calculate_aabb_crowd_pivot_yless(units)
+	var old_pivot = calculate_aabb_crowd_pivot_yless(units)
 	var yless_unit_offsets_from_old_pivot = _calculate_yless_unit_offsets_from_old_pivot(
 		units, old_pivot
 	)
@@ -25,11 +25,11 @@ static func crowd_moved_to_new_pivot(units, new_pivot):
 	return condensed_unit_positions
 
 
-static func _calculate_aabb_crowd_pivot_yless(units):
+static func calculate_aabb_crowd_pivot_yless(units):
 	"""calculates pivot which is a center of crowd AABB"""
 	var unit_positions = []
 	for unit in units:
-		unit_positions.append(unit.transform.origin)
+		unit_positions.append(unit.global_position)
 	var begin = Vector3(_calculate_min_x(unit_positions), 0.0, _calculate_min_z(unit_positions))
 	var end = Vector3(_calculate_max_x(unit_positions), 0.0, _calculate_max_z(unit_positions))
 	return (begin + end) / 2.0 * Vector3(1, 0, 1)
@@ -104,7 +104,7 @@ static func _calculate_yless_unit_offsets_from_old_pivot(units, old_pivot):
 	var old_pivot_yless = old_pivot * Vector3(1, 0, 1)
 	var yless_unit_offsets_from_old_pivot = []
 	for unit in units:
-		var unit_position_yless = unit.transform.origin * Vector3(1, 0, 1)
+		var unit_position_yless = unit.global_position * Vector3(1, 0, 1)
 		(
 			yless_unit_offsets_from_old_pivot
 			. append(

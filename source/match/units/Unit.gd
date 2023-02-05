@@ -37,9 +37,12 @@ var action = null:
 
 var _action_locked = false
 
+@onready var _match = find_parent("Match")
+
 
 func _ready():
-	assert(player != null)
+	if player == null:
+		await _match.ready
 	_setup_default_properties_from_constants()
 
 

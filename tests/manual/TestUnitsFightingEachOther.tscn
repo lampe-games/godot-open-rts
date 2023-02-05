@@ -1,0 +1,84 @@
+[gd_scene load_steps=9 format=3 uid="uid://tcq8nbsari5i"]
+
+[ext_resource type="PackedScene" uid="uid://doitvquurtufi" path="res://source/match/Match.tscn" id="1_f87ft"]
+[ext_resource type="Shader" path="res://source/shaders/3d/simple_fog_of_war.gdshader" id="2_ojmlq"]
+[ext_resource type="PackedScene" uid="uid://cfa8cpnpk5pcb" path="res://source/match/units/AntiAirTurret.tscn" id="2_xec1u"]
+[ext_resource type="PackedScene" uid="uid://e7tko4kpeiau" path="res://source/match/units/Helicopter.tscn" id="3_vdlcv"]
+[ext_resource type="PackedScene" uid="uid://0gow0ughqu8u" path="res://source/match/units/Drone.tscn" id="4_g2xty"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_v46ss"]
+viewport_path = NodePath("FogOfWar/CombinedViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_67o07"]
+resource_local_to_scene = true
+render_priority = 1
+shader = ExtResource("2_ojmlq")
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/texture_units_per_world_unit = 2
+shader_parameter/debug_texture_view = false
+shader_parameter/world_visibility_texture = SubResource("ViewportTexture_v46ss")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_38cip"]
+viewport_path = NodePath("FogOfWar/CombinedViewport")
+
+[node name="Match" instance=ExtResource("1_f87ft")]
+
+[node name="AntiAirTurret" parent="Map/Units/Player0" index="0" instance=ExtResource("2_xec1u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.5846, 0, -41.7054)
+
+[node name="AntiAirTurret2" parent="Map/Units/Player0" index="1" instance=ExtResource("2_xec1u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.2173, 0, -39.2831)
+
+[node name="AntiAirTurret3" parent="Map/Units/Player0" index="2" instance=ExtResource("2_xec1u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.3233, 0, -39.2887)
+
+[node name="AntiAirTurret4" parent="Map/Units/Player0" index="3" instance=ExtResource("2_xec1u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.0562, 0, -37.3917)
+
+[node name="AntiAirTurret5" parent="Map/Units/Player0" index="4" instance=ExtResource("2_xec1u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.4011, 0, -36.847)
+
+[node name="AntiAirTurret6" parent="Map/Units/Player0" index="5" instance=ExtResource("2_xec1u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.0913, 0, -36.8861)
+
+[node name="AntiAirTurret7" parent="Map/Units/Player0" index="6" instance=ExtResource("2_xec1u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.059, 0, -35.0177)
+
+[node name="Helicopter" parent="Map/Units/Player1" index="0" instance=ExtResource("3_vdlcv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.6418, 0, -42.285)
+
+[node name="Helicopter2" parent="Map/Units/Player1" index="1" instance=ExtResource("3_vdlcv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.4231, 9.53674e-07, -33.911)
+
+[node name="Helicopter3" parent="Map/Units/Player1" index="2" instance=ExtResource("3_vdlcv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.1647, 1.90735e-06, -39.8538)
+
+[node name="Helicopter4" parent="Map/Units/Player1" index="3" instance=ExtResource("3_vdlcv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.9446, 1.90735e-06, -37.8595)
+
+[node name="Helicopter5" parent="Map/Units/Player1" index="4" instance=ExtResource("3_vdlcv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.7118, 2.86102e-06, -34.8458)
+
+[node name="Helicopter6" parent="Map/Units/Player1" index="5" instance=ExtResource("3_vdlcv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.5382, 2.86102e-06, -40.2654)
+
+[node name="Drone" parent="Map/Units/Player1" index="6" instance=ExtResource("4_g2xty")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.1922, 0, -42.7728)
+
+[node name="Drone2" parent="Map/Units/Player1" index="7" instance=ExtResource("4_g2xty")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.3116, 0, -41.6263)
+
+[node name="Drone3" parent="Map/Units/Player1" index="8" instance=ExtResource("4_g2xty")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.3116, 0, -39.6263)
+
+[node name="ScreenOverlay" parent="FogOfWar" index="1"]
+material_override = SubResource("ShaderMaterial_67o07")
+
+[node name="HUD" parent="." index="9"]
+visible = false
+
+[node name="TextureRect" parent="HUD/MarginContainer/Minimap/MarginContainer" index="0"]
+texture = SubResource("ViewportTexture_38cip")
+
+[node name="TopmostUI" parent="." index="11"]
+visible = false

@@ -24,6 +24,8 @@ func _physics_process(delta):
 
 
 func _ready():
+	if _match.navigation == null:
+		await _match.ready
 	velocity_computed.connect(_on_velocity_computed)
 	navigation_finished.connect(_on_navigation_finished)
 	set_navigation_map(_match.navigation.get_navigation_map_rid_by_domain(domain))

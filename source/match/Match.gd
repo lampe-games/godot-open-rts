@@ -39,8 +39,8 @@ func _ready():
 	_create_players()
 	controlled_player = players[settings.controlled_player]
 	visible_player = players[settings.visible_player]
-	_spawn_initial_player_units()
-	_move_camera_to_controlled_player_spawn_point()
+	_setup_player_units()
+	_move_camera_to_visible_units_crowd_pivot()
 
 
 func _unhandled_input(event):
@@ -69,36 +69,48 @@ func _create_players():
 		players.append(player)
 
 
-func _spawn_initial_player_units():
+func _setup_player_units():
 	var spawn_points = find_child("SpawnPoints").get_children()
 	for player_id in range(players.size()):
-		var spawn_transform = spawn_points[player_id].global_transform
 		var player = players[player_id]
-		_setup_and_spawn_unit(CommandCenter.instantiate(), spawn_transform, player)
-		_setup_and_spawn_unit(
-			Drone.instantiate(), spawn_transform.translated(Vector3(2, 5, 2)), player
+		var predefined_units_root = find_child("Map").find_child("Player{0}".format([player_id]))
+		var predefined_units = (
+			predefined_units_root.get_children() if predefined_units_root != null else []
 		)
-		_setup_and_spawn_unit(
-			Drone.instantiate(), spawn_transform.translated(Vector3(-2, 3, -2)), player
-		)
-		_setup_and_spawn_unit(
-			Worker.instantiate(), spawn_transform.translated(Vector3(-3, 0, 3)), player
-		)
-		_setup_and_spawn_unit(
-			AGTurret.instantiate(), spawn_transform.translated(Vector3(3, 0, -3)), player
-		)
-		_setup_and_spawn_unit(
-			Tank.instantiate(), spawn_transform.translated(Vector3(3, 0, 3)), player
-		)
-		_setup_and_spawn_unit(
-			Helicopter.instantiate(), spawn_transform.translated(Vector3(-3, 0, -3)), player
-		)
+		if not predefined_units.is_empty():
+			predefined_units.map(func(unit): _setup_unit(unit, player))
+		else:
+			var spawn_transform = spawn_points[player_id].global_transform
+			_spawn_player_units(player, spawn_transform)
+
+
+func _spawn_player_units(player, spawn_transform):
+	_setup_and_spawn_unit(CommandCenter.instantiate(), spawn_transform, player)
+	_setup_and_spawn_unit(Drone.instantiate(), spawn_transform.translated(Vector3(2, 5, 2)), player)
+	_setup_and_spawn_unit(
+		Drone.instantiate(), spawn_transform.translated(Vector3(-2, 3, -2)), player
+	)
+	_setup_and_spawn_unit(
+		Worker.instantiate(), spawn_transform.translated(Vector3(-3, 0, 3)), player
+	)
+	_setup_and_spawn_unit(
+		AGTurret.instantiate(), spawn_transform.translated(Vector3(3, 0, -3)), player
+	)
+	_setup_and_spawn_unit(Tank.instantiate(), spawn_transform.translated(Vector3(3, 0, 3)), player)
+	_setup_and_spawn_unit(
+		Helicopter.instantiate(), spawn_transform.translated(Vector3(-3, 0, -3)), player
+	)
 
 
 func _setup_and_spawn_unit(unit, a_transform, player):
+	unit.global_transform = a_transform
+	_setup_unit(unit, player)
+	add_child(unit)
+
+
+func _setup_unit(unit, player):
 	unit.player = player
 	unit.color = unit.player.color
-	unit.global_transform = a_transform
 	unit.add_to_group("units")
 	unit.add_to_group("player_{0}_units".format([players.find(player)]))
 	if player == controlled_player:
@@ -107,16 +119,13 @@ func _setup_and_spawn_unit(unit, a_transform, player):
 		unit.add_to_group("adversary_units")
 	if player in visible_players:
 		unit.add_to_group("revealed_units")
-	add_child(unit)
 
 
-func _move_camera_to_controlled_player_spawn_point():
-	var spawn_points = find_child("SpawnPoints").get_children()
-	for player_id in range(players.size()):
-		var player = players[player_id]
-		if player == controlled_player:
-			_camera.set_position_safely(spawn_points[player_id].global_position)
-			break
+func _move_camera_to_visible_units_crowd_pivot():
+	var revealed_units = get_tree().get_nodes_in_group("revealed_units")
+	assert(not revealed_units.is_empty())
+	var crowd_pivot = Utils.Match.Unit.Movement.calculate_aabb_crowd_pivot_yless(revealed_units)
+	_camera.set_position_safely(crowd_pivot)
 
 
 func _assume_control_of_player_units(player):

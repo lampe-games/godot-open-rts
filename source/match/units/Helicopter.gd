@@ -4,7 +4,7 @@ const WaitingForTargets = preload("res://source/match/units/actions/WaitingForTa
 
 
 func _ready():
-	super()
+	await super()
 	action_changed.connect(_on_action_changed)
 	action = WaitingForTargets.new()
 

@@ -4,5 +4,5 @@ const ManagingProduction = preload("res://source/match/units/actions/ManagingPro
 
 
 func _ready():
-	super()
+	await super()
 	action = ManagingProduction.new()
