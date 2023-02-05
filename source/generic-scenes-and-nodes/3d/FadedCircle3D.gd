@@ -11,6 +11,8 @@ extends Node3D
 	set = _set_outer_edge_width
 @export var color = Color.WHITE:
 	set = _set_color
+@export var render_priority = 0:
+	set = _set_render_priority
 
 var _plane = null
 
@@ -49,10 +51,16 @@ func _set_color(a_color):
 	_recalculate_plane_parameters()
 
 
+func _set_render_priority(a_render_priority):
+	render_priority = a_render_priority
+	_recalculate_plane_parameters()
+
+
 func _recalculate_plane_parameters():
 	if _plane == null:
 		return
 	_plane.mesh.size = Vector2(radius * 2.0, radius * 2.0)
+	_plane.material_override.render_priority = render_priority
 	_plane.material_override.set_shader_parameter("color", color)
 	_plane.material_override.set_shader_parameter("width_pixels", width)
 	_plane.material_override.set_shader_parameter("inner_edge_width_pixels", inner_edge_width)

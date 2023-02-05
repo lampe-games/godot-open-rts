@@ -164,6 +164,7 @@ skeleton = NodePath("../../../DummyContent")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 0, 0)
 collision_layer = 2
 collision_mask = 0
+input_ray_pickable = false
 monitoring = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Geometry/Boundry"]
@@ -173,6 +174,7 @@ shape = SubResource("BoxShape3D_dua43")
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -50)
 collision_layer = 2
 collision_mask = 0
+input_ray_pickable = false
 monitoring = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Geometry/Boundry2"]
@@ -182,6 +184,7 @@ shape = SubResource("BoxShape3D_dua43")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 0, 0)
 collision_layer = 2
 collision_mask = 0
+input_ray_pickable = false
 monitoring = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Geometry/Boundry3"]
@@ -191,6 +194,7 @@ shape = SubResource("BoxShape3D_dua43")
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 50)
 collision_layer = 2
 collision_mask = 0
+input_ray_pickable = false
 monitoring = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Geometry/Boundry4"]

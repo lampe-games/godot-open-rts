@@ -4,3 +4,4 @@
 
 [node name="Circle3D" type="Node3D"]
 script = ExtResource("1_l65r6")
+render_priority = null
