@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://doitvquurtufi"]
+[gd_scene load_steps=45 format=3 uid="uid://doitvquurtufi"]
 
 [ext_resource type="Script" path="res://source/match/Match.gd" id="1_1555u"]
 [ext_resource type="Script" path="res://source/match/IsometricCamera3D.gd" id="1_qb2ry"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://source/match/Terrain.gd" id="7_ccpu4"]
 [ext_resource type="Script" path="res://source/match/Navigation.gd" id="10_1wfp1"]
 [ext_resource type="PackedScene" uid="uid://b6n7cwv706x5n" path="res://source/match/debug/GodModeHud.tscn" id="10_p6gno"]
+[ext_resource type="Shader" path="res://source/shaders/3d/fog.gdshader" id="10_weh6c"]
 [ext_resource type="Shader" path="res://source/shaders/2d/blurr.gdshader" id="12_pow7t"]
 [ext_resource type="PackedScene" uid="uid://cqauc87cdn5pw" path="res://source/match/hud/Resources.tscn" id="12_r13sk"]
 [ext_resource type="PackedScene" uid="uid://cwcedr6jj7yty" path="res://source/match/hud/UnitMenus.tscn" id="13_6cypl"]
@@ -65,6 +66,17 @@ size = Vector3(1, 1, 100)
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_45mtw"]
 data = PackedVector3Array(50, 0, 50, -50, 0, 50, 50, 0, -50, -50, 0, 50, -50, 0, -50, 50, 0, -50)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qw0ps"]
+render_priority = 0
+shader = ExtResource("10_weh6c")
+shader_parameter/color = Color(0.959256, 0.746862, 0.656282, 1)
+shader_parameter/max_density_height = -0.5
+shader_parameter/min_density_height = 0.4
+
+[sub_resource type="QuadMesh" id="QuadMesh_pv7fp"]
+flip_faces = true
+size = Vector2(2, 2)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_c3tkw"]
 shader = ExtResource("12_pow7t")
@@ -225,6 +237,12 @@ script = ExtResource("7_ccpu4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain"]
 shape = SubResource("ConcavePolygonShape3D_45mtw")
+
+[node name="Fog" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_qw0ps")
+cast_shadow = 0
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_pv7fp")
 
 [node name="FogOfWar" type="Node3D" parent="."]
 script = ExtResource("5_eb52t")
