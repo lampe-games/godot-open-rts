@@ -20,6 +20,7 @@ func _setup_timer():
 
 
 func _setup_unit_particles():
+	await get_tree().physics_frame  # wait for rotation to kick in if remote transform is used
 	var a_global_transform = (
 		_unit.global_transform
 		if _unit.find_child("ProjectileOrigin") == null
