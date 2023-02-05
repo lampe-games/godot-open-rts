@@ -1,0 +1,69 @@
+[gd_scene load_steps=15 format=3 uid="uid://b65yuqx0iw62f"]
+
+[ext_resource type="PackedScene" uid="uid://doitvquurtufi" path="res://source/match/Match.tscn" id="1_oiu0k"]
+[ext_resource type="PackedScene" uid="uid://ct0ejt0trkhrf" path="res://source/match/units/CommandCenter.tscn" id="2_rm00b"]
+[ext_resource type="PackedScene" uid="uid://e7tko4kpeiau" path="res://source/match/units/Helicopter.tscn" id="3_0s0q8"]
+[ext_resource type="PackedScene" uid="uid://cxilu6668nda6" path="res://source/match/units/AircraftFactory.tscn" id="3_rq1vh"]
+[ext_resource type="PackedScene" uid="uid://0gow0ughqu8u" path="res://source/match/units/Drone.tscn" id="4_3o35x"]
+[ext_resource type="PackedScene" uid="uid://h5lqor1xl2sf" path="res://source/match/units/VehicleFactory.tscn" id="4_m1xri"]
+[ext_resource type="Shader" path="res://source/shaders/3d/simple_fog_of_war.gdshader" id="5_f2ny6"]
+[ext_resource type="PackedScene" uid="uid://b8pckq1xn44ss" path="res://source/match/units/AntiGroundTurret.tscn" id="5_g67iu"]
+[ext_resource type="PackedScene" uid="uid://cfa8cpnpk5pcb" path="res://source/match/units/AntiAirTurret.tscn" id="6_lglnp"]
+[ext_resource type="PackedScene" uid="uid://i58ffvwxbbwm" path="res://source/match/units/Tank.tscn" id="9_csgr3"]
+[ext_resource type="PackedScene" uid="uid://bf0r3fovbvf1m" path="res://source/match/units/Worker.tscn" id="10_c3eov"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_v46ss"]
+viewport_path = NodePath("FogOfWar/CombinedViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_67o07"]
+resource_local_to_scene = true
+render_priority = 1
+shader = ExtResource("5_f2ny6")
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/texture_units_per_world_unit = 2
+shader_parameter/debug_texture_view = false
+shader_parameter/world_visibility_texture = SubResource("ViewportTexture_v46ss")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_38cip"]
+viewport_path = NodePath("FogOfWar/CombinedViewport")
+
+[node name="Match" instance=ExtResource("1_oiu0k")]
+
+[node name="CommandCenter" parent="Map/Units/Player0" index="0" instance=ExtResource("2_rm00b")]
+transform = Transform3D(-0.996198, 0, -0.087121, 0, 1, 0, 0.087121, 0, -0.996198, -38.288, 0, -39.2799)
+
+[node name="AircraftFactory" parent="Map/Units/Player0" index="1" instance=ExtResource("3_rq1vh")]
+transform = Transform3D(-0.22473, 0, 0.974421, 0, 1, 0, -0.974421, 0, -0.22473, -45.3768, 0, -38.0476)
+
+[node name="VehicleFactory" parent="Map/Units/Player0" index="2" instance=ExtResource("4_m1xri")]
+transform = Transform3D(0.802099, 0, 0.597191, 0, 1, 0, -0.597191, 0, 0.802099, -43.8161, 0, -44.3004)
+
+[node name="AntiGroundTurret" parent="Map/Units/Player0" index="3" instance=ExtResource("5_g67iu")]
+transform = Transform3D(-0.452979, 0, -0.891521, 0, 1, 0, 0.891521, 0, -0.452979, -28.2511, 7.62939e-06, -40.0529)
+
+[node name="AntiAirTurret" parent="Map/Units/Player0" index="4" instance=ExtResource("6_lglnp")]
+transform = Transform3D(-0.775077, 0, -0.631867, 0, 1, 0, 0.631867, 0, -0.775077, -30.1676, -3.8147e-06, -32.7391)
+
+[node name="Drone" parent="Map/Units/Player0" index="5" instance=ExtResource("4_3o35x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.5811, 0, -45.7679)
+
+[node name="Helicopter" parent="Map/Units/Player0" index="6" instance=ExtResource("3_0s0q8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -46.8339, 0, -46.302)
+
+[node name="Tank" parent="Map/Units/Player0" index="7" instance=ExtResource("9_csgr3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.266, 0, -44.4535)
+
+[node name="Worker" parent="Map/Units/Player0" index="8" instance=ExtResource("10_c3eov")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.9273, 0, -35.2957)
+
+[node name="ScreenOverlay" parent="FogOfWar" index="1"]
+material_override = SubResource("ShaderMaterial_67o07")
+
+[node name="HUD" parent="." index="9"]
+visible = false
+
+[node name="TextureRect" parent="HUD/MarginContainer/Minimap/MarginContainer" index="0"]
+texture = SubResource("ViewportTexture_38cip")
+
+[node name="TopmostUI" parent="." index="11"]
+visible = false

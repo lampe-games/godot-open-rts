@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bq3mxxflrbkad"]
+[gd_scene load_steps=10 format=3 uid="uid://b8pckq1xn44ss"]
 
 [ext_resource type="PackedScene" uid="uid://cgsi062w5fjia" path="res://source/match/units/traits/Highlight.tscn" id="1_5gp2d"]
 [ext_resource type="Script" path="res://source/match/units/AntiGroundTurret.gd" id="1_6hw4x"]
@@ -7,8 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://c3ssj2p6voauk" path="res://source/match/units/traits/HealthBar.tscn" id="4_r6emo"]
 [ext_resource type="PackedScene" uid="uid://c6byun73jesch" path="res://assets/models/kenney-spacekit/turret_single.glb" id="6_y0npg"]
 [ext_resource type="PackedScene" uid="uid://d4cm4yhtf11ur" path="res://source/match/units/traits/Targetability.tscn" id="7_4hifs"]
+[ext_resource type="PackedScene" path="res://source/match/units/traits/RotateRandomlyWhenLookingForTargetsIdle.tscn" id="8_l7mop"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_m5n20"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_7usmv"]
 height = 0.8
 radius = 0.6
 
@@ -39,7 +40,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.13715, -0.412822)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
-shape = SubResource("CylinderShape3D_m5n20")
+shape = SubResource("CylinderShape3D_7usmv")
 
 [node name="Highlight" parent="." instance=ExtResource("1_5gp2d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
@@ -59,5 +60,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
 size = Vector2(110, 10)
 
 [node name="Targetability" parent="." instance=ExtResource("7_4hifs")]
+
+[node name="RotateRandomlyWhenLookingForTargets" parent="." instance=ExtResource("8_l7mop")]
+node_to_rotate = NodePath("../DetachTransform/Geometry/turret_single/tmpParent/turret_single2/turret")
 
 [editable path="DetachTransform/Geometry/turret_single"]

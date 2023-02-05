@@ -22,6 +22,10 @@ func _to_string():
 	return "{0}({1})".format([super(), str(_sub_action) if _sub_action != null else ""])
 
 
+func is_idle():
+	return _sub_action == null
+
+
 func _get_units_to_attack():
 	var self_position_yless = _unit.global_position * Vector3(1, 0, 1)
 	return get_tree().get_nodes_in_group("units").filter(

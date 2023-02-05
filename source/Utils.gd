@@ -50,3 +50,33 @@ class NodeEx:
 				return ancestor
 			ancestor = ancestor.get_parent()
 		return null
+
+
+class Arr:
+	static func sum(r):
+		var total = 0
+		for x in r:
+			total += x
+		return total
+
+
+class RouletteWheel:
+	var _values_w_sorted_normalized_shares = []
+
+	func _init(value_to_share_mapping):
+		var total_share = Arr.sum(value_to_share_mapping.values())
+		for value in value_to_share_mapping:
+			var share = value_to_share_mapping[value]
+			var normalized_share = share / total_share
+			_values_w_sorted_normalized_shares.append([value, normalized_share])
+		for i in range(1, _values_w_sorted_normalized_shares.size()):
+			_values_w_sorted_normalized_shares[i][1] += _values_w_sorted_normalized_shares[i - 1][1]
+
+	func get_value(probability):
+		for tuple in _values_w_sorted_normalized_shares:
+			var value = tuple[0]
+			var accumulated_share = tuple[1]
+			if probability <= accumulated_share:
+				return value
+		assert(false)
+		return -1
