@@ -9,7 +9,7 @@ class Navigation:
 
 
 class Air:
-	const PLANE = Plane(Vector3.UP, 3)
+	const PLANE = Plane(Vector3.UP, 1.5)
 
 
 class Terrain:

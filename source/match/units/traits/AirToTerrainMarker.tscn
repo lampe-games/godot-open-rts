@@ -6,12 +6,12 @@
 [sub_resource type="CylinderMesh" id="CylinderMesh_ge34e"]
 top_radius = 0.05
 bottom_radius = 0.05
-height = 3.1
+height = 1.6
 
 [node name="AirToTerrainMarker" type="Node3D"]
 script = ExtResource("1_w4abx")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.55, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8, 0)
 material_override = ExtResource("2_c1nej")
 mesh = SubResource("CylinderMesh_ge34e")

@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://b1r67ex7h3veu" path="res://source/match/units/traits/AirToTerrainMarker.tscn" id="7_hxqr1"]
 [ext_resource type="PackedScene" uid="uid://d4cm4yhtf11ur" path="res://source/match/units/traits/Targetability.tscn" id="8_hsorq"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_d3b2a"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_2f8yw"]
 height = 0.3
 
 [node name="Drone" type="Area3D"]
@@ -24,7 +24,7 @@ transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -0.6, 0, -0.45)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
-shape = SubResource("CylinderShape3D_d3b2a")
+shape = SubResource("CylinderShape3D_2f8yw")
 
 [node name="Highlight" parent="." instance=ExtResource("1_44soy")]
 radius = 0.6
@@ -35,6 +35,7 @@ radius = 0.6
 [node name="Movement" parent="." instance=ExtResource("4_wemaw")]
 path_desired_distance = 0.1
 target_desired_distance = 0.1
+agent_height_offset = 0.5
 radius = 0.6
 neighbor_distance = 20.0
 max_neighbors = 30
