@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://tcq8nbsari5i"]
+[gd_scene load_steps=10 format=3 uid="uid://tcq8nbsari5i"]
 
 [ext_resource type="PackedScene" uid="uid://doitvquurtufi" path="res://source/match/Match.tscn" id="1_f87ft"]
+[ext_resource type="Script" path="res://tests/manual/Match.gd" id="2_iedaw"]
 [ext_resource type="Shader" path="res://source/shaders/3d/simple_fog_of_war.gdshader" id="2_ojmlq"]
 [ext_resource type="PackedScene" uid="uid://cfa8cpnpk5pcb" path="res://source/match/units/AntiAirTurret.tscn" id="2_xec1u"]
 [ext_resource type="PackedScene" uid="uid://e7tko4kpeiau" path="res://source/match/units/Helicopter.tscn" id="3_vdlcv"]
@@ -22,6 +23,7 @@ shader_parameter/world_visibility_texture = SubResource("ViewportTexture_v46ss")
 viewport_path = NodePath("FogOfWar/CombinedViewport")
 
 [node name="Match" instance=ExtResource("1_f87ft")]
+script = ExtResource("2_iedaw")
 
 [node name="AntiAirTurret" parent="Map/Units/Player0" index="0" instance=ExtResource("2_xec1u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.5846, 0, -41.7054)
@@ -74,11 +76,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.3116, 0, -39.6263)
 [node name="ScreenOverlay" parent="FogOfWar" index="1"]
 material_override = SubResource("ShaderMaterial_67o07")
 
-[node name="HUD" parent="." index="9"]
+[node name="HUD" parent="." index="10"]
 visible = false
 
 [node name="TextureRect" parent="HUD/MarginContainer/Minimap/MarginContainer" index="0"]
 texture = SubResource("ViewportTexture_38cip")
 
-[node name="TopmostUI" parent="." index="11"]
+[node name="TopmostUI" parent="." index="12"]
 visible = false

@@ -27,21 +27,22 @@ class Resources:
 
 
 class Units:
+	# TODO: drone
 	const PRODUCTION_COSTS = {
 		"res://source/match/units/Worker.tscn":
 		{
-			"resource_a": 0,
-			"resource_b": 0,
+			"resource_a": 1,
+			"resource_b": 1,
 		},
 		"res://source/match/units/Helicopter.tscn":
 		{
-			"resource_a": 0,
-			"resource_b": 0,
+			"resource_a": 1,
+			"resource_b": 1,
 		},
 		"res://source/match/units/Tank.tscn":
 		{
-			"resource_a": 0,
-			"resource_b": 0,
+			"resource_a": 1,
+			"resource_b": 1,
 		},
 	}
 	const PRODUCTION_TIMES = {
@@ -64,28 +65,28 @@ class Units:
 	const CONSTRUCTION_COSTS = {
 		"res://source/match/units/CommandCenter.tscn":
 		{
-			"resource_a": 0,
-			"resource_b": 0,
+			"resource_a": 1,
+			"resource_b": 1,
 		},
 		"res://source/match/units/VehicleFactory.tscn":
 		{
-			"resource_a": 0,
-			"resource_b": 0,
+			"resource_a": 1,
+			"resource_b": 1,
 		},
 		"res://source/match/units/AircraftFactory.tscn":
 		{
-			"resource_a": 0,
-			"resource_b": 0,
+			"resource_a": 1,
+			"resource_b": 1,
 		},
 		"res://source/match/units/AntiGroundTurret.tscn":
 		{
-			"resource_a": 0,
-			"resource_b": 0,
+			"resource_a": 1,
+			"resource_b": 1,
 		},
 		"res://source/match/units/AntiAirTurret.tscn":
 		{
-			"resource_a": 0,
-			"resource_b": 0,
+			"resource_a": 1,
+			"resource_b": 1,
 		},
 	}
 	const DEFAULT_PROPERTIES = {

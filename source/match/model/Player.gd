@@ -14,6 +14,8 @@ var _color_material = null
 
 
 func has_resources(resources):
+	if FeatureFlags.allow_resources_deficit_spending:
+		return true
 	for resource in resources:
 		if get(resource) < resources[resource]:
 			return false
