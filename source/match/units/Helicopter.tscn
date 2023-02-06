@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://e7tko4kpeiau"]
+[gd_scene load_steps=15 format=3 uid="uid://e7tko4kpeiau"]
 
 [ext_resource type="Script" path="res://source/match/units/Helicopter.gd" id="1_4fna5"]
 [ext_resource type="PackedScene" uid="uid://cgsi062w5fjia" path="res://source/match/units/traits/Highlight.tscn" id="1_nqs7t"]
@@ -9,24 +9,30 @@
 [ext_resource type="PackedScene" uid="uid://b1r67ex7h3veu" path="res://source/match/units/traits/AirToTerrainMarker.tscn" id="7_5wh2l"]
 [ext_resource type="PackedScene" uid="uid://d4cm4yhtf11ur" path="res://source/match/units/traits/Targetability.tscn" id="8_ib4xd"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jlghi"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_io5xm"]
 resource_name = "metal"
 vertex_color_use_as_albedo = true
 albedo_color = Color(0.9276, 0.940805, 0.959256, 1)
 metallic = 1.0
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_4w1di"]
-top_radius = 0.05
-bottom_radius = 0.05
-height = 1.5
+[sub_resource type="BoxMesh" id="BoxMesh_plna1"]
+size = Vector3(1.6, 0.01, 0.06)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s6gcf"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_27534"]
 resource_name = "metal"
 vertex_color_use_as_albedo = true
 albedo_color = Color(0.9276, 0.940805, 0.959256, 1)
 metallic = 1.0
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_8h4jt"]
+[sub_resource type="BoxMesh" id="BoxMesh_2bkqi"]
+size = Vector3(1.6, 0.01, 0.06)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_cr7co"]
+top_radius = 0.04
+bottom_radius = 0.04
+height = 0.1
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_dbhct"]
 height = 0.8
 radius = 0.8
 
@@ -40,24 +46,31 @@ script = ExtResource("1_4fna5")
 [node name="craft_racer" parent="Geometry" instance=ExtResource("6_3gekj")]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -1.4, 0, -1.05)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry"]
-transform = Transform3D(-3.09086e-08, -0.707107, 0.707107, 1, -4.37114e-08, 0, 3.09086e-08, 0.707107, 0.707107, 0, 0.531828, 0)
-material_override = SubResource("StandardMaterial3D_jlghi")
-mesh = SubResource("CylinderMesh_4w1di")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Geometry"]
-transform = Transform3D(-3.09086e-08, -0.707107, -0.707107, 1, -4.37114e-08, 0, -3.09086e-08, -0.707107, 0.707107, 0, 0.531828, 0)
-material_override = SubResource("StandardMaterial3D_s6gcf")
-mesh = SubResource("CylinderMesh_4w1di")
-skeleton = NodePath("../..")
-
 [node name="ProjectileOrigin" type="Marker3D" parent="Geometry"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.734451)
 
+[node name="Rotor" type="Node3D" parent="Geometry"]
+
+[node name="Blade" type="MeshInstance3D" parent="Geometry/Rotor"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0.531828, 0)
+material_override = SubResource("StandardMaterial3D_io5xm")
+mesh = SubResource("BoxMesh_plna1")
+skeleton = NodePath("../../..")
+
+[node name="Blade2" type="MeshInstance3D" parent="Geometry/Rotor"]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 0, 0.531828, 0)
+material_override = SubResource("StandardMaterial3D_27534")
+mesh = SubResource("BoxMesh_2bkqi")
+skeleton = NodePath("../../..")
+
+[node name="Base" type="MeshInstance3D" parent="Geometry/Rotor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.476592, 0)
+material_override = SubResource("StandardMaterial3D_27534")
+mesh = SubResource("CylinderMesh_cr7co")
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
-shape = SubResource("CylinderShape3D_8h4jt")
+shape = SubResource("CylinderShape3D_dbhct")
 
 [node name="Highlight" parent="." instance=ExtResource("1_nqs7t")]
 radius = 0.8
