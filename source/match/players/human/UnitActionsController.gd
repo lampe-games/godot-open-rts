@@ -3,6 +3,7 @@ extends Node
 
 class Actions:
 	const Moving = preload("res://source/match/units/actions/Moving.gd")
+	const MovingToUnit = preload("res://source/match/units/actions/MovingToUnit.gd")
 	const CollectingResources = preload("res://source/match/units/actions/CollectingResources.gd")
 	const AutoAttacking = preload("res://source/match/units/actions/AutoAttacking.gd")
 
@@ -48,7 +49,7 @@ func _navigate_selected_units_towards_unit(target_unit):
 		elif Actions.AutoAttacking.is_applicable(unit, target_unit):
 			unit.action = Actions.AutoAttacking.new(target_unit)
 		else:
-			unit.action = null
+			unit.action = Actions.MovingToUnit.new(target_unit)
 
 
 func _on_terrain_targeted(position):
