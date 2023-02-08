@@ -1,0 +1,46 @@
+[gd_scene load_steps=12 format=3 uid="uid://qhgcfjxa2ykg"]
+
+[ext_resource type="PackedScene" uid="uid://doitvquurtufi" path="res://source/match/Match.tscn" id="1_fe2sx"]
+[ext_resource type="Script" path="res://tests/manual/Match.gd" id="2_sflin"]
+[ext_resource type="Script" path="res://source/model/PlayerSettings.gd" id="3_3drrn"]
+[ext_resource type="Script" path="res://source/model/MatchSettings.gd" id="4_go41p"]
+[ext_resource type="PackedScene" uid="uid://i58ffvwxbbwm" path="res://source/match/units/Tank.tscn" id="10_tqe5i"]
+[ext_resource type="Shader" path="res://source/shaders/3d/simple_fog_of_war.gdshader" id="12_ke5ti"]
+
+[sub_resource type="Resource" id="Resource_aehri"]
+script = ExtResource("3_3drrn")
+color = Color(0.4, 0.694118, 1, 1)
+
+[sub_resource type="Resource" id="Resource_qqc8i"]
+script = ExtResource("4_go41p")
+players = Array[Resource]([SubResource("Resource_aehri")])
+controlled_player = 0
+visible_player = 0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_v46ss"]
+viewport_path = NodePath("FogOfWar/CombinedViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_67o07"]
+resource_local_to_scene = true
+render_priority = 1
+shader = ExtResource("12_ke5ti")
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/texture_units_per_world_unit = 2
+shader_parameter/debug_texture_view = false
+shader_parameter/world_visibility_texture = SubResource("ViewportTexture_v46ss")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_38cip"]
+viewport_path = NodePath("FogOfWar/CombinedViewport")
+
+[node name="Match" instance=ExtResource("1_fe2sx")]
+script = ExtResource("2_sflin")
+settings = SubResource("Resource_qqc8i")
+
+[node name="Tank" parent="Map/Units/Player0" index="0" instance=ExtResource("10_tqe5i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.7373, -9.53674e-07, -37.3631)
+
+[node name="ScreenOverlay" parent="FogOfWar" index="1"]
+material_override = SubResource("ShaderMaterial_67o07")
+
+[node name="TextureRect" parent="HUD/MarginContainer/Minimap/MarginContainer" index="0"]
+texture = SubResource("ViewportTexture_38cip")
