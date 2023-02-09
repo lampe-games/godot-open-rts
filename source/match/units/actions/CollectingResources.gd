@@ -3,7 +3,7 @@
 extends "res://source/match/units/actions/Action.gd"
 
 const Worker = preload("res://source/match/units/Worker.gd")
-const ResourceBundle = preload("res://source/match/units/non-player/ResourceBundle.gd")
+const ResourceUnit = preload("res://source/match/units/non-player/ResourceUnit.gd")
 
 var _resouce_unit = null
 var _timer = null
@@ -14,7 +14,7 @@ var _timer = null
 static func is_applicable(source_unit, target_unit):
 	# TODO: take range into account
 	return (
-		source_unit is Worker and target_unit is ResourceBundle and not _worker_is_full(source_unit)
+		source_unit is Worker and target_unit is ResourceUnit and not _worker_is_full(source_unit)
 	)
 
 

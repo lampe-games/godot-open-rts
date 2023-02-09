@@ -1,4 +1,4 @@
-extends "res://source/match/units/non-player/ResourceBundle.gd"
+extends "res://source/match/units/non-player/ResourceUnit.gd"
 
 const MATERIAL_ALBEDO_TO_REPLACE = Color(0.4687, 0.944, 0.7938)
 const MATERIAL_ALBEDO_TO_REPLACE_EPSILON = 0.05
