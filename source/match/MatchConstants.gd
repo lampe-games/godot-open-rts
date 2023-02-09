@@ -20,10 +20,12 @@ class Resources:
 	class A:
 		const COLOR = Color.BLUE
 		const MATERIAL_PATH = "res://source/match/resources/materials/resource_a.material.tres"
+		const COLLECTING_TIME_S = 1.0
 
 	class B:
 		const COLOR = Color.RED
 		const MATERIAL_PATH = "res://source/match/resources/materials/resource_b.material.tres"
+		const COLLECTING_TIME_S = 2.0
 
 
 class Units:
@@ -101,6 +103,7 @@ class Units:
 			"sight_range": 10.0,
 			"hp": 10,
 			"hp_max": 10,
+			"resources_max": 2,
 		},
 		"res://source/match/units/Helicopter.gd":
 		{

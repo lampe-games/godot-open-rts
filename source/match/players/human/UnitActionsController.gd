@@ -5,7 +5,9 @@ class Actions:
 	const Moving = preload("res://source/match/units/actions/Moving.gd")
 	const MovingToUnit = preload("res://source/match/units/actions/MovingToUnit.gd")
 	const Following = preload("res://source/match/units/actions/Following.gd")
-	const CollectingResources = preload("res://source/match/units/actions/CollectingResources.gd")
+	const CollectingResourcesSequentially = preload(
+		"res://source/match/units/actions/CollectingResourcesSequentially.gd"
+	)
 	const AutoAttacking = preload("res://source/match/units/actions/AutoAttacking.gd")
 
 
@@ -45,8 +47,8 @@ func _navigate_selected_units_towards_unit(target_unit):
 	for unit in get_tree().get_nodes_in_group("selected_units"):
 		if not unit.is_in_group("controlled_units"):
 			continue
-		if Actions.CollectingResources.is_applicable(unit, target_unit):
-			unit.action = Actions.CollectingResources.new(target_unit)
+		if Actions.CollectingResourcesSequentially.is_applicable(unit, target_unit):
+			unit.action = Actions.CollectingResourcesSequentially.new(target_unit)
 		elif Actions.AutoAttacking.is_applicable(unit, target_unit):
 			unit.action = Actions.AutoAttacking.new(target_unit)
 		elif (
