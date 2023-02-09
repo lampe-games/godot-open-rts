@@ -1,7 +1,6 @@
 extends "res://source/match/units/actions/Action.gd"
 
 var _target_position = null
-var _action_finished = false
 
 @onready var _unit = Utils.NodeEx.find_parent_with_group(self, "units")
 @onready var _movement_trait = _unit.find_child("Movement")
@@ -21,11 +20,9 @@ func _ready():
 
 
 func _exit_tree():
-	if not _action_finished:
+	if is_inside_tree():
 		_movement_trait.stop()
 
 
 func _on_movement_finished():
-	assert(_action_finished == false)
-	_action_finished = true
 	queue_free()

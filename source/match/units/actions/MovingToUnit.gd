@@ -1,6 +1,3 @@
-# TODO: teardown only if units adhere
-# TODO: handle unit death
-# TODO: consider making more complex version of this action
 extends "res://source/match/units/actions/Moving.gd"
 
 var _target_unit = null
@@ -10,16 +7,20 @@ func _init(target_unit):
 	_target_unit = target_unit
 
 
+func _process(_delta):
+	if Utils.Match.Unit.Movement.units_adhere(_unit, _target_unit):
+		queue_free()
+
+
 func _ready():
-	var target_to_unit_direction = (
-		(_unit.global_position * Vector3(1, 0, 1) - _target_unit.global_position * Vector3(1, 0, 1))
-		. normalized()
-	)
-	_target_position = (
-		_target_unit.global_position
-		+ (
-			target_to_unit_direction
-			* (_unit.radius + _target_unit.radius + Constants.Match.Units.ADHERENCE_MARGIN)
-		)
-	)
+	_target_unit.tree_exited.connect(queue_free)
+	_target_position = _target_unit.global_position
 	super()
+
+
+func _on_movement_finished():
+	if Utils.Match.Unit.Movement.units_adhere(_unit, _target_unit):
+		queue_free()
+	else:
+		_target_position = _target_unit.global_position
+		_movement_trait.move(_target_position)

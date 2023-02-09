@@ -35,6 +35,21 @@ static func calculate_aabb_crowd_pivot_yless(units):
 	return (begin + end) / 2.0 * Vector3(1, 0, 1)
 
 
+static func units_adhere(unit_a, unit_b):
+	"""checks if distance between unit borders is within margin"""
+	return _unit_in_range_of_other(unit_a, unit_b, Constants.Match.Units.ADHERENCE_MARGIN)
+
+
+static func _unit_in_range_of_other(unit_a, unit_b, b_range):
+	"""checks if distance from one unit border to another is within range"""
+	var unit_a_position_yless = unit_a.global_position * Vector3(1, 0, 1)
+	var unit_b_position_yless = unit_b.global_position * Vector3(1, 0, 1)
+	return (
+		unit_a_position_yless.distance_to(unit_b_position_yless)
+		<= (unit_a.radius + unit_b.radius + b_range)
+	)
+
+
 static func _attract_unit_positions_towards_pivot(unit_positions, pivot, interunit_threshold):
 	"""takes List[Tuple[unit, point]], pivot, and interunit_threshold(min interunit dist)"""
 	var new_unit_positions = {}

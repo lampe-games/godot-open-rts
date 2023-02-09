@@ -5,6 +5,8 @@ enum State { NULL, MOVING_TO_RESOURCE, COLLECTING, MOVING_TO_CC }
 const CommandCenter = preload("res://source/match/units/CommandCenter.gd")
 const CollectingResources = preload("res://source/match/units/actions/CollectingResources.gd")
 const MovingToUnit = preload("res://source/match/units/actions/MovingToUnit.gd")
+const Worker = preload("res://source/match/units/Worker.gd")
+const ResourceUnit = preload("res://source/match/units/non-player/ResourceUnit.gd")
 
 var _state := State.NULL
 var _state_locked = false
@@ -16,11 +18,8 @@ var _sub_action = null
 
 
 static func is_applicable(source_unit, target_unit):
-	# TODO: handle starting from CC or Resource bundle
-	return (
-		_find_cc_closest_to_unit(source_unit) != null
-		and CollectingResources.is_applicable(source_unit, target_unit)
-	)
+	# TODO: handle starting from CC as well
+	return source_unit is Worker and target_unit is ResourceUnit
 
 
 func _init(resource_unit):
@@ -83,6 +82,7 @@ func _on_sub_action_finished():
 	match _state:
 		State.MOVING_TO_RESOURCE:
 			# TODO: handle resource 'death' i.e. check if it's still in tree at this point
+			# TODO: if worker full then go back
 			_change_state_to(State.COLLECTING)
 		State.COLLECTING:
 			# TODO: handle resource 'death' i.e. check if it's still in tree at this point

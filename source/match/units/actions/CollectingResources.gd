@@ -12,9 +12,11 @@ var _timer = null
 
 
 static func is_applicable(source_unit, target_unit):
-	# TODO: take range into account
 	return (
-		source_unit is Worker and target_unit is ResourceUnit and not _worker_is_full(source_unit)
+		source_unit is Worker
+		and target_unit is ResourceUnit
+		and not _worker_is_full(source_unit)
+		and Utils.Match.Unit.Movement.units_adhere(source_unit, target_unit)
 	)
 
 
