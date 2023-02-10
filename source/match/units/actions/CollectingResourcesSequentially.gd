@@ -3,7 +3,9 @@ extends "res://source/match/units/actions/Action.gd"
 enum State { NULL, MOVING_TO_RESOURCE, COLLECTING, MOVING_TO_CC }
 
 const CommandCenter = preload("res://source/match/units/CommandCenter.gd")
-const CollectingResources = preload("res://source/match/units/actions/CollectingResources.gd")
+const CollectingResourcesWhileInRange = preload(
+	"res://source/match/units/actions/CollectingResourcesWhileInRange.gd"
+)
 const MovingToUnit = preload("res://source/match/units/actions/MovingToUnit.gd")
 const Worker = preload("res://source/match/units/Worker.gd")
 const ResourceUnit = preload("res://source/match/units/non-player/ResourceUnit.gd")
@@ -55,8 +57,8 @@ func _enter_state(state):
 			add_child(_sub_action)
 			_unit.action_updated.emit()
 		State.COLLECTING:
-			assert(CollectingResources.is_applicable(_unit, _resource_unit))
-			_sub_action = CollectingResources.new(_resource_unit)
+			assert(CollectingResourcesWhileInRange.is_applicable(_unit, _resource_unit))
+			_sub_action = CollectingResourcesWhileInRange.new(_resource_unit)
 			_sub_action.tree_exited.connect(_on_sub_action_finished)
 			add_child(_sub_action)
 			_unit.action_updated.emit()
