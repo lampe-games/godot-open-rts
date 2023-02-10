@@ -13,7 +13,7 @@ static func is_applicable(source_unit, target_unit):
 	return (
 		source_unit is Worker
 		and target_unit is ResourceUnit
-		and not _worker_is_full(source_unit)
+		and not source_unit.is_full()
 		and Utils.Match.Unit.Movement.units_adhere(source_unit, target_unit)
 	)
 
@@ -47,10 +47,5 @@ func _transfer_single_resource_unit_from_resource_to_worker():
 	if "resource_b" in _resource_unit:
 		_resource_unit.resource_b -= 1
 		_unit.resource_b += 1
-	assert(_unit.resource_a + _unit.resource_b <= _unit.resources_max)
-	if _worker_is_full(_unit):
+	if _unit.is_full():
 		queue_free()
-
-
-static func _worker_is_full(worker_unit):
-	return worker_unit.resource_a + worker_unit.resource_b == worker_unit.resources_max

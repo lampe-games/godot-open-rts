@@ -174,3 +174,4 @@ class Units:
 		"res://source/match/units/projectiles/Rocket.tscn"
 	}
 	const ADHERENCE_MARGIN = 0.3  # TODO: try lowering while fixing a 'push' problem
+	const NEW_RESOURCE_SEARCH_RADIUS_M = 10

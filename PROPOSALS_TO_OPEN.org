@@ -2,3 +2,4 @@
 for get_closest_point() etc.
 would be get_world_3d().get_navigation_map().get_closest_point(to_point) or so
 * TODO some function to get nodes which are in multiple groups at once
+* TODO Array.sorted() and .sorted_custom(Callable)
