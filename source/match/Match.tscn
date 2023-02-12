@@ -227,6 +227,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.7654, 4.76837e-07, -33.20
 
 [node name="ResourceA2" parent="Map/Misc" instance=ExtResource("5_f840u")]
 transform = Transform3D(0.157813, 0, -0.987469, 0, 1, 0, 0.987469, 0, 0.157813, -38.5751, 4.76837e-07, -32.4638)
+resource_a = 5
 
 [node name="ResourceA3" parent="Map/Misc" instance=ExtResource("5_f840u")]
 transform = Transform3D(-0.984384, 0, 0.176037, 0, 1, 0, -0.176037, 0, -0.984384, -39.2217, 0, -31.639)

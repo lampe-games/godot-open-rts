@@ -28,9 +28,9 @@ static func is_applicable(source_unit, target_unit):
 
 func _init(unit):
 	if unit is ResourceUnit:
-		_resource_unit = unit
+		_set_resource_unit(unit)
 	elif unit is CommandCenter:
-		_cc_unit = unit
+		_set_cc_unit(unit)
 
 
 func _ready():
@@ -60,10 +60,10 @@ func _exit_state(_a_state):
 func _enter_state(state):
 	match state:
 		State.MOVING_TO_RESOURCE:
-			if _resource_unit == null:
-				_resource_unit = _find_closest_resource_unit_in_nearby_area()
-			if _resource_unit == null:
-				queue_free()
+			if (
+				_resource_unit == null
+				and not _set_resource_unit(_find_closest_resource_unit_in_nearby_area())
+			):
 				return
 			_sub_action = MovingToUnit.new(_resource_unit)
 			_sub_action.tree_exited.connect(_on_sub_action_finished)
@@ -76,14 +76,30 @@ func _enter_state(state):
 			add_child(_sub_action)
 			_unit.action_updated.emit()
 		State.MOVING_TO_CC:
-			_cc_unit = _find_cc_closest_to_unit(_unit)
-			if _cc_unit == null:
-				queue_free()
+			if not _set_cc_unit(_find_cc_closest_to_unit(_unit)):
 				return
 			_sub_action = MovingToUnit.new(_cc_unit)
 			_sub_action.tree_exited.connect(_on_sub_action_finished)
 			add_child(_sub_action)
 			_unit.action_updated.emit()
+
+
+func _set_resource_unit(resource_unit):
+	if resource_unit == null:
+		queue_free()
+		return false
+	_resource_unit = resource_unit
+	_resource_unit.tree_exited.connect(_on_resource_unit_removed)
+	return true
+
+
+func _set_cc_unit(cc_unit):
+	if cc_unit == null:
+		queue_free()
+		return false
+	_cc_unit = cc_unit
+	_cc_unit.tree_exited.connect(_on_cc_unit_removed)
+	return true
 
 
 func _transfer_collected_resources_to_player():
@@ -151,16 +167,51 @@ func _on_sub_action_finished():
 	_unit.action_updated.emit()
 	match _state:
 		State.MOVING_TO_RESOURCE:
-			# TODO: handle resource 'death' i.e. check if it's still in tree at this point
+			# react to resource removal
+			if _resource_unit != null and not _resource_unit.is_inside_tree():
+				_resource_unit.disconnect(_on_resource_unit_removed)
+				if _set_resource_unit(_find_closest_resource_unit_in_nearby_area()):
+					_change_state_to(State.MOVING_TO_RESOURCE)
+				return
+			if _resource_unit == null:
+				if _set_resource_unit(_find_closest_resource_unit_in_nearby_area()):
+					_change_state_to(State.MOVING_TO_RESOURCE)
+				return
+			# resource reached
 			if not _unit.is_full():
 				_change_state_to(State.COLLECTING)
 			else:
 				_change_state_to(State.MOVING_TO_CC)
 		State.COLLECTING:
-			# TODO: handle resource 'death' i.e. check if it's still in tree at this point
-			# TODO: handle being not in range
+			# react to resource not being in range anymore
+			if (
+				_resource_unit != null
+				and _resource_unit.is_inside_tree()
+				and not _unit.is_full()
+				and not Utils.Match.Unit.Movement.units_adhere(_unit, _resource_unit)
+			):
+				_change_state_to(State.MOVING_TO_RESOURCE)
+				return
+			# finished collecting
 			_change_state_to(State.MOVING_TO_CC)
 		State.MOVING_TO_CC:
-			# TODO: handle cc 'death'
+			# react to cc removal
+			if _cc_unit != null and not _cc_unit.is_inside_tree():
+				_cc_unit.disconnect(_on_cc_unit_removed)
+				if _set_cc_unit(_find_cc_closest_to_unit(_unit)):
+					_change_state_to(State.MOVING_TO_CC)
+				return
+			if _cc_unit == null:
+				if _set_cc_unit(_find_cc_closest_to_unit(_unit)):
+					_change_state_to(State.MOVING_TO_CC)
+				return
 			_transfer_collected_resources_to_player()
 			_change_state_to(State.MOVING_TO_RESOURCE)
+
+
+func _on_resource_unit_removed():
+	_resource_unit = null
+
+
+func _on_cc_unit_removed():
+	_cc_unit = null
