@@ -66,20 +66,20 @@ func _enter_state(state):
 			):
 				return
 			_sub_action = MovingToUnit.new(_resource_unit)
-			_sub_action.tree_exited.connect(_on_sub_action_finished)
+			_sub_action.tree_exited.connect(_on_sub_action_finished, CONNECT_DEFERRED)
 			add_child(_sub_action)
 			_unit.action_updated.emit()
 		State.COLLECTING:
 			assert(CollectingResourcesWhileInRange.is_applicable(_unit, _resource_unit))
 			_sub_action = CollectingResourcesWhileInRange.new(_resource_unit)
-			_sub_action.tree_exited.connect(_on_sub_action_finished)
+			_sub_action.tree_exited.connect(_on_sub_action_finished, CONNECT_DEFERRED)
 			add_child(_sub_action)
 			_unit.action_updated.emit()
 		State.MOVING_TO_CC:
 			if not _set_cc_unit(_find_cc_closest_to_unit(_unit)):
 				return
 			_sub_action = MovingToUnit.new(_cc_unit)
-			_sub_action.tree_exited.connect(_on_sub_action_finished)
+			_sub_action.tree_exited.connect(_on_sub_action_finished, CONNECT_DEFERRED)
 			add_child(_sub_action)
 			_unit.action_updated.emit()
 
@@ -88,6 +88,7 @@ func _set_resource_unit(resource_unit):
 	if resource_unit == null:
 		queue_free()
 		return false
+	assert(resource_unit != _resource_unit)
 	_resource_unit = resource_unit
 	_resource_unit.tree_exited.connect(_on_resource_unit_removed)
 	return true
@@ -97,8 +98,9 @@ func _set_cc_unit(cc_unit):
 	if cc_unit == null:
 		queue_free()
 		return false
+	if cc_unit != _cc_unit:
+		cc_unit.tree_exited.connect(_on_cc_unit_removed)
 	_cc_unit = cc_unit
-	_cc_unit.tree_exited.connect(_on_cc_unit_removed)
 	return true
 
 
@@ -168,11 +170,6 @@ func _on_sub_action_finished():
 	match _state:
 		State.MOVING_TO_RESOURCE:
 			# react to resource removal
-			if _resource_unit != null and not _resource_unit.is_inside_tree():
-				_resource_unit.disconnect(_on_resource_unit_removed)
-				if _set_resource_unit(_find_closest_resource_unit_in_nearby_area()):
-					_change_state_to(State.MOVING_TO_RESOURCE)
-				return
 			if _resource_unit == null:
 				if _set_resource_unit(_find_closest_resource_unit_in_nearby_area()):
 					_change_state_to(State.MOVING_TO_RESOURCE)
@@ -186,7 +183,6 @@ func _on_sub_action_finished():
 			# react to resource not being in range anymore
 			if (
 				_resource_unit != null
-				and _resource_unit.is_inside_tree()
 				and not _unit.is_full()
 				and not Utils.Match.Unit.Movement.units_adhere(_unit, _resource_unit)
 			):
@@ -196,11 +192,6 @@ func _on_sub_action_finished():
 			_change_state_to(State.MOVING_TO_CC)
 		State.MOVING_TO_CC:
 			# react to cc removal
-			if _cc_unit != null and not _cc_unit.is_inside_tree():
-				_cc_unit.disconnect(_on_cc_unit_removed)
-				if _set_cc_unit(_find_cc_closest_to_unit(_unit)):
-					_change_state_to(State.MOVING_TO_CC)
-				return
 			if _cc_unit == null:
 				if _set_cc_unit(_find_cc_closest_to_unit(_unit)):
 					_change_state_to(State.MOVING_TO_CC)
