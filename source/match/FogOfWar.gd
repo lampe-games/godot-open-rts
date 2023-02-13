@@ -33,6 +33,10 @@ func _physics_process(_delta):
 			_cleanup_mapping(mapped_unit)
 
 
+func reveal():
+	_revealer.show()
+
+
 func _unit_is_mapped(unit):
 	return unit in _unit_to_circles_mapping
 

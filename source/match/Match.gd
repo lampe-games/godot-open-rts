@@ -3,7 +3,7 @@ extends Node3D
 
 class HardcodedMap:
 	func get_topdown_polygon_2d():
-		return [Vector2(0, 0), Vector2(100, 0), Vector2(100, 100), Vector2(0, 100)]
+		return [Vector2(0, 0), Vector2(50, 0), Vector2(50, 50), Vector2(0, 50)]
 
 
 const Player = preload("res://source/match/model/Player.gd")
@@ -11,9 +11,6 @@ const Player = preload("res://source/match/model/Player.gd")
 const CommandCenter = preload("res://source/match/units/CommandCenter.tscn")
 const Drone = preload("res://source/match/units/Drone.tscn")
 const Worker = preload("res://source/match/units/Worker.tscn")
-const Helicopter = preload("res://source/match/units/Helicopter.tscn")
-const Tank = preload("res://source/match/units/Tank.tscn")
-const AGTurret = preload("res://source/match/units/AntiGroundTurret.tscn")
 
 @export var settings: Resource = null
 
@@ -23,15 +20,14 @@ var controlled_player = null:
 var visible_player = null:
 	set = _set_visible_player
 var visible_players = null:
-	set(_value):
-		pass
-	get:
-		return [visible_player]
+	set = _ignore,
+	get = _get_visible_players
 var map = HardcodedMap.new()  # TODO: use actual map
 
 @onready var navigation = find_child("Navigation")
 
 @onready var _camera = find_child("IsometricCamera3D")
+@onready var _fog_of_war = find_child("FogOfWar")
 
 
 func _ready():
@@ -40,12 +36,25 @@ func _ready():
 	controlled_player = players[settings.controlled_player]
 	visible_player = players[settings.visible_player]
 	_setup_player_units()
-	_move_camera_to_visible_units_crowd_pivot()
+	# TODO: do smth with camera if there's no controlled unit
+	_move_camera_to_controlled_units_crowd_pivot()
+	if settings.visibility == settings.Visibility.FULL:
+		_fog_of_war.reveal()
 
 
 func _unhandled_input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		MatchSignals.deselect_all_units.emit()
+
+
+func _ignore(_value):
+	pass
+
+
+func _get_visible_players():
+	if settings.visibility == settings.Visibility.PER_PLAYER:
+		return [visible_player]
+	return players
 
 
 func _set_controlled_player(player):
@@ -86,19 +95,14 @@ func _setup_player_units():
 
 func _spawn_player_units(player, spawn_transform):
 	_setup_and_spawn_unit(CommandCenter.instantiate(), spawn_transform, player)
-	_setup_and_spawn_unit(Drone.instantiate(), spawn_transform.translated(Vector3(2, 5, 2)), player)
 	_setup_and_spawn_unit(
-		Drone.instantiate(), spawn_transform.translated(Vector3(-2, 3, -2)), player
+		Drone.instantiate(), spawn_transform.translated(Vector3(-2, 0, -2)), player
 	)
 	_setup_and_spawn_unit(
 		Worker.instantiate(), spawn_transform.translated(Vector3(-3, 0, 3)), player
 	)
 	_setup_and_spawn_unit(
-		AGTurret.instantiate(), spawn_transform.translated(Vector3(3, 0, -3)), player
-	)
-	_setup_and_spawn_unit(Tank.instantiate(), spawn_transform.translated(Vector3(3, 0, 3)), player)
-	_setup_and_spawn_unit(
-		Helicopter.instantiate(), spawn_transform.translated(Vector3(-3, 0, -3)), player
+		Worker.instantiate(), spawn_transform.translated(Vector3(3, 0, 3)), player
 	)
 
 
@@ -121,8 +125,8 @@ func _setup_unit(unit, player):
 		unit.add_to_group("revealed_units")
 
 
-func _move_camera_to_visible_units_crowd_pivot():
-	var revealed_units = get_tree().get_nodes_in_group("revealed_units")
+func _move_camera_to_controlled_units_crowd_pivot():
+	var revealed_units = get_tree().get_nodes_in_group("controlled_units")
 	assert(not revealed_units.is_empty())
 	var crowd_pivot = Utils.Match.Unit.Movement.calculate_aabb_crowd_pivot_yless(revealed_units)
 	_camera.set_position_safely(crowd_pivot)
