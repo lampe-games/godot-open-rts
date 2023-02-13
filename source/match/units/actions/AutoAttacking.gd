@@ -24,7 +24,7 @@ func _init(target_unit):
 
 
 func _ready():
-	_target_unit.died.connect(_on_target_unit_died)
+	_target_unit.tree_exited.connect(_on_target_unit_removed)
 	_attack_or_move_closer()
 
 
@@ -51,7 +51,7 @@ func _attack_or_move_closer():
 	_unit.action_updated.emit()
 
 
-func _on_target_unit_died():
+func _on_target_unit_removed():
 	queue_free()
 
 

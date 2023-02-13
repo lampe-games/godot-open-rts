@@ -5,7 +5,6 @@ signal deselected
 signal hp_changed
 signal action_changed(new_action)
 signal action_updated
-signal died
 
 const MATERIAL_ALBEDO_TO_REPLACE = Color(0.99, 0.81, 0.48)
 const MATERIAL_ALBEDO_TO_REPLACE_EPSILON = 0.05
@@ -119,8 +118,6 @@ func _teardown_current_action():
 
 
 func _handle_unit_death():
-	MatchSignals.unit_died.emit(self)
-	died.emit()
 	queue_free()
 
 

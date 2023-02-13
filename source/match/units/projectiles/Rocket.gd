@@ -14,7 +14,7 @@ func _ready():
 	assert(target_unit != null)
 	_rocket.hide()
 	_particles.hide()
-	target_unit.died.connect(queue_free)
+	target_unit.tree_exited.connect(queue_free)
 	_animation_player.animation_finished.connect(func(_animation): queue_free())
 	_setup_path()
 	# wait 2 frames for path curve setup so that path follow has correct transform
