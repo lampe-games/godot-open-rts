@@ -15,6 +15,7 @@ color = Color(0.4, 0.694118, 1, 1)
 script = ExtResource("4_go41p")
 players = Array[Resource]([SubResource("Resource_aehri")])
 controlled_player = 0
+visibility = 0
 visible_player = 0
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_v46ss"]
@@ -37,7 +38,7 @@ script = ExtResource("2_sflin")
 settings = SubResource("Resource_qqc8i")
 
 [node name="Tank" parent="Map/Units/Player0" index="0" instance=ExtResource("10_tqe5i")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.7373, -9.53674e-07, -37.3631)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.263, 0, 12.637)
 
 [node name="ScreenOverlay" parent="FogOfWar" index="1"]
 material_override = SubResource("ShaderMaterial_67o07")

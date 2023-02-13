@@ -26,52 +26,52 @@ viewport_path = NodePath("FogOfWar/CombinedViewport")
 script = ExtResource("2_iedaw")
 
 [node name="AntiAirTurret" parent="Map/Units/Player0" index="0" instance=ExtResource("2_xec1u")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.5846, 0, -41.7054)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.1209, -3.8147e-06, 4.65078)
 
 [node name="AntiAirTurret2" parent="Map/Units/Player0" index="1" instance=ExtResource("2_xec1u")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.2173, 0, -39.2831)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.4882, -3.8147e-06, 7.07308)
 
 [node name="AntiAirTurret3" parent="Map/Units/Player0" index="2" instance=ExtResource("2_xec1u")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.3233, 0, -39.2887)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.38224, -3.8147e-06, 7.06748)
 
 [node name="AntiAirTurret4" parent="Map/Units/Player0" index="3" instance=ExtResource("2_xec1u")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.0562, 0, -37.3917)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.6493, -3.8147e-06, 8.96448)
 
 [node name="AntiAirTurret5" parent="Map/Units/Player0" index="4" instance=ExtResource("2_xec1u")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.4011, 0, -36.847)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.3044, -3.8147e-06, 9.50918)
 
 [node name="AntiAirTurret6" parent="Map/Units/Player0" index="5" instance=ExtResource("2_xec1u")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.0913, 0, -36.8861)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.61424, -3.8147e-06, 9.47008)
 
 [node name="AntiAirTurret7" parent="Map/Units/Player0" index="6" instance=ExtResource("2_xec1u")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.059, 0, -35.0177)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.6465, -3.8147e-06, 11.3385)
 
 [node name="Helicopter" parent="Map/Units/Player1" index="0" instance=ExtResource("3_vdlcv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.6418, 0, -42.285)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.0427, 0, 4.42295)
 
 [node name="Helicopter2" parent="Map/Units/Player1" index="1" instance=ExtResource("3_vdlcv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.4231, 9.53674e-07, -33.911)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.2614, 9.53674e-07, 12.7969)
 
 [node name="Helicopter3" parent="Map/Units/Player1" index="2" instance=ExtResource("3_vdlcv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.1647, 1.90735e-06, -39.8538)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5198, 1.90735e-06, 6.85414)
 
 [node name="Helicopter4" parent="Map/Units/Player1" index="3" instance=ExtResource("3_vdlcv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.9446, 1.90735e-06, -37.8595)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.7399, 1.90735e-06, 8.84844)
 
 [node name="Helicopter5" parent="Map/Units/Player1" index="4" instance=ExtResource("3_vdlcv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.7118, 2.86102e-06, -34.8458)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.9727, 2.86102e-06, 11.8621)
 
 [node name="Helicopter6" parent="Map/Units/Player1" index="5" instance=ExtResource("3_vdlcv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.5382, 2.86102e-06, -40.2654)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.14632, 2.86102e-06, 6.44254)
 
 [node name="Drone" parent="Map/Units/Player1" index="6" instance=ExtResource("4_g2xty")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.1922, 0, -42.7728)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.49232, 0, 3.93514)
 
 [node name="Drone2" parent="Map/Units/Player1" index="7" instance=ExtResource("4_g2xty")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.3116, 0, -41.6263)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.37292, 0, 5.08164)
 
 [node name="Drone3" parent="Map/Units/Player1" index="8" instance=ExtResource("4_g2xty")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.3116, 0, -39.6263)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.37292, 0, 7.08164)
 
 [node name="ScreenOverlay" parent="FogOfWar" index="1"]
 material_override = SubResource("ShaderMaterial_67o07")
