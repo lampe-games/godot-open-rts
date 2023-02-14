@@ -26,6 +26,29 @@ static func is_applicable(source_unit, target_unit):
 	)
 
 
+static func find_resource_unit_closest_to_unit_yet_no_further_than(unit, distance_max):
+	var resource_units = unit.get_tree().get_nodes_in_group("resource_units")
+	var resource_units_sorted_by_distance = (
+		resource_units
+		. map(
+			func(resource_unit): return {
+				"distance":
+				(unit.global_position * Vector3(1, 0, 1)).distance_to(
+					resource_unit.global_position * Vector3(1, 0, 1)
+				),
+				"unit": resource_unit
+			}
+		)
+		. filter(func(tuple): return tuple["distance"] <= distance_max)
+	)
+	resource_units_sorted_by_distance.sort_custom(func(a, b): return a["distance"] < b["distance"])
+	return (
+		resource_units_sorted_by_distance[0]["unit"]
+		if not resource_units_sorted_by_distance.is_empty()
+		else null
+	)
+
+
 func _init(unit):
 	if unit is ResourceUnit:
 		_set_resource_unit(unit)
@@ -112,29 +135,8 @@ func _transfer_collected_resources_to_player():
 
 
 func _find_closest_resource_unit_in_nearby_area():
-	var resource_units = get_tree().get_nodes_in_group("resource_units")
-	var resource_units_sorted_by_distance = (
-		resource_units
-		. map(
-			func(resource_unit): return {
-				"distance":
-				(_unit.global_position * Vector3(1, 0, 1)).distance_to(
-					resource_unit.global_position * Vector3(1, 0, 1)
-				),
-				"unit": resource_unit
-			}
-		)
-		. filter(
-			func(tuple): return (
-				tuple["distance"] <= Constants.Match.Units.NEW_RESOURCE_SEARCH_RADIUS_M
-			)
-		)
-	)
-	resource_units_sorted_by_distance.sort_custom(func(a, b): return a["distance"] < b["distance"])
-	return (
-		resource_units_sorted_by_distance[0]["unit"]
-		if not resource_units_sorted_by_distance.is_empty()
-		else null
+	return find_resource_unit_closest_to_unit_yet_no_further_than(
+		_unit, Constants.Match.Units.NEW_RESOURCE_SEARCH_RADIUS_M
 	)
 
 

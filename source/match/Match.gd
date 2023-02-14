@@ -28,11 +28,13 @@ var map = HardcodedMap.new()  # TODO: use actual map
 
 @onready var _camera = find_child("IsometricCamera3D")
 @onready var _fog_of_war = find_child("FogOfWar")
+@onready var _players = find_child("Players")
 
 
 func _ready():
 	MatchSignals.setup_and_spawn_unit.connect(_setup_and_spawn_unit)
 	_create_players()
+	_setup_players()
 	controlled_player = players[settings.controlled_player]
 	visible_player = players[settings.visible_player]
 	_setup_player_units()
@@ -76,6 +78,17 @@ func _create_players():
 		var player = Player.new()
 		player.color = player_settings.color
 		players.append(player)
+
+
+func _setup_players():
+	var existing_player_controllers = _players.get_children()
+	for player_id in players.size():
+		if (
+			player_id < existing_player_controllers.size()
+			and "player" in existing_player_controllers[player_id]
+		):
+			existing_player_controllers[player_id].player = players[player_id]
+		# TODO: else: create new one as per settings
 
 
 func _setup_player_units():

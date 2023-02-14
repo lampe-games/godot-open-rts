@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://jfh7kurhonht"]
+
+[ext_resource type="Script" path="res://source/match/players/simple_ai/SimpleAI.gd" id="1_vxjjg"]
+[ext_resource type="Script" path="res://source/match/players/simple_ai/EconomyController.gd" id="2_4gt8k"]
+[ext_resource type="Script" path="res://source/match/players/simple_ai/DefenseController.gd" id="3_hvod5"]
+[ext_resource type="Script" path="res://source/match/players/simple_ai/OffenseController.gd" id="4_56oxo"]
+
+[node name="SimpleAI" type="Node"]
+script = ExtResource("1_vxjjg")
+
+[node name="EconomyController" type="Node" parent="."]
+script = ExtResource("2_4gt8k")
+
+[node name="DefenseController" type="Node" parent="."]
+script = ExtResource("3_hvod5")
+
+[node name="OffenseController" type="Node" parent="."]
+script = ExtResource("4_56oxo")
