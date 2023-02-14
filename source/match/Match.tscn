@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://doitvquurtufi"]
+[gd_scene load_steps=48 format=3 uid="uid://vraygjg7xlpm"]
 
 [ext_resource type="Script" path="res://source/match/Match.gd" id="1_1555u"]
 [ext_resource type="Script" path="res://source/match/IsometricCamera3D.gd" id="1_qb2ry"]
@@ -15,7 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://b6n7cwv706x5n" path="res://source/match/debug/GodModeHud.tscn" id="10_p6gno"]
 [ext_resource type="Shader" path="res://source/shaders/3d/fog.gdshader" id="10_weh6c"]
 [ext_resource type="Shader" path="res://source/shaders/2d/blurr.gdshader" id="12_pow7t"]
-[ext_resource type="PackedScene" uid="uid://cqauc87cdn5pw" path="res://source/match/hud/Resources.tscn" id="12_r13sk"]
+[ext_resource type="PackedScene" uid="uid://cwefaix6rye6k" path="res://source/match/hud/ResourcesBar.tscn" id="12_r13sk"]
 [ext_resource type="PackedScene" uid="uid://cwcedr6jj7yty" path="res://source/match/hud/UnitMenus.tscn" id="13_6cypl"]
 [ext_resource type="Shader" path="res://source/shaders/3d/simple_fog_of_war.gdshader" id="13_jo8b7"]
 [ext_resource type="PackedScene" uid="uid://nnsih72ih7qr" path="res://source/match/hud/ProductionQueue.tscn" id="13_qv3xn"]
@@ -415,7 +415,10 @@ offset_bottom = 11.0
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 
-[node name="Resources" parent="HUD/MarginContainer2" instance=ExtResource("12_r13sk")]
+[node name="Resources" type="VBoxContainer" parent="HUD/MarginContainer2"]
+layout_mode = 2
+
+[node name="ResourcesBar" parent="HUD/MarginContainer2/Resources" instance=ExtResource("12_r13sk")]
 layout_mode = 2
 
 [node name="MarginContainer3" type="MarginContainer" parent="HUD"]

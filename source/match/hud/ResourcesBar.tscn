@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://cqauc87cdn5pw"]
+[gd_scene load_steps=2 format=3 uid="uid://cwefaix6rye6k"]
 
-[ext_resource type="Script" path="res://source/match/hud/Resources.gd" id="1_saxre"]
+[ext_resource type="Script" path="res://source/match/hud/ResourcesBar.gd" id="1_saxre"]
 
-[node name="Resources" type="PanelContainer"]
+[node name="ResourcesBar" type="PanelContainer"]
 script = ExtResource("1_saxre")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
