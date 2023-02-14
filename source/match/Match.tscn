@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://vraygjg7xlpm"]
+[gd_scene load_steps=49 format=3 uid="uid://vraygjg7xlpm"]
 
 [ext_resource type="Script" path="res://source/match/Match.gd" id="1_1555u"]
 [ext_resource type="Script" path="res://source/match/IsometricCamera3D.gd" id="1_qb2ry"]
@@ -21,6 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://nnsih72ih7qr" path="res://source/match/hud/ProductionQueue.tscn" id="13_qv3xn"]
 [ext_resource type="Script" path="res://source/match/players/human/UnitActionsController.gd" id="14_qgu1g"]
 [ext_resource type="PackedScene" uid="uid://dk7sa3fkyxks5" path="res://source/generic-scenes-and-nodes/control/RectangularSelection2D.tscn" id="16_ccb0o"]
+[ext_resource type="Script" path="res://source/match/hud/Resources.gd" id="16_vjwpn"]
 [ext_resource type="PackedScene" uid="uid://b0lxagyi6a5td" path="res://source/match/handlers/BuildingPlacementHandler.tscn" id="17_8ku5t"]
 [ext_resource type="PackedScene" uid="uid://bocb7hjilvri5" path="res://source/match/handlers/SelectionHandler.tscn" id="20_tw1wp"]
 [ext_resource type="PackedScene" uid="uid://c0uxy26e4qs4w" path="res://source/match/handlers/MouseClickAnimationsHandler.tscn" id="22_438pb"]
@@ -417,8 +418,30 @@ theme_override_constants/margin_top = 5
 
 [node name="Resources" type="VBoxContainer" parent="HUD/MarginContainer2"]
 layout_mode = 2
+script = ExtResource("16_vjwpn")
 
 [node name="ResourcesBar" parent="HUD/MarginContainer2/Resources" instance=ExtResource("12_r13sk")]
+layout_mode = 2
+
+[node name="ResourcesBar2" parent="HUD/MarginContainer2/Resources" instance=ExtResource("12_r13sk")]
+layout_mode = 2
+
+[node name="ResourcesBar3" parent="HUD/MarginContainer2/Resources" instance=ExtResource("12_r13sk")]
+layout_mode = 2
+
+[node name="ResourcesBar4" parent="HUD/MarginContainer2/Resources" instance=ExtResource("12_r13sk")]
+layout_mode = 2
+
+[node name="ResourcesBar5" parent="HUD/MarginContainer2/Resources" instance=ExtResource("12_r13sk")]
+layout_mode = 2
+
+[node name="ResourcesBar6" parent="HUD/MarginContainer2/Resources" instance=ExtResource("12_r13sk")]
+layout_mode = 2
+
+[node name="ResourcesBar7" parent="HUD/MarginContainer2/Resources" instance=ExtResource("12_r13sk")]
+layout_mode = 2
+
+[node name="ResourcesBar8" parent="HUD/MarginContainer2/Resources" instance=ExtResource("12_r13sk")]
 layout_mode = 2
 
 [node name="MarginContainer3" type="MarginContainer" parent="HUD"]
