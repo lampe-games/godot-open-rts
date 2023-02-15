@@ -123,6 +123,7 @@ func _setup_and_spawn_unit(unit, a_transform, player):
 	unit.global_transform = a_transform
 	_setup_unit(unit, player)
 	add_child(unit)
+	MatchSignals.unit_spawned.emit(unit)
 
 
 func _setup_unit(unit, player):

@@ -7,6 +7,7 @@ signal place_building(building_prototype)
 
 # notifications
 signal terrain_targeted(position)
+signal unit_spawned(unit)
 signal unit_targeted(unit)
 signal unit_selected(unit)
 signal unit_deselected(unit)

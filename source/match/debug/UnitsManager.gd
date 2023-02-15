@@ -5,6 +5,14 @@ const ActionCaption = preload("res://source/match/units/traits/debug/ActionCapti
 @onready var _selected_units_check_box = find_child("SelectedUnitsCheckBox")
 
 
+func _unhandled_input(event):
+	if not Globals.god_mode:
+		return
+	if event.is_action_pressed("god_mode_delete_units"):
+		for unit in get_tree().get_nodes_in_group("selected_units"):
+			unit.queue_free()
+
+
 func _get_requested_units():
 	return (
 		get_tree().get_nodes_in_group("selected_units")
