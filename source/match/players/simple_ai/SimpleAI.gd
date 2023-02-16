@@ -7,6 +7,8 @@
 extends Node
 
 @export var player: Resource = null
+@export var expected_number_of_workers = 3
+@export var expected_number_of_ccs = 1
 
 var _provisioning_ongoing = false
 var _resource_requests = []
@@ -33,10 +35,12 @@ func _provision(controller, resources, metadata):
 
 
 func _on_player_resource_changed():
-	if _provisioning_ongoing or _resource_requests.is_empty():
+	if _provisioning_ongoing:
 		return
-	if player.has_resources(_resource_requests.front()["resources"]):
-		# TODO: loop over as _provision may not consume
+	while (
+		not _resource_requests.is_empty()
+		and player.has_resources(_resource_requests.front()["resources"])
+	):
 		var resource_request = _resource_requests.pop_front()
 		_provision(
 			resource_request["controller"],

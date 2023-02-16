@@ -2,6 +2,9 @@ class Unit:
 	const Movement = preload("res://source/match/utils/UnitMovementUtils.gd")
 
 
+const BuildingPlacement = preload("res://source/match/utils/BuildingPlacementUtils.gd")
+
+
 static func traverse_node_tree_and_replace_materials_matching_albedo(
 	starting_node, albedo_to_match, epsilon, material_to_set
 ):

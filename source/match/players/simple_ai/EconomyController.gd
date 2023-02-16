@@ -1,5 +1,3 @@
-# TODO: make sure at least one CC is present
-# TODO: make sure there are always enough workers
 # TODO: make sure workers collect both resource A and B
 extends Node
 
@@ -13,15 +11,15 @@ const CollectingResourcesSequentially = preload(
 	"res://source/match/units/actions/CollectingResourcesSequentially.gd"
 )
 
-# TODO: get from some config (provided at setup from AI maybe?)
-const EXPECTED_NUMBER_OF_WORKERS = 3
-const EXPECTED_NUMBER_OF_CCS = 1
-
+var _player = null
 var _ccs = []
 var _workers = []
 var _number_of_pending_cc_resource_requests = 0
 var _number_of_pending_worker_resource_requests = 0
-var _player = null
+var _number_of_pending_workers = 0
+var _cc_base_position = null
+
+@onready var _ai = get_parent()
 
 
 func setup(player):
@@ -39,23 +37,32 @@ func provision(resources, metadata):
 		if _ccs.is_empty():
 			return
 		_ccs[0].action.produce(WorkerScene)
+		_number_of_pending_worker_resource_requests -= 1
+		_number_of_pending_workers += 1
 	elif metadata == "cc":
 		assert(
 			resources == Constants.Match.Units.CONSTRUCTION_COSTS[CommandCenterScene.resource_path]
 		)
 		if _workers.is_empty():
 			return
-		assert(false)  # TODO: implement
+		_construct_cc()
+		_number_of_pending_cc_resource_requests -= 1
 	else:
 		assert(false)  # unexpected flow
+
+
+func _attach_cc(cc):
+	cc.tree_exited.connect(_on_cc_died.bind(cc))
 
 
 func _attach_current_ccs():
 	_ccs = get_tree().get_nodes_in_group("units").filter(
 		func(unit): return unit is CommandCenter and unit.player == _player
 	)
+	if not _ccs.is_empty():
+		_cc_base_position = _ccs[0].global_position
 	for cc in _ccs:
-		cc.tree_exited.connect(_on_cc_died.bind(cc))
+		_attach_cc(cc)
 
 
 func _attach_worker(worker):
@@ -66,14 +73,7 @@ func _attach_worker(worker):
 	worker.action_changed.connect(_on_worker_action_changed.bind(worker))
 	if worker.action != null:
 		return
-	var closest_resource_unit = (
-		CollectingResourcesSequentially
-		. find_resource_unit_closest_to_unit_yet_no_further_than(
-			worker, Constants.Match.Units.NEW_RESOURCE_SEARCH_RADIUS_M
-		)
-	)
-	if closest_resource_unit != null:
-		worker.action = CollectingResourcesSequentially.new(closest_resource_unit)
+	_make_worker_collecting_resources(worker)
 
 
 func _attach_current_workers():
@@ -85,10 +85,14 @@ func _attach_current_workers():
 
 
 func _enforce_number_of_ccs():
-	if _ccs.size() + _number_of_pending_cc_resource_requests >= EXPECTED_NUMBER_OF_CCS:
+	if (
+		_ccs.size() + _number_of_pending_cc_resource_requests + _number_of_pending_workers
+		>= _ai.expected_number_of_ccs
+	):
 		return
 	var number_of_extra_ccs_required = (
-		EXPECTED_NUMBER_OF_CCS - (_ccs.size() + _number_of_pending_cc_resource_requests)
+		_ai.expected_number_of_ccs
+		- (_ccs.size() + _number_of_pending_cc_resource_requests + _number_of_pending_workers)
 	)
 	for _i in range(number_of_extra_ccs_required):
 		resources_required.emit(
@@ -98,16 +102,37 @@ func _enforce_number_of_ccs():
 
 
 func _enforce_number_of_workers():
-	if _workers.size() + _number_of_pending_worker_resource_requests >= EXPECTED_NUMBER_OF_WORKERS:
+	if (
+		_workers.size() + _number_of_pending_worker_resource_requests
+		>= _ai.expected_number_of_workers
+	):
 		return
 	var number_of_extra_workers_required = (
-		EXPECTED_NUMBER_OF_WORKERS - (_workers.size() + _number_of_pending_worker_resource_requests)
+		_ai.expected_number_of_workers
+		- (_workers.size() + _number_of_pending_worker_resource_requests)
 	)
 	for _i in range(number_of_extra_workers_required):
 		resources_required.emit(
 			Constants.Match.Units.PRODUCTION_COSTS[WorkerScene.resource_path], "worker"
 		)
 		_number_of_pending_worker_resource_requests += 1
+
+
+func _construct_cc():
+	var construction_cost = Constants.Match.Units.CONSTRUCTION_COSTS[
+		CommandCenterScene.resource_path
+	]
+	assert(_player.has_resources(construction_cost) and not _workers.is_empty())
+	var placement_position = Utils.Match.BuildingPlacement.find_valid_placement_position_radially(
+		_cc_base_position if _cc_base_position != null else _workers[0].global_position, 2
+	)  # TODO: get radius from somewhere - constants(?)
+	var target_transform = Transform3D(Basis(), placement_position).looking_at(
+		placement_position + Vector3(0, 0, 1), Vector3.UP
+	)
+	_player.subtract_resources(construction_cost)
+	MatchSignals.setup_and_spawn_unit.emit(
+		CommandCenterScene.instantiate(), target_transform, _player
+	)
 
 
 func _on_cc_died(cc):
@@ -122,11 +147,25 @@ func _on_worker_died(worker):
 
 func _on_unit_spawned(unit):
 	if unit is Worker:
+		if _number_of_pending_workers > 0:
+			_number_of_pending_workers -= 1
 		_attach_worker(unit)
 	elif unit is CommandCenter:
-		assert(false)  # TODO: implement
+		_attach_cc(unit)
 
 
-func _on_worker_action_changed(_worker, new_action):
-	if new_action == null:
-		assert(false)  # TODO: implement
+func _make_worker_collecting_resources(worker):
+	var closest_resource_unit = (
+		CollectingResourcesSequentially
+		. find_resource_unit_closest_to_unit_yet_no_further_than(
+			worker, Constants.Match.Units.NEW_RESOURCE_SEARCH_RADIUS_M
+		)
+	)
+	if closest_resource_unit != null:
+		worker.action = CollectingResourcesSequentially.new(closest_resource_unit)
+
+
+func _on_worker_action_changed(worker, new_action):
+	if new_action != null:
+		return
+	_make_worker_collecting_resources(worker)
