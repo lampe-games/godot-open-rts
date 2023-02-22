@@ -123,8 +123,10 @@ func _construct_cc():
 		CommandCenterScene.resource_path
 	]
 	assert(_player.has_resources(construction_cost) and not _workers.is_empty())
-	var placement_position = Utils.Match.BuildingPlacement.find_valid_placement_position_radially(
-		_cc_base_position if _cc_base_position != null else _workers[0].global_position, 2
+	var placement_position = Utils.Match.BuildingPlacement.find_valid_position_radially(
+		_cc_base_position if _cc_base_position != null else _workers[0].global_position,
+		2,
+		get_tree()
 	)  # TODO: get radius from somewhere - constants(?)
 	var target_transform = Transform3D(Basis(), placement_position).looking_at(
 		placement_position + Vector3(0, 0, 1), Vector3.UP
