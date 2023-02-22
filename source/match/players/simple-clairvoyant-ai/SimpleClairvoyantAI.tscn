@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://1qlllsy6h5tc"]
+
+[ext_resource type="Script" path="res://source/match/players/simple-clairvoyant-ai/SimpleClairvoyantAI.gd" id="1_shcx6"]
+[ext_resource type="Script" path="res://source/match/players/simple-clairvoyant-ai/EconomyController.gd" id="2_otp5l"]
+[ext_resource type="Script" path="res://source/match/players/simple-clairvoyant-ai/DefenseController.gd" id="3_jharw"]
+[ext_resource type="Script" path="res://source/match/players/simple-clairvoyant-ai/OffenseController.gd" id="4_3nwat"]
+
+[node name="SimpleClairvoyantAI" type="Node"]
+script = ExtResource("1_shcx6")
+
+[node name="EconomyController" type="Node" parent="."]
+script = ExtResource("2_otp5l")
+
+[node name="DefenseController" type="Node" parent="."]
+script = ExtResource("3_jharw")
+
+[node name="OffenseController" type="Node" parent="."]
+script = ExtResource("4_3nwat")
