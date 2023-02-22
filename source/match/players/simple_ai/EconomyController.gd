@@ -34,19 +34,19 @@ func setup(player):
 func provision(resources, metadata):
 	if metadata == "worker":
 		assert(resources == Constants.Match.Units.PRODUCTION_COSTS[WorkerScene.resource_path])
+		_number_of_pending_worker_resource_requests -= 1
 		if _ccs.is_empty():
 			return
 		_ccs[0].action.produce(WorkerScene)
-		_number_of_pending_worker_resource_requests -= 1
 		_number_of_pending_workers += 1
 	elif metadata == "cc":
 		assert(
 			resources == Constants.Match.Units.CONSTRUCTION_COSTS[CommandCenterScene.resource_path]
 		)
+		_number_of_pending_cc_resource_requests -= 1
 		if _workers.is_empty():
 			return
 		_construct_cc()
-		_number_of_pending_cc_resource_requests -= 1
 	else:
 		assert(false)  # unexpected flow
 
@@ -136,11 +136,15 @@ func _construct_cc():
 
 
 func _on_cc_died(cc):
+	if not is_inside_tree():
+		return
 	_ccs.erase(cc)
 	_enforce_number_of_ccs()
 
 
 func _on_worker_died(worker):
+	if not is_inside_tree():
+		return
 	_workers.erase(worker)
 	_enforce_number_of_workers()
 
