@@ -35,3 +35,13 @@ func _on_debug_visuals_toggle_button_pressed():
 		var movement_trait = unit.find_child("Movement")
 		if movement_trait != null:
 			movement_trait.debug_enabled = not movement_trait.debug_enabled
+
+
+func _on_clear_all_button_pressed():
+	for unit in _get_requested_units():
+		var action_caption = unit.find_child("ActionCaption", true, false)
+		if action_caption != null:
+			action_caption.queue_free()
+		var movement_trait = unit.find_child("Movement")
+		if movement_trait != null:
+			movement_trait.debug_enabled = false

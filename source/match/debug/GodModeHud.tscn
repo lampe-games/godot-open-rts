@@ -79,6 +79,7 @@ offset_top = -20.0
 offset_bottom = 20.0
 grow_horizontal = 0
 grow_vertical = 2
+theme_override_constants/margin_right = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -135,6 +136,10 @@ text = "Action Caption"
 layout_mode = 2
 text = "Debug Visuals"
 
+[node name="ClearAllButton" type="Button" parent="MarginContainer/VBoxContainer/UnitsManager/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Clear All"
+
 [node name="TimeManager" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 script = ExtResource("4_0nfe7")
@@ -174,4 +179,5 @@ value = 1.0
 [connection signal="value_changed" from="PlayerManager/VBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/VisiblePlayerSpinBox" to="PlayerManager" method="_on_visible_player_spin_box_value_changed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/UnitsManager/MarginContainer/VBoxContainer/ActionCaptionToggleButton" to="MarginContainer/VBoxContainer/UnitsManager" method="_on_action_caption_toggle_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/UnitsManager/MarginContainer/VBoxContainer/DebugVisualsToggleButton" to="MarginContainer/VBoxContainer/UnitsManager" method="_on_debug_visuals_toggle_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/UnitsManager/MarginContainer/VBoxContainer/ClearAllButton" to="MarginContainer/VBoxContainer/UnitsManager" method="_on_clear_all_button_pressed"]
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/TimeManager/MarginContainer/VBoxContainer/TimeScaleSpinBox" to="MarginContainer/VBoxContainer/TimeManager" method="_on_time_scale_spin_box_value_changed"]
