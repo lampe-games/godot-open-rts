@@ -1,8 +1,5 @@
-# TODO: if there are no primary structures - cancel all (?) and build one
-# TODO: make sure current offensive structures are busy producing units (multiplex)
-# TODO: form battle groups as new units arrive
-# TODO: order battle group to attack random player once formed
-# TODO: if there are enough units and only one structure - build second one
+# TODO: secondary_structure (built e.g. after first battle group was formed)
+# TODO: refresh timer
 extends Node
 
 signal resources_required(resources, metadata)
@@ -17,12 +14,17 @@ const AircraftFactory = preload("res://source/match/units/AircraftFactory.gd")
 const AircraftFactoryScene = preload("res://source/match/units/AircraftFactory.tscn")
 const Helicopter = preload("res://source/match/units/Helicopter.gd")
 const HelicopterScene = preload("res://source/match/units/Helicopter.tscn")
+const AutoAttackingBattlegroup = preload(
+	"res://source/match/players/simple-clairvoyant-ai/AutoAttackingBattlegroup.gd"
+)
 
 var _player = null
 var _primary_structure_scene = null
 var _number_of_pending_primary_structure_resource_requests = 0
 var _primary_unit_scene = null
 var _number_of_pending_primary_unit_resource_requests = 0
+var _battlegroup_under_forming = null
+var _battlegroups = []
 
 @onready var _ai = get_parent()
 
@@ -39,6 +41,7 @@ func setup(player):
 		if _ai.primary_offensive_structure == _ai.OffensiveStructure.VEHICLE_FACTORY
 		else HelicopterScene
 	)
+	_try_creating_new_battlegroup()
 	# TODO: attach structures
 	# TODO: attach units (form battlegroups)
 	MatchSignals.unit_spawned.connect(_on_unit_spawned)
@@ -67,12 +70,33 @@ func provision(resources, metadata):
 			resources == Constants.Match.Units.PRODUCTION_COSTS[_primary_unit_scene.resource_path]
 		)
 		var primary_structure = _get_primary_structure()
-		if primary_structure == null:
+		if primary_structure == null or _battlegroup_under_forming == null:
 			return
 		_number_of_pending_primary_unit_resource_requests -= 1
 		primary_structure.action.produce(_primary_unit_scene)
 	else:
 		assert(false)  # unexpected flow
+
+
+func _try_creating_new_battlegroup():
+	if _battlegroups.size() == _ai.expected_number_of_battlegroups:
+		var primary_structure = _get_primary_structure()
+		if primary_structure != null:
+			primary_structure.action.cancel_all()
+		_battlegroup_under_forming = null
+		return false
+	var adversary_players = find_parent("Match").players.filter(
+		func(player): return player != _player
+	)
+	adversary_players.shuffle()
+	var battlegroup = AutoAttackingBattlegroup.new(
+		_ai.expected_number_of_units_in_battlegroup, adversary_players
+	)
+	_battlegroups.append(battlegroup)
+	battlegroup.tree_exited.connect(_on_battlegroup_died.bind(battlegroup))
+	add_child(battlegroup)
+	_battlegroup_under_forming = battlegroup
+	return true
 
 
 func _construct_structure(structure_scene):
@@ -92,7 +116,7 @@ func _construct_structure(structure_scene):
 		reference_position_for_placement, 2, get_tree()
 	)  # TODO: get radius from somewhere - constants(?)
 	var target_transform = Transform3D(Basis(), placement_position).looking_at(
-		placement_position + Vector3(0, 0, 1), Vector3.UP
+		placement_position + Vector3(-1, 0, 1), Vector3.UP
 	)
 	_player.subtract_resources(construction_cost)
 	MatchSignals.setup_and_spawn_unit.emit(structure_scene.instantiate(), target_transform, _player)
@@ -139,4 +163,12 @@ func _get_primary_structure():
 func _on_unit_spawned(unit):
 	if unit is Tank or unit is Helicopter:
 		_enforce_primary_units_production()
-		# TODO: attach to battlegroup
+		_battlegroup_under_forming.attach_unit(unit)
+		if _battlegroup_under_forming.size() == _ai.expected_number_of_units_in_battlegroup:
+			_try_creating_new_battlegroup()
+
+
+func _on_battlegroup_died(battlegroup):
+	if not is_inside_tree():
+		return
+	_battlegroups.erase(battlegroup)

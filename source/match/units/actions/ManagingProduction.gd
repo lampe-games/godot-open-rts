@@ -51,6 +51,12 @@ func produce(unit_prototype):
 	_unit.action_updated.emit()
 
 
+func cancel_all():
+	queue = []
+	queue_changed.emit()
+	_unit.action_updated.emit()
+
+
 func _finalize_production(former_queue_element):
 	MatchSignals.setup_and_spawn_unit.emit(
 		former_queue_element.unit_prototype.instantiate(),

@@ -10,6 +10,8 @@ enum OffensiveStructure { VEHICLE_FACTORY, AIRCRAFT_FACTORY }
 @export var expected_number_of_aa_turrets = 2
 @export var primary_offensive_structure = OffensiveStructure.VEHICLE_FACTORY
 @export var secondary_offensive_structure = OffensiveStructure.AIRCRAFT_FACTORY
+@export var expected_number_of_battlegroups = 2
+@export var expected_number_of_units_in_battlegroup = 4
 
 var player: Resource = null
 
