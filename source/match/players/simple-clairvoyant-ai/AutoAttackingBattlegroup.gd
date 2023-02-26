@@ -1,17 +1,19 @@
+# TODO: monitor attached units and fix their actions if necessary
 extends Node
 
 enum State { FORMING, ATTACKING }
 
+const PLAYER_TO_ATTACK_SWITCHING_DELAY_S = 0.5
+
 
 class Actions:
-	const Moving = preload("res://source/match/units/actions/Moving.gd")
 	const MovingToUnit = preload("res://source/match/units/actions/MovingToUnit.gd")
 	const AutoAttacking = preload("res://source/match/units/actions/AutoAttacking.gd")
 
 
 var _expected_number_of_units = null
 var _players_to_attack = null
-var _next_player_to_attack = null
+var _player_to_attack = null
 
 var _state = State.FORMING
 var _attached_units = []
@@ -20,7 +22,7 @@ var _attached_units = []
 func _init(expected_number_of_units, players_to_attack):
 	_expected_number_of_units = expected_number_of_units
 	_players_to_attack = players_to_attack
-	_next_player_to_attack = _players_to_attack.front()
+	_player_to_attack = _players_to_attack.front()
 
 
 func size():
@@ -42,16 +44,16 @@ func _start_attacking():
 
 func _attack_next_adversary_unit():
 	var adversary_units = get_tree().get_nodes_in_group("units").filter(
-		func(unit): return unit.player == _next_player_to_attack
+		func(unit): return unit.player == _player_to_attack
 	)
 	if adversary_units.is_empty():
 		_attack_next_player()
-	# TODO: calculate pivot:
-	var battlegroup_pivot = _attached_units[0].global_position
+	var battlegroup_position = _attached_units[0].global_position
 	var adversary_units_sorted_by_distance = adversary_units.map(
-		func(unit): return {
-			"distance": (unit.global_position * Vector3(1, 0, 1)).distance_to(battlegroup_pivot),
-			"unit": unit
+		func(adversary_unit): return {
+			"distance":
+			(adversary_unit.global_position * Vector3(1, 0, 1)).distance_to(battlegroup_position),
+			"unit": adversary_unit
 		}
 	)
 	adversary_units_sorted_by_distance.sort_custom(
@@ -76,7 +78,12 @@ func _attack_next_adversary_unit():
 
 
 func _attack_next_player():
-	assert(false)  # TODO: implement
+	var player_to_attack_index = _players_to_attack.find(_player_to_attack)
+	var next_player_to_attack_index = (player_to_attack_index + 1) % _players_to_attack.size()
+	_player_to_attack = _players_to_attack[next_player_to_attack_index]
+	get_tree().create_timer(PLAYER_TO_ATTACK_SWITCHING_DELAY_S).timeout.connect(
+		_attack_next_adversary_unit
+	)
 
 
 func _on_unit_died(unit):
