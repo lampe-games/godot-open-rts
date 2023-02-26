@@ -29,7 +29,12 @@ func _process(delta):
 			queue.erase(current_queue_element)
 			_finalize_production(current_queue_element)
 			queue_changed.emit()
+			_unit.action_updated.emit()
 		delta = max(0.0, delta - current_queue_element.time_left)
+
+
+func _to_string():
+	return "{0}({1} in queue)".format([super(), str(queue.size())])
 
 
 func produce(unit_prototype):
@@ -43,6 +48,7 @@ func produce(unit_prototype):
 	queue_element.time_left = Constants.Match.Units.PRODUCTION_TIMES[unit_prototype.resource_path]
 	queue.push_back(queue_element)
 	queue_changed.emit()
+	_unit.action_updated.emit()
 
 
 func _finalize_production(former_queue_element):
