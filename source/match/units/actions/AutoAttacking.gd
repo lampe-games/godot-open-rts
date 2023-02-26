@@ -58,4 +58,6 @@ func _on_target_unit_removed():
 func _on_sub_action_finished():
 	if not is_inside_tree():
 		return
+	if not _target_unit.is_inside_tree():
+		return
 	_attack_or_move_closer()

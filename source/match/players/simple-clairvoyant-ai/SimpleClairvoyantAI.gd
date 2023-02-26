@@ -6,8 +6,8 @@ enum OffensiveStructure { VEHICLE_FACTORY, AIRCRAFT_FACTORY }
 
 @export var expected_number_of_workers = 3
 @export var expected_number_of_ccs = 1
-@export var expected_number_of_ag_turrets = 2
-@export var expected_number_of_aa_turrets = 2
+@export var expected_number_of_ag_turrets = 1
+@export var expected_number_of_aa_turrets = 1
 @export var primary_offensive_structure = OffensiveStructure.VEHICLE_FACTORY
 @export var secondary_offensive_structure = OffensiveStructure.AIRCRAFT_FACTORY
 @export var expected_number_of_battlegroups = 2
@@ -39,10 +39,10 @@ func _ready():
 		_on_resource_request.bind(_economy_controller, ResourceRequestPriority.HIGH)
 	)
 	_economy_controller.setup(player)
-	# _defense_controller.resources_required.connect(
-	# 	_on_resource_request.bind(_defense_controller, ResourceRequestPriority.MEDIUM)
-	# )
-	# _defense_controller.setup(player)
+	_defense_controller.resources_required.connect(
+		_on_resource_request.bind(_defense_controller, ResourceRequestPriority.MEDIUM)
+	)
+	_defense_controller.setup(player)
 	_offense_controller.resources_required.connect(
 		_on_resource_request.bind(_offense_controller, ResourceRequestPriority.LOW)
 	)

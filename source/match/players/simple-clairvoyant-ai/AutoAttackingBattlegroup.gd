@@ -48,6 +48,7 @@ func _attack_next_adversary_unit():
 	)
 	if adversary_units.is_empty():
 		_attack_next_player()
+		return
 	var battlegroup_position = _attached_units[0].global_position
 	var adversary_units_sorted_by_distance = adversary_units.map(
 		func(adversary_unit): return {
