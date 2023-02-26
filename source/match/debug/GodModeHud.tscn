@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://b6n7cwv706x5n"]
+[gd_scene load_steps=6 format=3 uid="uid://b6n7cwv706x5n"]
 
 [ext_resource type="Script" path="res://source/match/debug/GodModeHud.gd" id="1_n4lpk"]
 [ext_resource type="Script" path="res://source/match/debug/PlayerManager.gd" id="2_julod"]
 [ext_resource type="Script" path="res://source/match/debug/UnitsManager.gd" id="3_1fe88"]
+[ext_resource type="Script" path="res://source/match/debug/TimeManager.gd" id="4_0nfe7"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_0h5ms"]
 resource_local_to_scene = false
@@ -79,26 +80,30 @@ offset_bottom = 20.0
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="UnitsManager" type="PanelContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="UnitsManager" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 script = ExtResource("3_1fe88")
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/UnitsManager"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/UnitsManager"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/UnitsManager/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/UnitsManager/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/UnitsManager/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/UnitsManager/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Units"
 horizontal_alignment = 1
 
-[node name="Panel" type="Panel" parent="MarginContainer/UnitsManager/MarginContainer/VBoxContainer/Label"]
+[node name="Panel" type="Panel" parent="MarginContainer/VBoxContainer/UnitsManager/MarginContainer/VBoxContainer/Label"]
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15
@@ -107,30 +112,66 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/UnitsManager/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/UnitsManager/MarginContainer/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="SelectedUnitsCheckBox" type="CheckBox" parent="MarginContainer/UnitsManager/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="SelectedUnitsCheckBox" type="CheckBox" parent="MarginContainer/VBoxContainer/UnitsManager/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 button_pressed = true
 button_group = SubResource("ButtonGroup_0h5ms")
 text = "Selected"
 
-[node name="AllUnitsCheckBox" type="CheckBox" parent="MarginContainer/UnitsManager/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="AllUnitsCheckBox" type="CheckBox" parent="MarginContainer/VBoxContainer/UnitsManager/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 button_group = SubResource("ButtonGroup_0h5ms")
 text = "All"
 
-[node name="ActionCaptionToggleButton" type="Button" parent="MarginContainer/UnitsManager/MarginContainer/VBoxContainer"]
+[node name="ActionCaptionToggleButton" type="Button" parent="MarginContainer/VBoxContainer/UnitsManager/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Action Caption"
 
-[node name="DebugVisualsToggleButton" type="Button" parent="MarginContainer/UnitsManager/MarginContainer/VBoxContainer"]
+[node name="DebugVisualsToggleButton" type="Button" parent="MarginContainer/VBoxContainer/UnitsManager/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Debug Visuals"
 
+[node name="TimeManager" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+script = ExtResource("4_0nfe7")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/TimeManager"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/TimeManager/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/TimeManager/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Time scale"
+horizontal_alignment = 1
+
+[node name="Panel" type="Panel" parent="MarginContainer/VBoxContainer/TimeManager/MarginContainer/VBoxContainer/Label"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TimeScaleSpinBox" type="SpinBox" parent="MarginContainer/VBoxContainer/TimeManager/MarginContainer/VBoxContainer"]
+layout_mode = 2
+min_value = 0.1
+max_value = 5.0
+step = 0.1
+value = 1.0
+
 [connection signal="value_changed" from="PlayerManager/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/ControlledPlayerSpinBox" to="PlayerManager" method="_on_controlled_player_spin_box_value_changed"]
 [connection signal="value_changed" from="PlayerManager/VBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/VisiblePlayerSpinBox" to="PlayerManager" method="_on_visible_player_spin_box_value_changed"]
-[connection signal="pressed" from="MarginContainer/UnitsManager/MarginContainer/VBoxContainer/ActionCaptionToggleButton" to="MarginContainer/UnitsManager" method="_on_action_caption_toggle_button_pressed"]
-[connection signal="pressed" from="MarginContainer/UnitsManager/MarginContainer/VBoxContainer/DebugVisualsToggleButton" to="MarginContainer/UnitsManager" method="_on_debug_visuals_toggle_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/UnitsManager/MarginContainer/VBoxContainer/ActionCaptionToggleButton" to="MarginContainer/VBoxContainer/UnitsManager" method="_on_action_caption_toggle_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/UnitsManager/MarginContainer/VBoxContainer/DebugVisualsToggleButton" to="MarginContainer/VBoxContainer/UnitsManager" method="_on_debug_visuals_toggle_button_pressed"]
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/TimeManager/MarginContainer/VBoxContainer/TimeScaleSpinBox" to="MarginContainer/VBoxContainer/TimeManager" method="_on_time_scale_spin_box_value_changed"]
