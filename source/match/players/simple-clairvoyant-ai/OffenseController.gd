@@ -1,4 +1,3 @@
-# TODO: refresh timer
 extends Node
 
 signal resources_required(resources, metadata)
@@ -16,6 +15,8 @@ const HelicopterScene = preload("res://source/match/units/Helicopter.tscn")
 const AutoAttackingBattlegroup = preload(
 	"res://source/match/players/simple-clairvoyant-ai/AutoAttackingBattlegroup.gd"
 )
+
+const REFRESH_INTERVAL = 1.0 / 60.0 * 30.0
 
 var _player = null
 var _primary_structure_scene = null
@@ -52,11 +53,12 @@ func setup(player):
 		if _ai.secondary_offensive_structure == _ai.OffensiveStructure.VEHICLE_FACTORY
 		else HelicopterScene
 	)
+	_setup_refresh_timer()
 	_try_creating_new_battlegroup()
 	# TODO: attach structures
 	# TODO: attach units (form battlegroups)
 	MatchSignals.unit_spawned.connect(_on_unit_spawned)
-	_enforce_primary_structure_existence()  # TODO: call it in refresh timer
+	_enforce_primary_structure_existence()
 
 
 func provision(resources, metadata):
@@ -70,6 +72,13 @@ func provision(resources, metadata):
 		_provision_unit(_secondary_unit_scene, _secondary_structure(), resources, metadata)
 	else:
 		assert(false)  # unexpected flow
+
+
+func _setup_refresh_timer():
+	var timer = Timer.new()
+	add_child(timer)
+	timer.timeout.connect(_on_refresh_timer_timeout)
+	timer.start(REFRESH_INTERVAL)
 
 
 func _provision_structure(structure_scene, resources, metadata):
@@ -245,3 +254,10 @@ func _on_battlegroup_died(battlegroup):
 	if not is_inside_tree():
 		return
 	_battlegroups.erase(battlegroup)
+
+
+func _on_refresh_timer_timeout():
+	_enforce_primary_structure_existence()
+	# secondary structure existence is enforced only when a battlegroup is formed
+	_enforce_primary_units_production()
+	_enforce_secondary_units_production()
