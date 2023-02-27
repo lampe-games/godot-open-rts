@@ -139,7 +139,6 @@ func _on_unit_died(unit):
 
 func _on_unit_spawned(unit):
 	if unit is AGTurret or unit is AATurret:
-		# TODO: decrease counter
 		_attach_turret(unit)
 
 

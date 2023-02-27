@@ -1,4 +1,3 @@
-# TODO: try refactoring (deduplicating) without raising complexity too much
 # TODO: refresh timer
 extends Node
 
@@ -21,12 +20,10 @@ const AutoAttackingBattlegroup = preload(
 var _player = null
 var _primary_structure_scene = null
 var _secondary_structure_scene = null
-var _number_of_pending_primary_structure_resource_requests = 0
-var _number_of_pending_secondary_structure_resource_requests = 0
+var _number_of_pending_structure_resource_requests = {}
 var _primary_unit_scene = null
 var _secondary_unit_scene = null
-var _number_of_pending_primary_unit_resource_requests = 0
-var _number_of_pending_secondary_unit_resource_requests = 0
+var _number_of_pending_unit_resource_requests = {}
 var _battlegroup_under_forming = null
 var _battlegroups = []
 
@@ -64,64 +61,41 @@ func setup(player):
 
 func provision(resources, metadata):
 	if metadata == "primary_structure":
-		assert(
-			(
-				resources
-				== Constants.Match.Units.CONSTRUCTION_COSTS[_primary_structure_scene.resource_path]
-			)
-		)
-		var workers = get_tree().get_nodes_in_group("units").filter(
-			func(unit): return unit is Worker and unit.player == _player
-		)
-		# TODO: fix formatting in gdtoolkit
-		_number_of_pending_primary_structure_resource_requests -= 1
-		if workers.is_empty():
-			return
-		_construct_structure(_primary_structure_scene)
+		_provision_structure(_primary_structure_scene, resources, metadata)
 	elif metadata == "secondary_structure":
-		assert(
-			(
-				resources
-				== Constants.Match.Units.CONSTRUCTION_COSTS[
-					_secondary_structure_scene.resource_path
-				]
-			)
-		)
-		var workers = get_tree().get_nodes_in_group("units").filter(
-			func(unit): return unit is Worker and unit.player == _player
-		)
-		# TODO: fix formatting in gdtoolkit
-		_number_of_pending_secondary_structure_resource_requests -= 1
-		if workers.is_empty():
-			return
-		_construct_structure(_secondary_structure_scene)
+		_provision_structure(_secondary_structure_scene, resources, metadata)
 	elif metadata == "primary_unit":
-		assert(
-			resources == Constants.Match.Units.PRODUCTION_COSTS[_primary_unit_scene.resource_path]
-		)
-		var primary_structure = _get_primary_structure()
-		if primary_structure == null or _battlegroup_under_forming == null:
-			return
-		_number_of_pending_primary_unit_resource_requests -= 1
-		primary_structure.action.produce(_primary_unit_scene)
+		_provision_unit(_primary_unit_scene, _primary_structure(), resources, metadata)
 	elif metadata == "secondary_unit":
-		assert(
-			resources == Constants.Match.Units.PRODUCTION_COSTS[_secondary_unit_scene.resource_path]
-		)
-		var secondary_structure = _get_secondary_structure()
-		if secondary_structure == null or _battlegroup_under_forming == null:
-			return
-		_number_of_pending_secondary_unit_resource_requests -= 1
-		secondary_structure.action.produce(_secondary_unit_scene)
+		_provision_unit(_secondary_unit_scene, _secondary_structure(), resources, metadata)
 	else:
 		assert(false)  # unexpected flow
+
+
+func _provision_structure(structure_scene, resources, metadata):
+	assert(resources == Constants.Match.Units.CONSTRUCTION_COSTS[structure_scene.resource_path])
+	var workers = get_tree().get_nodes_in_group("units").filter(
+		func(unit): return unit is Worker and unit.player == _player
+	)
+	_number_of_pending_structure_resource_requests[metadata] -= 1
+	if workers.is_empty():
+		return
+	_construct_structure(structure_scene)
+
+
+func _provision_unit(unit_scene, structure_producing_unit, resources, metadata):
+	assert(resources == Constants.Match.Units.PRODUCTION_COSTS[unit_scene.resource_path])
+	if structure_producing_unit == null:
+		return
+	_number_of_pending_unit_resource_requests[metadata] -= 1
+	structure_producing_unit.action.produce(unit_scene)
 
 
 func _try_creating_new_battlegroup():
 	if not _battlegroups.is_empty():
 		_enforce_secondary_structure_existence()
 	if _battlegroups.size() == _ai.expected_number_of_battlegroups:
-		var primary_structure = _get_primary_structure()
+		var primary_structure = _primary_structure()
 		if primary_structure != null:
 			primary_structure.action.cancel_all()
 		_battlegroup_under_forming = null
@@ -165,59 +139,49 @@ func _construct_structure(structure_scene):
 
 
 func _enforce_primary_structure_existence():
-	var primary_structure = _get_primary_structure()
-	if primary_structure == null and _number_of_pending_primary_structure_resource_requests == 0:
-		resources_required.emit(
-			Constants.Match.Units.CONSTRUCTION_COSTS[_primary_structure_scene.resource_path],
-			"primary_structure"
-		)
-		_number_of_pending_primary_structure_resource_requests += 1
+	_enforce_structure_existence(
+		_primary_structure(), _primary_structure_scene, "primary_structure"
+	)
 
 
 func _enforce_secondary_structure_existence():
-	var secondary_structure = _get_secondary_structure()
-	if (
-		secondary_structure == null
-		and _number_of_pending_secondary_structure_resource_requests == 0
-	):
+	_enforce_structure_existence(
+		_secondary_structure(), _secondary_structure_scene, "secondary_structure"
+	)
+
+
+func _enforce_structure_existence(structure, structure_scene, type):
+	if structure == null and _number_of_pending_structure_resource_requests.get(type, 0) == 0:
 		resources_required.emit(
-			Constants.Match.Units.CONSTRUCTION_COSTS[_secondary_structure_scene.resource_path],
-			"secondary_structure"
+			Constants.Match.Units.CONSTRUCTION_COSTS[structure_scene.resource_path], type
 		)
-		_number_of_pending_secondary_structure_resource_requests += 1
+		_number_of_pending_structure_resource_requests[type] = (
+			_number_of_pending_structure_resource_requests.get(type, 0) + 1
+		)
 
 
 func _enforce_primary_units_production():
-	if _battlegroup_under_forming == null:
-		return
-	var primary_structure = _get_primary_structure()
-	if primary_structure == null:
-		return
-	var number_of_pending_primary_units = primary_structure.action.queue.size()
-	if _number_of_pending_primary_unit_resource_requests + number_of_pending_primary_units == 0:
-		resources_required.emit(
-			Constants.Match.Units.PRODUCTION_COSTS[_primary_unit_scene.resource_path],
-			"primary_unit"
-		)
-		_number_of_pending_primary_unit_resource_requests += 1
+	_enforce_units_production(_primary_structure(), _primary_unit_scene, "primary_unit")
 
 
 func _enforce_secondary_units_production():
-	if _battlegroup_under_forming == null:
+	_enforce_units_production(_secondary_structure(), _secondary_unit_scene, "secondary_unit")
+
+
+func _enforce_units_production(structure, unit_scene, type):
+	if structure == null or not _is_units_production_allowed():
 		return
-	var secondary_structure = _get_secondary_structure()
-	if secondary_structure == null:
-		return
-	var number_of_pending_secondary_units = secondary_structure.action.queue.size()
-	if _number_of_pending_secondary_unit_resource_requests + number_of_pending_secondary_units == 0:
+	var number_of_pending_units = structure.action.queue.size()
+	if number_of_pending_units + _number_of_pending_unit_resource_requests.get(type, 0) == 0:
 		resources_required.emit(
-			Constants.Match.Units.PRODUCTION_COSTS[_secondary_unit_scene.resource_path],
-			"secondary_unit"
+			Constants.Match.Units.PRODUCTION_COSTS[unit_scene.resource_path], type
 		)
-		_number_of_pending_secondary_unit_resource_requests += 1
+		_number_of_pending_unit_resource_requests[type] = (
+			_number_of_pending_unit_resource_requests.get(type, 0) + 1
+		)
 
 
-func _get_primary_structure():
+func _primary_structure():
 	var primary_structures = get_tree().get_nodes_in_group("units").filter(
 		func(unit): return (
 			(
@@ -231,7 +195,7 @@ func _get_primary_structure():
 	return primary_structures[0] if not primary_structures.is_empty() else null
 
 
-func _get_secondary_structure():
+func _secondary_structure():
 	var secondary_structures = get_tree().get_nodes_in_group("units").filter(
 		func(unit): return (
 			(
@@ -245,10 +209,31 @@ func _get_secondary_structure():
 	return secondary_structures[0] if not secondary_structures.is_empty() else null
 
 
+func _is_units_production_allowed():
+	var primary_structure = _primary_structure()
+	var secondary_structure = _secondary_structure()
+	return (
+		_number_of_additional_units_required()
+		> (
+			Utils.Arr.sum(_number_of_pending_unit_resource_requests.values())
+			+ (primary_structure.action.queue.size() if primary_structure != null else 0)
+			+ (secondary_structure.action.queue.size() if secondary_structure != null else 0)
+		)
+	)
+
+
+func _number_of_additional_units_required():
+	if _battlegroup_under_forming == null:
+		return 0
+	return (
+		_ai.expected_number_of_battlegroups * _ai.expected_number_of_units_in_battlegroup
+		- (_battlegroups.size() - 1) * _ai.expected_number_of_units_in_battlegroup
+		- _battlegroup_under_forming.size()
+	)
+
+
 func _on_unit_spawned(unit):
 	if unit is Tank or unit is Helicopter:
-		if _battlegroup_under_forming == null:  # TODO: remove and implement acutal req counting
-			return
 		_battlegroup_under_forming.attach_unit(unit)
 		if _battlegroup_under_forming.size() == _ai.expected_number_of_units_in_battlegroup:
 			_try_creating_new_battlegroup()
