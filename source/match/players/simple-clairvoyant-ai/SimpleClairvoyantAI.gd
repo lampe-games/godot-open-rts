@@ -25,6 +25,7 @@ var _resource_requests = {
 @onready var _economy_controller = find_child("EconomyController")
 @onready var _defense_controller = find_child("DefenseController")
 @onready var _offense_controller = find_child("OffenseController")
+@onready var _intelligence_controller = find_child("IntelligenceController")
 
 
 func _ready():
@@ -32,8 +33,6 @@ func _ready():
 	if player == null:
 		queue_free()
 		return
-	# TODO: cancel actions of all owned units - it will
-	#       enable AI setup in runtime (e.g. on player switch)
 	player.changed.connect(_on_player_resource_changed)
 	_economy_controller.resources_required.connect(
 		_on_resource_request.bind(_economy_controller, ResourceRequestPriority.HIGH)
@@ -47,6 +46,7 @@ func _ready():
 		_on_resource_request.bind(_offense_controller, ResourceRequestPriority.LOW)
 	)
 	_offense_controller.setup(player)
+	_intelligence_controller.setup(player)
 
 
 func _provision(controller, resources, metadata):
