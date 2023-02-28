@@ -1,4 +1,3 @@
-# TODO: Intelligence controller
 extends Node
 
 enum ResourceRequestPriority { LOW, MEDIUM, HIGH }
