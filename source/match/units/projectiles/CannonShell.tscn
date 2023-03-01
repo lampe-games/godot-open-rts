@@ -38,6 +38,7 @@ script = ExtResource("1_hyk5q")
 [node name="DetachTransform" type="Node" parent="."]
 
 [node name="OriginParticles" type="GPUParticles3D" parent="DetachTransform"]
+visible = false
 material_override = SubResource("StandardMaterial3D_te2m4")
 emitting = false
 amount = 32
