@@ -69,4 +69,6 @@ func _on_drone_action_changed(new_action, drone):
 			. create_timer(randf_range(TARGET_SWITICHING_TIME_MIN_S, TARGET_SWITICHING_TIME_MAX_S))
 			. timeout
 		)
+		if not drone.is_inside_tree():
+			return
 		_navigate_to_random_position(drone)
