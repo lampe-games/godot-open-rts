@@ -4,4 +4,5 @@
 
 [node name="Movement" type="NavigationAgent3D"]
 avoidance_enabled = true
+max_neighbors = 1
 script = ExtResource("1_15usw")

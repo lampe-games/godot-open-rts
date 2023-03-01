@@ -45,7 +45,6 @@ path_desired_distance = 0.5
 target_desired_distance = 0.5
 agent_height_offset = 0.5
 neighbor_distance = 20.0
-max_neighbors = 30
 speed = 2.75
 
 [node name="HealthBar" parent="." instance=ExtResource("4_7l0rt")]

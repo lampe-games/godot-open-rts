@@ -38,7 +38,6 @@ target_desired_distance = 0.1
 agent_height_offset = 0.5
 radius = 0.6
 neighbor_distance = 20.0
-max_neighbors = 30
 domain = 0
 
 [node name="HealthBar" parent="." instance=ExtResource("5_vqiw1")]
