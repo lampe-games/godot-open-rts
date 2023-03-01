@@ -116,7 +116,7 @@ func _construct_turret(turret_scene):
 		func(unit): return unit is CommandCenter and unit.player == _player
 	)
 	# TODO: introduce actual algorithm which takes enemy positions into account
-	var placement_position = Utils.Match.BuildingPlacement.find_valid_position_radially(
+	var placement_position = Utils.Match.Unit.Placement.find_valid_position_radially(
 		ccs[0].global_position, 2, get_tree()
 	)  # TODO: get radius from somewhere - constants(?)
 	var target_transform = Transform3D(Basis(), placement_position).looking_at(

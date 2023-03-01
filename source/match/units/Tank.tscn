@@ -44,6 +44,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
 path_desired_distance = 0.5
 target_desired_distance = 0.5
 agent_height_offset = 0.5
+radius = 1.0
 neighbor_distance = 20.0
 speed = 2.75
 

@@ -58,8 +58,10 @@ func cancel_all():
 
 
 func _finalize_production(former_queue_element):
+	var produced_unit = former_queue_element.unit_prototype.instantiate()
+	var placement_position = Utils.Match.Unit.Placement.find_valid_position_radially(
+		_unit.global_position, produced_unit.radius, get_tree()
+	)
 	MatchSignals.setup_and_spawn_unit.emit(
-		former_queue_element.unit_prototype.instantiate(),
-		_unit.global_transform.translated(Vector3(0, 0, 5)),
-		_unit.player
+		produced_unit, Transform3D(Basis(), placement_position), _unit.player
 	)

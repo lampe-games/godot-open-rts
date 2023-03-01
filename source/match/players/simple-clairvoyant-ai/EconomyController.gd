@@ -123,7 +123,7 @@ func _construct_cc():
 		CommandCenterScene.resource_path
 	]
 	assert(_player.has_resources(construction_cost) and not _workers.is_empty())
-	var placement_position = Utils.Match.BuildingPlacement.find_valid_position_radially(
+	var placement_position = Utils.Match.Unit.Placement.find_valid_position_radially(
 		_cc_base_position if _cc_base_position != null else _workers[0].global_position,
 		2,
 		get_tree()

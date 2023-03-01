@@ -136,7 +136,7 @@ func _construct_structure(structure_scene):
 	var reference_position_for_placement = (
 		ccs[0].global_position if not ccs.is_empty() else workers[0].global_position
 	)
-	var placement_position = Utils.Match.BuildingPlacement.find_valid_position_radially(
+	var placement_position = Utils.Match.Unit.Placement.find_valid_position_radially(
 		reference_position_for_placement, 2, get_tree()
 	)  # TODO: get radius from somewhere - constants(?)
 	var target_transform = Transform3D(Basis(), placement_position).looking_at(
@@ -161,11 +161,11 @@ func _enforce_secondary_structure_existence():
 
 func _enforce_structure_existence(structure, structure_scene, type):
 	if structure == null and _number_of_pending_structure_resource_requests.get(type, 0) == 0:
-		resources_required.emit(
-			Constants.Match.Units.CONSTRUCTION_COSTS[structure_scene.resource_path], type
-		)
 		_number_of_pending_structure_resource_requests[type] = (
 			_number_of_pending_structure_resource_requests.get(type, 0) + 1
+		)
+		resources_required.emit(
+			Constants.Match.Units.CONSTRUCTION_COSTS[structure_scene.resource_path], type
 		)
 
 
@@ -182,11 +182,11 @@ func _enforce_units_production(structure, unit_scene, type):
 		return
 	var number_of_pending_units = structure.action.queue.size()
 	if number_of_pending_units + _number_of_pending_unit_resource_requests.get(type, 0) == 0:
-		resources_required.emit(
-			Constants.Match.Units.PRODUCTION_COSTS[unit_scene.resource_path], type
-		)
 		_number_of_pending_unit_resource_requests[type] = (
 			_number_of_pending_unit_resource_requests.get(type, 0) + 1
+		)
+		resources_required.emit(
+			Constants.Match.Units.PRODUCTION_COSTS[unit_scene.resource_path], type
 		)
 
 
@@ -243,6 +243,9 @@ func _number_of_additional_units_required():
 
 func _on_unit_spawned(unit):
 	if unit is Tank or unit is Helicopter:
+		# assert(_battlegroup_under_forming != null) # TODO: investigate how do we get here
+		if _battlegroup_under_forming == null:
+			return
 		_battlegroup_under_forming.attach_unit(unit)
 		if _battlegroup_under_forming.size() == _ai.expected_number_of_units_in_battlegroup:
 			_try_creating_new_battlegroup()

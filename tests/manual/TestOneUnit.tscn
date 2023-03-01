@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://qhgcfjxa2ykg"]
 
-[ext_resource type="PackedScene" uid="uid://doitvquurtufi" path="res://source/match/Match.tscn" id="1_fe2sx"]
+[ext_resource type="PackedScene" uid="uid://c84syrhfooaf0" path="res://source/match/Match.tscn" id="1_fe2sx"]
 [ext_resource type="Script" path="res://tests/manual/Match.gd" id="2_sflin"]
 [ext_resource type="Script" path="res://source/model/PlayerSettings.gd" id="3_3drrn"]
 [ext_resource type="Script" path="res://source/model/MatchSettings.gd" id="4_go41p"]
