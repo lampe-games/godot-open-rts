@@ -1,5 +1,12 @@
 extends Node3D
 
+const NAVIGATION_FIXING_TIMER_INTERVAL_S = 0.1
+
+var _dummy_agent_rids = {
+	Constants.Match.Navigation.Domain.AIR: null,
+	Constants.Match.Navigation.Domain.TERRAIN: null,
+}
+
 # air needs to be put on separate map so that air agents do not collide with terrain ones:
 @onready var air = ConcreteNavigation.new(NavigationServer3D.map_create())
 @onready var terrain = ConcreteNavigation.new(get_world_3d().navigation_map)
@@ -16,6 +23,7 @@ class ConcreteNavigation:
 
 func _ready():
 	_setup_air_navigation_map()
+	_setup_navigation_fixing_timer()
 
 
 func get_navigation_map_rid_by_domain(domain):
@@ -29,3 +37,26 @@ func _setup_air_navigation_map():
 	NavigationServer3D.region_set_map(_air_region.get_region_rid(), air.navigation_map_rid)
 	NavigationServer3D.map_force_update(air.navigation_map_rid)
 	NavigationServer3D.map_set_active(air.navigation_map_rid, true)
+
+
+func _setup_navigation_fixing_timer():
+	var timer = Timer.new()
+	timer.timeout.connect(_fix_navigation)
+	add_child(timer)
+	timer.start(NAVIGATION_FIXING_TIMER_INTERVAL_S)
+
+
+func _fix_navigation():
+	"""workarounds Godot bug #72202"""
+	for domain in [
+		Constants.Match.Navigation.Domain.AIR, Constants.Match.Navigation.Domain.TERRAIN
+	]:
+		if _dummy_agent_rids[domain] == null:
+			_dummy_agent_rids[domain] = NavigationServer3D.agent_create()
+			NavigationServer3D.agent_set_position(_dummy_agent_rids[domain], Vector3(-99, 0, -99))
+			NavigationServer3D.agent_set_map(
+				_dummy_agent_rids[domain], get_navigation_map_rid_by_domain(domain)
+			)
+		else:
+			NavigationServer3D.free_rid(_dummy_agent_rids[domain])
+			_dummy_agent_rids[domain] = null
