@@ -59,8 +59,20 @@ func cancel_all():
 
 func _finalize_production(former_queue_element):
 	var produced_unit = former_queue_element.unit_prototype.instantiate()
-	var placement_position = Utils.Match.Unit.Placement.find_valid_position_radially(
-		_unit.global_position, produced_unit.radius, get_tree()
+	var placement_position = (
+		Utils
+		. Match
+		. Unit
+		. Placement
+		. find_valid_position_radially_yet_skip_starting_radius(
+			_unit.global_position,
+			_unit.radius,
+			produced_unit.radius,
+			0.1,
+			Vector3(0, 0, 1),
+			false,
+			get_tree()
+		)
 	)
 	MatchSignals.setup_and_spawn_unit.emit(
 		produced_unit, Transform3D(Basis(), placement_position), _unit.player
