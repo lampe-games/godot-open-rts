@@ -123,18 +123,17 @@ func _construct_cc():
 		CommandCenterScene.resource_path
 	]
 	assert(_player.has_resources(construction_cost) and not _workers.is_empty())
+	var unit_to_spawn = CommandCenterScene.instantiate()
 	var placement_position = Utils.Match.Unit.Placement.find_valid_position_radially(
 		_cc_base_position if _cc_base_position != null else _workers[0].global_position,
-		2,
+		unit_to_spawn.radius + Constants.Match.Units.EMPTY_SPACE_RADIUS_SURROUNDING_STRUCTURE_M,
 		get_tree()
-	)  # TODO: get radius from somewhere - constants(?)
+	)
 	var target_transform = Transform3D(Basis(), placement_position).looking_at(
 		placement_position + Vector3(0, 0, 1), Vector3.UP
 	)
 	_player.subtract_resources(construction_cost)
-	MatchSignals.setup_and_spawn_unit.emit(
-		CommandCenterScene.instantiate(), target_transform, _player
-	)
+	MatchSignals.setup_and_spawn_unit.emit(unit_to_spawn, target_transform, _player)
 
 
 func _on_cc_died(cc):

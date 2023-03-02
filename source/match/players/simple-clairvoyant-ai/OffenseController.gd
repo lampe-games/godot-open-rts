@@ -133,17 +133,20 @@ func _construct_structure(structure_scene):
 	var workers = get_tree().get_nodes_in_group("units").filter(
 		func(unit): return unit is Worker and unit.player == _player
 	)
+	var unit_to_spawn = structure_scene.instantiate()
 	var reference_position_for_placement = (
 		ccs[0].global_position if not ccs.is_empty() else workers[0].global_position
 	)
 	var placement_position = Utils.Match.Unit.Placement.find_valid_position_radially(
-		reference_position_for_placement, 2, get_tree()
-	)  # TODO: get radius from somewhere - constants(?)
+		reference_position_for_placement,
+		unit_to_spawn.radius + Constants.Match.Units.EMPTY_SPACE_RADIUS_SURROUNDING_STRUCTURE_M,
+		get_tree()
+	)
 	var target_transform = Transform3D(Basis(), placement_position).looking_at(
 		placement_position + Vector3(-1, 0, 1), Vector3.UP
 	)
 	_player.subtract_resources(construction_cost)
-	MatchSignals.setup_and_spawn_unit.emit(structure_scene.instantiate(), target_transform, _player)
+	MatchSignals.setup_and_spawn_unit.emit(unit_to_spawn, target_transform, _player)
 	_enforce_primary_units_production.call_deferred()
 
 
