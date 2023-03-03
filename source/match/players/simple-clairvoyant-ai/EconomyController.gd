@@ -136,6 +136,68 @@ func _construct_cc():
 	MatchSignals.setup_and_spawn_unit.emit(unit_to_spawn, target_transform, _player)
 
 
+func _calculate_resource_collecting_statistics():
+	var number_of_workers_per_resource_kind = {
+		"resource_a": 0,
+		"resource_b": 0,
+	}
+	for worker in _workers:
+		if worker.action != null and worker.action is CollectingResourcesSequentially:
+			var resource_unit = worker.action.get_resource_unit()
+			if resource_unit == null:
+				continue
+			if "resource_a" in resource_unit:
+				number_of_workers_per_resource_kind["resource_a"] += 1
+			elif "resource_b" in resource_unit:
+				number_of_workers_per_resource_kind["resource_b"] += 1
+			else:
+				assert(false)  # unexpected flow
+	return number_of_workers_per_resource_kind
+
+
+func _make_worker_collecting_resources(worker):
+	var number_of_workers_per_resource_kind = _calculate_resource_collecting_statistics()
+	var resource_filter = null
+	if (
+		number_of_workers_per_resource_kind["resource_a"] != 0
+		or number_of_workers_per_resource_kind["resource_b"] != 0
+	):
+		if (
+			number_of_workers_per_resource_kind["resource_a"]
+			<= number_of_workers_per_resource_kind["resource_b"]
+		):
+			resource_filter = func(resource_unit): return "resource_a" in resource_unit
+		else:
+			resource_filter = func(resource_unit): return "resource_b" in resource_unit
+	var closest_resource_unit = (
+		Utils
+		. Match
+		. Resources
+		. find_resource_unit_closest_to_unit_yet_no_further_than(
+			worker, Constants.Match.Units.NEW_RESOURCE_SEARCH_RADIUS_M, resource_filter
+		)
+	)
+	if closest_resource_unit != null:
+		worker.action = CollectingResourcesSequentially.new(closest_resource_unit)
+	# TODO: else fallback to any available resource unit
+
+
+func _retarget_workers_if_necessary():
+	var number_of_workers_per_resource_kind = _calculate_resource_collecting_statistics()
+	# TODO: fix in gdtoolkit
+	if (
+		abs(
+			(
+				number_of_workers_per_resource_kind["resource_a"]
+				- number_of_workers_per_resource_kind["resource_b"]
+			)
+		)
+		>= 2
+	):
+		for worker in _workers:
+			_make_worker_collecting_resources(worker)
+
+
 func _on_cc_died(cc):
 	if not is_inside_tree():
 		return
@@ -148,6 +210,7 @@ func _on_worker_died(worker):
 		return
 	_workers.erase(worker)
 	_enforce_number_of_workers()
+	_retarget_workers_if_necessary()
 
 
 func _on_unit_spawned(unit):
@@ -157,17 +220,6 @@ func _on_unit_spawned(unit):
 		_attach_worker(unit)
 	elif unit is CommandCenter:
 		_attach_cc(unit)
-
-
-func _make_worker_collecting_resources(worker):
-	var closest_resource_unit = (
-		CollectingResourcesSequentially
-		. find_resource_unit_closest_to_unit_yet_no_further_than(
-			worker, Constants.Match.Units.NEW_RESOURCE_SEARCH_RADIUS_M
-		)
-	)
-	if closest_resource_unit != null:
-		worker.action = CollectingResourcesSequentially.new(closest_resource_unit)
 
 
 func _on_worker_action_changed(worker, new_action):

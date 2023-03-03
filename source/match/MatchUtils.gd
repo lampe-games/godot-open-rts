@@ -3,6 +3,9 @@ class Unit:
 	const Placement = preload("res://source/match/utils/UnitPlacementUtils.gd")
 
 
+const Resources = preload("res://source/match/utils/ResourceUtils.gd")
+
+
 static func traverse_node_tree_and_replace_materials_matching_albedo(
 	starting_node, albedo_to_match, epsilon, material_to_set
 ):
