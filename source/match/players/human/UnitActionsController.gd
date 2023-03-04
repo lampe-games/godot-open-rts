@@ -9,6 +9,7 @@ class Actions:
 		"res://source/match/units/actions/CollectingResourcesSequentially.gd"
 	)
 	const AutoAttacking = preload("res://source/match/units/actions/AutoAttacking.gd")
+	const Constructing = preload("res://source/match/units/actions/Constructing.gd")
 
 
 func _ready():
@@ -51,6 +52,8 @@ func _navigate_selected_units_towards_unit(target_unit):
 			unit.action = Actions.CollectingResourcesSequentially.new(target_unit)
 		elif Actions.AutoAttacking.is_applicable(unit, target_unit):
 			unit.action = Actions.AutoAttacking.new(target_unit)
+		elif Actions.Constructing.is_applicable(unit, target_unit):
+			unit.action = Actions.Constructing.new(target_unit)
 		elif (
 			target_unit.is_in_group("adversary_units")
 			or target_unit.is_in_group("controlled_units")

@@ -1,5 +1,7 @@
 extends Node3D
 
+const Structure = preload("res://source/match/units/Structure.gd")
+
 
 class HardcodedMap:
 	func get_topdown_polygon_2d():
@@ -107,7 +109,7 @@ func _setup_player_units():
 
 
 func _spawn_player_units(player, spawn_transform):
-	_setup_and_spawn_unit(CommandCenter.instantiate(), spawn_transform, player)
+	_setup_and_spawn_unit(CommandCenter.instantiate(), spawn_transform, player, false)
 	_setup_and_spawn_unit(
 		Drone.instantiate(), spawn_transform.translated(Vector3(-2, 0, -2)), player
 	)
@@ -119,9 +121,11 @@ func _spawn_player_units(player, spawn_transform):
 	)
 
 
-func _setup_and_spawn_unit(unit, a_transform, player):
+func _setup_and_spawn_unit(unit, a_transform, player, mark_structure_under_construction = true):
 	unit.global_transform = a_transform
 	_setup_unit(unit, player)
+	if unit is Structure and mark_structure_under_construction:
+		unit.mark_as_under_construction()
 	add_child(unit)
 	MatchSignals.unit_spawned.emit(unit)
 

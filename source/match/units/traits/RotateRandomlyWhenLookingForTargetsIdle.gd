@@ -1,6 +1,8 @@
+# TODO: use simpler randomization model
 extends Node
 
 const WaitingForTargets = preload("res://source/match/units/actions/WaitingForTargets.gd")
+const Structure = preload("res://source/match/units/Structure.gd")
 
 const ROTATION_MULTIPLIER_MARKOVIAN_TRANSITIONS = {
 	0:
@@ -32,6 +34,8 @@ var _current_rotation_multiplier = 0
 
 
 func _physics_process(delta):
+	if _unit is Structure and not _unit.is_constructed():
+		return
 	_calculate_new_rotation_multiplier()
 	if (
 		get_node_or_null(node_to_rotate) != null
