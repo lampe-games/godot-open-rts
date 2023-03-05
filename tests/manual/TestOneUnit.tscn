@@ -27,6 +27,7 @@ render_priority = 1
 shader = ExtResource("12_ke5ti")
 shader_parameter/color = Color(0, 0, 0, 1)
 shader_parameter/texture_units_per_world_unit = 2
+shader_parameter/lowest_y_allowed = -0.1
 shader_parameter/debug_texture_view = false
 shader_parameter/world_visibility_texture = SubResource("ViewportTexture_v46ss")
 
@@ -35,6 +36,7 @@ viewport_path = NodePath("FogOfWar/CombinedViewport")
 
 [node name="Match" instance=ExtResource("1_fe2sx")]
 script = ExtResource("2_sflin")
+allow_resources_deficit_spending = true
 settings = SubResource("Resource_qqc8i")
 
 [node name="Tank" parent="Map/Units/Player0" index="0" instance=ExtResource("10_tqe5i")]

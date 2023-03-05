@@ -4,10 +4,19 @@ signal movement_finished
 
 const INITIAL_DISPERSION_FACTOR = 0.1
 
+const STUCK_PREVENTION_ENABLED = true
+const STUCK_PREVENTION_WINDOW_SIZE = 10  # number of frames for accumulating distance traveled
+const STUCK_PREVENTION_THRESHOLD = 0.3  # fraction of expected distance traveled at full speed
+const STUCK_PREVENTION_SIDE_MOVES = 15  # number of forced moves to the side if stuck
+
 @export var domain = Constants.Match.Navigation.Domain.TERRAIN
 @export var speed: float = 4.0
 
 var _interim_speed: float = 0.0
+
+var _stuck_prevention_window = []
+var _total_velocity_in_stuck_prevention_window = 0.0
+var _number_of_forced_side_moves_left = 0
 
 @onready var _match = find_parent("Match")
 @onready var _unit = get_parent()
@@ -15,6 +24,10 @@ var _interim_speed: float = 0.0
 
 func _physics_process(delta):
 	_interim_speed = speed * delta
+	var fake_direction = _get_fake_direction_due_to_stuck_prevention()
+	if fake_direction != null:
+		set_velocity(fake_direction * _interim_speed)
+		return
 	var next_path_position: Vector3 = get_next_path_position()
 	var current_agent_position: Vector3 = _unit.global_transform.origin
 	var new_velocity: Vector3 = (
@@ -56,7 +69,55 @@ func _align_unit_position_to_navigation():
 	)
 
 
+func _is_moving_actively():
+	return get_next_path_position() != _unit.global_position
+
+
+func _get_fake_direction_due_to_stuck_prevention():
+	if (
+		not STUCK_PREVENTION_ENABLED
+		or not _is_moving_actively()
+		or _number_of_forced_side_moves_left == 0
+	):
+		return null
+	_number_of_forced_side_moves_left -= 1
+	var next_path_position: Vector3 = get_next_path_position()
+	var direction_to_target = (next_path_position - _unit.global_position).normalized()
+	var current_navigation_path = get_current_navigation_path()
+	var current_navigation_path_index = get_current_navigation_path_index()
+	if current_navigation_path.size() <= 1 or current_navigation_path_index == 0:
+		return direction_to_target.rotated(Vector3.UP, PI / 2.0)
+	# rotate +90*/-90* and choose the one that goes further from path
+	var option_a = direction_to_target.rotated(Vector3.UP, PI / 2.0)
+	var option_b = direction_to_target.rotated(Vector3.UP, -PI / 2.0)
+	var previous_path_position = current_navigation_path[current_navigation_path_index - 1]
+	if (
+		(_unit.global_position + option_a).distance_to(previous_path_position)
+		> (_unit.global_position + option_b).distance_to(previous_path_position)
+	):
+		return option_a
+	return option_b
+
+
+func _update_stuck_prevention(safe_velocity):
+	if not _is_moving_actively():
+		return
+	_stuck_prevention_window.append(safe_velocity.length())
+	_total_velocity_in_stuck_prevention_window += safe_velocity.length()
+	if _stuck_prevention_window.size() > STUCK_PREVENTION_WINDOW_SIZE:
+		_total_velocity_in_stuck_prevention_window -= _stuck_prevention_window.pop_front()
+	var stuck_prevention_threshold = (
+		_interim_speed * STUCK_PREVENTION_WINDOW_SIZE * STUCK_PREVENTION_THRESHOLD
+	)
+	if (
+		_stuck_prevention_window.size() == STUCK_PREVENTION_WINDOW_SIZE
+		and _total_velocity_in_stuck_prevention_window < stuck_prevention_threshold
+	):
+		_number_of_forced_side_moves_left = STUCK_PREVENTION_SIDE_MOVES
+
+
 func _on_velocity_computed(safe_velocity: Vector3):
+	_update_stuck_prevention(safe_velocity)
 	var direction = safe_velocity
 	var rotation_target = _unit.global_transform.origin + direction
 	if (
