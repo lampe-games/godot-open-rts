@@ -128,6 +128,11 @@ layout_mode = 2
 button_group = SubResource("ButtonGroup_0h5ms")
 text = "All"
 
+[node name="AllAndNewUnitsCheckBox" type="CheckBox" parent="MarginContainer/VBoxContainer/UnitsManager/MarginContainer/VBoxContainer"]
+layout_mode = 2
+button_group = SubResource("ButtonGroup_0h5ms")
+text = "All+New"
+
 [node name="ActionCaptionToggleButton" type="Button" parent="MarginContainer/VBoxContainer/UnitsManager/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Action Caption"
