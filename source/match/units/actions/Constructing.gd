@@ -28,10 +28,8 @@ func _ready():
 
 func _try_constructing_structure():
 	if Utils.Match.Unit.Movement.units_adhere(_unit, _target_unit):
-		var under_construction_trait = _target_unit.find_child("UnderConstruction", true, false)
-		if under_construction_trait != null:
-			_target_unit.constructed.disconnect(_on_target_unit_constructed)
-			under_construction_trait.queue_free()
+		_target_unit.constructed.disconnect(_on_target_unit_constructed)
+		_target_unit.construct()
 		queue_free()
 		return true
 	return false
@@ -51,4 +49,5 @@ func _on_sub_action_finished():
 func _on_target_unit_constructed():
 	if not is_inside_tree():
 		return
+	_sub_action.tree_exited.disconnect(_on_sub_action_finished)
 	queue_free()

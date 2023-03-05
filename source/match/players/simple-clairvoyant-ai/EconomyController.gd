@@ -1,4 +1,3 @@
-# TODO: make sure workers collect both resource A and B
 extends Node
 
 signal resources_required(resources, metadata)
@@ -222,7 +221,7 @@ func _on_unit_spawned(unit):
 		_attach_cc(unit)
 
 
-func _on_worker_action_changed(worker, new_action):
+func _on_worker_action_changed(new_action, worker):
 	if new_action != null:
 		return
 	_make_worker_collecting_resources(worker)

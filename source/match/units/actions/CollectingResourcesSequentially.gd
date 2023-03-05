@@ -179,6 +179,8 @@ func _on_sub_action_finished():
 				if _set_cc_unit(_find_cc_closest_to_unit(_unit)):
 					_change_state_to(State.MOVING_TO_CC)
 				return
+			if not _cc_unit.is_constructed():
+				_cc_unit.construct()  # as long as constructing is immediate that is fine
 			_transfer_collected_resources_to_player()
 			_change_state_to(State.MOVING_TO_RESOURCE)
 

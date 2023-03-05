@@ -1,3 +1,4 @@
+# TODO: ConstructionWorksController
 extends Node
 
 enum ResourceRequestPriority { LOW, MEDIUM, HIGH }
@@ -25,6 +26,7 @@ var _resource_requests = {
 @onready var _defense_controller = find_child("DefenseController")
 @onready var _offense_controller = find_child("OffenseController")
 @onready var _intelligence_controller = find_child("IntelligenceController")
+@onready var _construction_works_controller = find_child("ConstructionWorksController")
 
 
 func _ready():
@@ -46,6 +48,7 @@ func _ready():
 	)
 	_offense_controller.setup(player)
 	_intelligence_controller.setup(player)
+	_construction_works_controller.setup(player)
 
 
 func _provision(controller, resources, metadata):

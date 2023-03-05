@@ -181,7 +181,7 @@ func _enforce_secondary_units_production():
 
 
 func _enforce_units_production(structure, unit_scene, type):
-	if structure == null or not _is_units_production_allowed():
+	if structure == null or not structure.is_constructed() or not _is_units_production_allowed():
 		return
 	var number_of_pending_units = structure.action.queue.size()
 	if number_of_pending_units + _number_of_pending_unit_resource_requests.get(type, 0) == 0:
@@ -228,8 +228,16 @@ func _is_units_production_allowed():
 		_number_of_additional_units_required()
 		> (
 			Utils.Arr.sum(_number_of_pending_unit_resource_requests.values())
-			+ (primary_structure.action.queue.size() if primary_structure != null else 0)
-			+ (secondary_structure.action.queue.size() if secondary_structure != null else 0)
+			+ (
+				primary_structure.action.queue.size()
+				if primary_structure != null and primary_structure.is_constructed()
+				else 0
+			)
+			+ (
+				secondary_structure.action.queue.size()
+				if secondary_structure != null and secondary_structure.is_constructed()
+				else 0
+			)
 		)
 	)
 
