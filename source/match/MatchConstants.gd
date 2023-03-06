@@ -29,7 +29,6 @@ class Resources:
 
 
 class Units:
-	# TODO: drone
 	const PRODUCTION_COSTS = {
 		"res://source/match/units/Worker.tscn":
 		{
@@ -37,6 +36,11 @@ class Units:
 			"resource_b": 1,
 		},
 		"res://source/match/units/Helicopter.tscn":
+		{
+			"resource_a": 1,
+			"resource_b": 1,
+		},
+		"res://source/match/units/Drone.tscn":
 		{
 			"resource_a": 1,
 			"resource_b": 1,
@@ -50,6 +54,7 @@ class Units:
 	const PRODUCTION_TIMES = {
 		"res://source/match/units/Worker.tscn": 0.75,
 		"res://source/match/units/Helicopter.tscn": 0.75,
+		"res://source/match/units/Drone.tscn": 0.75,
 		"res://source/match/units/Tank.tscn": 0.75,
 	}
 	const BUILDING_BLUEPRINTS = {
