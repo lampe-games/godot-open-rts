@@ -9,6 +9,10 @@ const STUCK_PREVENTION_WINDOW_SIZE = 10  # number of frames for accumulating dis
 const STUCK_PREVENTION_THRESHOLD = 0.3  # fraction of expected distance traveled at full speed
 const STUCK_PREVENTION_SIDE_MOVES = 15  # number of forced moves to the side if stuck
 
+const ROTATION_LOW_PASS_FILTER_ENABLED = true
+const ROTATION_LOW_PASS_FILTER_WINDOW_SIZE = 10  # number of frames for accumulating directions
+const ROTATION_LOW_PASS_FILTER_VELOCITY_THRESHOLD = 0.01  # velocities below will be dropped
+
 @export var domain = Constants.Match.Navigation.Domain.TERRAIN
 @export var speed: float = 4.0
 
@@ -17,6 +21,9 @@ var _interim_speed: float = 0.0
 var _stuck_prevention_window = []
 var _total_velocity_in_stuck_prevention_window = 0.0
 var _number_of_forced_side_moves_left = 0
+
+var _rotation_low_pass_filter_window = []
+var _total_direction_in_the_low_pass_filter_window = Vector3.ZERO
 
 @onready var _match = find_parent("Match")
 @onready var _unit = get_parent()
@@ -99,7 +106,7 @@ func _get_fake_direction_due_to_stuck_prevention():
 	return option_b
 
 
-func _update_stuck_prevention(safe_velocity):
+func _update_stuck_prevention(safe_velocity: Vector3):
 	if not _is_moving_actively():
 		return
 	_stuck_prevention_window.append(safe_velocity.length())
@@ -116,9 +123,26 @@ func _update_stuck_prevention(safe_velocity):
 		_number_of_forced_side_moves_left = STUCK_PREVENTION_SIDE_MOVES
 
 
-func _on_velocity_computed(safe_velocity: Vector3):
-	_update_stuck_prevention(safe_velocity)
-	var direction = safe_velocity
+func _get_filtered_rotation_direction(safe_velocity: Vector3):
+	var direction = safe_velocity.normalized()
+	if safe_velocity.length() >= ROTATION_LOW_PASS_FILTER_VELOCITY_THRESHOLD:
+		_rotation_low_pass_filter_window.append(direction)
+		_total_direction_in_the_low_pass_filter_window += direction
+	if _rotation_low_pass_filter_window.size() > ROTATION_LOW_PASS_FILTER_WINDOW_SIZE:
+		_total_direction_in_the_low_pass_filter_window -= (
+			_rotation_low_pass_filter_window.pop_front()
+		)
+	if _rotation_low_pass_filter_window.size() == ROTATION_LOW_PASS_FILTER_WINDOW_SIZE:
+		return (
+			_total_direction_in_the_low_pass_filter_window
+			/ float(ROTATION_LOW_PASS_FILTER_WINDOW_SIZE)
+		)
+	return direction
+
+
+func _rotate_in_direction(direction: Vector3):
+	if ROTATION_LOW_PASS_FILTER_ENABLED:
+		direction = _get_filtered_rotation_direction(direction)
 	var rotation_target = _unit.global_transform.origin + direction
 	if (
 		not is_zero_approx(direction.length())
@@ -130,6 +154,11 @@ func _on_velocity_computed(safe_velocity: Vector3):
 		)
 	):
 		_unit.global_transform = _unit.global_transform.looking_at(rotation_target)
+
+
+func _on_velocity_computed(safe_velocity: Vector3):
+	_update_stuck_prevention(safe_velocity)
+	_rotate_in_direction(safe_velocity)
 	_unit.global_transform.origin = _unit.global_transform.origin.move_toward(
 		_unit.global_transform.origin + safe_velocity, _interim_speed
 	)
