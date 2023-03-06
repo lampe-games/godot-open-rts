@@ -71,6 +71,9 @@ func _finalize_production(former_queue_element):
 			0.1,
 			Vector3(0, 0, 1),
 			false,
+			find_parent("Match").navigation.get_navigation_map_rid_by_domain(
+				produced_unit.movement_domain
+			),
 			get_tree()
 		)
 	)

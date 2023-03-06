@@ -140,6 +140,9 @@ func _construct_structure(structure_scene):
 	var placement_position = Utils.Match.Unit.Placement.find_valid_position_radially(
 		reference_position_for_placement,
 		unit_to_spawn.radius + Constants.Match.Units.EMPTY_SPACE_RADIUS_SURROUNDING_STRUCTURE_M,
+		find_parent("Match").navigation.get_navigation_map_rid_by_domain(
+			unit_to_spawn.movement_domain
+		),
 		get_tree()
 	)
 	var target_transform = Transform3D(Basis(), placement_position).looking_at(
