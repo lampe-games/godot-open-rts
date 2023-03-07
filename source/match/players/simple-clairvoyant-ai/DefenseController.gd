@@ -144,6 +144,8 @@ func _on_unit_died(unit):
 
 
 func _on_unit_spawned(unit):
+	if unit.player != _player:
+		return
 	if unit is AGTurret or unit is AATurret:
 		_attach_turret(unit)
 

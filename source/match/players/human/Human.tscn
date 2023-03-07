@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dh8dedilkhuoy"]
+
+[ext_resource type="Script" path="res://source/match/players/human/UnitActionsController.gd" id="1_m624e"]
+
+[node name="Human" type="Node"]
+
+[node name="UnitActionsController" type="Node" parent="."]
+script = ExtResource("1_m624e")

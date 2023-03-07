@@ -1,4 +1,3 @@
-# TODO: ConstructionWorksController
 extends Node
 
 enum ResourceRequestPriority { LOW, MEDIUM, HIGH }
@@ -30,10 +29,9 @@ var _resource_requests = {
 
 
 func _ready():
-	await find_parent("Match").ready
 	if player == null:
-		queue_free()
-		return
+		await find_parent("Match").ready
+	assert(player != null)
 	player.changed.connect(_on_player_resource_changed)
 	_economy_controller.resources_required.connect(
 		_on_resource_request.bind(_economy_controller, ResourceRequestPriority.HIGH)

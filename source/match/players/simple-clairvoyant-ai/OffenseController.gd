@@ -256,7 +256,10 @@ func _number_of_additional_units_required():
 
 
 func _on_unit_spawned(unit):
+	if unit.player != _player:
+		return
 	if unit is Tank or unit is Helicopter:
+		# TODO: check if this still happens after ensuring only own players should match
 		# assert(_battlegroup_under_forming != null) # TODO: investigate how do we get here
 		if _battlegroup_under_forming == null:
 			return

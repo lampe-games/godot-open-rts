@@ -36,12 +36,11 @@ var map = HardcodedMap.new()  # TODO: use actual map
 func _ready():
 	MatchSignals.setup_and_spawn_unit.connect(_setup_and_spawn_unit)
 	_create_players()
-	_setup_players()
-	controlled_player = players[settings.controlled_player]
+	_setup_controlled_player()
 	visible_player = players[settings.visible_player]
 	_setup_player_units()
-	# TODO: do smth with camera if there's no controlled unit
-	_move_camera_to_controlled_units_crowd_pivot()
+	_create_and_setup_player_controllers()  # must happen after initial units are created
+	_move_camera_to_initial_position()
 	if settings.visibility == settings.Visibility.FULL:
 		_fog_of_war.reveal()
 
@@ -82,15 +81,38 @@ func _create_players():
 		players.append(player)
 
 
-func _setup_players():
+func _create_and_setup_player_controllers():
 	var existing_player_controllers = _players.get_children()
-	for player_id in players.size():
-		if (
-			player_id < existing_player_controllers.size()
-			and "player" in existing_player_controllers[player_id]
-		):
-			existing_player_controllers[player_id].player = players[player_id]
-		# TODO: else: create new one as per settings
+	for player_id in range(players.size()):
+		if player_id >= existing_player_controllers.size():
+			var player_type = settings.players[player_id].type
+			if player_type == settings.players[player_id].PlayerType.NONE:
+				continue
+			assert(
+				player_type != settings.players[player_id].PlayerType.DETECT_FROM_SCENE,
+				"cannot detect existing player controller"
+			)
+			var controller_scene = {
+				settings.players[player_id].PlayerType.HUMAN:
+				preload("res://source/match/players/human/Human.tscn"),
+				settings.players[player_id].PlayerType.SIMPLE_CLAIRVOYANT_AI:
+				preload(
+					"res://source/match/players/simple-clairvoyant-ai/SimpleClairvoyantAI.tscn"
+				),
+			}[player_type]
+			var controller = controller_scene.instantiate()
+			if "player" in controller:
+				controller.player = players[player_id]
+			_players.add_child(controller)
+		else:
+			assert(false, "not implemented")
+
+
+func _setup_controlled_player():
+	for player_id in range(players.size()):
+		if settings.players[player_id].type == settings.players[player_id].PlayerType.HUMAN:
+			assert(controlled_player == null, "more than one human player in settings")
+			controlled_player = players[player_id]
 
 
 func _setup_player_units():
@@ -106,6 +128,14 @@ func _setup_player_units():
 		else:
 			var spawn_transform = spawn_points[player_id].global_transform
 			_spawn_player_units(player, spawn_transform)
+
+
+func _move_camera_to_initial_position():
+	if controlled_player != null:
+		_move_camera_to_controlled_units_crowd_pivot()
+	else:
+		# TODO: do smth with camera if there's no controlled unit
+		assert(false, "not implemented")
 
 
 func _spawn_player_units(player, spawn_transform):

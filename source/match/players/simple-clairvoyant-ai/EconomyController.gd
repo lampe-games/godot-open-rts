@@ -51,16 +51,17 @@ func provision(resources, metadata):
 
 
 func _attach_cc(cc):
+	_ccs.append(cc)
 	cc.tree_exited.connect(_on_cc_died.bind(cc))
 
 
 func _attach_current_ccs():
-	_ccs = get_tree().get_nodes_in_group("units").filter(
+	var ccs = get_tree().get_nodes_in_group("units").filter(
 		func(unit): return unit is CommandCenter and unit.player == _player
 	)
-	if not _ccs.is_empty():
-		_cc_base_position = _ccs[0].global_position
-	for cc in _ccs:
+	if not ccs.is_empty():
+		_cc_base_position = ccs[0].global_position
+	for cc in ccs:
 		_attach_cc(cc)
 
 
@@ -216,6 +217,8 @@ func _on_worker_died(worker):
 
 
 func _on_unit_spawned(unit):
+	if unit.player != _player:
+		return
 	if unit is Worker:
 		if _number_of_pending_workers > 0:
 			_number_of_pending_workers -= 1
