@@ -28,7 +28,7 @@
 [sub_resource type="Resource" id="Resource_aehri"]
 script = ExtResource("2_issh2")
 color = Color(0.4, 0.694118, 1, 1)
-type = 1
+type = 2
 
 [sub_resource type="Resource" id="Resource_ohrdq"]
 script = ExtResource("2_issh2")

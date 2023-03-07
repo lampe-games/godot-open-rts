@@ -42,6 +42,9 @@ func _to_string():
 func _on_sub_action_finished():
 	if not is_inside_tree():
 		return
+	if not is_instance_valid(_target_unit) or not _target_unit.is_inside_tree():
+		queue_free()
+		return
 	_sub_action = null
 	assert(_try_constructing_structure())
 

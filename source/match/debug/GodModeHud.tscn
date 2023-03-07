@@ -180,8 +180,6 @@ max_value = 5.0
 step = 0.1
 value = 1.0
 
-[connection signal="value_changed" from="PlayerManager/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/ControlledPlayerSpinBox" to="PlayerManager" method="_on_controlled_player_spin_box_value_changed"]
-[connection signal="value_changed" from="PlayerManager/VBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/VisiblePlayerSpinBox" to="PlayerManager" method="_on_visible_player_spin_box_value_changed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/UnitsManager/MarginContainer/VBoxContainer/ActionCaptionToggleButton" to="MarginContainer/VBoxContainer/UnitsManager" method="_on_action_caption_toggle_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/UnitsManager/MarginContainer/VBoxContainer/DebugVisualsToggleButton" to="MarginContainer/VBoxContainer/UnitsManager" method="_on_debug_visuals_toggle_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/UnitsManager/MarginContainer/VBoxContainer/ClearAllButton" to="MarginContainer/VBoxContainer/UnitsManager" method="_on_clear_all_button_pressed"]

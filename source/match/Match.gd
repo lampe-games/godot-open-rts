@@ -36,7 +36,7 @@ var map = HardcodedMap.new()  # TODO: use actual map
 func _ready():
 	MatchSignals.setup_and_spawn_unit.connect(_setup_and_spawn_unit)
 	_create_players()
-	_setup_controlled_player()
+	_choose_controlled_player()
 	visible_player = players[settings.visible_player]
 	_setup_player_units()
 	_create_and_setup_player_controllers()  # must happen after initial units are created
@@ -108,7 +108,7 @@ func _create_and_setup_player_controllers():
 			assert(false, "not implemented")
 
 
-func _setup_controlled_player():
+func _choose_controlled_player():
 	for player_id in range(players.size()):
 		if settings.players[player_id].type == settings.players[player_id].PlayerType.HUMAN:
 			assert(controlled_player == null, "more than one human player in settings")
@@ -132,10 +132,9 @@ func _setup_player_units():
 
 func _move_camera_to_initial_position():
 	if controlled_player != null:
-		_move_camera_to_controlled_units_crowd_pivot()
+		_move_camera_to_player_units_crowd_pivot(controlled_player)
 	else:
-		# TODO: do smth with camera if there's no controlled unit
-		assert(false, "not implemented")
+		_move_camera_to_player_units_crowd_pivot(players[0])
 
 
 func _spawn_player_units(player, spawn_transform):
@@ -173,10 +172,12 @@ func _setup_unit(unit, player):
 		unit.add_to_group("revealed_units")
 
 
-func _move_camera_to_controlled_units_crowd_pivot():
-	var revealed_units = get_tree().get_nodes_in_group("controlled_units")
-	assert(not revealed_units.is_empty())
-	var crowd_pivot = Utils.Match.Unit.Movement.calculate_aabb_crowd_pivot_yless(revealed_units)
+func _move_camera_to_player_units_crowd_pivot(player):
+	var player_units = get_tree().get_nodes_in_group("units").filter(
+		func(unit): return unit.player == player
+	)
+	assert(not player_units.is_empty(), "player must have at least one initial unit")
+	var crowd_pivot = Utils.Match.Unit.Movement.calculate_aabb_crowd_pivot_yless(player_units)
 	_camera.set_position_safely(crowd_pivot)
 
 

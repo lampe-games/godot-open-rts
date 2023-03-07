@@ -10,6 +10,8 @@ func _ready():
 	await _match.ready
 	_controlled_player.value = _match.players.find(_match.controlled_player)
 	_visible_player.value = _match.players.find(_match.visible_player)
+	_controlled_player.value_changed.connect(_on_controlled_player_spin_box_value_changed)
+	_visible_player.value_changed.connect(_on_visible_player_spin_box_value_changed)
 
 
 func _on_controlled_player_spin_box_value_changed(value):
