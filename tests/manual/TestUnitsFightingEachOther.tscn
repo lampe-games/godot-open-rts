@@ -1,11 +1,30 @@
-[gd_scene load_steps=10 format=3 uid="uid://tcq8nbsari5i"]
+[gd_scene load_steps=15 format=3 uid="uid://tcq8nbsari5i"]
 
-[ext_resource type="PackedScene" uid="uid://doitvquurtufi" path="res://source/match/Match.tscn" id="1_f87ft"]
+[ext_resource type="PackedScene" uid="uid://c84syrhfooaf0" path="res://source/match/Match.tscn" id="1_f87ft"]
 [ext_resource type="Script" path="res://tests/manual/Match.gd" id="2_iedaw"]
 [ext_resource type="Shader" path="res://source/shaders/3d/simple_fog_of_war.gdshader" id="2_ojmlq"]
 [ext_resource type="PackedScene" uid="uid://cfa8cpnpk5pcb" path="res://source/match/units/AntiAirTurret.tscn" id="2_xec1u"]
+[ext_resource type="Script" path="res://source/model/PlayerSettings.gd" id="3_mmh0x"]
 [ext_resource type="PackedScene" uid="uid://e7tko4kpeiau" path="res://source/match/units/Helicopter.tscn" id="3_vdlcv"]
 [ext_resource type="PackedScene" uid="uid://0gow0ughqu8u" path="res://source/match/units/Drone.tscn" id="4_g2xty"]
+[ext_resource type="Script" path="res://source/model/MatchSettings.gd" id="4_xj1co"]
+
+[sub_resource type="Resource" id="Resource_ipatj"]
+script = ExtResource("3_mmh0x")
+color = Color(0.4, 0.694118, 1, 1)
+controller = 1
+
+[sub_resource type="Resource" id="Resource_clh6e"]
+script = ExtResource("3_mmh0x")
+color = Color(1, 0.360784, 0.45098, 1)
+controller = 0
+
+[sub_resource type="Resource" id="Resource_e2qbq"]
+script = ExtResource("4_xj1co")
+players = Array[Resource]([SubResource("Resource_ipatj"), SubResource("Resource_clh6e")])
+controlled_player = 0
+visibility = 1
+visible_player = 0
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_v46ss"]
 viewport_path = NodePath("FogOfWar/CombinedViewport")
@@ -16,6 +35,7 @@ render_priority = 1
 shader = ExtResource("2_ojmlq")
 shader_parameter/color = Color(0, 0, 0, 1)
 shader_parameter/texture_units_per_world_unit = 2
+shader_parameter/lowest_y_allowed = -0.1
 shader_parameter/debug_texture_view = false
 shader_parameter/world_visibility_texture = SubResource("ViewportTexture_v46ss")
 
@@ -24,6 +44,8 @@ viewport_path = NodePath("FogOfWar/CombinedViewport")
 
 [node name="Match" instance=ExtResource("1_f87ft")]
 script = ExtResource("2_iedaw")
+allow_resources_deficit_spending = true
+settings = SubResource("Resource_e2qbq")
 
 [node name="AntiAirTurret" parent="Map/Units/Player0" index="0" instance=ExtResource("2_xec1u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.1209, -3.8147e-06, 4.65078)

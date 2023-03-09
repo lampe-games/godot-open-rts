@@ -16,17 +16,19 @@
 [ext_resource type="Shader" path="res://source/shaders/3d/simple_fog_of_war.gdshader" id="12_cnst8"]
 [ext_resource type="PackedScene" uid="uid://1qlllsy6h5tc" path="res://source/match/players/simple-clairvoyant-ai/SimpleClairvoyantAI.tscn" id="15_6w32d"]
 
-[sub_resource type="Resource" id="Resource_aehri"]
+[sub_resource type="Resource" id="Resource_sm6ga"]
 script = ExtResource("3_8b007")
 color = Color(0.4, 0.694118, 1, 1)
+controller = 1
 
-[sub_resource type="Resource" id="Resource_ohrdq"]
+[sub_resource type="Resource" id="Resource_7xhjj"]
 script = ExtResource("3_8b007")
 color = Color(1, 0.360784, 0.45098, 1)
+controller = 2
 
 [sub_resource type="Resource" id="Resource_tnmkt"]
 script = ExtResource("4_kwjav")
-players = Array[Resource]([SubResource("Resource_aehri"), SubResource("Resource_ohrdq")])
+players = Array[Resource]([SubResource("Resource_sm6ga"), SubResource("Resource_7xhjj")])
 controlled_player = 0
 visibility = 1
 visible_player = 0
@@ -84,5 +86,7 @@ material_override = SubResource("ShaderMaterial_67o07")
 
 [node name="TextureRect" parent="HUD/MarginContainer/Minimap/MarginContainer" index="0"]
 texture = SubResource("ViewportTexture_38cip")
+
+[node name="Placeholder" type="Node" parent="Players" index="0"]
 
 [node name="SimpleClairvoyantAI" parent="Players" index="1" instance=ExtResource("15_6w32d")]

@@ -1,17 +1,31 @@
-[gd_scene load_steps=16 format=3 uid="uid://b65yuqx0iw62f"]
+[gd_scene load_steps=20 format=3 uid="uid://b65yuqx0iw62f"]
 
 [ext_resource type="PackedScene" uid="uid://c84syrhfooaf0" path="res://source/match/Match.tscn" id="1_oiu0k"]
 [ext_resource type="Script" path="res://tests/manual/Match.gd" id="2_ghr3h"]
 [ext_resource type="PackedScene" uid="uid://ct0ejt0trkhrf" path="res://source/match/units/CommandCenter.tscn" id="2_rm00b"]
 [ext_resource type="PackedScene" uid="uid://e7tko4kpeiau" path="res://source/match/units/Helicopter.tscn" id="3_0s0q8"]
+[ext_resource type="Script" path="res://source/model/PlayerSettings.gd" id="3_ml8xc"]
 [ext_resource type="PackedScene" uid="uid://cxilu6668nda6" path="res://source/match/units/AircraftFactory.tscn" id="3_rq1vh"]
 [ext_resource type="PackedScene" uid="uid://0gow0ughqu8u" path="res://source/match/units/Drone.tscn" id="4_3o35x"]
 [ext_resource type="PackedScene" uid="uid://h5lqor1xl2sf" path="res://source/match/units/VehicleFactory.tscn" id="4_m1xri"]
+[ext_resource type="Script" path="res://source/model/MatchSettings.gd" id="4_qiwvm"]
 [ext_resource type="Shader" path="res://source/shaders/3d/simple_fog_of_war.gdshader" id="5_f2ny6"]
 [ext_resource type="PackedScene" uid="uid://b8pckq1xn44ss" path="res://source/match/units/AntiGroundTurret.tscn" id="5_g67iu"]
 [ext_resource type="PackedScene" uid="uid://cfa8cpnpk5pcb" path="res://source/match/units/AntiAirTurret.tscn" id="6_lglnp"]
 [ext_resource type="PackedScene" uid="uid://i58ffvwxbbwm" path="res://source/match/units/Tank.tscn" id="9_csgr3"]
 [ext_resource type="PackedScene" uid="uid://bf0r3fovbvf1m" path="res://source/match/units/Worker.tscn" id="10_c3eov"]
+
+[sub_resource type="Resource" id="Resource_e1xtl"]
+script = ExtResource("3_ml8xc")
+color = Color(0.4, 0.694118, 1, 1)
+controller = 1
+
+[sub_resource type="Resource" id="Resource_rpdec"]
+script = ExtResource("4_qiwvm")
+players = Array[Resource]([SubResource("Resource_e1xtl")])
+controlled_player = 0
+visibility = 1
+visible_player = 0
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_v46ss"]
 viewport_path = NodePath("FogOfWar/CombinedViewport")
@@ -32,6 +46,7 @@ viewport_path = NodePath("FogOfWar/CombinedViewport")
 [node name="Match" instance=ExtResource("1_oiu0k")]
 script = ExtResource("2_ghr3h")
 allow_resources_deficit_spending = true
+settings = SubResource("Resource_rpdec")
 
 [node name="CommandCenter" parent="Map/Units/Player0" index="0" instance=ExtResource("2_rm00b")]
 transform = Transform3D(-0.996198, 0, -0.087121, 0, 1, 0, 0.087121, 0, -0.996198, 12.2249, 0, 10.6336)

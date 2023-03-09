@@ -81,36 +81,38 @@ func _create_players():
 		players.append(player)
 
 
+# TODO: refa
 func _create_and_setup_player_controllers():
 	var existing_player_controllers = _players.get_children()
 	for player_id in range(players.size()):
-		if player_id >= existing_player_controllers.size():
-			var player_type = settings.players[player_id].type
-			if player_type == settings.players[player_id].PlayerType.NONE:
+		if player_id < existing_player_controllers.size():
+			var existing_player_controller = existing_player_controllers[player_id]
+			if not existing_player_controller.name.begins_with("Placeholder"):
+				if "player" in existing_player_controller:
+					existing_player_controller.player = players[player_id]
 				continue
-			assert(
-				player_type != settings.players[player_id].PlayerType.DETECT_FROM_SCENE,
-				"cannot detect existing player controller"
-			)
-			var controller_scene = {
-				settings.players[player_id].PlayerType.HUMAN:
-				preload("res://source/match/players/human/Human.tscn"),
-				settings.players[player_id].PlayerType.SIMPLE_CLAIRVOYANT_AI:
-				preload(
-					"res://source/match/players/simple-clairvoyant-ai/SimpleClairvoyantAI.tscn"
-				),
-			}[player_type]
-			var controller = controller_scene.instantiate()
-			if "player" in controller:
-				controller.player = players[player_id]
-			_players.add_child(controller)
-		else:
-			assert(false, "not implemented")
+		var player_controller = settings.players[player_id].controller
+		if player_controller == Constants.PlayerController.NONE:
+			continue
+		assert(
+			player_controller != Constants.PlayerController.DETECT_FROM_SCENE,
+			"cannot detect existing player controller"
+		)
+		var controller_scene = {
+			Constants.PlayerController.HUMAN:
+			preload("res://source/match/players/human/Human.tscn"),
+			Constants.PlayerController.SIMPLE_CLAIRVOYANT_AI:
+			preload("res://source/match/players/simple-clairvoyant-ai/SimpleClairvoyantAI.tscn"),
+		}[player_controller]
+		var controller_node = controller_scene.instantiate()
+		if "player" in controller_node:
+			controller_node.player = players[player_id]
+		_players.add_child(controller_node)
 
 
 func _choose_controlled_player():
 	for player_id in range(players.size()):
-		if settings.players[player_id].type == settings.players[player_id].PlayerType.HUMAN:
+		if settings.players[player_id].controller == Constants.PlayerController.HUMAN:
 			assert(controlled_player == null, "more than one human player in settings")
 			controlled_player = players[player_id]
 
