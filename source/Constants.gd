@@ -7,7 +7,18 @@ enum PlayerController {
 	DETECT_FROM_SCENE,
 }
 
-const Match = preload("res://source/match/MatchConstants.gd")
+
+class Match:
+	extends "res://source/match/MatchConstants.gd"
+
+	class Player:
+		const CONTROLLER_SCENES = {
+			Constants.PlayerController.HUMAN:
+			preload("res://source/match/players/human/Human.tscn"),
+			Constants.PlayerController.SIMPLE_CLAIRVOYANT_AI:
+			preload("res://source/match/players/simple-clairvoyant-ai/SimpleClairvoyantAI.tscn"),
+		}
+
 
 # gdlint: ignore=class-variable-name
 var OPTIONS_FILE_PATH:

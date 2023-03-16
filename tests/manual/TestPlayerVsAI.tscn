@@ -24,7 +24,7 @@ controller = 1
 [sub_resource type="Resource" id="Resource_7xhjj"]
 script = ExtResource("3_8b007")
 color = Color(1, 0.360784, 0.45098, 1)
-controller = 2
+controller = 3
 
 [sub_resource type="Resource" id="Resource_tnmkt"]
 script = ExtResource("4_kwjav")
@@ -90,3 +90,5 @@ texture = SubResource("ViewportTexture_38cip")
 [node name="Placeholder" type="Node" parent="Players" index="0"]
 
 [node name="SimpleClairvoyantAI" parent="Players" index="1" instance=ExtResource("15_6w32d")]
+primary_offensive_structure = 1
+secondary_offensive_structure = 0

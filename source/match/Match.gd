@@ -81,29 +81,23 @@ func _create_players():
 		players.append(player)
 
 
-# TODO: refa
 func _create_and_setup_player_controllers():
 	var existing_player_controllers = _players.get_children()
 	for player_id in range(players.size()):
 		if player_id < existing_player_controllers.size():
-			var existing_player_controller = existing_player_controllers[player_id]
-			if not existing_player_controller.name.begins_with("Placeholder"):
-				if "player" in existing_player_controller:
-					existing_player_controller.player = players[player_id]
+			var detected_player_controller = existing_player_controllers[player_id]
+			if not detected_player_controller.name.begins_with("Placeholder"):
+				if "player" in detected_player_controller:
+					detected_player_controller.player = players[player_id]
 				continue
-		var player_controller = settings.players[player_id].controller
-		if player_controller == Constants.PlayerController.NONE:
-			continue
+		var desired_player_controller = settings.players[player_id].controller
 		assert(
-			player_controller != Constants.PlayerController.DETECT_FROM_SCENE,
+			desired_player_controller != Constants.PlayerController.DETECT_FROM_SCENE,
 			"cannot detect existing player controller"
 		)
-		var controller_scene = {
-			Constants.PlayerController.HUMAN:
-			preload("res://source/match/players/human/Human.tscn"),
-			Constants.PlayerController.SIMPLE_CLAIRVOYANT_AI:
-			preload("res://source/match/players/simple-clairvoyant-ai/SimpleClairvoyantAI.tscn"),
-		}[player_controller]
+		if desired_player_controller == Constants.PlayerController.NONE:
+			continue
+		var controller_scene = Constants.Match.Player.CONTROLLER_SCENES[desired_player_controller]
 		var controller_node = controller_scene.instantiate()
 		if "player" in controller_node:
 			controller_node.player = players[player_id]
