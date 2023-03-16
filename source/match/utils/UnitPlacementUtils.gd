@@ -1,3 +1,6 @@
+enum { VALID, COLLIDES_WITH_AGENT, NOT_NAVIGABLE }
+
+
 static func find_valid_position_radially(
 	starting_position: Vector3, radius: float, navigation_map_rid: RID, scene_tree
 ):
@@ -60,7 +63,7 @@ static func find_valid_position_radially_yet_skip_starting_radius(
 
 # TODO: fix in gdtoolkit
 # gdlint: ignore=max-line-length
-static func _is_agent_placement_position_valid(position, radius, existing_units, navigation_map_rid):
+static func validate_agent_placement_position(position, radius, existing_units, navigation_map_rid):
 	for existing_unit in existing_units:
 		if (
 			(existing_unit.global_position * Vector3(1, 0, 1)).distance_to(
@@ -68,7 +71,7 @@ static func _is_agent_placement_position_valid(position, radius, existing_units,
 			)
 			<= existing_unit.radius + radius
 		):
-			return false
+			return COLLIDES_WITH_AGENT
 	var points_expected_to_be_navigable = []
 	for x in [-1, 0, 1]:
 		for z in [-1, 0, 1]:
@@ -84,5 +87,14 @@ static func _is_agent_placement_position_valid(position, radius, existing_units,
 				* Vector3(1, 0, 1)
 			)
 		):
-			return false
-	return true
+			return NOT_NAVIGABLE
+	return VALID
+
+
+# TODO: fix in gdtoolkit
+# gdlint: ignore=max-line-length
+static func _is_agent_placement_position_valid(position, radius, existing_units, navigation_map_rid):
+	return (
+		validate_agent_placement_position(position, radius, existing_units, navigation_map_rid)
+		== VALID
+	)

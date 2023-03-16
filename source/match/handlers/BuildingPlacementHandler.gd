@@ -3,7 +3,7 @@ extends Node3D
 enum BlueprintPositionValidity {
 	VALID,
 	COLLIDES_WITH_OBJECT,
-	COLLIDES_WITH_TERRAIN,
+	COLLIDES_WITH_TERRAIN,  # TODO: rename
 	NOT_ENOUGH_RESOURCES,
 	OUT_OF_MAP,
 }
@@ -16,6 +16,8 @@ const BLUEPRINT_VALID_PATH = MATERIALS_ROOT + "blueprint_valid.material.tres"
 const BLUEPRINT_INVALID_PATH = MATERIALS_ROOT + "blueprint_invalid.material.tres"
 
 var _active_blueprint_node = null
+var _pending_building_radius = null
+var _pending_building_navmap_rid = null
 var _pending_building_prototype = null
 var _blueprint_rotating = false
 
@@ -94,10 +96,16 @@ func _calculate_blueprint_position_validity():
 		return BlueprintPositionValidity.OUT_OF_MAP
 	if not _player_has_enough_resources():
 		return BlueprintPositionValidity.NOT_ENOUGH_RESOURCES
-	if _active_bluprint_collides_with_terrain():
-		return BlueprintPositionValidity.COLLIDES_WITH_TERRAIN
-	if _active_bluprint_collides_with_object():
+	var placement_validity = Utils.Match.Unit.Placement.validate_agent_placement_position(
+		_active_blueprint_node.global_position,
+		_pending_building_radius + Constants.Match.Units.EMPTY_SPACE_RADIUS_SURROUNDING_STRUCTURE_M,
+		get_tree().get_nodes_in_group("units"),
+		_pending_building_navmap_rid
+	)
+	if placement_validity == Utils.Match.Unit.Placement.COLLIDES_WITH_AGENT:
 		return BlueprintPositionValidity.COLLIDES_WITH_OBJECT
+	if placement_validity == Utils.Match.Unit.Placement.NOT_NAVIGABLE:
+		return BlueprintPositionValidity.COLLIDES_WITH_TERRAIN
 	return BlueprintPositionValidity.VALID
 
 
@@ -115,25 +123,6 @@ func _active_bluprint_out_of_map():
 			_active_blueprint_node.global_transform.origin.z
 		),
 		_match.map.get_topdown_polygon_2d()
-	)
-
-
-func _active_bluprint_collides_with_terrain():
-	return (
-		_active_blueprint_node != null
-		and _active_blueprint_node.get_overlapping_areas().is_empty()
-		and _active_blueprint_node.get_overlapping_bodies().size() == 1
-		and _active_blueprint_node.get_overlapping_bodies()[0].collision_layer == 1
-	)
-
-
-func _active_bluprint_collides_with_object():
-	return (
-		_active_blueprint_node != null
-		and (
-			not _active_blueprint_node.get_overlapping_areas().is_empty()
-			or not _active_blueprint_node.get_overlapping_bodies().is_empty()
-		)
 	)
 
 
@@ -168,6 +157,14 @@ func _start_building_placement(building_prototype):
 		rotate_towards, Vector3.UP
 	)
 	add_child(_active_blueprint_node)
+	var temporary_building_instance = _pending_building_prototype.instantiate()
+	_pending_building_radius = temporary_building_instance.radius
+	_pending_building_navmap_rid = (
+		find_parent("Match")
+		. navigation
+		. get_navigation_map_rid_by_domain(temporary_building_instance.movement_domain)
+	)
+	temporary_building_instance.free()
 
 
 func _set_blueprint_position_based_on_mouse_pos():
