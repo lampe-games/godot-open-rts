@@ -99,7 +99,7 @@ func _calculate_blueprint_position_validity():
 	var placement_validity = Utils.Match.Unit.Placement.validate_agent_placement_position(
 		_active_blueprint_node.global_position,
 		_pending_building_radius + Constants.Match.Units.EMPTY_SPACE_RADIUS_SURROUNDING_STRUCTURE_M,
-		get_tree().get_nodes_in_group("units"),
+		get_tree().get_nodes_in_group("units") + get_tree().get_nodes_in_group("resource_units"),
 		_pending_building_navmap_rid
 	)
 	if placement_validity == Utils.Match.Unit.Placement.COLLIDES_WITH_AGENT:

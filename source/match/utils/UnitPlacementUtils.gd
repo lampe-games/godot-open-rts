@@ -20,7 +20,9 @@ static func find_valid_position_radially_yet_skip_starting_radius(
 	scene_tree
 ):
 	var starting_position_yless = starting_position * Vector3(1, 0, 1)
-	var units = scene_tree.get_nodes_in_group("units")
+	var units = (
+		scene_tree.get_nodes_in_group("units") + scene_tree.get_nodes_in_group("resource_units")
+	)
 	var starting_distance = (
 		0 if is_zero_approx(starting_radius) else starting_radius + radius + spacing
 	)
