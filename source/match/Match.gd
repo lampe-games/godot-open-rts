@@ -111,8 +111,31 @@ func _choose_controlled_player():
 			controlled_player = players[player_id]
 
 
-func _setup_player_units():
+func _caclulate_player_to_spawn_point_mapping():
+	var player_to_spawn_point_mapping = {}
 	var spawn_points = find_child("SpawnPoints").get_children()
+	var unassigned_spawn_point_indexes = range(spawn_points.size())
+	for player_id in range(players.size()):
+		var player = players[player_id]
+		if settings.players[player_id].spawn_index != -1:
+			assert(
+				settings.players[player_id].spawn_index in unassigned_spawn_point_indexes,
+				"another player already assigned to this spawn position"
+			)
+			player_to_spawn_point_mapping[player] = spawn_points[
+				settings.players[player_id].spawn_index
+			]
+			unassigned_spawn_point_indexes.erase(settings.players[player_id].spawn_index)
+	for player_id in range(players.size()):
+		var player = players[player_id]
+		if settings.players[player_id].spawn_index == -1:
+			var spawn_point_index = unassigned_spawn_point_indexes.pop_front()
+			player_to_spawn_point_mapping[player] = spawn_points[spawn_point_index]
+	return player_to_spawn_point_mapping
+
+
+func _setup_player_units():
+	var player_to_spawn_point_mapping = _caclulate_player_to_spawn_point_mapping()
 	for player_id in range(players.size()):
 		var player = players[player_id]
 		var predefined_units_root = find_child("Map").find_child("Player{0}".format([player_id]))
@@ -122,8 +145,7 @@ func _setup_player_units():
 		if not predefined_units.is_empty():
 			predefined_units.map(func(unit): _setup_unit(unit, player))
 		else:
-			var spawn_transform = spawn_points[player_id].global_transform
-			_spawn_player_units(player, spawn_transform)
+			_spawn_player_units(player, player_to_spawn_point_mapping[player].global_transform)
 
 
 func _move_camera_to_initial_position():

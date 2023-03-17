@@ -29,21 +29,25 @@
 script = ExtResource("2_issh2")
 color = Color(0.4, 0.694118, 1, 1)
 controller = 1
+spawn_index = -1
 
 [sub_resource type="Resource" id="Resource_6k4u7"]
 script = ExtResource("2_issh2")
 color = Color(1, 0.360784, 0.45098, 1)
 controller = 2
+spawn_index = -1
 
 [sub_resource type="Resource" id="Resource_8ui6d"]
 script = ExtResource("2_issh2")
 color = Color(0.647059, 1, 0.6, 1)
 controller = 2
+spawn_index = -1
 
 [sub_resource type="Resource" id="Resource_qphv2"]
 script = ExtResource("2_issh2")
 color = Color(0.929412, 0.521569, 1, 1)
 controller = 2
+spawn_index = -1
 
 [sub_resource type="Resource" id="Resource_frabv"]
 script = ExtResource("3_k87ed")

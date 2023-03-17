@@ -3,7 +3,7 @@ extends MarginContainer
 @onready var _match = find_parent("Match")
 
 @onready var _controlled_player = find_child("ControlledPlayerSpinBox")
-@onready var _visible_player = find_child("ControlledPlayerSpinBox")
+@onready var _visible_player = find_child("VisiblePlayerSpinBox")
 
 
 func _ready():

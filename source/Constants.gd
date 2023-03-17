@@ -20,6 +20,15 @@ class Match:
 		}
 
 
+class Player:
+	const COLORS = [
+		Color("66b1ff"),
+		Color("ff5c73"),
+		Color("a5ff99"),
+		Color("ed85ff"),
+	]
+
+
 # gdlint: ignore=class-variable-name
 var OPTIONS_FILE_PATH:
 	set(_value):

@@ -12,7 +12,7 @@ grow_vertical = 2
 script = ExtResource("1_o62d3")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-anchors_preset = 8
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -25,8 +25,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
-offset_right = 440.0
-offset_bottom = 194.0
+layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
@@ -34,32 +33,234 @@ theme_override_constants/margin_bottom = 20
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer"]
 custom_minimum_size = Vector2(400, 0)
-offset_left = 20.0
-offset_top = 20.0
-offset_right = 420.0
-offset_bottom = 174.0
+layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="Button" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
-offset_top = 41.0
-offset_right = 400.0
-offset_bottom = 72.0
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 5
+
+[node name="Label" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "Players"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel" type="Panel" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Label"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 5
+columns = 2
+
+[node name="Label" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "1."
+
+[node name="OptionButton" type="OptionButton" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+item_count = 3
+selected = 1
+popup/item_0/text = "None"
+popup/item_0/id = 0
+popup/item_1/text = "Human"
+popup/item_1/id = 1
+popup/item_2/text = "Simple AI"
+popup/item_2/id = 2
+
+[node name="Label2" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "2."
+
+[node name="OptionButton2" type="OptionButton" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+item_count = 3
+selected = 0
+popup/item_0/text = "None"
+popup/item_0/id = 0
+popup/item_1/text = "Human"
+popup/item_1/id = 1
+popup/item_2/text = "Simple AI"
+popup/item_2/id = 2
+
+[node name="Label3" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "3."
+
+[node name="OptionButton3" type="OptionButton" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+item_count = 3
+selected = 2
+popup/item_0/text = "None"
+popup/item_0/id = 0
+popup/item_1/text = "Human"
+popup/item_1/id = 1
+popup/item_2/text = "Simple AI"
+popup/item_2/id = 2
+
+[node name="Label4" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "4."
+
+[node name="OptionButton4" type="OptionButton" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+item_count = 3
+selected = 0
+popup/item_0/text = "None"
+popup/item_0/id = 0
+popup/item_1/text = "Human"
+popup/item_1/id = 1
+popup/item_2/text = "Simple AI"
+popup/item_2/id = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 5
+
+[node name="Label" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "4 Players (50x50)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel" type="Panel" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Label"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+self_modulate = Color(1, 1, 1, 0.5)
+custom_minimum_size = Vector2(0, 198)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Control" type="Control" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ColorRect/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ColorRect/MarginContainer/Control"]
+layout_mode = 1
+offset_right = 10.0
+offset_bottom = 26.0
+text = "1"
+
+[node name="Panel" type="Panel" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ColorRect/MarginContainer/Control/Label"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label2" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ColorRect/MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -10.0
+offset_bottom = 26.0
+grow_horizontal = 0
+text = "2"
+
+[node name="Panel2" type="Panel" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ColorRect/MarginContainer/Control/Label2"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label3" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ColorRect/MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -26.0
+offset_right = 10.0
+grow_vertical = 0
+text = "4"
+
+[node name="Panel3" type="Panel" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ColorRect/MarginContainer/Control/Label3"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label4" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ColorRect/MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_top = -26.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "3"
+
+[node name="Panel4" type="Panel" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ColorRect/MarginContainer/Control/Label4"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StartButton" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
 focus_mode = 0
 text = "Start"
 
 [node name="Button2" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
-offset_top = 82.0
-offset_right = 400.0
-offset_bottom = 113.0
+layout_mode = 2
 focus_mode = 0
 text = "Back"
 
 [node name="Panel" type="Panel" parent="MarginContainer"]
 show_behind_parent = true
-offset_right = 440.0
-offset_bottom = 194.0
+layout_mode = 2
 mouse_filter = 2
 
-[connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/Button" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/Button2" to="." method="_on_back_button_pressed"]
