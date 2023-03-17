@@ -1,0 +1,58 @@
+[gd_scene load_steps=4 format=3 uid="uid://1rby73ckmk7b"]
+
+[ext_resource type="Script" path="res://source/match/Menu.gd" id="1_f256e"]
+[ext_resource type="Shader" path="res://source/shaders/2d/blurr.gdshader" id="1_mukhw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2eh7x"]
+shader = ExtResource("1_mukhw")
+shader_parameter/blurr_factor = 2.0
+shader_parameter/remove_alpha = true
+shader_parameter/overlay = true
+
+[node name="Menu" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_f256e")
+
+[node name="BlurredBackground" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_2eh7x")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ResumeButton" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "Resume"
+
+[node name="ExitButton" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "Exit"
+
+[connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]

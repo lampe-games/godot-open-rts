@@ -45,6 +45,7 @@ func _on_start_button_pressed():
 	var a_match = match_prototype.instantiate()
 	a_match.settings = _create_match_settings()
 	get_parent().add_child(a_match)
+	get_tree().current_scene = a_match
 	queue_free()
 
 
