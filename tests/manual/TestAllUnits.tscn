@@ -19,6 +19,7 @@
 script = ExtResource("3_ml8xc")
 color = Color(0.4, 0.694118, 1, 1)
 controller = 1
+spawn_index = -1
 
 [sub_resource type="Resource" id="Resource_rpdec"]
 script = ExtResource("4_qiwvm")

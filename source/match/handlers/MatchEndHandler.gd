@@ -7,6 +7,9 @@ extends CanvasLayer
 
 
 func _ready():
+	if not FeatureFlags.handle_match_end:
+		queue_free()
+		return
 	hide()
 	_victory_tile.hide()
 	_defeat_tile.hide()
