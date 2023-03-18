@@ -32,4 +32,3 @@ Downloading 0.00 MB source file /usr/src/debug/glibc/nptl/pthread_kill.c
 * DONE radio buttons are visually broken (logic works fine tho)
 * TODO inherited scenes not working
 * TODO Resouce.get_rid().get_id() is always 0
-* TODO add_child() called from tree_exited signal handler via signal makes node visible in 0,0,0 for 1 frame
