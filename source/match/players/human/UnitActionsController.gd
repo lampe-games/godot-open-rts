@@ -55,11 +55,14 @@ func _navigate_selected_units_towards_unit(target_unit):
 		elif Actions.Constructing.is_applicable(unit, target_unit):
 			unit.action = Actions.Constructing.new(target_unit)
 		elif (
-			target_unit.is_in_group("adversary_units")
-			or target_unit.is_in_group("controlled_units")
+			(
+				target_unit.is_in_group("adversary_units")
+				or target_unit.is_in_group("controlled_units")
+			)
+			and Actions.Following.is_applicable(unit)
 		):
 			unit.action = Actions.Following.new(target_unit)
-		else:
+		elif Actions.MovingToUnit.is_applicable(unit):
 			unit.action = Actions.MovingToUnit.new(target_unit)
 
 

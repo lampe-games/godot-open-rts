@@ -12,6 +12,10 @@ var _sub_action = null
 @onready var _unit = Utils.NodeEx.find_parent_with_group(self, "units")
 
 
+static func is_applicable(source_unit):
+	return MovingToUnit.is_applicable(source_unit)
+
+
 func _init(target_unit):
 	_target_unit = target_unit
 
