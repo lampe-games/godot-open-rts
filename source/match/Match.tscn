@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://c84syrhfooaf0"]
+[gd_scene load_steps=52 format=3 uid="uid://c84syrhfooaf0"]
 
 [ext_resource type="Script" path="res://source/match/Match.gd" id="1_1555u"]
 [ext_resource type="Script" path="res://source/match/IsometricCamera3D.gd" id="1_qb2ry"]
@@ -21,6 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://nnsih72ih7qr" path="res://source/match/hud/ProductionQueue.tscn" id="13_qv3xn"]
 [ext_resource type="PackedScene" uid="uid://dk7sa3fkyxks5" path="res://source/generic-scenes-and-nodes/control/RectangularSelection2D.tscn" id="16_ccb0o"]
 [ext_resource type="Script" path="res://source/match/hud/Resources.gd" id="16_vjwpn"]
+[ext_resource type="Script" path="res://source/match/hud/Minimap.gd" id="17_0bfte"]
 [ext_resource type="PackedScene" uid="uid://b0lxagyi6a5td" path="res://source/match/handlers/BuildingPlacementHandler.tscn" id="17_8ku5t"]
 [ext_resource type="PackedScene" uid="uid://bocb7hjilvri5" path="res://source/match/handlers/SelectionHandler.tscn" id="20_tw1wp"]
 [ext_resource type="PackedScene" uid="uid://c0uxy26e4qs4w" path="res://source/match/handlers/MouseClickAnimationsHandler.tscn" id="22_438pb"]
@@ -418,6 +419,7 @@ theme_override_constants/margin_bottom = 5
 
 [node name="Minimap" type="PanelContainer" parent="HUD/MarginContainer"]
 layout_mode = 2
+script = ExtResource("17_0bfte")
 
 [node name="MarginContainer" type="MarginContainer" parent="HUD/MarginContainer/Minimap"]
 layout_mode = 2
@@ -491,6 +493,7 @@ layout_mode = 2
 size_flags_horizontal = 8
 
 [node name="Menu" parent="." instance=ExtResource("22_ofmlu")]
+visible = false
 
 [node name="Players" type="Node" parent="."]
 
@@ -510,3 +513,4 @@ rectangular_selection_3d = NodePath("../../RectangularSelection3D")
 [node name="MouseClickAnimationsHandler" parent="Handlers" instance=ExtResource("22_438pb")]
 
 [node name="MatchEndHandler" parent="Handlers" instance=ExtResource("26_4d7im")]
+visible = false
