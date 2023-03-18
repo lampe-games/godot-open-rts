@@ -147,18 +147,13 @@ func _rotate_in_direction(direction: Vector3):
 	if (
 		not is_zero_approx(direction.length())
 		and not rotation_target.is_equal_approx(_unit.global_transform.origin)
-		and not (
-			is_zero_approx(direction.x)
-			and not is_zero_approx(direction.y)
-			and is_zero_approx(direction.z)
-		)
 	):
 		_unit.global_transform = _unit.global_transform.looking_at(rotation_target)
 
 
 func _on_velocity_computed(safe_velocity: Vector3):
 	_update_stuck_prevention(safe_velocity)
-	_rotate_in_direction(safe_velocity)
+	_rotate_in_direction(safe_velocity * Vector3(1, 0, 1))
 	_unit.global_transform.origin = _unit.global_transform.origin.move_toward(
 		_unit.global_transform.origin + safe_velocity, _interim_speed
 	)
