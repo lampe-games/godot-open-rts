@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://b83l4dny3gly0"]
+
+[ext_resource type="Script" path="res://source/match/debug/FrameIncrementer.gd" id="1_coqp6"]
+
+[node name="FrameIncrementer" type="Node"]
+process_mode = 3
+script = ExtResource("1_coqp6")
