@@ -26,6 +26,8 @@ var visible_players = null:
 	get = _get_visible_players
 var map = HardcodedMap.new()  # TODO: use actual map
 
+var _setup_and_spawn_unit_requests_queue = []  # used to workaround Godot bug
+
 @onready var navigation = find_child("Navigation")
 
 @onready var _camera = find_child("IsometricCamera3D")
@@ -34,7 +36,7 @@ var map = HardcodedMap.new()  # TODO: use actual map
 
 
 func _ready():
-	MatchSignals.setup_and_spawn_unit.connect(_setup_and_spawn_unit)
+	MatchSignals.setup_and_spawn_unit.connect(_enqueue_setup_and_spawn_unit_request)
 	_create_players()
 	_choose_controlled_player()
 	visible_player = players[settings.visible_player]
@@ -48,6 +50,12 @@ func _ready():
 func _unhandled_input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		MatchSignals.deselect_all_units.emit()
+
+
+func _process(_delta):
+	for request in _setup_and_spawn_unit_requests_queue:
+		request.call()
+	_setup_and_spawn_unit_requests_queue.clear()
 
 
 func _ignore(_value):
@@ -165,6 +173,14 @@ func _spawn_player_units(player, spawn_transform):
 	)
 	_setup_and_spawn_unit(
 		Worker.instantiate(), spawn_transform.translated(Vector3(3, 0, 3)), player
+	)
+
+
+func _enqueue_setup_and_spawn_unit_request(
+	unit, a_transform, player, mark_structure_under_construction
+):
+	_setup_and_spawn_unit_requests_queue.append(
+		_setup_and_spawn_unit.bind(unit, a_transform, player, mark_structure_under_construction)
 	)
 
 

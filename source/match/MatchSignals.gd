@@ -2,7 +2,7 @@ extends Node
 
 # requests
 signal deselect_all_units
-signal setup_and_spawn_unit(unit, transform, player)
+signal setup_and_spawn_unit(unit, transform, player)  # TODO: make immediate once Godot bug is fixed
 signal place_building(building_prototype)
 
 # notifications
