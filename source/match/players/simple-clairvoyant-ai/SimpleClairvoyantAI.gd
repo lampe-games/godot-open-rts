@@ -20,6 +20,7 @@ var _resource_requests = {
 	ResourceRequestPriority.MEDIUM: [],
 	ResourceRequestPriority.HIGH: [],
 }
+var _call_to_perform_during_process = null
 
 @onready var _economy_controller = find_child("EconomyController")
 @onready var _defense_controller = find_child("DefenseController")
@@ -49,10 +50,24 @@ func _ready():
 	_construction_works_controller.setup(player)
 
 
+func _process(_delta):
+	if _call_to_perform_during_process != null:
+		var call_to_perform = _call_to_perform_during_process
+		_call_to_perform_during_process = null
+		call_to_perform.call()
+
+
 func _provision(controller, resources, metadata):
 	_provisioning_ongoing = true
 	controller.provision(resources, metadata)
 	_provisioning_ongoing = false
+
+
+func _try_fulfilling_resource_requests_according_to_priorities_next_frame():
+	"""This function defers call so that:
+	1. 'add_child() from tree_exited signal handler' bug is avoided
+	2. high level loop of signals triggering each other is avoided"""
+	_call_to_perform_during_process = _try_fulfilling_resource_requests_according_to_priorities
 
 
 func _try_fulfilling_resource_requests_according_to_priorities():
@@ -79,7 +94,7 @@ func _try_fulfilling_resource_requests_according_to_priorities():
 
 
 func _on_player_resource_changed():
-	_try_fulfilling_resource_requests_according_to_priorities()
+	_try_fulfilling_resource_requests_according_to_priorities_next_frame()
 
 
 func _on_resource_request(resources, metadata, controller, priority):
@@ -87,4 +102,4 @@ func _on_resource_request(resources, metadata, controller, priority):
 	_resource_requests[priority].append(
 		{"controller": controller, "resources": resources, "metadata": metadata}
 	)
-	_try_fulfilling_resource_requests_according_to_priorities()
+	_try_fulfilling_resource_requests_according_to_priorities_next_frame()

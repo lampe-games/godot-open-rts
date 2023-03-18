@@ -5,4 +5,5 @@
 [node name="FeatureFlags" type="Node"]
 script = ExtResource("1_wihie")
 save_user_files_in_tmp = true
+allow_resources_deficit_spending = true
 show_minimap = false
