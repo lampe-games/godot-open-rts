@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://c84syrhfooaf0"]
+[gd_scene load_steps=50 format=3 uid="uid://c84syrhfooaf0"]
 
 [ext_resource type="Script" path="res://source/match/Match.gd" id="1_1555u"]
 [ext_resource type="Script" path="res://source/match/IsometricCamera3D.gd" id="1_qb2ry"]
@@ -25,6 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://bocb7hjilvri5" path="res://source/match/handlers/SelectionHandler.tscn" id="20_tw1wp"]
 [ext_resource type="PackedScene" uid="uid://c0uxy26e4qs4w" path="res://source/match/handlers/MouseClickAnimationsHandler.tscn" id="22_438pb"]
 [ext_resource type="PackedScene" uid="uid://1rby73ckmk7b" path="res://source/match/Menu.tscn" id="22_ofmlu"]
+[ext_resource type="PackedScene" uid="uid://yn470qvc3eak" path="res://source/match/handlers/MatchEndHandler.tscn" id="26_4d7im"]
 
 [sub_resource type="Resource" id="Resource_hfc6q"]
 script = ExtResource("2_issh2")
@@ -502,3 +503,5 @@ size_flags_horizontal = 8
 rectangular_selection_3d = NodePath("../../RectangularSelection3D")
 
 [node name="MouseClickAnimationsHandler" parent="Handlers" instance=ExtResource("22_438pb")]
+
+[node name="MatchEndHandler" parent="Handlers" instance=ExtResource("26_4d7im")]
