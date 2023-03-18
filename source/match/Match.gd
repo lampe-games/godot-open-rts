@@ -176,9 +176,11 @@ func _spawn_player_units(player, spawn_transform):
 	)
 
 
-func _enqueue_setup_and_spawn_unit_request(unit, a_transform, player):
+func _enqueue_setup_and_spawn_unit_request(
+	unit, a_transform, player, mark_structure_under_construction
+):
 	_setup_and_spawn_unit_requests_queue.append(
-		_setup_and_spawn_unit.bind(unit, a_transform, player)
+		_setup_and_spawn_unit.bind(unit, a_transform, player, mark_structure_under_construction)
 	)
 
 
