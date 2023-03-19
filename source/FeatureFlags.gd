@@ -1,6 +1,7 @@
 extends Node
 
 @export_group("Game")
+@export var show_logos_on_startup = true
 @export var save_user_files_in_tmp = false
 @export_group("Match")
 @export var allow_resources_deficit_spending = false

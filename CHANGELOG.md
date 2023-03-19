@@ -3,6 +3,7 @@
 ## [0.8.0-a1]
 
 ### New features
+ - Added animated logo sequence on startup
  - Added basic main menu with options etc.
  - Added match with hardcoded map and features such as:
    - Settings
