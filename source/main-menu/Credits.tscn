@@ -12,7 +12,7 @@ grow_vertical = 2
 script = ExtResource("1_33n17")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-anchors_preset = 8
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -25,8 +25,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
-offset_right = 440.0
-offset_bottom = 194.0
+layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
@@ -34,49 +33,37 @@ theme_override_constants/margin_bottom = 20
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer"]
 custom_minimum_size = Vector2(400, 0)
-offset_left = 20.0
-offset_top = 20.0
-offset_right = 420.0
-offset_bottom = 174.0
+layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
 
 [node name="Padding" type="Control" parent="MarginContainer/MarginContainer/VBoxContainer"]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 400.0
-offset_bottom = 23.0
+layout_mode = 2
 size_flags_vertical = 3
 
 [node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/MarginContainer/VBoxContainer"]
-offset_top = 33.0
-offset_right = 400.0
-offset_bottom = 79.0
+layout_mode = 2
 bbcode_enabled = true
-text = "[center][u]Contributors:[/u]
-- Pawel Lampe (Scony)"
-fit_content_height = true
+text = "[center][u]Core contributors:[/u]
+- Pawel Lampe (Scony) | Lampe Games
+
+[u]Assets:[/u]
+- 3D Space Kit by Kenney.nl"
+fit_content = true
 
 [node name="Padding2" type="Control" parent="MarginContainer/MarginContainer/VBoxContainer"]
-layout_mode = 3
-anchors_preset = 0
-offset_top = 89.0
-offset_right = 400.0
-offset_bottom = 113.0
+layout_mode = 2
 size_flags_vertical = 3
 
 [node name="Button" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
-offset_top = 123.0
-offset_right = 400.0
-offset_bottom = 154.0
+layout_mode = 2
 focus_mode = 0
 text = "Back
 "
 
 [node name="Panel" type="Panel" parent="MarginContainer"]
 show_behind_parent = true
-offset_right = 440.0
-offset_bottom = 194.0
+layout_mode = 2
 mouse_filter = 2
 
 [connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/Button" to="." method="_on_back_button_pressed"]
