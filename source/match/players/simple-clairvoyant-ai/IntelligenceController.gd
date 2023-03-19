@@ -5,12 +5,13 @@ const TARGET_SWITICHING_TIME_MAX_S = 1.0
 
 
 class Actions:
-	const Moving = preload("res://source/match/units/actions/Moving.gd")
+	const MovingToUnit = preload("res://source/match/units/actions/MovingToUnit.gd")
 
 
 const Drone = preload("res://source/match/units/Drone.gd")
 
 var _player = null
+var _blacklisted_drone_target_paths = {}
 
 @onready var _match = find_parent("Match")
 
@@ -28,7 +29,7 @@ func _attach_current_drones():
 
 func _initialize_movement_of_current_drones():
 	for drone in _get_current_drones():
-		_navigate_to_random_position(drone)
+		_navigate_to_random_unit(drone)
 
 
 func _get_current_drones():
@@ -41,25 +42,34 @@ func _attach_drone(drone):
 	drone.action_changed.connect(_on_drone_action_changed.bind(drone))
 
 
-func _navigate_to_random_position(drone):
+func _navigate_to_random_unit(drone):
 	var players_in_random_order = _match.players.filter(func(player): return player != _player)
 	players_in_random_order.shuffle()
 	var random_player_to_visit = players_in_random_order.front()
 	var random_player_units_in_random_order = get_tree().get_nodes_in_group("units").filter(
 		func(unit): return unit.player == random_player_to_visit
 	)
+	var blacklisted_drone_target_path = _blacklisted_drone_target_paths.get(drone, NodePath())
+	random_player_units_in_random_order = random_player_units_in_random_order.filter(
+		func(unit): return unit.get_path() != blacklisted_drone_target_path
+	)
 	random_player_units_in_random_order.shuffle()
 	if not random_player_units_in_random_order.is_empty():
-		drone.action = Actions.Moving.new(
-			random_player_units_in_random_order.front().global_position
-		)
+		var target_unit = random_player_units_in_random_order.front()
+		_blacklisted_drone_target_paths[drone] = target_unit.get_path()
+		drone.action = Actions.MovingToUnit.new(target_unit)
 	else:
 		var units_in_random_order = get_tree().get_nodes_in_group("units").filter(
 			func(unit): return unit.player != _player
 		)
 		units_in_random_order.shuffle()
+		units_in_random_order = units_in_random_order.filter(
+			func(unit): return unit.get_path() != blacklisted_drone_target_path
+		)
 		if not units_in_random_order.is_empty():
-			drone.action = Actions.Moving.new(units_in_random_order.front().global_position)
+			var target_unit = units_in_random_order.front()
+			_blacklisted_drone_target_paths[drone] = target_unit.get_path()
+			drone.action = Actions.MovingToUnit.new(target_unit)
 
 
 func _on_drone_action_changed(new_action, drone):
@@ -72,4 +82,4 @@ func _on_drone_action_changed(new_action, drone):
 		var drone_was_freed = not is_instance_valid(drone)
 		if drone_was_freed:
 			return
-		_navigate_to_random_position(drone)
+		_navigate_to_random_unit(drone)
