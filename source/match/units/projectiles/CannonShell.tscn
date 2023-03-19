@@ -31,20 +31,20 @@ scale_max = 0.05
 color_ramp = SubResource("GradientTexture1D_65753")
 
 [sub_resource type="QuadMesh" id="QuadMesh_xgywx"]
+size = Vector2(0.05, 0.05)
 
 [node name="CannonShell" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.46216, 0, 1.10726)
 script = ExtResource("1_hyk5q")
 
 [node name="DetachTransform" type="Node" parent="."]
 
 [node name="OriginParticles" type="GPUParticles3D" parent="DetachTransform"]
-visible = false
 material_override = SubResource("StandardMaterial3D_te2m4")
 emitting = false
 amount = 32
 one_shot = true
 explosiveness = 0.9
-local_coords = true
 process_material = SubResource("ParticleProcessMaterial_ujvjw")
 draw_pass_1 = SubResource("QuadMesh_xgywx")
 
