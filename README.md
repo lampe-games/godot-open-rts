@@ -1,4 +1,7 @@
 # Open RTS
+
+![Open RTS](./media/screenshot_1400x650.png "Open RTS")
+
 Open Source RTS project made with Godot 4.
 
 ## Credits
