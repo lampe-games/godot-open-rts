@@ -3,3 +3,4 @@
 tmp/
 *.translation
 misc/
+build/
