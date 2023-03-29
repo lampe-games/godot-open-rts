@@ -1,4 +1,5 @@
 all: lint format-check shaders-format-check
+version = "0.8.0-a2"
 
 format-check:
 	find source/ -name '*.gd' | xargs gdformat --check
@@ -14,3 +15,12 @@ cc:
 
 todo:
 	ack ' todo' -i source/
+
+release-linux:
+	godot4 --export-release "Linux/X11" "build/Open_RTS_$(version)_linux64.bin"
+
+release-macos:
+	godot4 --export-release "macOS" "build/Open_RTS_$(version)_osx64.zip"
+
+release-windows:
+	godot4 --export-release "Windows Desktop" "build/Open_RTS_$(version)_windows64.exe"
