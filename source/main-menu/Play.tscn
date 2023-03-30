@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://baeshrvg30aer"]
+[gd_scene load_steps=3 format=3 uid="uid://baeshrvg30aer"]
 
 [ext_resource type="Script" path="res://source/main-menu/Play.gd" id="1_o62d3"]
+[ext_resource type="PackedScene" uid="uid://dij5xr8swlfdx" path="res://source/main-menu/Background.tscn" id="2_xtk15"]
 
 [node name="Play" type="Control"]
 layout_mode = 3
@@ -10,6 +11,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_o62d3")
+
+[node name="Background" parent="." instance=ExtResource("2_xtk15")]
+layout_mode = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0

@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://dij5xr8swlfdx"]
+
+[ext_resource type="Texture2D" uid="uid://hhow7i6ntkjd" path="res://assets/ui/background.png" id="1_4p0cv"]
+
+[node name="Background" type="TextureRect"]
+self_modulate = Color(1, 1, 1, 0.5)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_4p0cv")
+expand_mode = 1
+stretch_mode = 6

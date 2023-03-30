@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bawu5eau3t4ek"]
+[gd_scene load_steps=3 format=3 uid="uid://bawu5eau3t4ek"]
 
 [ext_resource type="Script" path="res://source/main-menu/Options.gd" id="1_msrcd"]
+[ext_resource type="PackedScene" uid="uid://dij5xr8swlfdx" path="res://source/main-menu/Background.tscn" id="2_mgrkx"]
 
 [node name="Options" type="Control"]
 layout_mode = 3
@@ -10,6 +11,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_msrcd")
+
+[node name="Background" parent="." instance=ExtResource("2_mgrkx")]
+layout_mode = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0
