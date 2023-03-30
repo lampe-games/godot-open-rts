@@ -46,7 +46,8 @@ func _on_sub_action_finished():
 		queue_free()
 		return
 	_sub_action = null
-	assert(_try_constructing_structure())
+	var structure_constructed = _try_constructing_structure()
+	assert(structure_constructed)
 
 
 func _on_target_unit_constructed():
