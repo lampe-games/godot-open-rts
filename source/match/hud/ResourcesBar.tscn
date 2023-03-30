@@ -14,21 +14,57 @@ theme_override_constants/margin_bottom = 5
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 0
 
-[node name="ResourceAColorRect" type="ColorRect" parent="MarginContainer/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+tooltip_text = "RESOURCE_A"
+theme_override_constants/separation = 14
+
+[node name="Control" type="Control" parent="MarginContainer/HBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(26, 0)
 layout_mode = 2
+mouse_filter = 2
 
-[node name="ResourceALabel" type="Label" parent="MarginContainer/HBoxContainer"]
+[node name="ResourceAColorRect" type="ColorRect" parent="MarginContainer/HBoxContainer/HBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.785398
+pivot_offset = Vector2(13, 13)
+mouse_filter = 2
+
+[node name="ResourceALabel" type="Label" parent="MarginContainer/HBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 text = "0"
 
-[node name="ResourceBColorRect" type="ColorRect" parent="MarginContainer/HBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+tooltip_text = "RESOURCE_B"
+theme_override_constants/separation = 14
+
+[node name="Control2" type="Control" parent="MarginContainer/HBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(26, 0)
 layout_mode = 2
+mouse_filter = 2
 
-[node name="ResourceBLabel" type="Label" parent="MarginContainer/HBoxContainer"]
+[node name="ResourceBColorRect" type="ColorRect" parent="MarginContainer/HBoxContainer/HBoxContainer2/Control2"]
+custom_minimum_size = Vector2(26, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.785398
+pivot_offset = Vector2(13, 13)
+mouse_filter = 2
+
+[node name="ResourceBLabel" type="Label" parent="MarginContainer/HBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 text = "0"
