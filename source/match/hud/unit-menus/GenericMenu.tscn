@@ -20,6 +20,7 @@ layout_mode = 2
 
 [node name="CancelActionButton" type="Button" parent="."]
 layout_mode = 2
+tooltip_text = "CANCEL_CURRENT_ACTION"
 focus_mode = 0
 text = "X"
 

@@ -5,3 +5,22 @@ BLUEPRINT_NOT_ENOUGH_RESOURCES,Not enough resources,Brakuje zasobów
 BLUEPRINT_OUT_OF_MAP,Out of map limits,Poza granicami mapy
 RESOURCE_A,Blue Crystal,Niebieski Kryształ
 RESOURCE_B,Red Crystal,Czerwony Kryształ
+CANCEL_CURRENT_ACTION,Cancel current action,Anuluj aktualną akcję
+WORKER,Worker,Robotnik
+WORKER_DESCRIPTION,collects resources,zbiera zasoby
+HELICOPTER,Helicopter,Helikopter
+HELICOPTER_DESCRIPTION,fights ground and air targets,zwlacza cele naziemne i powietrzne
+DRONE,Scout drone,Dron zwiadoczy
+DRONE_DESCRIPTION,performs scouting,wykonuje loty zwiadowcze
+TANK,Tank,Czołg
+TANK_DESCRIPTION,fights ground targets,zwalcza cele naziemne
+AG_TURRET,Anti-ground turret,Wieżyczka przeciwpancerna
+AG_TURRET_DESCRIPTION,fights ground targets,zwalcza cele naziemne
+AA_TURRET,Anti-air turret,Wieżyczka przeciwlotnicza
+AA_TURRET_DESCRIPTION,fights air targets,zwalcza cele powietrzne
+CC,Command center,Centrum dowodzenia
+CC_DESCRIPTION,produces workers,produkuje robotników
+VEHICLE_FACTORY,Vehicle factory,Fabryka pojazdów
+VEHICLE_FACTORY_DESCRIPTION,produces vehicles,wytwarza pojazdy
+AIRCRAFT_FACTORY,Aircraft factory,Fabryka jednostek powietrznych
+AIRCRAFT_FACTORY_DESCRIPTION,produces air units,wytwarza jednostki powietrzne
