@@ -8,6 +8,7 @@ var options = (
 	else Options.new()
 )
 var god_mode = false
+var cache = {}
 
 
 func _unhandled_input(event):

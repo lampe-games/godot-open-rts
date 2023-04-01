@@ -3,6 +3,7 @@ extends Control
 
 const MatchSettings = preload("res://source/model/MatchSettings.gd")
 const PlayerSettings = preload("res://source/model/PlayerSettings.gd")
+const LoadingScene = preload("res://source/main-menu/Loading.tscn")
 
 @onready var _start_button = find_child("StartButton")
 
@@ -41,11 +42,10 @@ func _create_match_settings():
 func _on_start_button_pressed():
 	# TODO: add curtain or loading screen
 	hide()
-	var match_prototype = load("res://source/match/Match.tscn")
-	var a_match = match_prototype.instantiate()
-	a_match.settings = _create_match_settings()
-	get_parent().add_child(a_match)
-	get_tree().current_scene = a_match
+	var new_scene = LoadingScene.instantiate()
+	new_scene.match_settings = _create_match_settings()
+	get_parent().add_child(new_scene)
+	get_tree().current_scene = new_scene
 	queue_free()
 
 
