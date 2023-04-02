@@ -14,11 +14,23 @@ func _ready():
 	_victory_tile.hide()
 	_defeat_tile.hide()
 	_finish_tile.hide()
+	await find_parent("Match").ready
+	MatchSignals.setup_and_spawn_unit.connect(_on_new_unit)
+	for unit in get_tree().get_nodes_in_group("units"):
+		unit.tree_exited.connect(_on_unit_tree_exited)
 
 
-# TODO: get rid of polling - act on unit_died signal instead
-func _process(_delta):
-	if visible:
+func _show():
+	show()
+	get_tree().paused = true
+
+
+func _on_new_unit(unit, _transform, _player):
+	unit.tree_exited.connect(_on_unit_tree_exited)
+
+
+func _on_unit_tree_exited():
+	if visible or not is_inside_tree():
 		return
 	var players = Utils.Set.new()
 	for unit in get_tree().get_nodes_in_group("units"):
@@ -36,11 +48,6 @@ func _process(_delta):
 	elif players.size() == 1:
 		_finish_tile.show()
 		_show()
-
-
-func _show():
-	show()
-	get_tree().paused = true
 
 
 func _on_exit_button_pressed():
