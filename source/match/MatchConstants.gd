@@ -178,8 +178,7 @@ class Units:
 		"res://source/match/units/AntiAirTurret.gd":
 		"res://source/match/units/projectiles/Rocket.tscn"
 	}
-	# TODO: rename to ADHERENCE_MARGIN_M
-	const ADHERENCE_MARGIN = 0.3  # TODO: try lowering while fixing a 'push' problem
+	const ADHERENCE_MARGIN_M = 0.3  # TODO: try lowering while fixing a 'push' problem
 	const NEW_RESOURCE_SEARCH_RADIUS_M = 30
 	const MOVING_UNIT_RADIUS_MAX_M = 1.0
 	const EMPTY_SPACE_RADIUS_SURROUNDING_STRUCTURE_M = MOVING_UNIT_RADIUS_MAX_M * 2.5

@@ -20,7 +20,7 @@ static func crowd_moved_to_new_pivot(units, new_pivot):
 		yless_unit_offsets_from_old_pivot, new_pivot
 	)
 	var condensed_unit_positions = _attract_unit_positions_towards_pivot(
-		new_unit_positions, new_pivot, Constants.Match.Units.ADHERENCE_MARGIN * 2
+		new_unit_positions, new_pivot, Constants.Match.Units.ADHERENCE_MARGIN_M * 2
 	)
 	return condensed_unit_positions
 
@@ -37,7 +37,7 @@ static func calculate_aabb_crowd_pivot_yless(units):
 
 static func units_adhere(unit_a, unit_b):
 	"""checks if distance between unit borders is within margin"""
-	return _unit_in_range_of_other(unit_a, unit_b, Constants.Match.Units.ADHERENCE_MARGIN)
+	return _unit_in_range_of_other(unit_a, unit_b, Constants.Match.Units.ADHERENCE_MARGIN_M)
 
 
 static func _unit_in_range_of_other(unit_a, unit_b, b_range):
