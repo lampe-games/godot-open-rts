@@ -9,23 +9,23 @@ var match_settings = null
 func _ready():
 	_progress_bar.value = 0.0
 
-	_label.text = "Taking ammunition out of depot..."  # TODO: translate
+	_label.text = tr("LOADING_STEP_PRELOADING")
 	await get_tree().physics_frame
 	_preload_scenes()
 	_progress_bar.value = 0.2
 
-	_label.text = "Preparing a ground for combat..."  # TODO: translate
+	_label.text = tr("LOADING_STEP_LOADING_MATCH")
 	await get_tree().physics_frame
 	var match_prototype = load("res://source/match/Match.tscn")
 	_progress_bar.value = 0.7
 
-	_label.text = "Creating map..."  # TODO: translate
+	_label.text = tr("LOADING_STEP_INSTANTIATING_MATCH")
 	await get_tree().physics_frame
 	var a_match = match_prototype.instantiate()
 	a_match.settings = match_settings
 	_progress_bar.value = 0.9
 
-	_label.text = "Placing units in the field..."  # TODO: translate
+	_label.text = tr("LOADING_STEP_STARTING_MATCH")
 	await get_tree().physics_frame
 	get_parent().add_child(a_match)
 	get_tree().current_scene = a_match
