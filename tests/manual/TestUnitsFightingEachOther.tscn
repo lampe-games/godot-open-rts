@@ -13,16 +13,17 @@
 script = ExtResource("3_mmh0x")
 color = Color(0.4, 0.694118, 1, 1)
 controller = 1
+spawn_index = -1
 
 [sub_resource type="Resource" id="Resource_clh6e"]
 script = ExtResource("3_mmh0x")
 color = Color(1, 0.360784, 0.45098, 1)
 controller = 0
+spawn_index = -1
 
 [sub_resource type="Resource" id="Resource_e2qbq"]
 script = ExtResource("4_xj1co")
 players = Array[Resource]([SubResource("Resource_ipatj"), SubResource("Resource_clh6e")])
-controlled_player = 0
 visibility = 1
 visible_player = 0
 
@@ -98,11 +99,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.37292, 0, 7.08164)
 [node name="ScreenOverlay" parent="FogOfWar" index="1"]
 material_override = SubResource("ShaderMaterial_67o07")
 
-[node name="HUD" parent="." index="10"]
+[node name="HUD" parent="." index="11"]
 visible = false
 
 [node name="TextureRect" parent="HUD/MarginContainer/Minimap/MarginContainer" index="0"]
 texture = SubResource("ViewportTexture_38cip")
-
-[node name="TopmostUI" parent="." index="12"]
-visible = false

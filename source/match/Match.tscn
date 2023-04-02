@@ -57,7 +57,6 @@ spawn_index = -1
 [sub_resource type="Resource" id="Resource_frabv"]
 script = ExtResource("3_k87ed")
 players = Array[Resource]([SubResource("Resource_hfc6q"), SubResource("Resource_6k4u7"), SubResource("Resource_8ui6d"), SubResource("Resource_qphv2")])
-controlled_player = 0
 visibility = 1
 visible_player = 0
 

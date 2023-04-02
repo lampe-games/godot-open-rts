@@ -11,11 +11,11 @@
 script = ExtResource("3_3drrn")
 color = Color(0.4, 0.694118, 1, 1)
 controller = 1
+spawn_index = -1
 
 [sub_resource type="Resource" id="Resource_qqc8i"]
 script = ExtResource("4_go41p")
 players = Array[Resource]([SubResource("Resource_aehri")])
-controlled_player = 0
 visibility = 0
 visible_player = 0
 

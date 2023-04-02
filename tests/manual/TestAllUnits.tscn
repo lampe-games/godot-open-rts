@@ -24,7 +24,6 @@ spawn_index = -1
 [sub_resource type="Resource" id="Resource_rpdec"]
 script = ExtResource("4_qiwvm")
 players = Array[Resource]([SubResource("Resource_e1xtl")])
-controlled_player = 0
 visibility = 1
 visible_player = 0
 

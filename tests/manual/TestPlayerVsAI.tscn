@@ -20,16 +20,17 @@
 script = ExtResource("3_8b007")
 color = Color(0.4, 0.694118, 1, 1)
 controller = 1
+spawn_index = -1
 
 [sub_resource type="Resource" id="Resource_7xhjj"]
 script = ExtResource("3_8b007")
 color = Color(1, 0.360784, 0.45098, 1)
 controller = 3
+spawn_index = -1
 
 [sub_resource type="Resource" id="Resource_tnmkt"]
 script = ExtResource("4_kwjav")
 players = Array[Resource]([SubResource("Resource_sm6ga"), SubResource("Resource_7xhjj")])
-controlled_player = 0
 visibility = 1
 visible_player = 0
 
