@@ -143,6 +143,44 @@ static func _find_cc_closest_to_unit(unit):
 	return ccs_sorted_by_distance[0]["cc"]
 
 
+func _handle_sub_action_finished_while_moving_to_resource():
+	# react to resource removal
+	if _resource_unit == null:
+		if _set_resource_unit(_find_closest_resource_unit_in_nearby_area()):
+			_change_state_to(State.MOVING_TO_RESOURCE)
+		return
+	# resource reached
+	if not _unit.is_full():
+		_change_state_to(State.COLLECTING)
+	else:
+		_change_state_to(State.MOVING_TO_CC)
+
+
+func _handle_sub_action_finished_while_collecting():
+	# react to resource not being in range anymore
+	if (
+		_resource_unit != null
+		and not _unit.is_full()
+		and not Utils.Match.Unit.Movement.units_adhere(_unit, _resource_unit)
+	):
+		_change_state_to(State.MOVING_TO_RESOURCE)
+		return
+	# finished collecting
+	_change_state_to(State.MOVING_TO_CC)
+
+
+func _handle_sub_action_finished_while_moving_to_cc():
+	# react to cc removal
+	if _cc_unit == null:
+		if _set_cc_unit(_find_cc_closest_to_unit(_unit)):
+			_change_state_to(State.MOVING_TO_CC)
+		return
+	if not _cc_unit.is_constructed():
+		_cc_unit.construct()  # as long as constructing is immediate that is fine
+	_transfer_collected_resources_to_player()
+	_change_state_to(State.MOVING_TO_RESOURCE)
+
+
 func _on_sub_action_finished():
 	if not is_inside_tree():
 		return
@@ -150,37 +188,11 @@ func _on_sub_action_finished():
 	_unit.action_updated.emit()
 	match _state:
 		State.MOVING_TO_RESOURCE:
-			# react to resource removal
-			if _resource_unit == null:
-				if _set_resource_unit(_find_closest_resource_unit_in_nearby_area()):
-					_change_state_to(State.MOVING_TO_RESOURCE)
-				return
-			# resource reached
-			if not _unit.is_full():
-				_change_state_to(State.COLLECTING)
-			else:
-				_change_state_to(State.MOVING_TO_CC)
+			_handle_sub_action_finished_while_moving_to_resource()
 		State.COLLECTING:
-			# react to resource not being in range anymore
-			if (
-				_resource_unit != null
-				and not _unit.is_full()
-				and not Utils.Match.Unit.Movement.units_adhere(_unit, _resource_unit)
-			):
-				_change_state_to(State.MOVING_TO_RESOURCE)
-				return
-			# finished collecting
-			_change_state_to(State.MOVING_TO_CC)
+			_handle_sub_action_finished_while_collecting()
 		State.MOVING_TO_CC:
-			# react to cc removal
-			if _cc_unit == null:
-				if _set_cc_unit(_find_cc_closest_to_unit(_unit)):
-					_change_state_to(State.MOVING_TO_CC)
-				return
-			if not _cc_unit.is_constructed():
-				_cc_unit.construct()  # as long as constructing is immediate that is fine
-			_transfer_collected_resources_to_player()
-			_change_state_to(State.MOVING_TO_RESOURCE)
+			_handle_sub_action_finished_while_moving_to_cc()
 
 
 func _on_resource_unit_removed():
