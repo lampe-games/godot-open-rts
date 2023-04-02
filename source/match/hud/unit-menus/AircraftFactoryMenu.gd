@@ -11,9 +11,8 @@ var unit = null
 
 
 func _ready():
-	# TODO: always use tscn in constants (do not replace here)
 	var helicopter_properties = Constants.Match.Units.DEFAULT_PROPERTIES[
-		HelicopterUnit.resource_path.replace("tscn", "gd")
+		HelicopterUnit.resource_path
 	]
 	_helicopter_button.tooltip_text = ("{0} - {1}\n{2} HP, {3} DPS\n{4}: {5}, {6}: {7}".format(
 		[
@@ -31,12 +30,7 @@ func _ready():
 		[
 			tr("DRONE"),
 			tr("DRONE_DESCRIPTION"),
-			(
-				Constants
-				. Match
-				. Units
-				. DEFAULT_PROPERTIES[DroneUnit.resource_path.replace("tscn", "gd")]["hp_max"]
-			),
+			Constants.Match.Units.DEFAULT_PROPERTIES[DroneUnit.resource_path]["hp_max"],
 			tr("RESOURCE_A"),
 			Constants.Match.Units.PRODUCTION_COSTS[DroneUnit.resource_path]["resource_a"],
 			tr("RESOURCE_B"),

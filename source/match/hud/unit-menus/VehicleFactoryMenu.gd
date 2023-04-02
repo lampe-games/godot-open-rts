@@ -9,10 +9,7 @@ var unit = null
 
 
 func _ready():
-	# TODO: always use tscn in constants (do not replace here)
-	var tank_properties = Constants.Match.Units.DEFAULT_PROPERTIES[TankUnit.resource_path.replace(
-		"tscn", "gd"
-	)]
+	var tank_properties = Constants.Match.Units.DEFAULT_PROPERTIES[TankUnit.resource_path]
 	_tank_button.tooltip_text = ("{0} - {1}\n{2} HP, {3} DPS\n{4}: {5}, {6}: {7}".format(
 		[
 			tr("TANK"),

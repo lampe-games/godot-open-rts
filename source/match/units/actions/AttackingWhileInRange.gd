@@ -67,7 +67,12 @@ func _hit_target():
 		"next_attack_availability_time", Time.get_ticks_msec() + int(_unit.attack_interval * 1000.0)
 	)
 	var projectile = (
-		load(Constants.Match.Units.PROJECTILES[_unit.get_script().resource_path]).instantiate()
+		load(
+			Constants.Match.Units.PROJECTILES[_unit.get_script().resource_path.replace(
+				".gd", ".tscn"
+			)]
+		)
+		. instantiate()
 	)
 	projectile.target_unit = _target_unit
 	_unit.add_child(projectile)

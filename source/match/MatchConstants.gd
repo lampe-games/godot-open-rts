@@ -97,20 +97,20 @@ class Units:
 		},
 	}
 	const DEFAULT_PROPERTIES = {
-		"res://source/match/units/Drone.gd":
+		"res://source/match/units/Drone.tscn":
 		{
 			"sight_range": 10.0,
 			"hp": 6,
 			"hp_max": 6,
 		},
-		"res://source/match/units/Worker.gd":
+		"res://source/match/units/Worker.tscn":
 		{
 			"sight_range": 5.0,
 			"hp": 6,
 			"hp_max": 6,
 			"resources_max": 2,
 		},
-		"res://source/match/units/Helicopter.gd":
+		"res://source/match/units/Helicopter.tscn":
 		{
 			"sight_range": 8.0,
 			"hp": 10,
@@ -120,7 +120,7 @@ class Units:
 			"attack_range": 5.0,
 			"attack_domains": [Navigation.Domain.TERRAIN, Navigation.Domain.AIR],
 		},
-		"res://source/match/units/Tank.gd":
+		"res://source/match/units/Tank.tscn":
 		{
 			"sight_range": 8.0,
 			"hp": 10,
@@ -130,25 +130,25 @@ class Units:
 			"attack_range": 5.0,
 			"attack_domains": [Navigation.Domain.TERRAIN],
 		},
-		"res://source/match/units/CommandCenter.gd":
+		"res://source/match/units/CommandCenter.tscn":
 		{
 			"sight_range": 10.0,
 			"hp": 20,
 			"hp_max": 20,
 		},
-		"res://source/match/units/VehicleFactory.gd":
+		"res://source/match/units/VehicleFactory.tscn":
 		{
 			"sight_range": 8.0,
 			"hp": 16,
 			"hp_max": 16,
 		},
-		"res://source/match/units/AircraftFactory.gd":
+		"res://source/match/units/AircraftFactory.tscn":
 		{
 			"sight_range": 8.0,
 			"hp": 16,
 			"hp_max": 16,
 		},
-		"res://source/match/units/AntiGroundTurret.gd":
+		"res://source/match/units/AntiGroundTurret.tscn":
 		{
 			"sight_range": 8.0,
 			"hp": 8,
@@ -158,7 +158,7 @@ class Units:
 			"attack_range": 8.0,
 			"attack_domains": [Navigation.Domain.TERRAIN],
 		},
-		"res://source/match/units/AntiAirTurret.gd":
+		"res://source/match/units/AntiAirTurret.tscn":
 		{
 			"sight_range": 8.0,
 			"hp": 8,
@@ -170,12 +170,13 @@ class Units:
 		},
 	}
 	const PROJECTILES = {
-		"res://source/match/units/Helicopter.gd":
+		"res://source/match/units/Helicopter.tscn":
 		"res://source/match/units/projectiles/Rocket.tscn",
-		"res://source/match/units/Tank.gd": "res://source/match/units/projectiles/CannonShell.tscn",
-		"res://source/match/units/AntiGroundTurret.gd":
+		"res://source/match/units/Tank.tscn":
 		"res://source/match/units/projectiles/CannonShell.tscn",
-		"res://source/match/units/AntiAirTurret.gd":
+		"res://source/match/units/AntiGroundTurret.tscn":
+		"res://source/match/units/projectiles/CannonShell.tscn",
+		"res://source/match/units/AntiAirTurret.tscn":
 		"res://source/match/units/projectiles/Rocket.tscn"
 	}
 	const ADHERENCE_MARGIN_M = 0.3  # TODO: try lowering while fixing a 'push' problem

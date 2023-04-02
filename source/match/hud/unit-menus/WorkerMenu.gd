@@ -14,9 +14,8 @@ const AntiAirTurretUnit = preload("res://source/match/units/AntiAirTurret.tscn")
 
 
 func _ready():
-	# TODO: always use tscn in constants (do not replace here)
 	var ag_turret_properties = Constants.Match.Units.DEFAULT_PROPERTIES[
-		AntiGroundTurretUnit.resource_path.replace("tscn", "gd")
+		AntiGroundTurretUnit.resource_path
 	]
 	_ag_turret_button.tooltip_text = ("{0} - {1}\n{2} HP, {3} DPS\n{4}: {5}, {6}: {7}".format(
 		[
@@ -41,7 +40,7 @@ func _ready():
 		]
 	))
 	var aa_turret_properties = Constants.Match.Units.DEFAULT_PROPERTIES[
-		AntiAirTurretUnit.resource_path.replace("tscn", "gd")
+		AntiAirTurretUnit.resource_path
 	]
 	_aa_turret_button.tooltip_text = ("{0} - {1}\n{2} HP, {3} DPS\n{4}: {5}, {6}: {7}".format(
 		[
@@ -55,93 +54,54 @@ func _ready():
 			Constants.Match.Units.CONSTRUCTION_COSTS[AntiAirTurretUnit.resource_path]["resource_b"]
 		]
 	))
-	_cc_button.tooltip_text = (
-		"{0} - {1}\n{2} HP\n{3}: {4}, {5}: {6}"
-		. format(
-			[
-				tr("CC"),
-				tr("CC_DESCRIPTION"),
-				(
-					Constants
-					. Match
-					. Units
-					. DEFAULT_PROPERTIES[CommandCenterUnit.resource_path.replace("tscn", "gd")]["hp_max"]
-				),
-				tr("RESOURCE_A"),
-				(
-					Constants
-					. Match
-					. Units
-					. CONSTRUCTION_COSTS[CommandCenterUnit.resource_path]["resource_a"]
-				),
-				tr("RESOURCE_B"),
-				(
-					Constants
-					. Match
-					. Units
-					. CONSTRUCTION_COSTS[CommandCenterUnit.resource_path]["resource_b"]
-				)
-			]
-		)
-	)
-	_vehicle_factory_button.tooltip_text = (
-		"{0} - {1}\n{2} HP\n{3}: {4}, {5}: {6}"
-		. format(
-			[
-				tr("VEHICLE_FACTORY"),
-				tr("VEHICLE_FACTORY_DESCRIPTION"),
-				(
-					Constants
-					. Match
-					. Units
-					. DEFAULT_PROPERTIES[VehicleFactoryUnit.resource_path.replace("tscn", "gd")]["hp_max"]
-				),
-				tr("RESOURCE_A"),
-				(
-					Constants
-					. Match
-					. Units
-					. CONSTRUCTION_COSTS[VehicleFactoryUnit.resource_path]["resource_a"]
-				),
-				tr("RESOURCE_B"),
-				(
-					Constants
-					. Match
-					. Units
-					. CONSTRUCTION_COSTS[VehicleFactoryUnit.resource_path]["resource_b"]
-				)
-			]
-		)
-	)
-	_aircraft_factory_button.tooltip_text = (
-		"{0} - {1}\n{2} HP\n{3}: {4}, {5}: {6}"
-		. format(
-			[
-				tr("AIRCRAFT_FACTORY"),
-				tr("AIRCRAFT_FACTORY_DESCRIPTION"),
-				(
-					Constants
-					. Match
-					. Units
-					. DEFAULT_PROPERTIES[AircraftFactoryUnit.resource_path.replace("tscn", "gd")]["hp_max"]
-				),
-				tr("RESOURCE_A"),
-				(
-					Constants
-					. Match
-					. Units
-					. CONSTRUCTION_COSTS[AircraftFactoryUnit.resource_path]["resource_a"]
-				),
-				tr("RESOURCE_B"),
-				(
-					Constants
-					. Match
-					. Units
-					. CONSTRUCTION_COSTS[AircraftFactoryUnit.resource_path]["resource_b"]
-				)
-			]
-		)
-	)
+	_cc_button.tooltip_text = ("{0} - {1}\n{2} HP\n{3}: {4}, {5}: {6}".format(
+		[
+			tr("CC"),
+			tr("CC_DESCRIPTION"),
+			Constants.Match.Units.DEFAULT_PROPERTIES[CommandCenterUnit.resource_path]["hp_max"],
+			tr("RESOURCE_A"),
+			Constants.Match.Units.CONSTRUCTION_COSTS[CommandCenterUnit.resource_path]["resource_a"],
+			tr("RESOURCE_B"),
+			Constants.Match.Units.CONSTRUCTION_COSTS[CommandCenterUnit.resource_path]["resource_b"]
+		]
+	))
+	_vehicle_factory_button.tooltip_text = ("{0} - {1}\n{2} HP\n{3}: {4}, {5}: {6}".format(
+		[
+			tr("VEHICLE_FACTORY"),
+			tr("VEHICLE_FACTORY_DESCRIPTION"),
+			Constants.Match.Units.DEFAULT_PROPERTIES[VehicleFactoryUnit.resource_path]["hp_max"],
+			tr("RESOURCE_A"),
+			(
+				Constants
+				. Match
+				. Units
+				. CONSTRUCTION_COSTS[VehicleFactoryUnit.resource_path]["resource_a"]
+			),
+			tr("RESOURCE_B"),
+			Constants.Match.Units.CONSTRUCTION_COSTS[VehicleFactoryUnit.resource_path]["resource_b"]
+		]
+	))
+	_aircraft_factory_button.tooltip_text = ("{0} - {1}\n{2} HP\n{3}: {4}, {5}: {6}".format(
+		[
+			tr("AIRCRAFT_FACTORY"),
+			tr("AIRCRAFT_FACTORY_DESCRIPTION"),
+			Constants.Match.Units.DEFAULT_PROPERTIES[AircraftFactoryUnit.resource_path]["hp_max"],
+			tr("RESOURCE_A"),
+			(
+				Constants
+				. Match
+				. Units
+				. CONSTRUCTION_COSTS[AircraftFactoryUnit.resource_path]["resource_a"]
+			),
+			tr("RESOURCE_B"),
+			(
+				Constants
+				. Match
+				. Units
+				. CONSTRUCTION_COSTS[AircraftFactoryUnit.resource_path]["resource_b"]
+			)
+		]
+	))
 
 
 func _on_place_command_center_button_pressed():

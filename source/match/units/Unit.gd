@@ -122,7 +122,9 @@ func _handle_unit_death():
 
 
 func _setup_default_properties_from_constants():
-	var default_properties = Constants.Match.Units.DEFAULT_PROPERTIES[get_script().resource_path]
+	var default_properties = Constants.Match.Units.DEFAULT_PROPERTIES[
+		get_script().resource_path.replace(".gd", ".tscn")
+	]
 	for property in default_properties:
 		set(property, default_properties[property])
 

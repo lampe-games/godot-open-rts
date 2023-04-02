@@ -9,17 +9,11 @@ var unit = null
 
 
 func _ready():
-	# TODO: always use tscn in constants (do not replace here)
 	_worker_button.tooltip_text = ("{0} - {1}\n{2} HP\n{3}: {4}, {5}: {6}".format(
 		[
 			tr("WORKER"),
 			tr("WORKER_DESCRIPTION"),
-			(
-				Constants
-				. Match
-				. Units
-				. DEFAULT_PROPERTIES[WorkerUnit.resource_path.replace("tscn", "gd")]["hp_max"]
-			),
+			Constants.Match.Units.DEFAULT_PROPERTIES[WorkerUnit.resource_path]["hp_max"],
 			tr("RESOURCE_A"),
 			Constants.Match.Units.PRODUCTION_COSTS[WorkerUnit.resource_path]["resource_a"],
 			tr("RESOURCE_B"),
