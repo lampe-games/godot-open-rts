@@ -1,5 +1,5 @@
 all: lint format-check shaders-format-check
-version = "0.8.0-a1"
+version = "0.8.1"
 
 format-check:
 	find source/ -name '*.gd' | xargs gdformat --check

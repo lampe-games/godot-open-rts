@@ -1,6 +1,18 @@
 # Changelog
 
-## [0.8.0-a1]
+## [0.8.1]
+
+### New features
+ - Added resource tooltips
+ - Added unit production/construction tooltips
+ - Added main menu background
+ - Added match loading page
+ - Added diagnostic FPS monitor
+
+### Changed
+ - Increased units HP by a factor of 2
+
+## [0.8.0]
 
 ### New features
  - Added animated logo sequence on startup
