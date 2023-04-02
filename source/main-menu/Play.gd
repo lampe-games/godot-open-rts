@@ -40,7 +40,6 @@ func _create_match_settings():
 
 
 func _on_start_button_pressed():
-	# TODO: add curtain or loading screen
 	hide()
 	var new_scene = LoadingScene.instantiate()
 	new_scene.match_settings = _create_match_settings()
