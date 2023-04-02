@@ -1,4 +1,3 @@
-# TODO: extract to generic nodes once iherited scenes are working fine in Godot 4
 extends Node3D
 @onready var _animation_player = find_child("AnimationPlayer")
 

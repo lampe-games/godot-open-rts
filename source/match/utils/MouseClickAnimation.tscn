@@ -1,57 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://60qhwf6i8nls"]
+[gd_scene load_steps=3 format=3 uid="uid://c5e5tveu82hvk"]
 
-[ext_resource type="Script" path="res://source/match/utils/MouseClickAnimation.gd" id="1_y322a"]
+[ext_resource type="PackedScene" uid="uid://dpccgqxuja2b1" path="res://source/generic-scenes-and-nodes/3d/MouseClickAnimation3D.tscn" id="1_mk7wl"]
 [ext_resource type="Texture2D" uid="uid://c8tsarvah8jit" path="res://assets/ui/kenney-crosshairs/crosshair062.png" id="2_kyj8v"]
 
-[sub_resource type="Animation" id="Animation_u21qe"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite3D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(1, 1, 1)]
-}
+[node name="MouseClickAnimation" instance=ExtResource("1_mk7wl")]
 
-[sub_resource type="Animation" id="Animation_2qki2"]
-resource_name = "fade_out"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite3D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(2.92817, 1),
-"update": 0,
-"values": [Vector3(1, 1, 1), Vector3(0.1, 0.1, 0.1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_mryvw"]
-_data = {
-"RESET": SubResource("Animation_u21qe"),
-"fade_out": SubResource("Animation_2qki2")
-}
-
-[node name="MouseClickAnimation" type="Node3D"]
-script = ExtResource("1_y322a")
-
-[node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
-modulate = Color(0, 1, 0, 1)
-pixel_size = 0.005
-axis = 1
-render_priority = 127
+[node name="Sprite3D" parent="." index="0"]
 texture = ExtResource("2_kyj8v")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_mryvw")
-}
