@@ -3,7 +3,7 @@ extends Node3D
 enum BlueprintPositionValidity {
 	VALID,
 	COLLIDES_WITH_OBJECT,
-	COLLIDES_WITH_TERRAIN,  # TODO: rename
+	NOT_NAVIGABLE,  # TODO: rename
 	NOT_ENOUGH_RESOURCES,
 	OUT_OF_MAP,
 }
@@ -105,7 +105,7 @@ func _calculate_blueprint_position_validity():
 	if placement_validity == Utils.Match.Unit.Placement.COLLIDES_WITH_AGENT:
 		return BlueprintPositionValidity.COLLIDES_WITH_OBJECT
 	if placement_validity == Utils.Match.Unit.Placement.NOT_NAVIGABLE:
-		return BlueprintPositionValidity.COLLIDES_WITH_TERRAIN
+		return BlueprintPositionValidity.NOT_NAVIGABLE
 	return BlueprintPositionValidity.VALID
 
 
@@ -131,8 +131,8 @@ func _update_feedback_label(blueprint_position_validity):
 	match blueprint_position_validity:
 		BlueprintPositionValidity.COLLIDES_WITH_OBJECT:
 			_feedback_label.text = tr("BLUEPRINT_COLLIDES_WITH_OBJECT")
-		BlueprintPositionValidity.COLLIDES_WITH_TERRAIN:
-			_feedback_label.text = tr("BLUEPRINT_COLLIDES_WITH_TERRAIN")
+		BlueprintPositionValidity.NOT_NAVIGABLE:
+			_feedback_label.text = tr("BLUEPRINT_NOT_NAVIGABLE")
 		BlueprintPositionValidity.NOT_ENOUGH_RESOURCES:
 			_feedback_label.text = tr("BLUEPRINT_NOT_ENOUGH_RESOURCES")
 		BlueprintPositionValidity.OUT_OF_MAP:
