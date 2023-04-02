@@ -1,4 +1,3 @@
-# TODO internal PlayerController w/ mapping to Constants.PlayerController
 extends Control
 
 const MatchSettings = preload("res://source/model/MatchSettings.gd")

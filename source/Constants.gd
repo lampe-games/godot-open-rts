@@ -1,9 +1,9 @@
 extends Node
 
 enum PlayerController {
-	NONE,
-	HUMAN,
-	SIMPLE_CLAIRVOYANT_AI,
+	NONE = 0,
+	HUMAN = 1,
+	SIMPLE_CLAIRVOYANT_AI = 2,
 	DETECT_FROM_SCENE,
 }
 
@@ -13,9 +13,8 @@ class Match:
 
 	class Player:
 		const CONTROLLER_SCENES = {
-			Constants.PlayerController.HUMAN:
-			preload("res://source/match/players/human/Human.tscn"),
-			Constants.PlayerController.SIMPLE_CLAIRVOYANT_AI:
+			PlayerController.HUMAN: preload("res://source/match/players/human/Human.tscn"),
+			PlayerController.SIMPLE_CLAIRVOYANT_AI:
 			preload("res://source/match/players/simple-clairvoyant-ai/SimpleClairvoyantAI.tscn"),
 		}
 
