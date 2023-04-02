@@ -16,9 +16,9 @@ const BLUEPRINT_VALID_PATH = MATERIALS_ROOT + "blueprint_valid.material.tres"
 const BLUEPRINT_INVALID_PATH = MATERIALS_ROOT + "blueprint_invalid.material.tres"
 
 var _active_blueprint_node = null
-var _pending_building_radius = null
-var _pending_building_navmap_rid = null
-var _pending_building_prototype = null
+var _pending_structure_radius = null
+var _pending_structure_navmap_rid = null
+var _pending_structure_prototype = null
 var _blueprint_rotating = false
 
 @onready var _match = find_parent("Match")
@@ -27,15 +27,15 @@ var _blueprint_rotating = false
 
 func _ready():
 	_feedback_label.hide()
-	MatchSignals.place_building.connect(_on_building_placement_request)
+	MatchSignals.place_structure.connect(_on_structure_placement_request)
 
 
 func _unhandled_input(event):
-	if not _building_placement_started():
+	if not _structure_placement_started():
 		return
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		_handle_lmb_down_event(event)
-	if event.is_action_pressed("rotate_building"):
+	if event.is_action_pressed("rotate_structure"):
 		_try_rotating_blueprint_by(ROTATION_BY_KEY_STEP)
 	if (
 		event is InputEventMouseButton
@@ -57,7 +57,7 @@ func _handle_lmb_down_event(_event):
 func _handle_lmb_up_event(_event):
 	get_viewport().set_input_as_handled()
 	if _blueprint_position_is_valid():
-		_finish_building_placement()
+		_finish_structure_placement()
 	_finish_blueprint_rotation()
 
 
@@ -65,7 +65,7 @@ func _handle_rmb_event(event):
 	get_viewport().set_input_as_handled()
 	if event.pressed:
 		_finish_blueprint_rotation()
-		_cancel_building_placement()
+		_cancel_structure_placement()
 
 
 func _handle_mouse_motion_event(_event):
@@ -79,7 +79,7 @@ func _handle_mouse_motion_event(_event):
 	_update_blueprint_color(blueprint_position_validity == BlueprintPositionValidity.VALID)
 
 
-func _building_placement_started():
+func _structure_placement_started():
 	return _active_blueprint_node != null
 
 
@@ -98,9 +98,9 @@ func _calculate_blueprint_position_validity():
 		return BlueprintPositionValidity.NOT_ENOUGH_RESOURCES
 	var placement_validity = Utils.Match.Unit.Placement.validate_agent_placement_position(
 		_active_blueprint_node.global_position,
-		_pending_building_radius,
+		_pending_structure_radius,
 		get_tree().get_nodes_in_group("units") + get_tree().get_nodes_in_group("resource_units"),
-		_pending_building_navmap_rid
+		_pending_structure_navmap_rid
 	)
 	if placement_validity == Utils.Match.Unit.Placement.COLLIDES_WITH_AGENT:
 		return BlueprintPositionValidity.COLLIDES_WITH_OBJECT
@@ -111,7 +111,7 @@ func _calculate_blueprint_position_validity():
 
 func _player_has_enough_resources():
 	var construction_cost = Constants.Match.Units.CONSTRUCTION_COSTS[
-		_pending_building_prototype.resource_path
+		_pending_structure_prototype.resource_path
 	]
 	return _match.controlled_player.has_resources(construction_cost)
 
@@ -139,12 +139,12 @@ func _update_feedback_label(blueprint_position_validity):
 			_feedback_label.text = tr("BLUEPRINT_OUT_OF_MAP")
 
 
-func _start_building_placement(building_prototype):
-	if _building_placement_started():
+func _start_structure_placement(structure_prototype):
+	if _structure_placement_started():
 		return
-	_pending_building_prototype = building_prototype
+	_pending_structure_prototype = structure_prototype
 	_active_blueprint_node = (
-		load(Constants.Match.Units.BUILDING_BLUEPRINTS[building_prototype.resource_path])
+		load(Constants.Match.Units.STRUCTURE_BLUEPRINTS[structure_prototype.resource_path])
 		. instantiate()
 	)
 	var blueprint_origin = Vector3(-999, 0, -999)
@@ -157,14 +157,14 @@ func _start_building_placement(building_prototype):
 		rotate_towards, Vector3.UP
 	)
 	add_child(_active_blueprint_node)
-	var temporary_building_instance = _pending_building_prototype.instantiate()
-	_pending_building_radius = temporary_building_instance.radius
-	_pending_building_navmap_rid = (
+	var temporary_structure_instance = _pending_structure_prototype.instantiate()
+	_pending_structure_radius = temporary_structure_instance.radius
+	_pending_structure_navmap_rid = (
 		find_parent("Match")
 		. navigation
-		. get_navigation_map_rid_by_domain(temporary_building_instance.movement_domain)
+		. get_navigation_map_rid_by_domain(temporary_structure_instance.movement_domain)
 	)
-	temporary_building_instance.free()
+	temporary_structure_instance.free()
 
 
 func _set_blueprint_position_based_on_mouse_pos():
@@ -187,25 +187,25 @@ func _update_blueprint_color(blueprint_position_is_valid):
 			child.material_override = material_to_set
 
 
-func _cancel_building_placement():
-	if _building_placement_started():
+func _cancel_structure_placement():
+	if _structure_placement_started():
 		_feedback_label.hide()
 		_active_blueprint_node.queue_free()
 		_active_blueprint_node = null
 
 
-func _finish_building_placement():
+func _finish_structure_placement():
 	if _player_has_enough_resources():
 		var construction_cost = Constants.Match.Units.CONSTRUCTION_COSTS[
-			_pending_building_prototype.resource_path
+			_pending_structure_prototype.resource_path
 		]
 		_match.controlled_player.subtract_resources(construction_cost)
 		MatchSignals.setup_and_spawn_unit.emit(
-			_pending_building_prototype.instantiate(),
+			_pending_structure_prototype.instantiate(),
 			_active_blueprint_node.global_transform,
 			_match.controlled_player
 		)
-	_cancel_building_placement()
+	_cancel_structure_placement()
 
 
 func _start_blueprint_rotation():
@@ -213,7 +213,7 @@ func _start_blueprint_rotation():
 
 
 func _try_rotating_blueprint_by(degrees):
-	if not _building_placement_started():
+	if not _structure_placement_started():
 		return
 	_active_blueprint_node.global_transform.basis = (
 		_active_blueprint_node.global_transform.basis.rotated(Vector3.UP, deg_to_rad(degrees))
@@ -242,5 +242,5 @@ func _finish_blueprint_rotation():
 	_blueprint_rotating = false
 
 
-func _on_building_placement_request(building_prototype):
-	_start_building_placement(building_prototype)
+func _on_structure_placement_request(structure_prototype):
+	_start_structure_placement(structure_prototype)

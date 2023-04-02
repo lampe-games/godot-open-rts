@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://q5w474dvts3f"]
+
+[ext_resource type="Script" path="res://source/match/handlers/StructurePlacementHandler.gd" id="1_u6cl4"]
+
+[node name="StructurePlacementHandler" type="Node3D"]
+script = ExtResource("1_u6cl4")
+
+[node name="FeedbackLabel3D" type="Label3D" parent="."]
+visible = false
+pixel_size = 0.0006
+billboard = 1
+no_depth_test = true
+fixed_size = true
+text = "test"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://c84syrhfooaf0"]
+[gd_scene load_steps=54 format=3 uid="uid://camns8fqod8d4"]
 
 [ext_resource type="Script" path="res://source/match/Match.gd" id="1_1555u"]
 [ext_resource type="Script" path="res://source/match/IsometricCamera3D.gd" id="1_qb2ry"]
@@ -22,13 +22,13 @@
 [ext_resource type="PackedScene" uid="uid://dk7sa3fkyxks5" path="res://source/generic-scenes-and-nodes/control/RectangularSelection2D.tscn" id="16_ccb0o"]
 [ext_resource type="Script" path="res://source/match/hud/Resources.gd" id="16_vjwpn"]
 [ext_resource type="Script" path="res://source/match/hud/Minimap.gd" id="17_0bfte"]
-[ext_resource type="PackedScene" uid="uid://b0lxagyi6a5td" path="res://source/match/handlers/BuildingPlacementHandler.tscn" id="17_8ku5t"]
 [ext_resource type="PackedScene" uid="uid://bocb7hjilvri5" path="res://source/match/handlers/SelectionHandler.tscn" id="20_tw1wp"]
 [ext_resource type="PackedScene" uid="uid://c0uxy26e4qs4w" path="res://source/match/handlers/MouseClickAnimationsHandler.tscn" id="22_438pb"]
 [ext_resource type="PackedScene" uid="uid://1rby73ckmk7b" path="res://source/match/Menu.tscn" id="22_ofmlu"]
 [ext_resource type="PackedScene" uid="uid://b83l4dny3gly0" path="res://source/match/debug/FrameIncrementer.tscn" id="23_exhtd"]
 [ext_resource type="PackedScene" uid="uid://c3xjdp2yrr1fu" path="res://source/match/debug/DiagnosticHud.tscn" id="23_pocq6"]
 [ext_resource type="PackedScene" uid="uid://yn470qvc3eak" path="res://source/match/handlers/MatchEndHandler.tscn" id="26_4d7im"]
+[ext_resource type="PackedScene" uid="uid://q5w474dvts3f" path="res://source/match/handlers/StructurePlacementHandler.tscn" id="26_7heso"]
 
 [sub_resource type="Resource" id="Resource_hfc6q"]
 script = ExtResource("2_issh2")
@@ -510,7 +510,7 @@ visible = false
 
 [node name="Handlers" type="Node3D" parent="."]
 
-[node name="BuildingPlacementHandler" parent="Handlers" instance=ExtResource("17_8ku5t")]
+[node name="StructurePlacementHandler" parent="Handlers" instance=ExtResource("26_7heso")]
 
 [node name="UnitSelectionHandler" parent="Handlers" instance=ExtResource("20_tw1wp")]
 rectangular_selection_3d = NodePath("../../RectangularSelection3D")

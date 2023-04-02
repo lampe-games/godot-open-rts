@@ -1,6 +1,6 @@
 [gd_scene load_steps=20 format=3 uid="uid://b65yuqx0iw62f"]
 
-[ext_resource type="PackedScene" uid="uid://c84syrhfooaf0" path="res://source/match/Match.tscn" id="1_oiu0k"]
+[ext_resource type="PackedScene" uid="uid://camns8fqod8d4" path="res://source/match/Match.tscn" id="1_oiu0k"]
 [ext_resource type="Script" path="res://tests/manual/Match.gd" id="2_ghr3h"]
 [ext_resource type="PackedScene" uid="uid://ct0ejt0trkhrf" path="res://source/match/units/CommandCenter.tscn" id="2_rm00b"]
 [ext_resource type="PackedScene" uid="uid://e7tko4kpeiau" path="res://source/match/units/Helicopter.tscn" id="3_0s0q8"]

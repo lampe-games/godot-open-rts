@@ -3,7 +3,7 @@ extends Node
 # requests
 signal deselect_all_units
 signal setup_and_spawn_unit(unit, transform, player)
-signal place_building(building_prototype)
+signal place_structure(structure_prototype)
 
 # notifications
 signal terrain_targeted(position)

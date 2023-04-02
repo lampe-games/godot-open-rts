@@ -105,20 +105,20 @@ func _ready():
 
 
 func _on_place_command_center_button_pressed():
-	MatchSignals.place_building.emit(CommandCenterUnit)
+	MatchSignals.place_structure.emit(CommandCenterUnit)
 
 
 func _on_place_vehicle_factory_button_pressed():
-	MatchSignals.place_building.emit(VehicleFactoryUnit)
+	MatchSignals.place_structure.emit(VehicleFactoryUnit)
 
 
 func _on_place_aircraft_factory_button_pressed():
-	MatchSignals.place_building.emit(AircraftFactoryUnit)
+	MatchSignals.place_structure.emit(AircraftFactoryUnit)
 
 
 func _on_place_anti_ground_turret_button_pressed():
-	MatchSignals.place_building.emit(AntiGroundTurretUnit)
+	MatchSignals.place_structure.emit(AntiGroundTurretUnit)
 
 
 func _on_place_anti_air_turret_button_pressed():
-	MatchSignals.place_building.emit(AntiAirTurretUnit)
+	MatchSignals.place_structure.emit(AntiAirTurretUnit)

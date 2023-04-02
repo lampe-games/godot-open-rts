@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://tcq8nbsari5i"]
 
-[ext_resource type="PackedScene" uid="uid://c84syrhfooaf0" path="res://source/match/Match.tscn" id="1_f87ft"]
+[ext_resource type="PackedScene" uid="uid://camns8fqod8d4" path="res://source/match/Match.tscn" id="1_f87ft"]
 [ext_resource type="Script" path="res://tests/manual/Match.gd" id="2_iedaw"]
 [ext_resource type="Shader" path="res://source/shaders/3d/simple_fog_of_war.gdshader" id="2_ojmlq"]
 [ext_resource type="PackedScene" uid="uid://cfa8cpnpk5pcb" path="res://source/match/units/AntiAirTurret.tscn" id="2_xec1u"]
