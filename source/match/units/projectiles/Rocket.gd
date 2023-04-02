@@ -1,4 +1,3 @@
-# TODO: investigate if anything can be done w/ particles in (0,0,0)
 extends Node3D
 
 var target_unit = null
