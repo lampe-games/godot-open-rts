@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://c84syrhfooaf0"]
+[gd_scene load_steps=54 format=3 uid="uid://c84syrhfooaf0"]
 
 [ext_resource type="Script" path="res://source/match/Match.gd" id="1_1555u"]
 [ext_resource type="Script" path="res://source/match/IsometricCamera3D.gd" id="1_qb2ry"]
@@ -81,6 +81,13 @@ fog_height_density = 1.2
 [sub_resource type="PlaneMesh" id="PlaneMesh_5wwb3"]
 material = ExtResource("6_u47mu")
 size = Vector2(50, 50)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q5xfu"]
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_c56pn"]
+size = Vector2(1000, 1000)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dua43"]
 size = Vector3(1, 1, 100)
@@ -180,6 +187,11 @@ environment = SubResource("Environment_qxcnu")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 25)
 mesh = SubResource("PlaneMesh_5wwb3")
 skeleton = NodePath("../../../DummyContent")
+
+[node name="BlackBackgroundFixingAntiAliasingBug" type="MeshInstance3D" parent="Map/Geometry/Terrain"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+material_override = SubResource("StandardMaterial3D_q5xfu")
+mesh = SubResource("PlaneMesh_c56pn")
 
 [node name="Boundry" type="Area3D" parent="Map/Geometry"]
 collision_layer = 2

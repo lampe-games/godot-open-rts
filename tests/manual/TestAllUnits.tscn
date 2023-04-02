@@ -36,7 +36,6 @@ render_priority = 1
 shader = ExtResource("5_f2ny6")
 shader_parameter/color = Color(0, 0, 0, 1)
 shader_parameter/texture_units_per_world_unit = 2
-shader_parameter/lowest_y_allowed = -0.1
 shader_parameter/debug_texture_view = false
 shader_parameter/world_visibility_texture = SubResource("ViewportTexture_v46ss")
 
