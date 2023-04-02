@@ -12,7 +12,7 @@ var cache = {}
 
 
 func _unhandled_input(event):
-	if event.is_action_pressed("god_mode_toggle"):
+	if event.is_action_pressed("toggle_god_mode"):
 		_toggle_god_mode()
 
 
