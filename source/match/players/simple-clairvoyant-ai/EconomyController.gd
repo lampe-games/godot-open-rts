@@ -182,7 +182,6 @@ func _make_worker_collecting_resources(worker):
 	)
 	if closest_resource_unit != null:
 		worker.action = CollectingResourcesSequentially.new(closest_resource_unit)
-	# TODO: else fallback to any available resource unit
 
 
 func _retarget_workers_if_necessary():
