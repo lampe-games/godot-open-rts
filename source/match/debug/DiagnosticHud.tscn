@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=3 uid="uid://c3xjdp2yrr1fu"]
+
+[ext_resource type="Script" path="res://source/match/debug/DiagnosticHud.gd" id="1_pw8aa"]
+
+[node name="DiagnosticHUD" type="CanvasLayer"]
+script = ExtResource("1_pw8aa")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="FPSLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "0.0 FPS"
+horizontal_alignment = 2
+vertical_alignment = 1
