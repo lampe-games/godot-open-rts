@@ -2,24 +2,36 @@ extends "res://source/match/units/Unit.gd"
 
 signal constructed
 
-const UnderConstructionTrait = preload("res://source/match/units/traits/UnderConstruction.tscn")
+const UNDER_CONSTRUCTION_MATERIAL = preload(
+	"res://source/match/resources/materials/structure_under_construction.material.tres"
+)
+
+var _under_construction = false
 
 
 func mark_as_under_construction():
-	assert(find_child("UnderConstruction", true, false) == null)
-	add_child(UnderConstructionTrait.instantiate())
+	assert(not _under_construction, "structure already under construction")
+	_under_construction = true
+	_change_geometry_material(UNDER_CONSTRUCTION_MATERIAL)
+	if hp == null:
+		await ready
+	hp = 1
 
 
 func construct():
-	var under_construction_trait = find_child("UnderConstruction", true, false)
-	assert(under_construction_trait != null)
-	if under_construction_trait:
-		under_construction_trait.queue_free()
+	assert(_under_construction, "structure must be under construction")
+	_under_construction = false
+	_change_geometry_material(null)
+	hp = hp_max
+	if is_inside_tree():
+		constructed.emit()
 
 
 func is_constructed():
-	return find_child("UnderConstruction", true, false) == null
+	return not _under_construction
 
 
-func emit_constructed():
-	constructed.emit()
+func _change_geometry_material(material):
+	for child in find_child("Geometry").find_children("*"):
+		if "material_override" in child:
+			child.material_override = material

@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://fjgtfikakwxm"]
-
-[ext_resource type="Script" path="res://source/match/units/traits/UnderConstruction.gd" id="1_jx46g"]
-
-[node name="UnderConstruction" type="Node"]
-script = ExtResource("1_jx46g")
