@@ -30,7 +30,7 @@ func size():
 
 
 func attach_unit(unit):
-	assert(_state == State.FORMING)
+	assert(_state == State.FORMING, "unexpected state")
 	_attached_units.append(unit)
 	unit.tree_exited.connect(_on_unit_died.bind(unit))
 	if size() == _expected_number_of_units:

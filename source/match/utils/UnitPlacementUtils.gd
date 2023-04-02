@@ -59,7 +59,7 @@ static func find_valid_position_radially_yet_skip_starting_radius(
 				radial_position, radius, units, navigation_map_rid
 			):
 				return radial_position
-	assert(false)  # unexpected flow
+	assert(false, "unexpected flow")
 	return Vector3.INF
 
 

@@ -71,7 +71,7 @@ func provision(resources, metadata):
 	elif metadata == "secondary_unit":
 		_provision_unit(_secondary_unit_scene, _secondary_structure(), resources, metadata)
 	else:
-		assert(false)  # unexpected flow
+		assert(false, "unexpected flow")
 
 
 func _setup_refresh_timer():
@@ -82,7 +82,10 @@ func _setup_refresh_timer():
 
 
 func _provision_structure(structure_scene, resources, metadata):
-	assert(resources == Constants.Match.Units.CONSTRUCTION_COSTS[structure_scene.resource_path])
+	assert(
+		resources == Constants.Match.Units.CONSTRUCTION_COSTS[structure_scene.resource_path],
+		"unexpected amount of resources"
+	)
 	var workers = get_tree().get_nodes_in_group("units").filter(
 		func(unit): return unit is Worker and unit.player == _player
 	)
@@ -93,7 +96,10 @@ func _provision_structure(structure_scene, resources, metadata):
 
 
 func _provision_unit(unit_scene, structure_producing_unit, resources, metadata):
-	assert(resources == Constants.Match.Units.PRODUCTION_COSTS[unit_scene.resource_path])
+	assert(
+		resources == Constants.Match.Units.PRODUCTION_COSTS[unit_scene.resource_path],
+		"unexpected amount of resources"
+	)
 	if structure_producing_unit == null:
 		return
 	_number_of_pending_unit_resource_requests[metadata] -= 1
@@ -125,7 +131,10 @@ func _try_creating_new_battlegroup():
 
 func _construct_structure(structure_scene):
 	var construction_cost = Constants.Match.Units.CONSTRUCTION_COSTS[structure_scene.resource_path]
-	assert(_player.has_resources(construction_cost))
+	assert(
+		_player.has_resources(construction_cost),
+		"player should have enough resources at this point"
+	)
 	# TODO: introduce actual algorithm which takes enemy positions into account
 	var ccs = get_tree().get_nodes_in_group("units").filter(
 		func(unit): return unit is CommandCenter and unit.player == _player

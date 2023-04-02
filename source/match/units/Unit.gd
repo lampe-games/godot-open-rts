@@ -85,7 +85,7 @@ func _get_movement_speed():
 
 func _set_color(a_color):
 	color = a_color
-	assert(player != null)
+	assert(player != null, "player must be set at this point")
 	var material = player.get_color_material()
 	Utils.Match.traverse_node_tree_and_replace_materials_matching_albedo(
 		find_child("Geometry"),
@@ -130,5 +130,5 @@ func _setup_default_properties_from_constants():
 
 
 func _on_action_node_tree_exited(action_node):
-	assert(action_node == action)
+	assert(action_node == action, "unexpected action released")
 	action = null

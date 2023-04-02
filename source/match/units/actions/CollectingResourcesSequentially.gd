@@ -49,7 +49,7 @@ func get_resource_unit():
 
 
 func _change_state_to(new_state):
-	assert(not _state_locked)
+	assert(not _state_locked, "changing state during transition is not implemented")
 	_state_locked = true
 	_exit_state(_state)
 	_enter_state(new_state)
@@ -74,7 +74,10 @@ func _enter_state(state):
 			add_child(_sub_action)
 			_unit.action_updated.emit()
 		State.COLLECTING:
-			assert(CollectingResourcesWhileInRange.is_applicable(_unit, _resource_unit))
+			assert(
+				CollectingResourcesWhileInRange.is_applicable(_unit, _resource_unit),
+				"the action should apply at this point"
+			)
 			_sub_action = CollectingResourcesWhileInRange.new(_resource_unit)
 			_sub_action.tree_exited.connect(_on_sub_action_finished, CONNECT_DEFERRED)
 			add_child(_sub_action)
@@ -92,7 +95,7 @@ func _set_resource_unit(resource_unit):
 	if resource_unit == null:
 		queue_free()
 		return false
-	assert(resource_unit != _resource_unit)
+	assert(resource_unit != _resource_unit, "it's not possible to set the same unit")
 	_resource_unit = resource_unit
 	_resource_unit.tree_exited.connect(_on_resource_unit_removed)
 	return true

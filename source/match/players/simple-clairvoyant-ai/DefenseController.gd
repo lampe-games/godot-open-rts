@@ -35,19 +35,25 @@ func provision(resources, metadata):
 		func(unit): return unit is CommandCenter and unit.player == _player
 	)
 	if metadata == "ag_turret":
-		assert(resources == Constants.Match.Units.CONSTRUCTION_COSTS[AGTurretScene.resource_path])
+		assert(
+			resources == Constants.Match.Units.CONSTRUCTION_COSTS[AGTurretScene.resource_path],
+			"unexpected amount of resources"
+		)
 		_number_of_pending_ag_turret_resource_requests -= 1
 		if workers.is_empty() or ccs.is_empty():
 			return
 		_construct_turret(AGTurretScene)
 	elif metadata == "aa_turret":
-		assert(resources == Constants.Match.Units.CONSTRUCTION_COSTS[AATurretScene.resource_path])
+		assert(
+			resources == Constants.Match.Units.CONSTRUCTION_COSTS[AATurretScene.resource_path],
+			"unexpected amount of resources"
+		)
 		_number_of_pending_aa_turret_resource_requests -= 1
 		if workers.is_empty() or ccs.is_empty():
 			return
 		_construct_turret(AATurretScene)
 	else:
-		assert(false)  # unexpected flow
+		assert(false, "unexpected flow")
 
 
 func _setup_refresh_timer():
@@ -111,7 +117,10 @@ func _enforce_number_of_aa_turrets():
 
 func _construct_turret(turret_scene):
 	var construction_cost = Constants.Match.Units.CONSTRUCTION_COSTS[turret_scene.resource_path]
-	assert(_player.has_resources(construction_cost))
+	assert(
+		_player.has_resources(construction_cost),
+		"player should have enough resources at this point"
+	)
 	var ccs = get_tree().get_nodes_in_group("units").filter(
 		func(unit): return unit is CommandCenter and unit.player == _player
 	)
@@ -140,7 +149,7 @@ func _on_unit_died(unit):
 	elif unit is AATurret:
 		_enforce_number_of_aa_turrets()
 	else:
-		assert(false)  # unexpected flow
+		assert(false, "unexpected flow")
 
 
 func _on_unit_spawned(unit):

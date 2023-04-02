@@ -32,7 +32,7 @@ var _call_to_perform_during_process = null
 func _ready():
 	if player == null:
 		await find_parent("Match").ready
-	assert(player != null)
+	assert(player != null, "player cannot be null at this point")
 	player.changed.connect(_on_player_resource_changed)
 	_economy_controller.resources_required.connect(
 		_on_resource_request.bind(_economy_controller, ResourceRequestPriority.HIGH)
@@ -98,7 +98,7 @@ func _on_player_resource_changed():
 
 
 func _on_resource_request(resources, metadata, controller, priority):
-	assert(not _provisioning_ongoing)
+	assert(not _provisioning_ongoing, "resource request received during provisioning")
 	_resource_requests[priority].append(
 		{"controller": controller, "resources": resources, "metadata": metadata}
 	)

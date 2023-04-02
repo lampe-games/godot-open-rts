@@ -23,7 +23,7 @@ func _update_material():
 	elif _unit.is_in_group("adversary_units"):
 		_mesh_instance.material_override = ADVERSARY_UNIT_MATERIAL
 	else:
-		assert(false)
+		assert(false, "unexpected flow")
 
 
 func _on_unit_selected():

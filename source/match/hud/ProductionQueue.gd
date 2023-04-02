@@ -64,7 +64,10 @@ func _render_queue():
 
 func _update_queue():
 	if _production_manager.queue.size() > _queue_elements.get_child_count():
-		assert(_production_manager.queue.size() == _queue_elements.get_child_count() + 1)
+		assert(
+			_production_manager.queue.size() == _queue_elements.get_child_count() + 1,
+			"unexpected number of elements added to the queue"
+		)
 		var queue_element = _production_manager.queue.back()
 		var queue_element_node = ProductionQueueElement.instantiate()
 		queue_element_node.queue_element = queue_element

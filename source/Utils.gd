@@ -78,5 +78,5 @@ class RouletteWheel:
 			var accumulated_share = tuple[1]
 			if probability <= accumulated_share:
 				return value
-		assert(false)
+		assert(false, "unexpected flow")
 		return -1

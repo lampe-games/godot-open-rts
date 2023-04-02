@@ -47,7 +47,7 @@ func _on_sub_action_finished():
 		return
 	_sub_action = null
 	var structure_constructed = _try_constructing_structure()
-	assert(structure_constructed)
+	assert(structure_constructed, "structure construction should succeed")
 
 
 func _on_target_unit_constructed():

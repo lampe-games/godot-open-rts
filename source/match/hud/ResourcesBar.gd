@@ -14,7 +14,7 @@ func _ready():
 
 
 func setup(a_player):
-	assert(player == null)
+	assert(player == null, "player cannot be null")
 	player = a_player
 	_on_player_resource_changed()
 	player.changed.connect(_on_player_resource_changed)

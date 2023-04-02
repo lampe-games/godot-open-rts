@@ -8,7 +8,7 @@ var target_unit = null
 
 
 func _ready():
-	assert(target_unit != null)
+	assert(target_unit != null, "target unit was not provided")
 	_setup_unit_particles()
 	_setup_timer()
 	target_unit.hp -= _unit.attack_damage

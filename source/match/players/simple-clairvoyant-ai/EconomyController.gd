@@ -32,7 +32,10 @@ func setup(player):
 
 func provision(resources, metadata):
 	if metadata == "worker":
-		assert(resources == Constants.Match.Units.PRODUCTION_COSTS[WorkerScene.resource_path])
+		assert(
+			resources == Constants.Match.Units.PRODUCTION_COSTS[WorkerScene.resource_path],
+			"unexpected amount of resources"
+		)
 		_number_of_pending_worker_resource_requests -= 1
 		if _ccs.is_empty():
 			return
@@ -40,14 +43,15 @@ func provision(resources, metadata):
 		_number_of_pending_workers += 1
 	elif metadata == "cc":
 		assert(
-			resources == Constants.Match.Units.CONSTRUCTION_COSTS[CommandCenterScene.resource_path]
+			resources == Constants.Match.Units.CONSTRUCTION_COSTS[CommandCenterScene.resource_path],
+			"unexpected amount of resources"
 		)
 		_number_of_pending_cc_resource_requests -= 1
 		if _workers.is_empty():
 			return
 		_construct_cc()
 	else:
-		assert(false)  # unexpected flow
+		assert(false, "unexpected flow")
 
 
 func _attach_cc(cc):
@@ -122,7 +126,10 @@ func _construct_cc():
 	var construction_cost = Constants.Match.Units.CONSTRUCTION_COSTS[
 		CommandCenterScene.resource_path
 	]
-	assert(_player.has_resources(construction_cost) and not _workers.is_empty())
+	assert(
+		_player.has_resources(construction_cost),
+		"player should have enough resources at this point"
+	)
 	var unit_to_spawn = CommandCenterScene.instantiate()
 	var placement_position = Utils.Match.Unit.Placement.find_valid_position_radially(
 		_cc_base_position if _cc_base_position != null else _workers[0].global_position,
@@ -154,7 +161,7 @@ func _calculate_resource_collecting_statistics():
 			elif "resource_b" in resource_unit:
 				number_of_workers_per_resource_kind["resource_b"] += 1
 			else:
-				assert(false)  # unexpected flow
+				assert(false, "unexpected flow")
 	return number_of_workers_per_resource_kind
 
 

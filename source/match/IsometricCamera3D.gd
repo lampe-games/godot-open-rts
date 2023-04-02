@@ -27,8 +27,10 @@ var _camera_point_3d = null
 
 
 func _ready():
-	assert(projection == EXPECTED_PROJECTION)
-	assert(is_equal_approx(rotation_degrees.x, EXPECTED_X_ROTATION_DEGREES))
+	assert(projection == EXPECTED_PROJECTION, "unexpected projection")
+	assert(
+		is_equal_approx(rotation_degrees.x, EXPECTED_X_ROTATION_DEGREES), "unexptected X rotation"
+	)
 	_align_camera_properties_to_current_size()
 
 

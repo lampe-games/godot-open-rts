@@ -10,7 +10,7 @@ var target_unit = null
 
 
 func _ready():
-	assert(target_unit != null)
+	assert(target_unit != null, "target unit was not provided")
 	_rocket.hide()
 	_particles.hide()
 	target_unit.tree_exited.connect(queue_free)
