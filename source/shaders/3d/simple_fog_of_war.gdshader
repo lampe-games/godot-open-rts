@@ -4,7 +4,6 @@ render_mode unshaded;
 uniform vec4 color : source_color = vec4(vec3(0.0), 1.0);
 uniform sampler2D world_visibility_texture : hint_default_white, filter_linear, repeat_disable;
 uniform int texture_units_per_world_unit = 2;
-uniform float lowest_y_allowed = -0.1; // TODO: try getting rid of it using dx/dy
 uniform bool debug_texture_view = false;
 uniform sampler2D depth_texture : hint_depth_texture;
 
@@ -38,7 +37,7 @@ void fragment()
       INV_VIEW_MATRIX * inverse(PROJECTION_MATRIX) * vec4(normalized_device_coordinates, 1.0);
   world_position.xyz /= world_position.w;
 
-  if (depth == 1.0 || world_position.y < lowest_y_allowed)
+  if (depth == 1.0)
   {
     ALPHA = 1.0;
   }

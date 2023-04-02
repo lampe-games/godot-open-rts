@@ -82,9 +82,6 @@ fog_height_density = 1.2
 material = ExtResource("6_u47mu")
 size = Vector2(50, 50)
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_ge0xh"]
-size = Vector2(200, 200)
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_dua43"]
 size = Vector3(1, 1, 100)
 
@@ -117,7 +114,6 @@ render_priority = 1
 shader = ExtResource("13_jo8b7")
 shader_parameter/color = Color(0, 0, 0, 1)
 shader_parameter/texture_units_per_world_unit = 2
-shader_parameter/lowest_y_allowed = -0.1
 shader_parameter/debug_texture_view = false
 shader_parameter/world_visibility_texture = SubResource("ViewportTexture_7yqgo")
 
@@ -184,11 +180,6 @@ environment = SubResource("Environment_qxcnu")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 25)
 mesh = SubResource("PlaneMesh_5wwb3")
 skeleton = NodePath("../../../DummyContent")
-
-[node name="Background" type="MeshInstance3D" parent="Map/Geometry/Terrain"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -12.2756, 0)
-mesh = SubResource("PlaneMesh_ge0xh")
-skeleton = NodePath("../..")
 
 [node name="Boundry" type="Area3D" parent="Map/Geometry"]
 collision_layer = 2
