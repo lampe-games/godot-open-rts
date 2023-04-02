@@ -187,7 +187,6 @@ func _make_worker_collecting_resources(worker):
 
 func _retarget_workers_if_necessary():
 	var number_of_workers_per_resource_kind = _calculate_resource_collecting_statistics()
-	# TODO: fix in gdtoolkit
 	if (
 		abs(
 			(
