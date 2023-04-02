@@ -100,21 +100,21 @@ class Units:
 		"res://source/match/units/Drone.gd":
 		{
 			"sight_range": 10.0,
-			"hp": 3,
-			"hp_max": 3,
+			"hp": 6,
+			"hp_max": 6,
 		},
 		"res://source/match/units/Worker.gd":
 		{
 			"sight_range": 5.0,
-			"hp": 3,
-			"hp_max": 3,
+			"hp": 6,
+			"hp_max": 6,
 			"resources_max": 2,
 		},
 		"res://source/match/units/Helicopter.gd":
 		{
 			"sight_range": 8.0,
-			"hp": 5,
-			"hp_max": 5,
+			"hp": 10,
+			"hp_max": 10,
 			"attack_damage": 1,
 			"attack_interval": 1.0,
 			"attack_range": 5.0,
@@ -123,8 +123,8 @@ class Units:
 		"res://source/match/units/Tank.gd":
 		{
 			"sight_range": 8.0,
-			"hp": 5,
-			"hp_max": 5,
+			"hp": 10,
+			"hp_max": 10,
 			"attack_damage": 2,
 			"attack_interval": 0.75,
 			"attack_range": 5.0,
@@ -133,26 +133,26 @@ class Units:
 		"res://source/match/units/CommandCenter.gd":
 		{
 			"sight_range": 10.0,
-			"hp": 10,
-			"hp_max": 10,
+			"hp": 20,
+			"hp_max": 20,
 		},
 		"res://source/match/units/VehicleFactory.gd":
 		{
 			"sight_range": 8.0,
-			"hp": 8,
-			"hp_max": 8,
+			"hp": 16,
+			"hp_max": 16,
 		},
 		"res://source/match/units/AircraftFactory.gd":
 		{
 			"sight_range": 8.0,
-			"hp": 8,
-			"hp_max": 8,
+			"hp": 16,
+			"hp_max": 16,
 		},
 		"res://source/match/units/AntiGroundTurret.gd":
 		{
 			"sight_range": 8.0,
-			"hp": 4,
-			"hp_max": 4,
+			"hp": 8,
+			"hp_max": 8,
 			"attack_damage": 2,
 			"attack_interval": 1.0,
 			"attack_range": 8.0,
@@ -161,8 +161,8 @@ class Units:
 		"res://source/match/units/AntiAirTurret.gd":
 		{
 			"sight_range": 8.0,
-			"hp": 4,
-			"hp_max": 4,
+			"hp": 8,
+			"hp_max": 8,
 			"attack_damage": 2,
 			"attack_interval": 0.75,
 			"attack_range": 8.0,
