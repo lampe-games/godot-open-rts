@@ -3,7 +3,7 @@ extends Node3D
 enum BlueprintPositionValidity {
 	VALID,
 	COLLIDES_WITH_OBJECT,
-	NOT_NAVIGABLE,  # TODO: rename
+	NOT_NAVIGABLE,
 	NOT_ENOUGH_RESOURCES,
 	OUT_OF_MAP,
 }
