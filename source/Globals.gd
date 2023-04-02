@@ -17,6 +17,8 @@ func _unhandled_input(event):
 
 
 func _toggle_god_mode():
+	if not FeatureFlags.god_mode:
+		return
 	god_mode = not god_mode
 	if god_mode:
 		Signals.god_mode_enabled.emit()

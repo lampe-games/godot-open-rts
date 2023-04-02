@@ -5,3 +5,4 @@
 [node name="FeatureFlags" type="Node"]
 script = ExtResource("1_wihie")
 show_minimap = false
+god_mode = true

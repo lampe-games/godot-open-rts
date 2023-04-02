@@ -9,3 +9,4 @@ extends Node
 @export var show_minimap = true
 @export_group("Match/Debug")
 @export var frame_incrementer = false
+@export var god_mode = false
