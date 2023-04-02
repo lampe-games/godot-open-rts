@@ -55,13 +55,10 @@ func _select_units(units_to_select):
 
 func _rebase_topdown_polygon_2d_to_different_plane(topdown_polygon_2d, plane):
 	var rebased_topdown_polygon_2d = []
-	# TODO: fix once fixed in gdtoolkit
-	# gdlint: ignore=constant-name
-	const original_y_3d = Constants.Match.Terrain.PLANE.d
 	var camera = get_viewport().get_camera_3d()
 	for polygon_point_2d in topdown_polygon_2d:
 		var screen_point_2d = camera.unproject_position(
-			Vector3(polygon_point_2d.x, original_y_3d, polygon_point_2d.y)
+			Vector3(polygon_point_2d.x, Constants.Match.Terrain.PLANE.d, polygon_point_2d.y)
 		)
 		var rebased_point_3d = camera.get_ray_intersection_with_plane(screen_point_2d, plane)
 		rebased_topdown_polygon_2d.append(Vector2(rebased_point_3d.x, rebased_point_3d.z))
