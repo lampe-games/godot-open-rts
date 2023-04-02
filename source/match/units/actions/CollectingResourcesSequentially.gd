@@ -122,13 +122,8 @@ func _find_closest_resource_unit_in_nearby_area():
 
 
 static func _find_cc_closest_to_unit(unit):
-	var ccs_of_the_same_player = (
-		unit
-		. get_tree()
-		. get_nodes_in_group(
-			"player_{0}_units".format([unit.find_parent("Match").players.find(unit.player)])
-		)
-		. filter(func(a_unit): return a_unit is CommandCenter)
+	var ccs_of_the_same_player = unit.get_tree().get_nodes_in_group("units").filter(
+		func(a_unit): return a_unit is CommandCenter and a_unit.player == unit.player
 	)
 	if ccs_of_the_same_player.is_empty():
 		return null

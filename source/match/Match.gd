@@ -181,7 +181,6 @@ func _setup_unit(unit, player):
 	unit.player = player
 	unit.color = unit.player.color
 	unit.add_to_group("units")
-	unit.add_to_group("player_{0}_units".format([players.find(player)]))
 	if player == controlled_player:
 		unit.add_to_group("controlled_units")
 	else:
@@ -202,7 +201,9 @@ func _move_camera_to_player_units_crowd_pivot(player):
 func _assume_control_of_player_units(player):
 	if player == null:
 		return
-	for unit in get_tree().get_nodes_in_group("player_{0}_units".format([players.find(player)])):
+	for unit in get_tree().get_nodes_in_group("units").filter(
+		func(a_unit): return a_unit.player == player
+	):
 		unit.add_to_group("controlled_units")
 		unit.remove_from_group("adversary_units")
 
@@ -210,7 +211,9 @@ func _assume_control_of_player_units(player):
 func _renounce_control_of_player_units(player):
 	if player == null:
 		return
-	for unit in get_tree().get_nodes_in_group("player_{0}_units".format([players.find(player)])):
+	for unit in get_tree().get_nodes_in_group("units").filter(
+		func(a_unit): return a_unit.player == player
+	):
 		unit.add_to_group("adversary_units")
 		unit.remove_from_group("controlled_units")
 
@@ -218,12 +221,16 @@ func _renounce_control_of_player_units(player):
 func _reveal_player_units(player):
 	if player == null:
 		return
-	for unit in get_tree().get_nodes_in_group("player_{0}_units".format([players.find(player)])):
+	for unit in get_tree().get_nodes_in_group("units").filter(
+		func(a_unit): return a_unit.player == player
+	):
 		unit.add_to_group("revealed_units")
 
 
 func _conceal_player_units(player):
 	if player == null:
 		return
-	for unit in get_tree().get_nodes_in_group("player_{0}_units".format([players.find(player)])):
+	for unit in get_tree().get_nodes_in_group("units").filter(
+		func(a_unit): return a_unit.player == player
+	):
 		unit.remove_from_group("revealed_units")
