@@ -59,15 +59,15 @@ class Units:
 	}
 	const BUILDING_BLUEPRINTS = {
 		"res://source/match/units/CommandCenter.tscn":
-		"res://source/match/units/building-blueprints/CommandCenter.tscn",
+		"res://source/match/units/structure-geometries/CommandCenter.tscn",
 		"res://source/match/units/VehicleFactory.tscn":
-		"res://source/match/units/building-blueprints/VehicleFactory.tscn",
+		"res://source/match/units/structure-geometries/VehicleFactory.tscn",
 		"res://source/match/units/AircraftFactory.tscn":
-		"res://source/match/units/building-blueprints/AircraftFactory.tscn",
+		"res://source/match/units/structure-geometries/AircraftFactory.tscn",
 		"res://source/match/units/AntiGroundTurret.tscn":
-		"res://source/match/units/building-blueprints/AntiGroundTurret.tscn",
+		"res://source/match/units/structure-geometries/AntiGroundTurret.tscn",
 		"res://source/match/units/AntiAirTurret.tscn":
-		"res://source/match/units/building-blueprints/AntiAirTurret.tscn",
+		"res://source/match/units/structure-geometries/AntiAirTurret.tscn",
 	}
 	const CONSTRUCTION_COSTS = {
 		"res://source/match/units/CommandCenter.tscn":

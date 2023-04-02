@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://cm3iqdsdeo625"]
+
+[ext_resource type="PackedScene" uid="uid://bq2ttmmuk86ce" path="res://assets/models/kenney-spacekit/turret_double.glb" id="1_5u8o7"]
+
+[node name="Geometry" type="Node3D"]
+
+[node name="turret_double" parent="." instance=ExtResource("1_5u8o7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -1.5)
+
+[node name="turret" parent="turret_double/tmpParent/turret_double2" index="0"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0, 0.3, -0.025)
+
+[editable path="turret_double"]

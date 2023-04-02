@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://inepf56pyube"]
+
+[ext_resource type="PackedScene" uid="uid://ju36oirvvb61" path="res://assets/models/kenney-spacekit/hangar_smallA.glb" id="1_5xn15"]
+
+[node name="Geometry" type="Node3D"]
+
+[node name="Transforms" type="Node3D" parent="."]
+transform = Transform3D(0.95, 0, 0, 0, 0.95, 0, 0, 0, 0.95, 0, 0, 0)
+
+[node name="hangar_smallA" parent="Transforms" instance=ExtResource("1_5xn15")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -1.5)

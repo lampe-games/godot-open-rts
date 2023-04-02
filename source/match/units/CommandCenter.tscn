@@ -1,21 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://ct0ejt0trkhrf"]
+[gd_scene load_steps=9 format=3 uid="uid://ct0ejt0trkhrf"]
 
 [ext_resource type="Script" path="res://source/match/units/CommandCenter.gd" id="1_hpo2s"]
 [ext_resource type="PackedScene" uid="uid://cgsi062w5fjia" path="res://source/match/units/traits/Highlight.tscn" id="2_c41i5"]
+[ext_resource type="PackedScene" uid="uid://bxx81l3t16rrs" path="res://source/match/units/structure-geometries/CommandCenter.tscn" id="2_hwq4d"]
 [ext_resource type="PackedScene" uid="uid://3c1h14nqdumt" path="res://source/match/units/traits/Selection.tscn" id="3_slmue"]
 [ext_resource type="PackedScene" uid="uid://d4cwip5hpxlmo" path="res://source/match/units/traits/MovementObstacle.tscn" id="4_f5u8t"]
 [ext_resource type="PackedScene" uid="uid://c3ssj2p6voauk" path="res://source/match/units/traits/HealthBar.tscn" id="5_xuulo"]
-[ext_resource type="PackedScene" uid="uid://k4ndxp8y5df8" path="res://assets/models/kenney-spacekit/corridor_cross.glb" id="6_f5pwu"]
-[ext_resource type="PackedScene" uid="uid://c7inl26bqxtge" path="res://assets/models/kenney-spacekit/corridor_corner.glb" id="7_8s0db"]
-[ext_resource type="PackedScene" uid="uid://c3etvorkvxlk3" path="res://assets/models/kenney-spacekit/corridor_detailed.glb" id="9_2busv"]
-[ext_resource type="PackedScene" uid="uid://kcutx3wwwrwq" path="res://assets/models/kenney-spacekit/corridor_open.glb" id="10_a8cpj"]
-[ext_resource type="PackedScene" uid="uid://bph2if78dagfm" path="res://assets/models/kenney-spacekit/corridor_windowClosed.glb" id="11_l6vfv"]
-[ext_resource type="PackedScene" uid="uid://di2s7105bddex" path="res://assets/models/kenney-spacekit/corridor_cornerRoundWindow.glb" id="12_omuwr"]
-[ext_resource type="PackedScene" uid="uid://dmjv7jpoycof3" path="res://assets/models/kenney-spacekit/corridor.glb" id="12_rp7wv"]
-[ext_resource type="PackedScene" uid="uid://dmonlpdfb4yga" path="res://assets/models/kenney-spacekit/corridor_end.glb" id="13_dsk2n"]
-[ext_resource type="PackedScene" uid="uid://d4kcuw5fuo7u4" path="res://assets/models/kenney-spacekit/machine_generator.glb" id="14_o3elw"]
-[ext_resource type="PackedScene" uid="uid://chdvounyjvbof" path="res://assets/models/kenney-spacekit/machine_wireless.glb" id="15_ew7v2"]
-[ext_resource type="PackedScene" uid="uid://bu8d3o14vaesp" path="res://assets/models/kenney-spacekit/barrels.glb" id="16_s1jkw"]
 [ext_resource type="PackedScene" uid="uid://d4cm4yhtf11ur" path="res://source/match/units/traits/Targetability.tscn" id="17_dco2r"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_pav5c"]
@@ -27,50 +17,7 @@ collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_hpo2s")
 
-[node name="Geometry" type="Node3D" parent="."]
-transform = Transform3D(-0.494975, 0, 0.494975, 0, 0.7, 0, -0.494975, 0, -0.494975, 0, 0, -0.4)
-
-[node name="corridor_cross" parent="Geometry" instance=ExtResource("6_f5pwu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -1.5)
-
-[node name="corridor_corner" parent="Geometry" instance=ExtResource("7_8s0db")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.5, 0, -2)
-
-[node name="corridor_corner2" parent="Geometry" instance=ExtResource("7_8s0db")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.5, 0, 0)
-
-[node name="corridor_detailed" parent="Geometry" instance=ExtResource("9_2busv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -2.5)
-
-[node name="corridor_detailed2" parent="Geometry" instance=ExtResource("9_2busv")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.5, 0, 0)
-
-[node name="corridor_open" parent="Geometry" instance=ExtResource("10_a8cpj")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.5, 0, 2)
-
-[node name="corridor_windowClosed" parent="Geometry" instance=ExtResource("11_l6vfv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -0.5)
-
-[node name="corridor_windowClosed2" parent="Geometry" instance=ExtResource("11_l6vfv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -2.5)
-
-[node name="corridor2" parent="Geometry" instance=ExtResource("12_rp7wv")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.5, 0, 2)
-
-[node name="corridor_end" parent="Geometry" instance=ExtResource("13_dsk2n")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
-
-[node name="machine_generator" parent="Geometry" instance=ExtResource("14_o3elw")]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.7, 0, 2.5)
-
-[node name="machine_wireless" parent="Geometry" instance=ExtResource("15_ew7v2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1, -1.5)
-
-[node name="barrels" parent="Geometry" instance=ExtResource("16_s1jkw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 0, -2.5)
-
-[node name="corridor_cornerRoundWindow" parent="Geometry" instance=ExtResource("12_omuwr")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.5)
+[node name="Geometry" parent="." instance=ExtResource("2_hwq4d")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
@@ -94,3 +41,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 size = Vector2(380, 10)
 
 [node name="Targetability" parent="." instance=ExtResource("17_dco2r")]
+
+[editable path="Geometry"]

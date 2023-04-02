@@ -1,0 +1,60 @@
+[gd_scene load_steps=12 format=3 uid="uid://bxx81l3t16rrs"]
+
+[ext_resource type="PackedScene" uid="uid://k4ndxp8y5df8" path="res://assets/models/kenney-spacekit/corridor_cross.glb" id="1_y4smr"]
+[ext_resource type="PackedScene" uid="uid://c7inl26bqxtge" path="res://assets/models/kenney-spacekit/corridor_corner.glb" id="2_0bxmp"]
+[ext_resource type="PackedScene" uid="uid://c3etvorkvxlk3" path="res://assets/models/kenney-spacekit/corridor_detailed.glb" id="3_x8lvk"]
+[ext_resource type="PackedScene" uid="uid://kcutx3wwwrwq" path="res://assets/models/kenney-spacekit/corridor_open.glb" id="4_tv1rd"]
+[ext_resource type="PackedScene" uid="uid://bph2if78dagfm" path="res://assets/models/kenney-spacekit/corridor_windowClosed.glb" id="5_431y3"]
+[ext_resource type="PackedScene" uid="uid://dmjv7jpoycof3" path="res://assets/models/kenney-spacekit/corridor.glb" id="6_7pg2y"]
+[ext_resource type="PackedScene" uid="uid://dmonlpdfb4yga" path="res://assets/models/kenney-spacekit/corridor_end.glb" id="7_eglt5"]
+[ext_resource type="PackedScene" uid="uid://d4kcuw5fuo7u4" path="res://assets/models/kenney-spacekit/machine_generator.glb" id="8_614pf"]
+[ext_resource type="PackedScene" uid="uid://chdvounyjvbof" path="res://assets/models/kenney-spacekit/machine_wireless.glb" id="9_xsk2y"]
+[ext_resource type="PackedScene" uid="uid://bu8d3o14vaesp" path="res://assets/models/kenney-spacekit/barrels.glb" id="10_aoaae"]
+[ext_resource type="PackedScene" uid="uid://di2s7105bddex" path="res://assets/models/kenney-spacekit/corridor_cornerRoundWindow.glb" id="11_53fvr"]
+
+[node name="Geometry" type="Node3D"]
+
+[node name="Transforms" type="Node3D" parent="."]
+transform = Transform3D(-0.494975, 0, 0.494975, 0, 0.7, 0, -0.494975, 0, -0.494975, 0, 0, -0.4)
+
+[node name="corridor_cross" parent="Transforms" instance=ExtResource("1_y4smr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -1.5)
+
+[node name="corridor_corner" parent="Transforms" instance=ExtResource("2_0bxmp")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.5, 0, -2)
+
+[node name="corridor_corner2" parent="Transforms" instance=ExtResource("2_0bxmp")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.5, 0, 0)
+
+[node name="corridor_detailed" parent="Transforms" instance=ExtResource("3_x8lvk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -2.5)
+
+[node name="corridor_detailed2" parent="Transforms" instance=ExtResource("3_x8lvk")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.5, 0, 0)
+
+[node name="corridor_open" parent="Transforms" instance=ExtResource("4_tv1rd")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.5, 0, 2)
+
+[node name="corridor_windowClosed" parent="Transforms" instance=ExtResource("5_431y3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -0.5)
+
+[node name="corridor_windowClosed2" parent="Transforms" instance=ExtResource("5_431y3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -2.5)
+
+[node name="corridor2" parent="Transforms" instance=ExtResource("6_7pg2y")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.5, 0, 2)
+
+[node name="corridor_end" parent="Transforms" instance=ExtResource("7_eglt5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
+
+[node name="machine_generator" parent="Transforms" instance=ExtResource("8_614pf")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.7, 0, 2.5)
+
+[node name="machine_wireless" parent="Transforms" instance=ExtResource("9_xsk2y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1, -1.5)
+
+[node name="barrels" parent="Transforms" instance=ExtResource("10_aoaae")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 0, -2.5)
+
+[node name="corridor_cornerRoundWindow" parent="Transforms" instance=ExtResource("11_53fvr")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.5)
