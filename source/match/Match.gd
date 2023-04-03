@@ -31,6 +31,7 @@ var map = HardcodedMap.new()  # TODO: use actual map
 @onready var _camera = find_child("IsometricCamera3D")
 @onready var _fog_of_war = find_child("FogOfWar")
 @onready var _players = find_child("Players")
+@onready var _predefined_units = $Units
 
 
 func _ready():
@@ -138,7 +139,7 @@ func _setup_player_units():
 	var player_to_spawn_point_mapping = _caclulate_player_to_spawn_point_mapping()
 	for player_id in range(players.size()):
 		var player = players[player_id]
-		var predefined_units_root = find_child("Map").find_child("Player{0}".format([player_id]))
+		var predefined_units_root = _predefined_units.find_child("Player{0}".format([player_id]))
 		var predefined_units = (
 			predefined_units_root.get_children() if predefined_units_root != null else []
 		)

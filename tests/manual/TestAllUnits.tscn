@@ -47,35 +47,35 @@ script = ExtResource("2_ghr3h")
 allow_resources_deficit_spending = true
 settings = SubResource("Resource_rpdec")
 
-[node name="CommandCenter" parent="Map/Units/Player0" index="0" instance=ExtResource("2_rm00b")]
-transform = Transform3D(-0.996198, 0, -0.087121, 0, 1, 0, 0.087121, 0, -0.996198, 12.2249, 0, 10.6336)
-
-[node name="AircraftFactory" parent="Map/Units/Player0" index="1" instance=ExtResource("3_rq1vh")]
-transform = Transform3D(-0.22473, 0, 0.974421, 0, 1, 0, -0.974421, 0, -0.22473, 5.13607, 0, 11.8659)
-
-[node name="VehicleFactory" parent="Map/Units/Player0" index="2" instance=ExtResource("4_m1xri")]
-transform = Transform3D(0.802099, 0, 0.597191, 0, 1, 0, -0.597191, 0, 0.802099, 6.69677, 0, 5.61306)
-
-[node name="AntiGroundTurret" parent="Map/Units/Player0" index="3" instance=ExtResource("5_g67iu")]
-transform = Transform3D(-0.452979, 0, -0.891521, 0, 1, 0, 0.891521, 0, -0.452979, 22.2618, 7.62939e-06, 9.86056)
-
-[node name="AntiAirTurret" parent="Map/Units/Player0" index="4" instance=ExtResource("6_lglnp")]
-transform = Transform3D(-0.775077, 0, -0.631867, 0, 1, 0, 0.631867, 0, -0.775077, 20.3453, -3.8147e-06, 17.1744)
-
-[node name="Drone" parent="Map/Units/Player0" index="5" instance=ExtResource("4_3o35x")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.9318, 0, 4.14556)
-
-[node name="Helicopter" parent="Map/Units/Player0" index="6" instance=ExtResource("3_0s0q8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.67897, 0, 3.61146)
-
-[node name="Tank" parent="Map/Units/Player0" index="7" instance=ExtResource("9_csgr3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.2469, 0, 5.45996)
-
-[node name="Worker" parent="Map/Units/Player0" index="8" instance=ExtResource("10_c3eov")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5856, 0, 14.6178)
-
 [node name="ScreenOverlay" parent="FogOfWar" index="1"]
 material_override = SubResource("ShaderMaterial_67o07")
+
+[node name="CommandCenter" parent="Units/Player0" index="0" instance=ExtResource("2_rm00b")]
+transform = Transform3D(-0.996198, 0, -0.087121, 0, 1, 0, 0.087121, 0, -0.996198, 12.2249, 0, 10.6336)
+
+[node name="AircraftFactory" parent="Units/Player0" index="1" instance=ExtResource("3_rq1vh")]
+transform = Transform3D(-0.22473, 0, 0.974421, 0, 1, 0, -0.974421, 0, -0.22473, 5.13607, 0, 11.8659)
+
+[node name="VehicleFactory" parent="Units/Player0" index="2" instance=ExtResource("4_m1xri")]
+transform = Transform3D(0.802099, 0, 0.597191, 0, 1, 0, -0.597191, 0, 0.802099, 6.69677, 0, 5.61306)
+
+[node name="AntiGroundTurret" parent="Units/Player0" index="3" instance=ExtResource("5_g67iu")]
+transform = Transform3D(-0.452979, 0, -0.891521, 0, 1, 0, 0.891521, 0, -0.452979, 22.2618, 7.62939e-06, 9.86056)
+
+[node name="AntiAirTurret" parent="Units/Player0" index="4" instance=ExtResource("6_lglnp")]
+transform = Transform3D(-0.775077, 0, -0.631867, 0, 1, 0, 0.631867, 0, -0.775077, 20.3453, -3.8147e-06, 17.1744)
+
+[node name="Drone" parent="Units/Player0" index="5" instance=ExtResource("4_3o35x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.9318, 0, 4.14556)
+
+[node name="Helicopter" parent="Units/Player0" index="6" instance=ExtResource("3_0s0q8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.67897, 0, 3.61146)
+
+[node name="Tank" parent="Units/Player0" index="7" instance=ExtResource("9_csgr3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.2469, 0, 5.45996)
+
+[node name="Worker" parent="Units/Player0" index="8" instance=ExtResource("10_c3eov")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5856, 0, 14.6178)
 
 [node name="TextureRect" parent="HUD/MarginContainer/Minimap/MarginContainer" index="0"]
 texture = SubResource("ViewportTexture_38cip")

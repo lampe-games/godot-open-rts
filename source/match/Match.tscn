@@ -1,13 +1,12 @@
-[gd_scene load_steps=54 format=3 uid="uid://camns8fqod8d4"]
+[gd_scene load_steps=50 format=3 uid="uid://camns8fqod8d4"]
 
 [ext_resource type="Script" path="res://source/match/Match.gd" id="1_1555u"]
 [ext_resource type="Script" path="res://source/match/IsometricCamera3D.gd" id="1_qb2ry"]
 [ext_resource type="Script" path="res://source/model/PlayerSettings.gd" id="2_issh2"]
 [ext_resource type="Script" path="res://source/model/MatchSettings.gd" id="3_k87ed"]
 [ext_resource type="Script" path="res://source/match/FogOfWar.gd" id="5_eb52t"]
-[ext_resource type="PackedScene" uid="uid://bf3jjdafqvh0w" path="res://source/match/units/non-player/ResourceA.tscn" id="5_f840u"]
 [ext_resource type="PackedScene" uid="uid://co800e4shs7bh" path="res://source/generic-scenes-and-nodes/3d/RectangularSelection3D.tscn" id="5_yi0pu"]
-[ext_resource type="PackedScene" uid="uid://bufgjfa3ne3uk" path="res://source/match/units/non-player/ResourceB.tscn" id="6_7kua8"]
+[ext_resource type="PackedScene" uid="uid://cbe63rdjw7y4p" path="res://source/match/maps/PlainAndSimple.tscn" id="6_au6gf"]
 [ext_resource type="Material" uid="uid://co8vfcoqqs5i8" path="res://source/match/resources/materials/terrain.material.tres" id="6_u47mu"]
 [ext_resource type="PackedScene" uid="uid://clbjgy724q2si" path="res://source/generic-scenes-and-nodes/2d/DynamicCircle2D.tscn" id="6_ux0ef"]
 [ext_resource type="Script" path="res://source/match/Terrain.gd" id="7_ccpu4"]
@@ -78,19 +77,11 @@ fog_density = 0.0016
 fog_height = 0.25
 fog_height_density = 1.2
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_5wwb3"]
+[sub_resource type="PlaneMesh" id="PlaneMesh_fmyt8"]
+resource_local_to_scene = true
 material = ExtResource("6_u47mu")
 size = Vector2(50, 50)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q5xfu"]
-shading_mode = 0
-albedo_color = Color(0, 0, 0, 1)
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_c56pn"]
-size = Vector2(1000, 1000)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_dua43"]
-size = Vector3(1, 1, 100)
+center_offset = Vector3(25, 0, 25)
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_jt7ud"]
 data = PackedVector3Array(25, 0, 25, -25, 0, 25, 25, 0, -25, -25, 0, 25, -25, 0, -25, 25, 0, -25)
@@ -179,132 +170,10 @@ environment = SubResource("Environment_qxcnu")
 
 [node name="RectangularSelection3D" parent="." instance=ExtResource("5_yi0pu")]
 
-[node name="Map" type="Node3D" parent="."]
+[node name="Map" parent="." instance=ExtResource("6_au6gf")]
 
-[node name="Geometry" type="Node3D" parent="Map"]
-
-[node name="Terrain" type="MeshInstance3D" parent="Map/Geometry"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 25)
-mesh = SubResource("PlaneMesh_5wwb3")
-skeleton = NodePath("../../../DummyContent")
-
-[node name="BlackBackgroundFixingAntiAliasingBug" type="MeshInstance3D" parent="Map/Geometry/Terrain"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
-material_override = SubResource("StandardMaterial3D_q5xfu")
-mesh = SubResource("PlaneMesh_c56pn")
-
-[node name="Boundry" type="Area3D" parent="Map/Geometry"]
-collision_layer = 2
-collision_mask = 0
-input_ray_pickable = false
-monitoring = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Geometry/Boundry"]
-shape = SubResource("BoxShape3D_dua43")
-
-[node name="Boundry2" type="Area3D" parent="Map/Geometry"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
-collision_layer = 2
-collision_mask = 0
-input_ray_pickable = false
-monitoring = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Geometry/Boundry2"]
-shape = SubResource("BoxShape3D_dua43")
-
-[node name="Boundry3" type="Area3D" parent="Map/Geometry"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 0, 0)
-collision_layer = 2
-collision_mask = 0
-input_ray_pickable = false
-monitoring = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Geometry/Boundry3"]
-shape = SubResource("BoxShape3D_dua43")
-
-[node name="Boundry4" type="Area3D" parent="Map/Geometry"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 50)
-collision_layer = 2
-collision_mask = 0
-input_ray_pickable = false
-monitoring = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Geometry/Boundry4"]
-shape = SubResource("BoxShape3D_dua43")
-
-[node name="SpawnPoints" type="Node3D" parent="Map"]
-
-[node name="Marker3D" type="Marker3D" parent="Map/SpawnPoints"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 10, 0, 7)
-
-[node name="Marker3D2" type="Marker3D" parent="Map/SpawnPoints"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 40, 0, 7)
-
-[node name="Marker3D3" type="Marker3D" parent="Map/SpawnPoints"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 40, 0, 43)
-
-[node name="Marker3D4" type="Marker3D" parent="Map/SpawnPoints"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 10, 0, 43)
-
-[node name="Units" type="Node3D" parent="Map"]
-
-[node name="Player0" type="Node3D" parent="Map/Units"]
-
-[node name="Player1" type="Node3D" parent="Map/Units"]
-
-[node name="Misc" type="Node3D" parent="Map"]
-
-[node name="ResourceA" parent="Map/Misc" instance=ExtResource("5_f840u")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.52981, -7.15256e-06, 15.5708)
-
-[node name="ResourceA2" parent="Map/Misc" instance=ExtResource("5_f840u")]
-transform = Transform3D(0.157813, 0, -0.987469, 0, 1, 0, 0.987469, 0, 0.157813, 9.4963, -7.15256e-06, 15.3833)
-resource_a = 5
-
-[node name="ResourceA3" parent="Map/Misc" instance=ExtResource("5_f840u")]
-transform = Transform3D(-0.984384, 0, 0.176037, 0, 1, 0, -0.176037, 0, -0.984384, 9.07351, -7.62939e-06, 17.1366)
-
-[node name="ResourceA4" parent="Map/Misc" instance=ExtResource("5_f840u")]
-transform = Transform3D(-0.878559, 0, -0.477634, 0, 1, 0, 0.477634, 0, -0.878559, 40.5191, -5.72204e-06, 14.7519)
-
-[node name="ResourceA5" parent="Map/Misc" instance=ExtResource("5_f840u")]
-transform = Transform3D(-0.878559, 0, -0.477634, 0, 1, 0, 0.477634, 0, -0.878559, 41.412, -5.72204e-06, 13.361)
-resource_a = 5
-
-[node name="ResourceA6" parent="Map/Misc" instance=ExtResource("5_f840u")]
-transform = Transform3D(-0.878559, 0, -0.477634, 0, 1, 0, 0.477634, 0, -0.878559, 42.5933, -7.62939e-06, 14.65)
-
-[node name="ResourceB" parent="Map/Misc" instance=ExtResource("6_7kua8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.2571, -7.62939e-06, 15.2579)
-
-[node name="ResourceB2" parent="Map/Misc" instance=ExtResource("6_7kua8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.3143, -5.72204e-06, 14.8547)
-
-[node name="ResourceA7" parent="Map/Misc" instance=ExtResource("5_f840u")]
-transform = Transform3D(-0.878559, 0, -0.477634, 0, 1, 0, 0.477634, 0, -0.878559, 40.685, -5.72204e-06, 34.3027)
-
-[node name="ResourceA8" parent="Map/Misc" instance=ExtResource("5_f840u")]
-transform = Transform3D(-0.878559, 0, -0.477634, 0, 1, 0, 0.477634, 0, -0.878559, 41.533, -5.72204e-06, 35.8383)
-resource_a = 5
-
-[node name="ResourceA9" parent="Map/Misc" instance=ExtResource("5_f840u")]
-transform = Transform3D(-0.878559, 0, -0.477634, 0, 1, 0, 0.477634, 0, -0.878559, 42.7592, -7.62939e-06, 34.2008)
-
-[node name="ResourceB3" parent="Map/Misc" instance=ExtResource("6_7kua8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.4802, -5.72204e-06, 34.4055)
-
-[node name="ResourceA10" parent="Map/Misc" instance=ExtResource("5_f840u")]
-transform = Transform3D(0.960455, 0, 0.278438, 0, 1, 0, -0.278438, 0, 0.960455, 9.6306, -5.72204e-06, 33.1921)
-
-[node name="ResourceA11" parent="Map/Misc" instance=ExtResource("5_f840u")]
-transform = Transform3D(0.960455, 0, 0.278438, 0, 1, 0, -0.278438, 0, 0.960455, 8.46063, -5.72204e-06, 34.3596)
-resource_a = 5
-
-[node name="ResourceA12" parent="Map/Misc" instance=ExtResource("5_f840u")]
-transform = Transform3D(0.960455, 0, 0.278438, 0, 1, 0, -0.278438, 0, 0.960455, 7.58274, -7.62939e-06, 32.8476)
-
-[node name="ResourceB4" parent="Map/Misc" instance=ExtResource("6_7kua8")]
-transform = Transform3D(-0.976807, 0, 0.214122, 0, 1, 0, -0.214122, 0, -0.976807, 13.7599, -5.72204e-06, 33.992)
+[node name="Terrain" parent="Map/Geometry" index="1"]
+mesh = SubResource("PlaneMesh_fmyt8")
 
 [node name="Terrain" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 0, 50)
@@ -403,6 +272,28 @@ mesh = SubResource("PlaneMesh_u4w5p")
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="Navigation/Terrain"]
 visible = false
 navigation_mesh = SubResource("NavigationMesh_exfwj")
+
+[node name="Units" type="Node3D" parent="."]
+
+[node name="Player0" type="Node3D" parent="Units"]
+
+[node name="Player1" type="Node3D" parent="Units"]
+
+[node name="Player2" type="Node3D" parent="Units"]
+
+[node name="Player3" type="Node3D" parent="Units"]
+
+[node name="Player4" type="Node3D" parent="Units"]
+
+[node name="Player5" type="Node3D" parent="Units"]
+
+[node name="Player6" type="Node3D" parent="Units"]
+
+[node name="Player7" type="Node3D" parent="Units"]
+
+[node name="Player8" type="Node3D" parent="Units"]
+
+[node name="Player9" type="Node3D" parent="Units"]
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -519,3 +410,5 @@ rectangular_selection_3d = NodePath("../../RectangularSelection3D")
 
 [node name="MatchEndHandler" parent="Handlers" instance=ExtResource("26_4d7im")]
 visible = false
+
+[editable path="Map"]

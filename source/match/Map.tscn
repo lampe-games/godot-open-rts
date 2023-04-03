@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://b7c1crf36x1li"]
+
+[ext_resource type="Script" path="res://source/match/Map.gd" id="1_1svvv"]
+[ext_resource type="Material" uid="uid://co8vfcoqqs5i8" path="res://source/match/resources/materials/terrain.material.tres" id="1_81yiw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ve5fg"]
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_0fj4w"]
+size = Vector2(1000, 1000)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ypksr"]
+resource_local_to_scene = true
+material = ExtResource("1_81yiw")
+size = Vector2(50, 50)
+center_offset = Vector3(25, 0, 25)
+
+[node name="Map" type="Node3D"]
+script = ExtResource("1_1svvv")
+
+[node name="Geometry" type="Node3D" parent="."]
+
+[node name="BlackBackgroundFixingAntiAliasingBug" type="MeshInstance3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+material_override = SubResource("StandardMaterial3D_ve5fg")
+mesh = SubResource("PlaneMesh_0fj4w")
+skeleton = NodePath("../Terrain")
+
+[node name="Terrain" type="MeshInstance3D" parent="Geometry"]
+mesh = SubResource("PlaneMesh_ypksr")
+skeleton = NodePath("../../../DummyContent")
+
+[node name="SpawnPoints" type="Node3D" parent="."]
+
+[node name="Resources" type="Node3D" parent="."]
