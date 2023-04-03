@@ -25,11 +25,9 @@ script = ExtResource("1_1svvv")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 material_override = SubResource("StandardMaterial3D_ve5fg")
 mesh = SubResource("PlaneMesh_0fj4w")
-skeleton = NodePath("../Terrain")
 
 [node name="Terrain" type="MeshInstance3D" parent="Geometry"]
 mesh = SubResource("PlaneMesh_ypksr")
-skeleton = NodePath("../../../DummyContent")
 
 [node name="SpawnPoints" type="Node3D" parent="."]
 

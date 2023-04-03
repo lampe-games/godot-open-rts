@@ -166,8 +166,6 @@ directional_shadow_pancake_size = 100.0
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_qxcnu")
 
-[node name="DummyContent" type="Node3D" parent="."]
-
 [node name="RectangularSelection3D" parent="." instance=ExtResource("5_yi0pu")]
 
 [node name="Map" parent="." instance=ExtResource("6_au6gf")]
