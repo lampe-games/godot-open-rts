@@ -11,6 +11,7 @@ var _unit_to_circles_mapping = {}
 @onready var _revealer = find_child("Revealer")
 @onready var _fog_viewport = find_child("FogViewport")
 @onready var _fog_viewport_container = find_child("FogViewportContainer")
+@onready var _combined_viewport = find_child("CombinedViewport")
 
 
 func _ready():
@@ -35,6 +36,11 @@ func _physics_process(_delta):
 
 func reveal():
 	_revealer.show()
+
+
+func resize(size: Vector2):
+	_fog_viewport.size = size
+	_combined_viewport.size = size
 
 
 func _unit_is_mapped(unit):

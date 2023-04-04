@@ -26,7 +26,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 material_override = SubResource("StandardMaterial3D_ve5fg")
 mesh = SubResource("PlaneMesh_0fj4w")
 
-[node name="Terrain" type="MeshInstance3D" parent="Geometry"]
+[node name="Terrain" type="MeshInstance3D" parent="Geometry" groups=["terrain_navigation_input"]]
 mesh = SubResource("PlaneMesh_ypksr")
 
 [node name="SpawnPoints" type="Node3D" parent="."]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://camns8fqod8d4"]
+[gd_scene load_steps=49 format=3 uid="uid://camns8fqod8d4"]
 
 [ext_resource type="Script" path="res://source/match/Match.gd" id="1_1555u"]
 [ext_resource type="Script" path="res://source/match/IsometricCamera3D.gd" id="1_qb2ry"]
@@ -83,8 +83,8 @@ material = ExtResource("6_u47mu")
 size = Vector2(50, 50)
 center_offset = Vector3(25, 0, 25)
 
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_jt7ud"]
-data = PackedVector3Array(25, 0, 25, -25, 0, 25, 25, 0, -25, -25, 0, 25, -25, 0, -25, 25, 0, -25)
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_3sb7f"]
+data = PackedVector3Array(50, 0, 50, 0, 0, 50, 50, 0, 0, 0, 0, 50, 0, 0, 0, 50, 0, 0)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qw0ps"]
 render_priority = 0
@@ -121,15 +121,13 @@ size = Vector2(2, 2)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_g1mtu"]
 size = Vector2(50, 50)
+center_offset = Vector3(25, 0, 25)
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_8emvl"]
 vertices = PackedVector3Array(6.5, 2, 0.5, 0.5, 2, 0.5, 0.5, 2, 6.5, 0.5, 2, 43.25, 0.5, 2, 49.5, 6.5, 2, 49.5, 49.5, 2, 6.5, 49.5, 2, 0.5, 43.25, 2, 0.5, 43.25, 2, 49.5, 49.5, 2, 49.5, 49.5, 2, 43.25, 0.5, 2, 37.25, 0.5, 2, 43.25, 6.5, 2, 49.5, 12.75, 2, 49.5, 49.5, 2, 6.5, 43.25, 2, 0.5, 37.25, 2, 0.5, 49.5, 2, 12.75, 12.75, 2, 0.5, 6.5, 2, 0.5, 0.5, 2, 6.5, 0.5, 2, 12.75, 37.25, 2, 49.5, 43.25, 2, 49.5, 49.5, 2, 43.25, 31, 2, 49.5, 49.5, 2, 37.25, 49.5, 2, 31, 25, 2, 49.5, 37.25, 2, 49.5, 49.5, 2, 43.25, 49.5, 2, 37.25, 31, 2, 49.5, 25, 2, 0.5, 18.75, 2, 0.5, 0.5, 2, 18.75, 0.5, 2, 25, 49.5, 2, 25, 25, 2, 0.5, 0.5, 2, 25, 18.75, 2, 49.5, 25, 2, 49.5, 49.5, 2, 31, 0.5, 2, 37.25, 12.75, 2, 49.5, 18.75, 2, 49.5, 0.5, 2, 31, 49.5, 2, 18.75, 49.5, 2, 12.75, 37.25, 2, 0.5, 31, 2, 0.5, 18.75, 2, 0.5, 12.75, 2, 0.5, 0.5, 2, 12.75, 0.5, 2, 18.75, 0.5, 2, 25, 0.5, 2, 31, 18.75, 2, 49.5, 49.5, 2, 18.75, 31, 2, 0.5, 25, 2, 0.5, 49.5, 2, 25)
 polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(5, 4, 3), PackedInt32Array(8, 7, 6), PackedInt32Array(11, 10, 9), PackedInt32Array(13, 12, 14), PackedInt32Array(14, 12, 15), PackedInt32Array(17, 16, 18), PackedInt32Array(18, 16, 19), PackedInt32Array(21, 20, 22), PackedInt32Array(22, 20, 23), PackedInt32Array(26, 25, 24), PackedInt32Array(28, 27, 29), PackedInt32Array(29, 27, 30), PackedInt32Array(32, 31, 33), PackedInt32Array(33, 31, 34), PackedInt32Array(36, 35, 37), PackedInt32Array(37, 35, 38), PackedInt32Array(44, 43, 39), PackedInt32Array(39, 43, 42), PackedInt32Array(39, 42, 41), PackedInt32Array(39, 41, 40), PackedInt32Array(46, 45, 47), PackedInt32Array(47, 45, 48), PackedInt32Array(50, 49, 51), PackedInt32Array(51, 49, 52), PackedInt32Array(54, 53, 55), PackedInt32Array(55, 53, 56), PackedInt32Array(59, 58, 57), PackedInt32Array(61, 60, 62), PackedInt32Array(62, 60, 63)]
 geometry_source_geometry_mode = 2
 geometry_source_group_name = &"air_navigation_input"
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_u4w5p"]
-size = Vector2(50, 50)
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_exfwj"]
 vertices = PackedVector3Array(6.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 6.5, 0.5, 0.5, 43.25, 0.5, 0.5, 49.5, 6.5, 0.5, 49.5, 49.5, 0.5, 6.5, 49.5, 0.5, 0.5, 43.25, 0.5, 0.5, 43.25, 0.5, 49.5, 49.5, 0.5, 49.5, 49.5, 0.5, 43.25, 0.5, 0.5, 37.25, 0.5, 0.5, 43.25, 6.5, 0.5, 49.5, 12.75, 0.5, 49.5, 49.5, 0.5, 6.5, 43.25, 0.5, 0.5, 37.25, 0.5, 0.5, 49.5, 0.5, 12.75, 12.75, 0.5, 0.5, 6.5, 0.5, 0.5, 0.5, 0.5, 6.5, 0.5, 0.5, 12.75, 37.25, 0.5, 49.5, 43.25, 0.5, 49.5, 49.5, 0.5, 43.25, 31, 0.5, 49.5, 49.5, 0.5, 37.25, 49.5, 0.5, 31, 25, 0.5, 49.5, 37.25, 0.5, 49.5, 49.5, 0.5, 43.25, 49.5, 0.5, 37.25, 31, 0.5, 49.5, 25, 0.5, 0.5, 18.75, 0.5, 0.5, 0.5, 0.5, 18.75, 0.5, 0.5, 25, 49.5, 0.5, 25, 25, 0.5, 0.5, 0.5, 0.5, 25, 18.75, 0.5, 49.5, 25, 0.5, 49.5, 49.5, 0.5, 31, 0.5, 0.5, 37.25, 12.75, 0.5, 49.5, 18.75, 0.5, 49.5, 0.5, 0.5, 31, 49.5, 0.5, 18.75, 49.5, 0.5, 12.75, 37.25, 0.5, 0.5, 31, 0.5, 0.5, 18.75, 0.5, 0.5, 12.75, 0.5, 0.5, 0.5, 0.5, 12.75, 0.5, 0.5, 18.75, 0.5, 0.5, 25, 0.5, 0.5, 31, 18.75, 0.5, 49.5, 49.5, 0.5, 18.75, 31, 0.5, 0.5, 25, 0.5, 0.5, 49.5, 0.5, 25)
@@ -174,13 +172,11 @@ environment = SubResource("Environment_qxcnu")
 mesh = SubResource("PlaneMesh_fmyt8")
 
 [node name="Terrain" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 0, 50)
 collision_mask = 0
 script = ExtResource("7_ccpu4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 0, -25)
-shape = SubResource("ConcavePolygonShape3D_jt7ud")
+shape = SubResource("ConcavePolygonShape3D_3sb7f")
 
 [node name="Fog" type="MeshInstance3D" parent="."]
 material_override = SubResource("ShaderMaterial_qw0ps")
@@ -252,7 +248,7 @@ script = ExtResource("10_1wfp1")
 [node name="Air" type="Node3D" parent="Navigation"]
 
 [node name="ReferenceMesh" type="MeshInstance3D" parent="Navigation/Air" groups=["air_navigation_input"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 1.5, 25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 visible = false
 mesh = SubResource("PlaneMesh_g1mtu")
 
@@ -261,11 +257,6 @@ visible = false
 navigation_mesh = SubResource("NavigationMesh_8emvl")
 
 [node name="Terrain" type="Node3D" parent="Navigation"]
-
-[node name="ReferenceMesh" type="MeshInstance3D" parent="Navigation/Terrain" groups=["terrain_navigation_input"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 25)
-visible = false
-mesh = SubResource("PlaneMesh_u4w5p")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="Navigation/Terrain"]
 visible = false

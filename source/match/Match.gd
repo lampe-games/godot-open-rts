@@ -1,13 +1,6 @@
 extends Node3D
 
 const Structure = preload("res://source/match/units/Structure.gd")
-
-
-class HardcodedMap:
-	func get_topdown_polygon_2d():
-		return [Vector2(0, 0), Vector2(50, 0), Vector2(50, 50), Vector2(0, 50)]
-
-
 const Player = preload("res://source/match/model/Player.gd")
 
 const CommandCenter = preload("res://source/match/units/CommandCenter.tscn")
@@ -15,6 +8,8 @@ const Drone = preload("res://source/match/units/Drone.tscn")
 const Worker = preload("res://source/match/units/Worker.tscn")
 
 @export var settings: Resource = null
+@export var map_to_load_and_plug: PackedScene = null
+@export var map_to_plug: Node = null
 
 var players = []
 var controlled_player = null:
@@ -24,17 +19,19 @@ var visible_player = null:
 var visible_players = null:
 	set = _ignore,
 	get = _get_visible_players
-var map = HardcodedMap.new()  # TODO: use actual map
 
-@onready var navigation = find_child("Navigation")
+@onready var map = $Map
+@onready var navigation = $Navigation
 
-@onready var _camera = find_child("IsometricCamera3D")
-@onready var _fog_of_war = find_child("FogOfWar")
-@onready var _players = find_child("Players")
+@onready var _camera = $IsometricCamera3D
+@onready var _fog_of_war = $FogOfWar
+@onready var _players = $Players
 @onready var _predefined_units = $Units
+@onready var _terrain = $Terrain
 
 
 func _ready():
+	_try_setting_up_a_custom_map()
 	MatchSignals.setup_and_spawn_unit.connect(_setup_and_spawn_unit)
 	_create_players()
 	_choose_controlled_player()
@@ -73,6 +70,35 @@ func _set_visible_player(player):
 	_conceal_player_units(visible_player)
 	_reveal_player_units(player)
 	visible_player = player
+
+
+func _try_setting_up_a_custom_map():
+	assert(
+		map_to_load_and_plug == null or map_to_plug == null,
+		"both 'map_to_load_and_plug' and 'map_to_plug' cannot be set at the same time"
+	)
+	if map_to_load_and_plug == null and map_to_plug == null:
+		return
+	var custom_map = map_to_plug if map_to_plug != null else map_to_load_and_plug.instantiate()
+	if custom_map != null:
+		_plug_custom_map(custom_map)
+		_terrain.update_shape(custom_map.find_child("Terrain").mesh)
+		_fog_of_war.resize(custom_map.size)
+		_recalculate_camera_bounding_planes(custom_map.size)
+		navigation.rebake(custom_map)
+
+
+func _recalculate_camera_bounding_planes(map_size: Vector2):
+	_camera.bounding_planes[1] = Plane(-1, 0, 0, -map_size.x)
+	_camera.bounding_planes[3] = Plane(0, 0, -1, -map_size.y)
+
+
+func _plug_custom_map(custom_map):
+	map.name = map.name + "1"
+	map.add_sibling(custom_map)
+	remove_child(map)
+	map.queue_free()
+	map = custom_map
 
 
 func _create_players():
@@ -114,7 +140,7 @@ func _choose_controlled_player():
 
 func _caclulate_player_to_spawn_point_mapping():
 	var player_to_spawn_point_mapping = {}
-	var spawn_points = find_child("SpawnPoints").get_children()
+	var spawn_points = map.find_child("SpawnPoints").get_children()
 	var unassigned_spawn_point_indexes = range(spawn_points.size())
 	for player_id in range(players.size()):
 		var player = players[player_id]

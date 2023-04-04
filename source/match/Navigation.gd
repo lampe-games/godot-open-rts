@@ -33,6 +33,13 @@ func get_navigation_map_rid_by_domain(domain):
 	}[domain]
 
 
+func rebake(map):
+	# TODO: rebake air with changed air navreg transform
+	find_child("ReferenceMesh").mesh = map.find_child("Terrain").mesh
+	_air_region.bake_navigation_mesh(false)
+	find_child("Terrain").find_child("NavigationRegion3D").bake_navigation_mesh(false)
+
+
 func _setup_air_navigation_map():
 	NavigationServer3D.region_set_map(_air_region.get_region_rid(), air.navigation_map_rid)
 	NavigationServer3D.map_force_update(air.navigation_map_rid)
