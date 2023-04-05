@@ -7,22 +7,11 @@ var _dummy_agent_rids = {
 	Constants.Match.Navigation.Domain.TERRAIN: null,
 }
 
-# air needs to be put on separate map so that air agents do not collide with terrain ones:
-@onready var air = ConcreteNavigation.new(NavigationServer3D.map_create())
-@onready var terrain = ConcreteNavigation.new(get_world_3d().navigation_map)
-
-@onready var _air_region = find_child("Air").find_child("NavigationRegion3D")
-
-
-class ConcreteNavigation:
-	var navigation_map_rid = null
-
-	func _init(map_rid):
-		navigation_map_rid = map_rid
+@onready var air = find_child("Air")
+@onready var terrain = find_child("Terrain")
 
 
 func _ready():
-	_setup_air_navigation_map()
 	_setup_navigation_fixing_timer()
 
 
@@ -34,16 +23,8 @@ func get_navigation_map_rid_by_domain(domain):
 
 
 func rebake(map):
-	# TODO: rebake air with changed air navreg transform
-	find_child("ReferenceMesh").mesh = map.find_child("Terrain").mesh
-	_air_region.bake_navigation_mesh(false)
-	find_child("Terrain").find_child("NavigationRegion3D").bake_navigation_mesh(false)
-
-
-func _setup_air_navigation_map():
-	NavigationServer3D.region_set_map(_air_region.get_region_rid(), air.navigation_map_rid)
-	NavigationServer3D.map_force_update(air.navigation_map_rid)
-	NavigationServer3D.map_set_active(air.navigation_map_rid, true)
+	air.rebake(map)
+	terrain.rebake()
 
 
 func _setup_navigation_fixing_timer():

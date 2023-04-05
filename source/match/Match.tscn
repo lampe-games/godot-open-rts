@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://camns8fqod8d4"]
+[gd_scene load_steps=51 format=3 uid="uid://camns8fqod8d4"]
 
 [ext_resource type="Script" path="res://source/match/Match.gd" id="1_1555u"]
 [ext_resource type="Script" path="res://source/match/IsometricCamera3D.gd" id="1_qb2ry"]
@@ -19,8 +19,10 @@
 [ext_resource type="Shader" path="res://source/shaders/3d/simple_fog_of_war.gdshader" id="13_jo8b7"]
 [ext_resource type="PackedScene" uid="uid://nnsih72ih7qr" path="res://source/match/hud/ProductionQueue.tscn" id="13_qv3xn"]
 [ext_resource type="PackedScene" uid="uid://dk7sa3fkyxks5" path="res://source/generic-scenes-and-nodes/control/RectangularSelection2D.tscn" id="16_ccb0o"]
+[ext_resource type="Script" path="res://source/match/AirNavigation.gd" id="16_ravsv"]
 [ext_resource type="Script" path="res://source/match/hud/Resources.gd" id="16_vjwpn"]
 [ext_resource type="Script" path="res://source/match/hud/Minimap.gd" id="17_0bfte"]
+[ext_resource type="Script" path="res://source/match/TerrainNavigation.gd" id="17_6fprk"]
 [ext_resource type="PackedScene" uid="uid://bocb7hjilvri5" path="res://source/match/handlers/SelectionHandler.tscn" id="20_tw1wp"]
 [ext_resource type="PackedScene" uid="uid://c0uxy26e4qs4w" path="res://source/match/handlers/MouseClickAnimationsHandler.tscn" id="22_438pb"]
 [ext_resource type="PackedScene" uid="uid://1rby73ckmk7b" path="res://source/match/Menu.tscn" id="22_ofmlu"]
@@ -246,6 +248,7 @@ mesh = SubResource("QuadMesh_xttrh")
 script = ExtResource("10_1wfp1")
 
 [node name="Air" type="Node3D" parent="Navigation"]
+script = ExtResource("16_ravsv")
 
 [node name="ReferenceMesh" type="MeshInstance3D" parent="Navigation/Air" groups=["air_navigation_input"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
@@ -257,6 +260,7 @@ visible = false
 navigation_mesh = SubResource("NavigationMesh_8emvl")
 
 [node name="Terrain" type="Node3D" parent="Navigation"]
+script = ExtResource("17_6fprk")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="Navigation/Terrain"]
 visible = false
