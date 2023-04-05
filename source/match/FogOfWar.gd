@@ -4,7 +4,7 @@ const DynamicCircle2D = preload("res://source/generic-scenes-and-nodes/2d/Dynami
 
 const FOG_CIRCLE_COLOR = Color(0.25, 0.25, 0.25)
 const SHROUD_CIRCLE_COLOR = Color(1.0, 1.0, 1.0)
-const TEXTURE_UNITS_PER_WORLD_UNIT = 2
+const TEXTURE_UNITS_PER_WORLD_UNIT = 2  # px/m
 
 var _unit_to_circles_mapping = {}
 
@@ -38,9 +38,9 @@ func reveal():
 	_revealer.show()
 
 
-func resize(size: Vector2):
-	_fog_viewport.size = size
-	_combined_viewport.size = size
+func resize(map_size: Vector2):
+	_fog_viewport.size = map_size * TEXTURE_UNITS_PER_WORLD_UNIT
+	_combined_viewport.size = map_size * TEXTURE_UNITS_PER_WORLD_UNIT
 
 
 func _unit_is_mapped(unit):
