@@ -63,8 +63,6 @@ static func find_valid_position_radially_yet_skip_starting_radius(
 	return Vector3.INF
 
 
-# TODO: fix in gdtoolkit
-# gdlint: ignore=max-line-length
 static func validate_agent_placement_position(position, radius, existing_units, navigation_map_rid):
 	for existing_unit in existing_units:
 		if (
@@ -93,9 +91,9 @@ static func validate_agent_placement_position(position, radius, existing_units, 
 	return VALID
 
 
-# TODO: fix in gdtoolkit
-# gdlint: ignore=max-line-length
-static func _is_agent_placement_position_valid(position, radius, existing_units, navigation_map_rid):
+static func _is_agent_placement_position_valid(
+	position, radius, existing_units, navigation_map_rid
+):
 	return (
 		validate_agent_placement_position(position, radius, existing_units, navigation_map_rid)
 		== VALID
