@@ -4,14 +4,29 @@ const MatchSettings = preload("res://source/model/MatchSettings.gd")
 const PlayerSettings = preload("res://source/model/PlayerSettings.gd")
 const LoadingScene = preload("res://source/main-menu/Loading.tscn")
 
+var _map_paths = []
+
 @onready var _start_button = find_child("StartButton")
+@onready var _map_list = find_child("MapList")
+@onready var _map_details = find_child("MapDetailsLabel")
 
 
 func _ready():
+	_setup_map_list()
 	find_child("OptionButton").item_selected.connect(_on_player_selected.bind(0))
 	find_child("OptionButton2").item_selected.connect(_on_player_selected.bind(1))
 	find_child("OptionButton3").item_selected.connect(_on_player_selected.bind(2))
 	find_child("OptionButton4").item_selected.connect(_on_player_selected.bind(3))
+
+
+func _setup_map_list():
+	_map_paths = Constants.Match.MAPS.keys()
+	_map_paths.sort()
+	_map_list.clear()
+	for map_path in _map_paths:
+		_map_list.add_item(Constants.Match.MAPS[map_path]["name"])
+	_map_list.select(0)
+	_on_map_list_item_selected(0)
 
 
 func _create_match_settings():
@@ -38,10 +53,15 @@ func _create_match_settings():
 	return match_settings
 
 
+func _get_selected_map_path():
+	return _map_paths[_map_list.get_selected_items()[0]]
+
+
 func _on_start_button_pressed():
 	hide()
 	var new_scene = LoadingScene.instantiate()
 	new_scene.match_settings = _create_match_settings()
+	new_scene.map_path = _get_selected_map_path()
 	get_parent().add_child(new_scene)
 	get_tree().current_scene = new_scene
 	queue_free()
@@ -73,3 +93,10 @@ func _on_player_selected(selected_option_id, selected_player_id):
 		)
 		if option_nodes_with_player_controllers.size() < 2:
 			_start_button.disabled = true
+
+
+func _on_map_list_item_selected(index):
+	var map = Constants.Match.MAPS[_map_paths[index]]
+	_map_details.text = "[u]Players:[/u] {0}\n[u]Size:[/u] {1}x{2}".format(
+		[map["players"], map["size"].x, map["size"].y]
+	)

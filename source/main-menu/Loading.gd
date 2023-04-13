@@ -1,6 +1,7 @@
 extends Control
 
 var match_settings = null
+var map_path = null
 
 @onready var _label = find_child("Label")
 @onready var _progress_bar = find_child("ProgressBar")
@@ -14,6 +15,11 @@ func _ready():
 	_preload_scenes()
 	_progress_bar.value = 0.2
 
+	_label.text = tr("LOADING_STEP_LOADING_MAP")
+	await get_tree().physics_frame
+	var map = load(map_path).instantiate()
+	_progress_bar.value = 0.4
+
 	_label.text = tr("LOADING_STEP_LOADING_MATCH")
 	await get_tree().physics_frame
 	var match_prototype = load("res://source/match/Match.tscn")
@@ -23,6 +29,7 @@ func _ready():
 	await get_tree().physics_frame
 	var a_match = match_prototype.instantiate()
 	a_match.settings = match_settings
+	a_match.map_to_plug = map
 	_progress_bar.value = 0.9
 
 	_label.text = tr("LOADING_STEP_STARTING_MATCH")

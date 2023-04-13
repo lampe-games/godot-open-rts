@@ -2,6 +2,20 @@ const OWNED_PLAYER_CIRCLE_COLOR = Color.GREEN
 const ADVERSARY_PLAYER_CIRCLE_COLOR = Color.RED
 const RESOURCE_CIRCLE_COLOR = Color.YELLOW
 const DEFAULT_CIRCLE_COLOR = Color.WHITE
+const MAPS = {
+	"res://source/match/maps/PlainAndSimple.tscn":
+	{
+		"name": "Plain & Simple",
+		"players": 4,
+		"size": Vector2i(50, 50),
+	},
+	"res://source/match/maps/BigArena.tscn":
+	{
+		"name": "Big Arena",
+		"players": 4,
+		"size": Vector2i(200, 200),
+	},
+}
 
 
 class Navigation:
