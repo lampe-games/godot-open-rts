@@ -1,72 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://b6n7cwv706x5n"]
+[gd_scene load_steps=7 format=3 uid="uid://b6n7cwv706x5n"]
 
 [ext_resource type="Script" path="res://source/match/debug/GodModeHud.gd" id="1_n4lpk"]
 [ext_resource type="Script" path="res://source/match/debug/PlayerManager.gd" id="2_julod"]
 [ext_resource type="Script" path="res://source/match/debug/UnitsManager.gd" id="3_1fe88"]
 [ext_resource type="Script" path="res://source/match/debug/TimeManager.gd" id="4_0nfe7"]
+[ext_resource type="Script" path="res://source/match/debug/FogOfWarManager.gd" id="5_8n1qy"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_0h5ms"]
 resource_local_to_scene = false
 
 [node name="GodModeHUD" type="CanvasLayer"]
 script = ExtResource("1_n4lpk")
-
-[node name="PlayerManager" type="MarginContainer" parent="."]
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -20.0
-offset_right = 40.0
-offset_bottom = 20.0
-grow_vertical = 2
-theme_override_constants/margin_left = 5
-script = ExtResource("2_julod")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PlayerManager"]
-layout_mode = 2
-theme_override_constants/separation = 5
-
-[node name="PanelContainer" type="PanelContainer" parent="PlayerManager/VBoxContainer"]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="PlayerManager/VBoxContainer/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PlayerManager/VBoxContainer/PanelContainer/MarginContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="PlayerManager/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Controlled player"
-horizontal_alignment = 1
-
-[node name="ControlledPlayerSpinBox" type="SpinBox" parent="PlayerManager/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="PanelContainer2" type="PanelContainer" parent="PlayerManager/VBoxContainer"]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="PlayerManager/VBoxContainer/PanelContainer2"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PlayerManager/VBoxContainer/PanelContainer2/MarginContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="PlayerManager/VBoxContainer/PanelContainer2/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Visible Player"
-horizontal_alignment = 1
-
-[node name="VisiblePlayerSpinBox" type="SpinBox" parent="PlayerManager/VBoxContainer/PanelContainer2/MarginContainer/VBoxContainer"]
-layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 6
@@ -180,7 +124,105 @@ max_value = 5.0
 step = 0.1
 value = 1.0
 
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -73.5
+offset_right = 149.0
+offset_bottom = 73.5
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="PlayerManager" type="MarginContainer" parent="MarginContainer2/VBoxContainer"]
+layout_mode = 2
+script = ExtResource("2_julod")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2/VBoxContainer/PlayerManager"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer2/VBoxContainer/PlayerManager/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2/VBoxContainer/PlayerManager/VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2/VBoxContainer/PlayerManager/VBoxContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer2/VBoxContainer/PlayerManager/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Controlled player"
+horizontal_alignment = 1
+
+[node name="ControlledPlayerSpinBox" type="SpinBox" parent="MarginContainer2/VBoxContainer/PlayerManager/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="PanelContainer2" type="PanelContainer" parent="MarginContainer2/VBoxContainer/PlayerManager/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2/VBoxContainer/PlayerManager/VBoxContainer/PanelContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2/VBoxContainer/PlayerManager/VBoxContainer/PanelContainer2/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer2/VBoxContainer/PlayerManager/VBoxContainer/PanelContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Visible Player"
+horizontal_alignment = 1
+
+[node name="VisiblePlayerSpinBox" type="SpinBox" parent="MarginContainer2/VBoxContainer/PlayerManager/VBoxContainer/PanelContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="FogOfWarManager" type="PanelContainer" parent="MarginContainer2/VBoxContainer"]
+layout_mode = 2
+script = ExtResource("5_8n1qy")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2/VBoxContainer/FogOfWarManager"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2/VBoxContainer/FogOfWarManager/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer2/VBoxContainer/FogOfWarManager/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "FoW"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel" type="Panel" parent="MarginContainer2/VBoxContainer/FogOfWarManager/MarginContainer/VBoxContainer/Label"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ToggleButton" type="Button" parent="MarginContainer2/VBoxContainer/FogOfWarManager/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Toggle"
+
 [connection signal="pressed" from="MarginContainer/VBoxContainer/UnitsManager/MarginContainer/VBoxContainer/ActionCaptionToggleButton" to="MarginContainer/VBoxContainer/UnitsManager" method="_on_action_caption_toggle_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/UnitsManager/MarginContainer/VBoxContainer/DebugVisualsToggleButton" to="MarginContainer/VBoxContainer/UnitsManager" method="_on_debug_visuals_toggle_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/UnitsManager/MarginContainer/VBoxContainer/ClearAllButton" to="MarginContainer/VBoxContainer/UnitsManager" method="_on_clear_all_button_pressed"]
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/TimeManager/MarginContainer/VBoxContainer/TimeScaleSpinBox" to="MarginContainer/VBoxContainer/TimeManager" method="_on_time_scale_spin_box_value_changed"]
+[connection signal="pressed" from="MarginContainer2/VBoxContainer/FogOfWarManager/MarginContainer/VBoxContainer/ToggleButton" to="MarginContainer2/VBoxContainer/FogOfWarManager" method="_on_toggle_button_pressed"]

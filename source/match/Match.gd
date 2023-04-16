@@ -22,9 +22,9 @@ var visible_players = null:
 
 @onready var map = $Map
 @onready var navigation = $Navigation
+@onready var fog_of_war = $FogOfWar
 
 @onready var _camera = $IsometricCamera3D
-@onready var _fog_of_war = $FogOfWar
 @onready var _players = $Players
 @onready var _predefined_units = $Units
 @onready var _terrain = $Terrain
@@ -40,7 +40,7 @@ func _ready():
 	_create_and_setup_player_controllers()  # must happen after initial units are created
 	_move_camera_to_initial_position()
 	if settings.visibility == settings.Visibility.FULL:
-		_fog_of_war.reveal()
+		fog_of_war.reveal()
 
 
 func _unhandled_input(event):
@@ -83,7 +83,7 @@ func _try_setting_up_a_custom_map():
 	if custom_map != null:
 		_plug_custom_map(custom_map)
 		_terrain.update_shape(custom_map.find_child("Terrain").mesh)
-		_fog_of_war.resize(custom_map.size)
+		fog_of_war.resize(custom_map.size)
 		_recalculate_camera_bounding_planes(custom_map.size)
 		navigation.rebake(custom_map)
 
