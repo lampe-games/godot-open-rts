@@ -125,11 +125,11 @@ layout_mode = 2
 theme_override_constants/h_separation = 5
 columns = 2
 
-[node name="Label" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="Label0" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "1."
 
-[node name="OptionButton" type="OptionButton" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="OptionButton0" type="OptionButton" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
@@ -142,11 +142,11 @@ popup/item_1/id = 1
 popup/item_2/text = "Simple AI"
 popup/item_2/id = 2
 
-[node name="Label2" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="Label1" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "2."
 
-[node name="OptionButton2" type="OptionButton" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="OptionButton1" type="OptionButton" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
@@ -159,11 +159,11 @@ popup/item_1/id = 1
 popup/item_2/text = "Simple AI"
 popup/item_2/id = 2
 
-[node name="Label3" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="Label2" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "3."
 
-[node name="OptionButton3" type="OptionButton" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="OptionButton2" type="OptionButton" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
@@ -176,11 +176,215 @@ popup/item_1/id = 1
 popup/item_2/text = "Simple AI"
 popup/item_2/id = 2
 
-[node name="Label4" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="Label3" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "4."
 
+[node name="OptionButton3" type="OptionButton" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+item_count = 3
+selected = 0
+popup/item_0/text = "None"
+popup/item_0/id = 0
+popup/item_1/text = "Human"
+popup/item_1/id = 1
+popup/item_2/text = "Simple AI"
+popup/item_2/id = 2
+
+[node name="Label4" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "5."
+
 [node name="OptionButton4" type="OptionButton" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+item_count = 3
+selected = 0
+popup/item_0/text = "None"
+popup/item_0/id = 0
+popup/item_1/text = "Human"
+popup/item_1/id = 1
+popup/item_2/text = "Simple AI"
+popup/item_2/id = 2
+
+[node name="Label5" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "6."
+
+[node name="OptionButton5" type="OptionButton" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+item_count = 3
+selected = 0
+popup/item_0/text = "None"
+popup/item_0/id = 0
+popup/item_1/text = "Human"
+popup/item_1/id = 1
+popup/item_2/text = "Simple AI"
+popup/item_2/id = 2
+
+[node name="Label6" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "7."
+
+[node name="OptionButton6" type="OptionButton" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+item_count = 3
+selected = 0
+popup/item_0/text = "None"
+popup/item_0/id = 0
+popup/item_1/text = "Human"
+popup/item_1/id = 1
+popup/item_2/text = "Simple AI"
+popup/item_2/id = 2
+
+[node name="Label7" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "8."
+
+[node name="OptionButton7" type="OptionButton" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+item_count = 3
+selected = 0
+popup/item_0/text = "None"
+popup/item_0/id = 0
+popup/item_1/text = "Human"
+popup/item_1/id = 1
+popup/item_2/text = "Simple AI"
+popup/item_2/id = 2
+
+[node name="Label8" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "9."
+
+[node name="OptionButton8" type="OptionButton" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+item_count = 3
+selected = 0
+popup/item_0/text = "None"
+popup/item_0/id = 0
+popup/item_1/text = "Human"
+popup/item_1/id = 1
+popup/item_2/text = "Simple AI"
+popup/item_2/id = 2
+
+[node name="Label9" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "10."
+
+[node name="OptionButton9" type="OptionButton" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+item_count = 3
+selected = 0
+popup/item_0/text = "None"
+popup/item_0/id = 0
+popup/item_1/text = "Human"
+popup/item_1/id = 1
+popup/item_2/text = "Simple AI"
+popup/item_2/id = 2
+
+[node name="Label10" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "11."
+
+[node name="OptionButton10" type="OptionButton" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+item_count = 3
+selected = 0
+popup/item_0/text = "None"
+popup/item_0/id = 0
+popup/item_1/text = "Human"
+popup/item_1/id = 1
+popup/item_2/text = "Simple AI"
+popup/item_2/id = 2
+
+[node name="Label11" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "12."
+
+[node name="OptionButton11" type="OptionButton" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+item_count = 3
+selected = 0
+popup/item_0/text = "None"
+popup/item_0/id = 0
+popup/item_1/text = "Human"
+popup/item_1/id = 1
+popup/item_2/text = "Simple AI"
+popup/item_2/id = 2
+
+[node name="Label12" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "13."
+
+[node name="OptionButton12" type="OptionButton" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+item_count = 3
+selected = 0
+popup/item_0/text = "None"
+popup/item_0/id = 0
+popup/item_1/text = "Human"
+popup/item_1/id = 1
+popup/item_2/text = "Simple AI"
+popup/item_2/id = 2
+
+[node name="Label13" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "14."
+
+[node name="OptionButton13" type="OptionButton" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+item_count = 3
+selected = 0
+popup/item_0/text = "None"
+popup/item_0/id = 0
+popup/item_1/text = "Human"
+popup/item_1/id = 1
+popup/item_2/text = "Simple AI"
+popup/item_2/id = 2
+
+[node name="Label14" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "15."
+
+[node name="OptionButton14" type="OptionButton" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+item_count = 3
+selected = 0
+popup/item_0/text = "None"
+popup/item_0/id = 0
+popup/item_1/text = "Human"
+popup/item_1/id = 1
+popup/item_2/text = "Simple AI"
+popup/item_2/id = 2
+
+[node name="Label15" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "16."
+
+[node name="OptionButton15" type="OptionButton" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0

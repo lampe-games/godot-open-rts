@@ -13,10 +13,10 @@ var _map_paths = []
 
 func _ready():
 	_setup_map_list()
-	find_child("OptionButton").item_selected.connect(_on_player_selected.bind(0))
-	find_child("OptionButton2").item_selected.connect(_on_player_selected.bind(1))
-	find_child("OptionButton3").item_selected.connect(_on_player_selected.bind(2))
-	find_child("OptionButton4").item_selected.connect(_on_player_selected.bind(3))
+	_on_map_list_item_selected(0)
+	var option_nodes = find_child("GridContainer").find_children("OptionButton*")
+	for option_node_id in range(option_nodes.size()):
+		option_nodes[option_node_id].item_selected.connect(_on_player_selected.bind(option_node_id))
 
 
 func _setup_map_list():
@@ -26,7 +26,6 @@ func _setup_map_list():
 	for map_path in _map_paths:
 		_map_list.add_item(Constants.Match.MAPS[map_path]["name"])
 	_map_list.select(0)
-	_on_map_list_item_selected(0)
 
 
 func _create_match_settings():
@@ -71,6 +70,15 @@ func _on_back_button_pressed():
 	get_tree().change_scene_to_file("res://source/main-menu/Main.tscn")
 
 
+func _align_player_controls_visibility_to_map(map):
+	var option_nodes = find_child("GridContainer").find_children("OptionButton*")
+	var label_nodes = find_child("GridContainer").find_children("Label*")
+	assert(option_nodes.size() == label_nodes.size())
+	for node_id in range(option_nodes.size()):
+		option_nodes[node_id].visible = node_id < map["players"]
+		label_nodes[node_id].visible = node_id < map["players"]
+
+
 func _on_player_selected(selected_option_id, selected_player_id):
 	_start_button.disabled = false
 	if selected_option_id == Constants.PlayerController.HUMAN:
@@ -100,3 +108,4 @@ func _on_map_list_item_selected(index):
 	_map_details.text = "[u]Players:[/u] {0}\n[u]Size:[/u] {1}x{2}".format(
 		[map["players"], map["size"].x, map["size"].y]
 	)
+	_align_player_controls_visibility_to_map(map)

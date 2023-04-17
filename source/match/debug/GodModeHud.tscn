@@ -219,6 +219,7 @@ grow_vertical = 2
 
 [node name="ToggleButton" type="Button" parent="MarginContainer2/VBoxContainer/FogOfWarManager/MarginContainer/VBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 text = "Toggle"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/UnitsManager/MarginContainer/VBoxContainer/ActionCaptionToggleButton" to="MarginContainer/VBoxContainer/UnitsManager" method="_on_action_caption_toggle_button_pressed"]
