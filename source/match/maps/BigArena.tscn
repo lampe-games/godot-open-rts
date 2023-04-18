@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://bkqj84vbodkb6"]
+[gd_scene load_steps=7 format=3 uid="uid://bkqj84vbodkb6"]
 
 [ext_resource type="PackedScene" uid="uid://b7c1crf36x1li" path="res://source/match/Map.tscn" id="1_c0hq7"]
 [ext_resource type="Material" uid="uid://co8vfcoqqs5i8" path="res://source/match/resources/materials/terrain.material.tres" id="2_hmoqb"]
 [ext_resource type="PackedScene" uid="uid://bf3jjdafqvh0w" path="res://source/match/units/non-player/ResourceA.tscn" id="3_qa7u8"]
 [ext_resource type="PackedScene" uid="uid://bufgjfa3ne3uk" path="res://source/match/units/non-player/ResourceB.tscn" id="4_un678"]
+[ext_resource type="PackedScene" uid="uid://btor1402wkw8k" path="res://source/match/decorations/RockLargeA.tscn" id="5_blryv"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_43n1t"]
 resource_local_to_scene = true
@@ -54,3 +55,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.24408, 0, 51.7033)
 
 [node name="ResourceB" parent="Resources/Spot0" index="3" instance=ExtResource("4_un678")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.2748, 0, 51.7457)
+
+[node name="RockLargeA" parent="Decorations" index="0" instance=ExtResource("5_blryv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.966618, 1.90735e-06, 38.8516)

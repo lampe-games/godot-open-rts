@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://btor1402wkw8k"]
+
+[ext_resource type="PackedScene" uid="uid://bmkhqkqc17m1b" path="res://assets/models/kenney-spacekit/rock_largeA.glb" id="1_t7kcf"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_e8v1n"]
+
+[node name="RockLargeA" type="StaticBody3D" groups=["terrain_navigation_input"]]
+collision_layer = 2
+collision_mask = 0
+input_ray_pickable = false
+
+[node name="rock_largeA" parent="." instance=ExtResource("1_t7kcf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -1.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.236595, 0)
+shape = SubResource("BoxShape3D_e8v1n")

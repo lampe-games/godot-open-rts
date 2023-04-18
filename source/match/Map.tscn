@@ -32,3 +32,5 @@ mesh = SubResource("PlaneMesh_ypksr")
 [node name="SpawnPoints" type="Node3D" parent="."]
 
 [node name="Resources" type="Node3D" parent="."]
+
+[node name="Decorations" type="Node3D" parent="."]
