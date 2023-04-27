@@ -49,5 +49,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 size = Vector2(100, 10)
 
 [node name="Targetability" parent="." instance=ExtResource("7_i4ri4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
+radius = 0.6
 
 [editable path="Geometry/rover"]

@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://d4cm4yhtf11ur"]
+[gd_scene load_steps=3 format=3 uid="uid://d4cm4yhtf11ur"]
 
 [ext_resource type="Script" path="res://source/match/units/traits/Targetability.gd" id="1_75uog"]
+[ext_resource type="PackedScene" uid="uid://doixk58lw6coo" path="res://source/generic-scenes-and-nodes/3d/Circle3D.tscn" id="2_w8wca"]
 
 [node name="Targetability" type="Node3D"]
 script = ExtResource("1_75uog")
+
+[node name="Circle3D" parent="." instance=ExtResource("2_w8wca")]
+width = 5.0
+render_priority = 127

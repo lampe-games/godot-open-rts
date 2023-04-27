@@ -48,3 +48,4 @@ size = Vector2(100, 10)
 [node name="AirToTerrainMarker" parent="." instance=ExtResource("7_hxqr1")]
 
 [node name="Targetability" parent="." instance=ExtResource("8_hsorq")]
+radius = 0.6

@@ -41,5 +41,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 size = Vector2(250, 10)
 
 [node name="Targetability" parent="." instance=ExtResource("9_qqlap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
+radius = 1.5
 
 [editable path="Geometry"]

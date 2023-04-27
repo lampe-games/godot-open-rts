@@ -63,6 +63,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
 size = Vector2(110, 10)
 
 [node name="Targetability" parent="." instance=ExtResource("7_6bghh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
+radius = 0.6
 
 [node name="RotateRandomlyWhenLookingForTargetsIdle" parent="." instance=ExtResource("8_hqxqv")]
 node_to_rotate = NodePath("../DetachTransform/Geometry/turret_double/tmpParent/turret_double2/turret")

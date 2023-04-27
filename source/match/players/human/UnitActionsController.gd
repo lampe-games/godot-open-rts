@@ -45,15 +45,19 @@ func _navigate_selected_units_towards_position(target_point):
 
 
 func _navigate_selected_units_towards_unit(target_unit):
+	var units_navigated = 0
 	for unit in get_tree().get_nodes_in_group("selected_units"):
 		if not unit.is_in_group("controlled_units"):
 			continue
 		if Actions.CollectingResourcesSequentially.is_applicable(unit, target_unit):
 			unit.action = Actions.CollectingResourcesSequentially.new(target_unit)
+			units_navigated += 1
 		elif Actions.AutoAttacking.is_applicable(unit, target_unit):
 			unit.action = Actions.AutoAttacking.new(target_unit)
+			units_navigated += 1
 		elif Actions.Constructing.is_applicable(unit, target_unit):
 			unit.action = Actions.Constructing.new(target_unit)
+			units_navigated += 1
 		elif (
 			(
 				target_unit.is_in_group("adversary_units")
@@ -62,8 +66,11 @@ func _navigate_selected_units_towards_unit(target_unit):
 			and Actions.Following.is_applicable(unit)
 		):
 			unit.action = Actions.Following.new(target_unit)
+			units_navigated += 1
 		elif Actions.MovingToUnit.is_applicable(unit):
 			unit.action = Actions.MovingToUnit.new(target_unit)
+			units_navigated += 1
+	return units_navigated > 0
 
 
 func _on_terrain_targeted(position):
@@ -71,4 +78,7 @@ func _on_terrain_targeted(position):
 
 
 func _on_unit_targeted(unit):
-	_navigate_selected_units_towards_unit(unit)
+	if _navigate_selected_units_towards_unit(unit):
+		var targetability = unit.find_child("Targetability")
+		if targetability != null:
+			targetability.animate()

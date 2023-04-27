@@ -36,3 +36,5 @@ radius = 0.6
 agent_height_offset = 0.5
 
 [node name="Targetability" parent="." instance=ExtResource("5_y6273")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
+radius = 0.6
