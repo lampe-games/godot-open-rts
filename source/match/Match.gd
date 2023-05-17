@@ -3,6 +3,11 @@ extends Node3D
 const Structure = preload("res://source/match/units/Structure.gd")
 const Player = preload("res://source/match/model/Player.gd")
 
+const HumanController = preload("res://source/match/players/human/Human.tscn")
+const SimpleClairvoyantAIController = preload(
+	"res://source/match/players/simple-clairvoyant-ai/SimpleClairvoyantAI.tscn"
+)
+
 const CommandCenter = preload("res://source/match/units/CommandCenter.tscn")
 const Drone = preload("res://source/match/units/Drone.tscn")
 const Worker = preload("res://source/match/units/Worker.tscn")
@@ -62,7 +67,33 @@ func _set_controlled_player(player):
 	MatchSignals.deselect_all_units.emit()
 	_renounce_control_of_player_units(controlled_player)
 	_assume_control_of_player_units(player)
+	if controlled_player != null:
+		# remove controller of old controlled_player
+		(
+			_players
+			. get_children()
+			. filter(func(controller): return controller.player == controlled_player)[0]
+			. queue_free()
+		)
+		# add AI controller for old controlled_player
+		var ai_controller = SimpleClairvoyantAIController.instantiate()
+		ai_controller.player = controlled_player
+		_players.add_child(ai_controller)
 	controlled_player = player
+	if controlled_player != null:
+		# if new controlled_player had some controller before, remove it
+		var found_controllers = _players.get_children().filter(
+			func(controller): return (
+				not controller.name.begins_with("Placeholder")
+				and controller.player == controlled_player
+			)
+		)
+		if not found_controllers.is_empty():
+			found_controllers[0].queue_free()
+		# and create human controller for new controller_player
+		var human_controller = HumanController.instantiate()
+		human_controller.player = controlled_player
+		_players.add_child(human_controller)
 	MatchSignals.controlled_player_changed.emit(controlled_player)
 
 
@@ -111,12 +142,14 @@ func _create_players():
 func _create_and_setup_player_controllers():
 	var existing_player_controllers = _players.get_children()
 	for player_id in range(players.size()):
+		var pending_placeholder = null
 		if player_id < existing_player_controllers.size():
 			var detected_player_controller = existing_player_controllers[player_id]
 			if not detected_player_controller.name.begins_with("Placeholder"):
-				if "player" in detected_player_controller:
-					detected_player_controller.player = players[player_id]
+				detected_player_controller.player = players[player_id]
 				continue
+			else:
+				pending_placeholder = detected_player_controller
 		var desired_player_controller = settings.players[player_id].controller
 		assert(
 			desired_player_controller != Constants.PlayerController.DETECT_FROM_SCENE,
@@ -126,9 +159,12 @@ func _create_and_setup_player_controllers():
 			continue
 		var controller_scene = Constants.Match.Player.CONTROLLER_SCENES[desired_player_controller]
 		var controller_node = controller_scene.instantiate()
-		if "player" in controller_node:
-			controller_node.player = players[player_id]
-		_players.add_child(controller_node)
+		controller_node.player = players[player_id]
+		if pending_placeholder != null:
+			pending_placeholder.add_sibling(controller_node)
+			pending_placeholder.queue_free()
+		else:
+			_players.add_child(controller_node)
 
 
 func _choose_controlled_player():
