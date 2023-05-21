@@ -19,28 +19,28 @@ size = Vector2(100, 100)
 mesh = SubResource("PlaneMesh_43n1t")
 
 [node name="Marker3D" type="Marker3D" parent="SpawnPoints" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, 35)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 15, 0, 35)
 
 [node name="Marker3D2" type="Marker3D" parent="SpawnPoints" index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35, 0, 15)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 35, 0, 15)
 
 [node name="Marker3D3" type="Marker3D" parent="SpawnPoints" index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 65, 0, 15)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 65, 0, 15)
 
 [node name="Marker3D4" type="Marker3D" parent="SpawnPoints" index="3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 85, 0, 35)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 85, 0, 35)
 
 [node name="Marker3D5" type="Marker3D" parent="SpawnPoints" index="4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 85, 0, 65)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 85, 0, 65)
 
 [node name="Marker3D6" type="Marker3D" parent="SpawnPoints" index="5"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 65, 0, 85)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 65, 0, 85)
 
 [node name="Marker3D7" type="Marker3D" parent="SpawnPoints" index="6"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35, 0, 85)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 35, 0, 85)
 
 [node name="Marker3D8" type="Marker3D" parent="SpawnPoints" index="7"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, 65)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 15, 0, 65)
 
 [node name="Spot0" type="Node3D" parent="Resources" index="0"]
 
