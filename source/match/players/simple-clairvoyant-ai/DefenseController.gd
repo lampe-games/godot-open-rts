@@ -9,7 +9,7 @@ const AGTurretScene = preload("res://source/match/units/AntiGroundTurret.tscn")
 const AATurret = preload("res://source/match/units/AntiAirTurret.gd")
 const AATurretScene = preload("res://source/match/units/AntiAirTurret.tscn")
 
-const REFRESH_INTERVAL = 1.0 / 60.0 * 30.0
+const REFRESH_INTERVAL_S = 1.0 / 60.0 * 30.0
 
 var _player = null
 var _number_of_pending_ag_turret_resource_requests = 0
@@ -60,7 +60,7 @@ func _setup_refresh_timer():
 	var timer = Timer.new()
 	add_child(timer)
 	timer.timeout.connect(_on_refresh_timer_timeout)
-	timer.start(REFRESH_INTERVAL)
+	timer.start(REFRESH_INTERVAL_S)
 
 
 func _attach_current_turrets():

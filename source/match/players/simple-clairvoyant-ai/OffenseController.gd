@@ -16,7 +16,7 @@ const AutoAttackingBattlegroup = preload(
 	"res://source/match/players/simple-clairvoyant-ai/AutoAttackingBattlegroup.gd"
 )
 
-const REFRESH_INTERVAL = 1.0 / 60.0 * 30.0
+const REFRESH_INTERVAL_S = 1.0 / 60.0 * 30.0
 
 var _player = null
 var _primary_structure_scene = null
@@ -55,8 +55,7 @@ func setup(player):
 	)
 	_setup_refresh_timer()
 	_try_creating_new_battlegroup()
-	# TODO: attach structures
-	# TODO: attach units (form battlegroups)
+	_attach_current_battle_units()
 	MatchSignals.unit_spawned.connect(_on_unit_spawned)
 	_enforce_primary_structure_existence()
 
@@ -78,7 +77,7 @@ func _setup_refresh_timer():
 	var timer = Timer.new()
 	add_child(timer)
 	timer.timeout.connect(_on_refresh_timer_timeout)
-	timer.start(REFRESH_INTERVAL)
+	timer.start(REFRESH_INTERVAL_S)
 
 
 func _provision_structure(structure_scene, resources, metadata):
@@ -127,6 +126,14 @@ func _try_creating_new_battlegroup():
 	add_child(battlegroup)
 	_battlegroup_under_forming = battlegroup
 	return true
+
+
+func _attach_current_battle_units():
+	var battle_units = get_tree().get_nodes_in_group("units").filter(
+		func(unit): return unit.player == _player and (unit is Tank or unit is Helicopter)
+	)
+	for battle_unit in battle_units:
+		_on_unit_spawned(battle_unit)
 
 
 func _construct_structure(structure_scene):
