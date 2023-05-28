@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://qhgcfjxa2ykg"]
+[gd_scene load_steps=14 format=3 uid="uid://qhgcfjxa2ykg"]
 
 [ext_resource type="PackedScene" uid="uid://camns8fqod8d4" path="res://source/match/Match.tscn" id="1_fe2sx"]
 [ext_resource type="Script" path="res://tests/manual/Match.gd" id="2_sflin"]
 [ext_resource type="Script" path="res://source/model/PlayerSettings.gd" id="3_3drrn"]
 [ext_resource type="Script" path="res://source/model/MatchSettings.gd" id="4_go41p"]
+[ext_resource type="Material" uid="uid://co8vfcoqqs5i8" path="res://source/match/resources/materials/terrain.material.tres" id="5_x8bni"]
 [ext_resource type="PackedScene" uid="uid://i58ffvwxbbwm" path="res://source/match/units/Tank.tscn" id="10_tqe5i"]
 [ext_resource type="Shader" path="res://source/shaders/3d/simple_fog_of_war.gdshader" id="12_ke5ti"]
 
@@ -18,6 +19,12 @@ script = ExtResource("4_go41p")
 players = Array[Resource]([SubResource("Resource_aehri")])
 visibility = 0
 visible_player = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_vk1ka"]
+resource_local_to_scene = true
+material = ExtResource("5_x8bni")
+size = Vector2(50, 50)
+center_offset = Vector3(25, 0, 25)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_v46ss"]
 viewport_path = NodePath("FogOfWar/CombinedViewport")
@@ -39,6 +46,9 @@ script = ExtResource("2_sflin")
 allow_resources_deficit_spending = true
 settings = SubResource("Resource_qqc8i")
 
+[node name="Terrain" parent="Map/Geometry" index="1"]
+mesh = SubResource("PlaneMesh_vk1ka")
+
 [node name="ScreenOverlay" parent="FogOfWar" index="1"]
 material_override = SubResource("ShaderMaterial_67o07")
 
@@ -47,3 +57,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.263, 0, 12.637)
 
 [node name="TextureRect" parent="HUD/MarginContainer/Minimap/MarginContainer" index="0"]
 texture = SubResource("ViewportTexture_38cip")
+
+[editable path="Map"]

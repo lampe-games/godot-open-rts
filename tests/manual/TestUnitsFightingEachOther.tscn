@@ -108,7 +108,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.37292, 0, 5.08164)
 [node name="Drone3" parent="Units/Player1" index="8" instance=ExtResource("4_g2xty")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.37292, 0, 7.08164)
 
-[node name="HUD" parent="." index="12"]
+[node name="HUD" parent="." index="11"]
 visible = false
 
 [node name="TextureRect" parent="HUD/MarginContainer/Minimap/MarginContainer" index="0"]
