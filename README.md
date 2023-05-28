@@ -14,11 +14,14 @@ Open Source RTS project made with Godot 4.
 
  - [x] 1 species
  - [x] 2 resources
- - [x] up to 4 players (human vs AI or AI vs AI)
  - [x] terrain and air units
- - [x] Basic fog of war
- - [ ] Units disappearing in fog of war
- - [ ] Minimap
+ - [x] deathmatch mode (human vs AI or AI vs AI)
+ - [x] runtime player switching
+ - [x] basic fog of war
+ - [ ] units disappearing in fog of war
+ - [ ] minimap
+ - [x] swarm movement to position
+ - [ ] swarm movement to unit
 
 ## Credits
 
