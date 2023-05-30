@@ -2,13 +2,14 @@
 
 ![Open RTS](./media/screenshot_1400x650.png "Open RTS")
 
-Open Source RTS project made with Godot 4.
+Open Source real-time strategy game made with Godot 4.
 
 ## Purposes of this project
 
- - to showcase Godot 4 capabilities in terms of developing RTS games
- - to provide an open-source project template for creating RTS games
- - to educate game creators on creating RTS game mechanics
+This game is not going to be a very advanced RTS that would compete with other games of this genre. Instead, it will focus on simplicity and clean design so that it can:
+ - showcase Godot 4 capabilities in terms of developing RTS games
+ - provide an open-source project template for creating RTS games
+ - educate game creators on creating RTS game mechanics
 
 ## Features
 
@@ -22,6 +23,16 @@ Open Source RTS project made with Godot 4.
  - [ ] minimap
  - [x] swarm movement to position
  - [ ] swarm movement to unit
+ - [x] simple UI
+ - [ ] smooth & elegant UI
+
+## Godot compatibility
+
+This project is compatible with Godot `4.0`, `4.0.1`, `4.0.2`, and `4.0.3`.
+
+## Contributing
+
+Everyone is free to fix bugs or perform refactoring just by opening PR. As for features, please refer to existing issue or create one before starting implementation.
 
 ## Credits
 
