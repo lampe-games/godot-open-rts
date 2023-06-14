@@ -20,8 +20,9 @@ func _ready():
 
 
 func _setup_map_list():
-	_map_paths = Constants.Match.MAPS.keys()
-	_map_paths.sort()
+	var maps = Utils.Dict.items(Constants.Match.MAPS)
+	maps.sort_custom(func(map_a, map_b): return map_a[1]["players"] < map_b[1]["players"])
+	_map_paths = maps.map(func(map): return map[0])
 	_map_list.clear()
 	for map_path in _map_paths:
 		_map_list.add_item(Constants.Match.MAPS[map_path]["name"])
