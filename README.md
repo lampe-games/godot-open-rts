@@ -25,6 +25,9 @@ This game is not going to be a very advanced RTS that would compete with other g
  - [ ] swarm movement to unit
  - [x] simple UI
  - [ ] smooth & elegant UI
+ - [ ] sounds
+ - [ ] music
+ - [ ] VFX
 
 ## Godot compatibility
 
