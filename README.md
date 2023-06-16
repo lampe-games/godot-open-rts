@@ -1,6 +1,6 @@
 # Open RTS
 
-![Open RTS](./media/screenshot_1400x650.png "Open RTS")
+![Open RTS](./media/screenshots/screenshot_1400x650.png "Open RTS")
 
 Open Source real-time strategy game made with Godot 4.
 
@@ -32,6 +32,14 @@ This game is not going to be a very advanced RTS that would compete with other g
 ## Godot compatibility
 
 This project is compatible with Godot `4.0`, `4.0.1`, `4.0.2`, and `4.0.3`.
+
+## Screenshots
+
+![Screenshot 1](./media/screenshots/screenshot_2_1920x1080.png "Screenshot 1")
+
+![Screenshot 2](./media/screenshots/screenshot_3_1920x1080.png "Screenshot 2")
+
+![Screenshot 3](./media/screenshots/screenshot_4_1920x1080.png "Screenshot 3")
 
 ## Contributing
 
