@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.9.0]
+
+### New features
+ - Added 'loading page' translations
+ - Added ability to use custom maps
+ - Added 2 new maps
+ - Added match setup page
+
+### Changed
+ - Performed various refactorings
+ - Simplified turret's rotation algorithm
+ - Removed redundant unit groups
+ - Extracted generic `MouseClickAnimation`
+ - Improved `assert()` calls
+ - Renamed `buildings` to - more generic - `structures`
+ - Made `SimpleClairvoyantAI` being able to attach units in runtime
+
 ## [0.8.1]
 
 ### New features
