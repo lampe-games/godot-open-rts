@@ -51,6 +51,11 @@ func _physics_process(delta):
 		_align_position_to_bounding_planes()
 
 
+func _process(_delta):
+	if !_is_rotating():
+		_move()
+
+
 func _unhandled_input(event):
 	if event is InputEventMouseButton:
 		if event.is_pressed() and event.button_index == MOUSE_BUTTON_WHEEL_UP:
@@ -69,8 +74,6 @@ func _unhandled_input(event):
 		var mouse_pos = event.position
 		if _is_rotating():
 			_rotate(mouse_pos)
-		else:
-			_move(mouse_pos)
 
 
 func set_size_safely(a_size):
@@ -146,18 +149,25 @@ func _rotate(mouse_pos):
 	global_transform = global_transform.looking_at(_pivot_point_3d, Vector3(0, 1, 0))
 
 
-func _move(mouse_pos):
+func _move():
 	var viewport_size = get_viewport().size
-	_movement_vector_2d = Vector2(
-		(
-			-1 * int(mouse_pos.x <= screen_margin_for_movement)
-			+ 1 * int(mouse_pos.x >= viewport_size.x - screen_margin_for_movement)
-		),
-		(
-			-1 * int(mouse_pos.y <= screen_margin_for_movement)
-			+ 1 * int(mouse_pos.y >= viewport_size.y - screen_margin_for_movement)
-		)
-	)
+	var mouse_pos = get_viewport().get_mouse_position()
+
+	var x_axis = Input.get_axis("move_map_left", "move_map_right")
+	var y_axis = Input.get_axis("move_map_up", "move_map_down")
+	_movement_vector_2d = Vector2(x_axis, y_axis)
+
+	if mouse_pos.x <= screen_margin_for_movement:
+		_movement_vector_2d.x = -1
+
+	if mouse_pos.x >= viewport_size.x - screen_margin_for_movement:
+		_movement_vector_2d.x = 1
+
+	if mouse_pos.y <= screen_margin_for_movement:
+		_movement_vector_2d.y = -1
+
+	if mouse_pos.y >= viewport_size.y - screen_margin_for_movement:
+		_movement_vector_2d.y = 1
 
 
 func _is_rotating():
