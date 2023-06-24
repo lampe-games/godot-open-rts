@@ -152,9 +152,9 @@ func _move():
 	var viewport_size = get_viewport().size
 	var mouse_pos = get_viewport().get_mouse_position()
 	
-	var xAxis = Input.get_axis("move_map_left", "move_map_right")
-	var yAxis = Input.get_axis("move_map_up", "move_map_down")
-	_movement_vector_2d = Vector2( xAxis, yAxis )
+	var x_axis = Input.get_axis("move_map_left", "move_map_right")
+	var y_axis = Input.get_axis("move_map_up", "move_map_down")
+	_movement_vector_2d = Vector2( x_axis, y_axis )
 	
 	if( mouse_pos.x <= screen_margin_for_movement ):
 		_movement_vector_2d.x = -1;
