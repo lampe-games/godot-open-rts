@@ -12,6 +12,9 @@ const CommandCenter = preload("res://source/match/units/CommandCenter.tscn")
 const Drone = preload("res://source/match/units/Drone.tscn")
 const Worker = preload("res://source/match/units/Worker.tscn")
 
+const Constructing = preload("res://source/match/units/actions/Constructing.gd")
+const WorkerClass  = preload("res://source/match/units/Worker.gd")
+
 @export var settings: Resource = null
 @export var map_to_load_and_plug: PackedScene = null
 @export var map_to_plug: Node = null
@@ -239,6 +242,10 @@ func _setup_and_spawn_unit(unit, a_transform, player, mark_structure_under_const
 	add_child(unit)
 	MatchSignals.unit_spawned.emit(unit)
 
+	for selected_unit in get_tree().get_nodes_in_group("selected_units"):
+		if selected_unit is WorkerClass and unit is Structure :
+			selected_unit.action = Constructing.new(unit)
+			
 
 func _setup_unit(unit, player):
 	unit.player = player
