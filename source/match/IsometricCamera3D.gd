@@ -51,7 +51,7 @@ func _physics_process(delta):
 		_align_position_to_bounding_planes()
 
 func _process(_delta):
-	if( !_is_rotating() ):
+	if !_is_rotating():
 		_move(  )
 	
 
@@ -159,6 +159,7 @@ func _move():
 
 	var x_axis = Input.get_axis("move_map_left", "move_map_right")
 	var y_axis = Input.get_axis("move_map_up", "move_map_down")
+
 	_movement_vector_2d = Vector2(x_axis, y_axis)
 
 	if mouse_pos.x <= screen_margin_for_movement:

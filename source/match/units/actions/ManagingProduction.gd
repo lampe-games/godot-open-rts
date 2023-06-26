@@ -83,9 +83,9 @@ func _finalize_production(former_queue_element):
 	)
 	
 	# Handle rally point
-	if( _unit.has_node("RallyPoint") 
+	if ( _unit.has_node("RallyPoint")
 		and Moving.is_applicable(produced_unit) ):
 		var rally_point = _unit.get_node("RallyPoint").global_position
 		
-		if( rally_point != _unit.global_position ):
+		if rally_point != _unit.global_position :
 			produced_unit.action = Moving.new(rally_point)
