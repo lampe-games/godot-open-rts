@@ -51,7 +51,7 @@ func _physics_process(delta):
 		_align_position_to_bounding_planes()
 
 func _process(_delta):
-	if( !_is_rotating() ):
+	if !_is_rotating():
 		_move(  )
 	
 
@@ -156,16 +156,16 @@ func _move():
 	var y_axis = Input.get_axis("move_map_up", "move_map_down")
 	_movement_vector_2d = Vector2( x_axis, y_axis )
 	
-	if( mouse_pos.x <= screen_margin_for_movement ):
+	if mouse_pos.x <= screen_margin_for_movement :
 		_movement_vector_2d.x = -1;
 		
-	if( mouse_pos.x >= viewport_size.x - screen_margin_for_movement ):
+	if mouse_pos.x >= viewport_size.x - screen_margin_for_movement :
 		_movement_vector_2d.x = 1;
 			
-	if( mouse_pos.y <= screen_margin_for_movement ):
+	if mouse_pos.y <= screen_margin_for_movement :
 		_movement_vector_2d.y = -1;
 		
-	if( mouse_pos.y >= viewport_size.y - screen_margin_for_movement ):
+	if mouse_pos.y >= viewport_size.y - screen_margin_for_movement :
 		_movement_vector_2d.y = 1;
 
 
