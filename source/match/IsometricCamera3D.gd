@@ -156,6 +156,7 @@ func _rotate(mouse_pos):
 func _move():
 	var viewport_size = get_viewport().size
 	var mouse_pos = get_viewport().get_mouse_position()
+
 	var x_axis = Input.get_axis("move_map_left", "move_map_right")
 	var y_axis = Input.get_axis("move_map_up", "move_map_down")
 	_movement_vector_2d = Vector2(x_axis, y_axis)
