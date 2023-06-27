@@ -1,7 +1,6 @@
 extends Node3D
 
 @onready var _unit   = get_parent()
-@onready var _marker  = get_node("Marker")
 
 func _ready():
 	get_node("AnimationPlayer").play("idle")
