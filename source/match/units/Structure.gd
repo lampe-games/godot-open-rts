@@ -18,14 +18,28 @@ func mark_as_under_construction():
 	hp = 1
 
 
-func construct():
+func construct( added_progress ):
 	assert(_under_construction, "structure must be under construction")
+	
+	var progress = get_meta("progress", 0)
+	progress += added_progress
+	set_meta( "progress", progress )
+	
+	#hp = hp_max * progress / 100
+	
+	if progress >= 10 :
+		finnish_construction()
+		return true
+	
+	return false
+
+
+func finnish_construction():
 	_under_construction = false
 	_change_geometry_material(null)
 	hp = hp_max
 	if is_inside_tree():
 		constructed.emit()
-
 
 func is_constructed():
 	return not _under_construction
