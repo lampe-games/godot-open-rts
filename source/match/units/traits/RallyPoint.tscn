@@ -34,7 +34,6 @@ _data = {
 script = ExtResource("1_jne3g")
 
 [node name="Marker" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.845995, 0, 0, 0, 0.845995, 0, 0, 0, 0.845995, 0, 0, 0)
 mesh = SubResource("CylinderMesh_phq1d")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

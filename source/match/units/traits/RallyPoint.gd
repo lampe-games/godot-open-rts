@@ -1,13 +1,13 @@
 extends Node3D
 
 @onready var _unit = get_parent()
-@onready var _line = get_node("Line")
-@onready var _marker = get_node("Marker")
+@onready var _animation_player = find_child("AnimationPlayer")
 
 
 func _ready():
-	get_node("AnimationPlayer").play("idle")
+	_animation_player.play("idle")
 
 
 func _process(_delta):
+	# TODO: calculate based on signals to avoid polling
 	visible = _unit.is_in_group("selected_units")
