@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://b8jwlpdvxgrr6"]
+
+[ext_resource type="Script" path="res://source/match/units/traits/RallyPoint.gd" id="1_jne3g"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k3k1b"]
+albedo_color = Color(0.054902, 1, 0.223529, 0.12549)
+emission_enabled = true
+emission = Color(0, 1, 0, 1)
+emission_energy_multiplier = 1.65
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_phq1d"]
+material = SubResource("StandardMaterial3D_k3k1b")
+top_radius = 0.2
+bottom_radius = 0.2
+height = 0.1
+
+[sub_resource type="Animation" id="Animation_ymm6i"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "scale_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Marker")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 1, 1, 1, 0.3, 1, 1.3, 1.3, 1.3, 0.7, 1, 0.6, 0.6, 0.6, 1, 1, 1, 1, 1)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bax6m"]
+_data = {
+"idle": SubResource("Animation_ymm6i")
+}
+
+[node name="RallyPoint" type="Node3D"]
+script = ExtResource("1_jne3g")
+
+[node name="Marker" type="MeshInstance3D" parent="."]
+mesh = SubResource("CylinderMesh_phq1d")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+reset_on_save = false
+libraries = {
+"": SubResource("AnimationLibrary_bax6m")
+}

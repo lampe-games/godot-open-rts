@@ -17,7 +17,7 @@ func _ready():
 	MatchSignals.unit_targeted.connect(_on_unit_targeted)
 
 
-func _navigate_selected_units_towards_position(target_point):
+func _try_navigating_selected_units_towards_position(target_point):
 	var terrain_units_to_move = get_tree().get_nodes_in_group("selected_units").filter(
 		func(unit): return (
 			unit.is_in_group("controlled_units")
@@ -42,6 +42,18 @@ func _navigate_selected_units_towards_position(target_point):
 		var unit = tuple[0]
 		var new_target = tuple[1]
 		unit.action = Actions.Moving.new(new_target)
+
+
+func _try_setting_rally_points(target_point: Vector3):
+	var controlled_structures = get_tree().get_nodes_in_group("selected_units").filter(
+		func(unit): return (
+			unit.is_in_group("controlled_units") and unit.find_child("RallyPoint") != null
+		)
+	)
+	for structure in controlled_structures:
+		var rally_point = structure.find_child("RallyPoint")
+		if rally_point != null:
+			rally_point.global_position = target_point
 
 
 func _navigate_selected_units_towards_unit(target_unit):
@@ -74,7 +86,8 @@ func _navigate_selected_units_towards_unit(target_unit):
 
 
 func _on_terrain_targeted(position):
-	_navigate_selected_units_towards_position(position)
+	_try_navigating_selected_units_towards_position(position)
+	_try_setting_rally_points(position)
 
 
 func _on_unit_targeted(unit):

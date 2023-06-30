@@ -2,6 +2,8 @@ extends "res://source/match/units/actions/Action.gd"
 
 signal queue_changed
 
+const Moving = preload("res://source/match/units/actions/Moving.gd")
+
 
 class ProductionQueueElement:
 	extends Resource
@@ -80,3 +82,10 @@ func _finalize_production(former_queue_element):
 	MatchSignals.setup_and_spawn_unit.emit(
 		produced_unit, Transform3D(Basis(), placement_position), _unit.player
 	)
+
+	# Handle rally point
+	if _unit.has_node("RallyPoint") and Moving.is_applicable(produced_unit):
+		var rally_point = _unit.get_node("RallyPoint").global_position
+
+		if rally_point != _unit.global_position:
+			produced_unit.action = Moving.new(rally_point)
