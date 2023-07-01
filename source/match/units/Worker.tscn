@@ -36,12 +36,12 @@ radius = 0.6
 [node name="Movement" parent="." instance=ExtResource("4_lmprj")]
 path_desired_distance = 0.31
 target_desired_distance = 0.31
-agent_height_offset = 0.5
+path_height_offset = 0.5
 path_max_distance = 0.31
 radius = 0.6
 neighbor_distance = 8.0
 max_neighbors = 40
-time_horizon = 3.0
+time_horizon_agents = 3.0
 speed = 2.5
 
 [node name="HealthBar" parent="." instance=ExtResource("5_50cqd")]

@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Open RTS"
 run/main_scene="res://source/Main.tscn"
-config/features=PackedStringArray("4.0", "Forward Plus")
+config/features=PackedStringArray("4.1", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/image="res://assets/logos/godot_logo_vertical_monochrome_dark_312x357.png"
 boot_splash/fullsize=false
@@ -31,8 +31,8 @@ Utils="*res://source/Utils.gd"
 
 gdscript/warnings/standalone_expression=0
 gdscript/warnings/incompatible_ternary=0
-gdscript/warnings/assert_always_false=0
 gdscript/warnings/static_called_on_instance=0
+gdscript/warnings/assert_always_false=0
 
 [display]
 

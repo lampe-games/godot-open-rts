@@ -43,12 +43,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
 [node name="Movement" parent="." instance=ExtResource("3_4m8ma")]
 path_desired_distance = 0.5
 target_desired_distance = 0.5
-agent_height_offset = 0.5
+path_height_offset = 0.5
 path_max_distance = 0.51
 radius = 1.0
 neighbor_distance = 8.0
 max_neighbors = 40
-time_horizon = 3.0
+time_horizon_agents = 3.0
 speed = 2.75
 
 [node name="HealthBar" parent="." instance=ExtResource("4_7l0rt")]

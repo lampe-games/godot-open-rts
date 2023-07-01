@@ -31,7 +31,9 @@ This game is not going to be a very advanced RTS that would compete with other g
 
 ## Godot compatibility
 
-This project is compatible with Godot `4.0`, `4.0.1`, `4.0.2`, and `4.0.3`.
+This project is compatible with Godot `4.1`.
+
+Support for Godot `4.0`, `4.0.1`, `4.0.2`, and `4.0.3` is available on `godot-4.0-support` branch.
 
 ## Screenshots
 

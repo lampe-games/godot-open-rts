@@ -81,7 +81,7 @@ radius = 0.8
 [node name="Movement" parent="." instance=ExtResource("3_4ms8e")]
 path_desired_distance = 0.1
 target_desired_distance = 0.1
-agent_height_offset = 0.5
+path_height_offset = 0.5
 radius = 0.8
 neighbor_distance = 8.0
 max_neighbors = 40

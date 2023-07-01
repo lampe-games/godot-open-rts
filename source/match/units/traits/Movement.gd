@@ -72,7 +72,7 @@ func _align_unit_position_to_navigation():
 		NavigationServer3D.map_get_closest_point(
 			get_navigation_map(), get_parent().global_transform.origin
 		)
-		- Vector3(0, agent_height_offset, 0)
+		- Vector3(0, path_height_offset, 0)
 	)
 
 

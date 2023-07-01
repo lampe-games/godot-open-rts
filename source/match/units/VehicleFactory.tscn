@@ -33,9 +33,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
 radius = 1.5
 
 [node name="MovementObstacle" parent="." instance=ExtResource("3_cp6bx")]
-estimate_radius = false
 radius = 1.5
-agent_height_offset = 0.5
+path_height_offset = 0.5
 
 [node name="HealthBar" parent="." instance=ExtResource("4_xd2eg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, 0)

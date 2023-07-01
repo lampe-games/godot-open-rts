@@ -1,5 +1,13 @@
 # Changelog
 
+## [main]
+
+### New features
+ - Added structure rally points
+
+### Changed
+ - Godot 4.1 support added instead of Godot 4.0 (4.0 support is still present on branch)
+
 ## [0.9.0]
 
 ### New features
