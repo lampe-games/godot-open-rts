@@ -237,8 +237,11 @@ func _spawn_player_units(player, spawn_transform):
 func _setup_and_spawn_unit(unit, a_transform, player, mark_structure_under_construction = true):
 	unit.global_transform = a_transform
 	_setup_unit(unit, player)
-	if unit is Structure and mark_structure_under_construction:
-		unit.mark_as_under_construction()
+	if unit is Structure:
+		if mark_structure_under_construction:
+			unit.mark_as_under_construction()
+		else:
+			unit.progress = unit.progress_max
 	add_child(unit)
 	MatchSignals.unit_spawned.emit(unit)
 

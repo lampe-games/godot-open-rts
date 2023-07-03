@@ -25,19 +25,39 @@ func _ready():
 	_unit.deselected.connect(_on_unit_deselected)
 	_unit.hp_changed.connect(_on_hp_changed)
 	_visibility_timer.timeout.connect(_on_visibility_timer_timeout)
-
+	if _unit.has_signal("progress_changed"):
+		_unit.progress_changed.connect(_on_progress_changed)
 
 func _recalulate_bar_value():
+	if( 
+		"progress" in _unit
+		and "progress_max" in _unit
+		and _unit.progress < _unit.progress_max 
+	):
+		_show_progress_on_bar()
+	else:
+		_show_hp_on_bar()
+
+func _show_progress_on_bar():
+	if _unit.progress == null or _unit.progress_max == null:
+		return
+	var old_value = _actual_bar.texture.gradient.get_offset(1)
+	var new_value = float(_unit.progress) / _unit.progress_max
+	_show_value_on_bar( old_value, new_value );
+
+func _show_hp_on_bar():
 	if _unit.hp == null or _unit.hp_max == null:
 		return
 	var old_value = _actual_bar.texture.gradient.get_offset(1)
 	var new_value = float(_unit.hp) / _unit.hp_max
+	_show_value_on_bar( old_value, new_value );
+
+func _show_value_on_bar( old_value, new_value ):
 	new_value = new_value if not is_equal_approx(new_value, 1.0) else 1.1  # fixing 1px gap
 	_actual_bar.texture.gradient.set_offset(1, new_value)
 	if _bar_value_initialized and old_value != new_value:
 		_show_for_a_while()
 	_bar_value_initialized = true
-
 
 func _show_for_a_while():
 	if visible:
@@ -58,6 +78,8 @@ func _on_unit_deselected():
 func _on_hp_changed():
 	_recalulate_bar_value()
 
+func _on_progress_changed():
+	_recalulate_bar_value()
 
 func _on_visibility_timer_timeout():
 	hide()

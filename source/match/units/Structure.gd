@@ -1,5 +1,6 @@
 extends "res://source/match/units/Unit.gd"
 
+signal progress_changed
 signal constructed
 
 const UNDER_CONSTRUCTION_MATERIAL = preload(
@@ -7,7 +8,8 @@ const UNDER_CONSTRUCTION_MATERIAL = preload(
 )
 
 var _under_construction = false
-
+var progress = 0
+var progress_max = 10
 
 func mark_as_under_construction():
 	assert(not _under_construction, "structure already under construction")
@@ -20,17 +22,11 @@ func mark_as_under_construction():
 
 func construct( added_progress ):
 	assert(_under_construction, "structure must be under construction")
-	
-	var progress = get_meta("progress", 0)
 	progress += added_progress
-	set_meta( "progress", progress )
-	
-	#hp = hp_max * progress / 100
-	
-	if progress >= 10 :
+	progress_changed.emit()
+	if progress >= progress_max :
 		finnish_construction()
 		return true
-	
 	return false
 
 
