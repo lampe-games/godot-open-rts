@@ -1,5 +1,7 @@
 extends Node
 
+const Structure = preload("res://source/match/units/Structure.gd")
+
 
 class Actions:
 	const Moving = preload("res://source/match/units/actions/Moving.gd")
@@ -15,6 +17,7 @@ class Actions:
 func _ready():
 	MatchSignals.terrain_targeted.connect(_on_terrain_targeted)
 	MatchSignals.unit_targeted.connect(_on_unit_targeted)
+	MatchSignals.unit_spawned.connect(_on_unit_spawned)
 
 
 func _try_navigating_selected_units_towards_position(target_point):
@@ -56,6 +59,20 @@ func _try_setting_rally_points(target_point: Vector3):
 			rally_point.global_position = target_point
 
 
+func _try_ordering_selected_workers_to_construct_structure(potential_structure):
+	if not potential_structure is Structure or potential_structure.is_constructed():
+		return
+	var structure = potential_structure
+	var selected_constructors = get_tree().get_nodes_in_group("selected_units").filter(
+		func(unit): return (
+			unit.is_in_group("controlled_units")
+			and Actions.Constructing.is_applicable(unit, structure)
+		)
+	)
+	for unit in selected_constructors:
+		unit.action = Actions.Constructing.new(structure)
+
+
 func _navigate_selected_units_towards_unit(target_unit):
 	var units_navigated = 0
 	for unit in get_tree().get_nodes_in_group("selected_units"):
@@ -95,3 +112,7 @@ func _on_unit_targeted(unit):
 		var targetability = unit.find_child("Targetability")
 		if targetability != null:
 			targetability.animate()
+
+
+func _on_unit_spawned(unit):
+	_try_ordering_selected_workers_to_construct_structure(unit)

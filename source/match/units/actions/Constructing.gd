@@ -11,7 +11,12 @@ var _sub_action = null
 
 
 static func is_applicable(source_unit, target_unit):
-	return source_unit is Worker and target_unit is Structure and not target_unit.is_constructed()
+	return (
+		source_unit is Worker
+		and target_unit is Structure
+		and not target_unit.is_constructed()
+		and source_unit.player == target_unit.player
+	)
 
 
 func _init(target_unit):
