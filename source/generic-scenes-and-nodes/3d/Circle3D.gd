@@ -7,7 +7,7 @@ extends Node3D
 	set = _set_width
 @export var color = Color.WHITE:
 	set = _set_color
-@export var render_priority = 0:
+@export var render_priority: int = 0:  # TODO: report Godot bug here when no type hint present
 	set = _set_render_priority
 
 var _plane = null

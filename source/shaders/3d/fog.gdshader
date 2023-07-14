@@ -4,6 +4,8 @@ render_mode unshaded;
 uniform vec4 color : source_color = vec4(1.0);
 uniform float max_density_height = 0.0;
 uniform float min_density_height = 1.0;
+uniform float max_height = 9999.0;
+uniform float min_height = -9999.0;
 uniform sampler2D depth_texture : hint_depth_texture;
 
 void vertex()
@@ -26,4 +28,8 @@ void fragment()
       INV_VIEW_MATRIX * inverse(PROJECTION_MATRIX) * vec4(normalized_device_coordinates, 1.0);
   world_position.xyz /= world_position.w;
   ALPHA = smoothstep(min_density_height, max_density_height, world_position.y);
+  if (world_position.y < min_height || world_position.y > max_height)
+  {
+    ALPHA = 0.0;
+  }
 }

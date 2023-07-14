@@ -8,4 +8,4 @@ script = ExtResource("1_be1f2")
 
 [node name="FadedCircle3D" parent="." instance=ExtResource("1_fvq0j")]
 inner_edge_width = 10.0
-render_priority = 127
+render_priority = 1

@@ -55,7 +55,7 @@ void fragment()
     }
     else
     {
-      ALPHA = 1.0;
+      ALPHA = 0.0;
     }
   }
 

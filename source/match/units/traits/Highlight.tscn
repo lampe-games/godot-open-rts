@@ -8,4 +8,4 @@ script = ExtResource("1_68q8u")
 
 [node name="Circle3D" parent="." instance=ExtResource("2_u8emv")]
 width = 5.0
-render_priority = 127
+render_priority = 1

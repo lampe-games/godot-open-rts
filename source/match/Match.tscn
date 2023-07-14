@@ -94,6 +94,8 @@ shader = ExtResource("10_weh6c")
 shader_parameter/color = Color(0.85, 0.6596, 0.578, 1)
 shader_parameter/max_density_height = -0.5
 shader_parameter/min_density_height = 0.4
+shader_parameter/max_height = 9999.0
+shader_parameter/min_height = -0.05
 
 [sub_resource type="QuadMesh" id="QuadMesh_pv7fp"]
 flip_faces = true
@@ -110,7 +112,7 @@ viewport_path = NodePath("FogOfWar/CombinedViewport")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5rcuq"]
 resource_local_to_scene = true
-render_priority = 1
+render_priority = 2
 shader = ExtResource("13_jo8b7")
 shader_parameter/color = Color(0, 0, 0, 1)
 shader_parameter/texture_units_per_world_unit = 2
