@@ -22,7 +22,7 @@ var _sub_action = null
 static func is_applicable(source_unit, target_unit):
 	return (
 		(source_unit is Worker and target_unit is ResourceUnit)
-		or (source_unit is Worker and target_unit is CommandCenter)
+		or (source_unit is Worker and target_unit is CommandCenter and target_unit.is_constructed())
 	)
 
 
@@ -126,11 +126,9 @@ func _find_closest_resource_unit_in_nearby_area():
 
 static func _find_cc_closest_to_unit(unit):
 	var ccs_of_the_same_player = unit.get_tree().get_nodes_in_group("units").filter(
-		func(a_unit): return ( 
-				a_unit is CommandCenter 
-				and a_unit.player == unit.player
-				and a_unit.is_constructed()
-				)
+		func(a_unit): return (
+			a_unit is CommandCenter and a_unit.player == unit.player and a_unit.is_constructed()
+		)
 	)
 	if ccs_of_the_same_player.is_empty():
 		return null
