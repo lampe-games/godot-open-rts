@@ -3,6 +3,9 @@ extends "res://source/match/units/actions/Action.gd"
 const Worker = preload("res://source/match/units/Worker.gd")
 const Structure = preload("res://source/match/units/Structure.gd")
 const MovingToUnit = preload("res://source/match/units/actions/MovingToUnit.gd")
+const ConstructingWhileInRange = preload(
+	"res://source/match/units/actions/ConstructingWhileInRange.gd"
+)
 
 var _target_unit = null
 var _sub_action = null
@@ -25,19 +28,18 @@ func _init(target_unit):
 
 
 func _ready():
-	if not _try_constructing_structure():
-		_sub_action = MovingToUnit.new(_target_unit)
-		_sub_action.tree_exited.connect(_on_sub_action_finished)
-		add_child(_sub_action)
+	_construct_or_move_closer()
 
 
-func _try_constructing_structure():
-	if Utils.Match.Unit.Movement.units_adhere(_unit, _target_unit):
-		_target_unit.constructed.disconnect(_on_target_unit_constructed)
-		_target_unit.construct()
-		queue_free()
-		return true
-	return false
+func _construct_or_move_closer():
+	_sub_action = (
+		MovingToUnit.new(_target_unit)
+		if not Utils.Match.Unit.Movement.units_adhere(_unit, _target_unit)
+		else ConstructingWhileInRange.new(_target_unit)
+	)
+	_sub_action.tree_exited.connect(_on_sub_action_finished)
+	add_child(_sub_action)
+	_unit.action_updated.emit()
 
 
 func _to_string():
@@ -51,8 +53,7 @@ func _on_sub_action_finished():
 		queue_free()
 		return
 	_sub_action = null
-	var structure_constructed = _try_constructing_structure()
-	assert(structure_constructed, "structure construction should succeed")
+	_construct_or_move_closer()
 
 
 func _on_target_unit_constructed():
