@@ -38,15 +38,27 @@ func _try_showing_any_menu():
 	var selected_controlled_units = get_tree().get_nodes_in_group("selected_units").filter(
 		func(unit): return unit.is_in_group("controlled_units")
 	)
-	if selected_controlled_units.size() == 1 and selected_controlled_units[0] is CommandCenter:
+	if (
+		selected_controlled_units.size() == 1
+		and selected_controlled_units[0] is CommandCenter
+		and selected_controlled_units[0].is_constructed()
+	):
 		_command_center_menu.unit = selected_controlled_units[0]
 		_command_center_menu.show()
 		return true
-	if selected_controlled_units.size() == 1 and selected_controlled_units[0] is VehicleFactory:
+	if (
+		selected_controlled_units.size() == 1
+		and selected_controlled_units[0] is VehicleFactory
+		and selected_controlled_units[0].is_constructed()
+	):
 		_vehicle_factory_menu.unit = selected_controlled_units[0]
 		_vehicle_factory_menu.show()
 		return true
-	if selected_controlled_units.size() == 1 and selected_controlled_units[0] is AircraftFactory:
+	if (
+		selected_controlled_units.size() == 1
+		and selected_controlled_units[0] is AircraftFactory
+		and selected_controlled_units[0].is_constructed()
+	):
 		_aircraft_factory_menu.unit = selected_controlled_units[0]
 		_aircraft_factory_menu.show()
 		return true
