@@ -371,6 +371,13 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
+[node name="CameraIndicator" type="Line2D" parent="HUD/MarginContainer/Minimap/MarginContainer/MinimapViewport"]
+points = PackedVector2Array(5, 5, 5, 30, 30, 30, 30, 5, 5, 5)
+width = 1.0
+begin_cap_mode = 1
+end_cap_mode = 1
+antialiased = true
+
 [node name="MinimapTextureRect" type="TextureRect" parent="HUD/MarginContainer/Minimap/MarginContainer"]
 layout_mode = 2
 texture = SubResource("ViewportTexture_8q44e")

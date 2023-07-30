@@ -130,6 +130,7 @@ func _plug_custom_map(custom_map):
 	remove_child(map)
 	map.queue_free()
 	map = custom_map
+	map.owner = self
 
 
 func _create_players():
