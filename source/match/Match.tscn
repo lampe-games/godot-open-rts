@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://camns8fqod8d4"]
+[gd_scene load_steps=54 format=3 uid="uid://camns8fqod8d4"]
 
 [ext_resource type="Script" path="res://source/match/Match.gd" id="1_1555u"]
 [ext_resource type="Script" path="res://source/match/IsometricCamera3D.gd" id="1_qb2ry"]
@@ -23,6 +23,7 @@
 [ext_resource type="Script" path="res://source/match/hud/Resources.gd" id="16_vjwpn"]
 [ext_resource type="Script" path="res://source/match/hud/Minimap.gd" id="17_0bfte"]
 [ext_resource type="Script" path="res://source/match/TerrainNavigation.gd" id="17_6fprk"]
+[ext_resource type="Shader" path="res://source/shaders/2d/white_transparent.gdshader" id="19_m1b2v"]
 [ext_resource type="PackedScene" uid="uid://bocb7hjilvri5" path="res://source/match/handlers/SelectionHandler.tscn" id="20_tw1wp"]
 [ext_resource type="PackedScene" uid="uid://c0uxy26e4qs4w" path="res://source/match/handlers/MouseClickAnimationsHandler.tscn" id="22_438pb"]
 [ext_resource type="PackedScene" uid="uid://1rby73ckmk7b" path="res://source/match/Menu.tscn" id="22_ofmlu"]
@@ -141,8 +142,16 @@ geometry_collision_mask = 4278190082
 geometry_source_geometry_mode = 2
 geometry_source_group_name = &"terrain_navigation_input"
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_rm132"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_vu2gm"]
 viewport_path = NodePath("FogOfWar/CombinedViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3nec5"]
+resource_local_to_scene = true
+shader = ExtResource("19_m1b2v")
+shader_parameter/reference_texture = SubResource("ViewportTexture_vu2gm")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_8q44e"]
+viewport_path = NodePath("HUD/MarginContainer/Minimap/MarginContainer/MinimapViewport")
 
 [node name="Match" type="Node3D"]
 script = ExtResource("1_1555u")
@@ -317,10 +326,54 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="TextureRect" type="TextureRect" parent="HUD/MarginContainer/Minimap/MarginContainer"]
-custom_minimum_size = Vector2(200, 200)
+[node name="MinimapViewport" type="SubViewport" parent="HUD/MarginContainer/Minimap/MarginContainer"]
+disable_3d = true
+size = Vector2i(100, 100)
+
+[node name="Background" type="ColorRect" parent="HUD/MarginContainer/Minimap/MarginContainer/MinimapViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.351562, 0.351562, 0.351562, 1)
+
+[node name="DummyUnit" type="ColorRect" parent="HUD/MarginContainer/Minimap/MarginContainer/MinimapViewport"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1.0
+offset_top = -1.0
+offset_right = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0, 0, 1)
+
+[node name="DummyUnit2" type="ColorRect" parent="HUD/MarginContainer/Minimap/MarginContainer/MinimapViewport"]
+anchors_preset = -1
+anchor_left = 0.25
+anchor_right = 0.25
+offset_left = -1.0
+offset_right = 1.0
+offset_bottom = 2.0
+grow_horizontal = 2
+color = Color(1, 0, 0, 1)
+
+[node name="FogOfWarMask" type="ColorRect" parent="HUD/MarginContainer/Minimap/MarginContainer/MinimapViewport"]
+material = SubResource("ShaderMaterial_3nec5")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="MinimapTextureRect" type="TextureRect" parent="HUD/MarginContainer/Minimap/MarginContainer"]
 layout_mode = 2
-texture = SubResource("ViewportTexture_rm132")
+texture = SubResource("ViewportTexture_8q44e")
 stretch_mode = 5
 
 [node name="MarginContainer2" type="MarginContainer" parent="HUD"]
