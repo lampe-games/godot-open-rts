@@ -1,7 +1,10 @@
 extends PanelContainer
 
+const Unit = preload("res://source/match/units/Unit.gd")
+
 const GROUND_LEVEL_PLANE = Plane(Vector3.UP, 0)
 const MINIMAP_PIXELS_PER_WORLD_METER = 2
+const RESOURCE_UNIT_REPRESENTATION_COLOR = Color.YELLOW
 
 var _unit_to_corresponding_node_mapping = {}
 
@@ -27,13 +30,15 @@ func _physics_process(_delta):
 
 
 func _remove_dummy_nodes():
-	for dummy_node in find_children("Dummy*"):
+	for dummy_node in find_children("EditorOnlyDummy*"):
 		dummy_node.queue_free()
 
 
 func _sync_real_units_with_minimap_representations():
 	var units_synced = {}
-	var units_to_sync = get_tree().get_nodes_in_group("units")
+	var units_to_sync = (
+		get_tree().get_nodes_in_group("units") + get_tree().get_nodes_in_group("resource_units")
+	)
 	for unit in units_to_sync:
 		if not unit.visible:
 			continue
@@ -53,6 +58,8 @@ func _unit_is_mapped(unit):
 func _map_unit(unit):
 	var node_representing_unit = ColorRect.new()
 	node_representing_unit.size = Vector2(3, 3)
+	if not unit is Unit:
+		node_representing_unit.rotation_degrees = 45
 	_viewport_background.add_sibling(node_representing_unit)
 	node_representing_unit.pivot_offset = node_representing_unit.size / 2.0
 	_unit_to_corresponding_node_mapping[unit] = node_representing_unit
@@ -62,7 +69,9 @@ func _sync_unit(unit):
 	var unit_pos_3d = unit.global_transform.origin
 	var unit_pos_2d = Vector2(unit_pos_3d.x, unit_pos_3d.z) * MINIMAP_PIXELS_PER_WORLD_METER
 	_unit_to_corresponding_node_mapping[unit].position = unit_pos_2d
-	_unit_to_corresponding_node_mapping[unit].color = unit.player.color
+	_unit_to_corresponding_node_mapping[unit].color = (
+		unit.player.color if unit is Unit else RESOURCE_UNIT_REPRESENTATION_COLOR
+	)
 
 
 func _cleanup_mapping(unit):

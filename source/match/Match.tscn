@@ -338,7 +338,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.351562, 0.351562, 0.351562, 1)
 
-[node name="DummyUnit" type="ColorRect" parent="HUD/MarginContainer/Minimap/MarginContainer/MinimapViewport"]
+[node name="EditorOnlyDummyUnit" type="ColorRect" parent="HUD/MarginContainer/Minimap/MarginContainer/MinimapViewport"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -352,7 +352,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 0, 0, 1)
 
-[node name="DummyUnit2" type="ColorRect" parent="HUD/MarginContainer/Minimap/MarginContainer/MinimapViewport"]
+[node name="EditorOnlyDummyUnit2" type="ColorRect" parent="HUD/MarginContainer/Minimap/MarginContainer/MinimapViewport"]
 anchors_preset = -1
 anchor_left = 0.25
 anchor_right = 0.25
