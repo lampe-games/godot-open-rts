@@ -7,11 +7,12 @@ const MINIMAP_PIXELS_PER_WORLD_METER = 2
 const RESOURCE_UNIT_REPRESENTATION_COLOR = Color.YELLOW
 
 var _unit_to_corresponding_node_mapping = {}
+var _camera_movement_active = false
 
 @onready var _match = find_parent("Match")
 @onready var _camera_indicator = find_child("CameraIndicator")
-@onready var _viewport = find_child("MinimapViewport")
 @onready var _viewport_background = find_child("Background")
+@onready var _texture_rect = find_child("MinimapTextureRect")
 
 
 func _ready():
@@ -22,6 +23,7 @@ func _ready():
 	find_child("MinimapViewport").size = (
 		_match.find_child("Map").size * MINIMAP_PIXELS_PER_WORLD_METER
 	)
+	_texture_rect.gui_input.connect(_on_gui_input)
 
 
 func _physics_process(_delta):
@@ -104,3 +106,42 @@ func _update_camera_indicator():
 				corner_mapped_to_3d_position_on_ground_level.z
 			)
 		)
+
+
+func _on_gui_input(event):
+	if event is InputEventMouseButton:
+		if event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
+			_try_teleporting_camera_based_on_local_texture_rect_position(event.position)
+			_camera_movement_active = true
+		if not event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
+			_camera_movement_active = false
+	elif event is InputEventMouseMotion and _camera_movement_active:
+		_try_teleporting_camera_based_on_local_texture_rect_position(event.position)
+
+
+func _try_teleporting_camera_based_on_local_texture_rect_position(position_2d_within_texture_rect):
+	assert(
+		_texture_rect.stretch_mode == _texture_rect.STRETCH_KEEP_ASPECT_CENTERED,
+		"world 3d position retrieval algorithm assumes 'STRETCH_KEEP_ASPECT_CENTERED'"
+	)
+	var texture_rect_size = _texture_rect.size
+	var texture_size = _texture_rect.texture.get_size()
+	var proportions = texture_rect_size / texture_size
+	var scaling_factor = proportions.x if proportions.x < proportions.y else proportions.y
+	var scaled_texture_size = texture_size * scaling_factor
+	var scaled_texture_position_within_texture_rect = (
+		(texture_rect_size - scaled_texture_size) / 2.0
+	)
+	var rect_containing_scaled_texture = Rect2(
+		scaled_texture_position_within_texture_rect, scaled_texture_size
+	)
+	if rect_containing_scaled_texture.has_point(position_2d_within_texture_rect):
+		var position_2d_within_minimap = (
+			(position_2d_within_texture_rect - rect_containing_scaled_texture.position)
+			/ scaling_factor
+		)
+		var world_position_3d = (
+			Vector3(position_2d_within_minimap.x, 0.0, position_2d_within_minimap.y)
+			/ MINIMAP_PIXELS_PER_WORLD_METER
+		)
+		get_viewport().get_camera_3d().set_position_safely(world_position_3d)

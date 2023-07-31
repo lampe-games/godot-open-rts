@@ -1,0 +1,71 @@
+[gd_scene load_steps=17 format=3 uid="uid://c54pjqg0defrj"]
+
+[ext_resource type="PackedScene" uid="uid://camns8fqod8d4" path="res://source/match/Match.tscn" id="1_e8lxh"]
+[ext_resource type="Script" path="res://tests/manual/Match.gd" id="2_2ib5j"]
+[ext_resource type="Script" path="res://source/model/MatchSettings.gd" id="3_52248"]
+[ext_resource type="PackedScene" uid="uid://d8wcem3ievht" path="res://tests/manual/maps/NonQuadratic.tscn" id="3_dldkj"]
+[ext_resource type="Script" path="res://source/model/PlayerSettings.gd" id="3_eliam"]
+[ext_resource type="Material" uid="uid://co8vfcoqqs5i8" path="res://source/match/resources/materials/terrain.material.tres" id="4_d4g7r"]
+[ext_resource type="Shader" path="res://source/shaders/3d/simple_fog_of_war.gdshader" id="5_arsbx"]
+[ext_resource type="Shader" path="res://source/shaders/2d/white_transparent.gdshader" id="6_2nbfa"]
+
+[sub_resource type="Resource" id="Resource_vkdak"]
+script = ExtResource("3_eliam")
+color = Color(0.4, 0.694118, 1, 1)
+controller = 1
+spawn_index = -1
+
+[sub_resource type="Resource" id="Resource_qgn77"]
+script = ExtResource("3_52248")
+players = Array[Resource]([SubResource("Resource_vkdak")])
+visibility = 0
+visible_player = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_7oss6"]
+resource_local_to_scene = true
+material = ExtResource("4_d4g7r")
+size = Vector2(50, 50)
+center_offset = Vector3(25, 0, 25)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_x0ak8"]
+viewport_path = NodePath("FogOfWar/CombinedViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g62le"]
+resource_local_to_scene = true
+render_priority = 2
+shader = ExtResource("5_arsbx")
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/texture_units_per_world_unit = 2
+shader_parameter/debug_texture_view = false
+shader_parameter/world_visibility_texture = SubResource("ViewportTexture_x0ak8")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_pww1d"]
+viewport_path = NodePath("FogOfWar/CombinedViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s3a4s"]
+resource_local_to_scene = true
+shader = ExtResource("6_2nbfa")
+shader_parameter/reference_texture = SubResource("ViewportTexture_pww1d")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_un6ry"]
+viewport_path = NodePath("HUD/MarginContainer/Minimap/MarginContainer/MinimapViewport")
+
+[node name="Match" instance=ExtResource("1_e8lxh")]
+script = ExtResource("2_2ib5j")
+allow_resources_deficit_spending = true
+settings = SubResource("Resource_qgn77")
+map_to_load_and_plug = ExtResource("3_dldkj")
+
+[node name="Terrain" parent="Map/Geometry" index="1"]
+mesh = SubResource("PlaneMesh_7oss6")
+
+[node name="ScreenOverlay" parent="FogOfWar" index="1"]
+material_override = SubResource("ShaderMaterial_g62le")
+
+[node name="FogOfWarMask" parent="HUD/MarginContainer/Minimap/MarginContainer/MinimapViewport" index="3"]
+material = SubResource("ShaderMaterial_s3a4s")
+
+[node name="MinimapTextureRect" parent="HUD/MarginContainer/Minimap/MarginContainer" index="1"]
+texture = SubResource("ViewportTexture_un6ry")
+
+[editable path="Map"]

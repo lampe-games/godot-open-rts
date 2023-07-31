@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://d8wcem3ievht"]
+
+[ext_resource type="PackedScene" uid="uid://b7c1crf36x1li" path="res://source/match/Map.tscn" id="1_ame05"]
+[ext_resource type="Material" uid="uid://co8vfcoqqs5i8" path="res://source/match/resources/materials/terrain.material.tres" id="2_cl6u2"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_0gpme"]
+resource_local_to_scene = true
+material = ExtResource("2_cl6u2")
+size = Vector2(100, 50)
+center_offset = Vector3(50, 0, 25)
+
+[node name="Map" instance=ExtResource("1_ame05")]
+size = Vector2(100, 50)
+
+[node name="Terrain" parent="Geometry" index="1"]
+mesh = SubResource("PlaneMesh_0gpme")
+
+[node name="Marker3D" type="Marker3D" parent="SpawnPoints" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 18)
