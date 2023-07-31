@@ -24,7 +24,6 @@ func construct(progress):
 	var expected_hp_before_progressing = int(_construction_progress * float(hp_max - 1))
 	_construction_progress += progress
 	var expected_hp_after_progressing = int(_construction_progress * float(hp_max - 1))
-	print(expected_hp_before_progressing, expected_hp_after_progressing)
 	if expected_hp_after_progressing > expected_hp_before_progressing:
 		hp += 1
 	if _construction_progress >= 1.0:
