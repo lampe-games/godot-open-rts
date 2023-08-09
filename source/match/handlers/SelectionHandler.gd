@@ -24,6 +24,8 @@ func _force_highlight(units_to_highlight):
 
 func _unforce_highlight(units_not_to_highlight_anymore):
 	for unit in units_not_to_highlight_anymore.iterate():
+		if unit == null:
+			continue
 		var highlight = unit.find_child("Highlight")
 		if highlight != null:
 			highlight.unforce()
