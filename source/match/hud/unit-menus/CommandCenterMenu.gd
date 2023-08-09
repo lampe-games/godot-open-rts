@@ -23,5 +23,5 @@ func _ready():
 
 
 func _on_produce_worker_button_pressed():
-	if unit.action != null and unit.action is ManagingProductionAction:
+	if unit != null and unit.action != null and unit.action is ManagingProductionAction:
 		unit.action.produce(WorkerUnit)

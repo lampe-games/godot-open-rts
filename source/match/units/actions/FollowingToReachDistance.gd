@@ -21,7 +21,8 @@ func _ready():
 	_timer.timeout.connect(_refresh)
 	add_child(_timer)
 	_timer.start(REFRESH_INTERVAL)
-	_movement_trait.movement_finished.connect(_on_movement_finished)
+	if _movement_trait != null:
+		_movement_trait.movement_finished.connect(_on_movement_finished)
 	_refresh()
 
 
@@ -51,7 +52,8 @@ func _align_movement_if_needed():
 		_last_known_target_unit_position == null
 		or not _last_known_target_unit_position.is_equal_approx(_target_unit.global_position)
 	):
-		_movement_trait.move(_target_unit.global_position)
+		if _movement_trait != null:
+			_movement_trait.move(_target_unit.global_position)
 		_last_known_target_unit_position = _target_unit.global_position
 
 
