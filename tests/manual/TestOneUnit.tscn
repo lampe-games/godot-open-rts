@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://camns8fqod8d4" path="res://source/match/Match.tscn" id="1_fe2sx"]
 [ext_resource type="Script" path="res://tests/manual/Match.gd" id="2_sflin"]
-[ext_resource type="Script" path="res://source/model/PlayerSettings.gd" id="3_3drrn"]
-[ext_resource type="Script" path="res://source/model/MatchSettings.gd" id="4_go41p"]
+[ext_resource type="Script" path="res://source/data-model/PlayerSettings.gd" id="3_3drrn"]
+[ext_resource type="Script" path="res://source/data-model/MatchSettings.gd" id="4_go41p"]
 [ext_resource type="Material" uid="uid://co8vfcoqqs5i8" path="res://source/match/resources/materials/terrain.material.tres" id="5_x8bni"]
 [ext_resource type="Shader" path="res://source/shaders/2d/white_transparent.gdshader" id="8_fifyq"]
 [ext_resource type="PackedScene" uid="uid://i58ffvwxbbwm" path="res://source/match/units/Tank.tscn" id="10_tqe5i"]

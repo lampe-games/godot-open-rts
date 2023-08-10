@@ -1,6 +1,6 @@
 extends Node
 
-const Options = preload("res://source/model/Options.gd")
+const Options = preload("res://source/data-model/Options.gd")
 
 var options = (
 	load(Constants.OPTIONS_FILE_PATH)

@@ -1,7 +1,7 @@
 extends Control
 
-const MatchSettings = preload("res://source/model/MatchSettings.gd")
-const PlayerSettings = preload("res://source/model/PlayerSettings.gd")
+const MatchSettings = preload("res://source/data-model/MatchSettings.gd")
+const PlayerSettings = preload("res://source/data-model/PlayerSettings.gd")
 const LoadingScene = preload("res://source/main-menu/Loading.tscn")
 
 var _map_paths = []

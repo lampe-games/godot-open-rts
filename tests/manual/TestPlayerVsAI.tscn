@@ -2,10 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://camns8fqod8d4" path="res://source/match/Match.tscn" id="1_cpaaw"]
 [ext_resource type="Script" path="res://tests/manual/Match.gd" id="2_mi5ae"]
-[ext_resource type="Script" path="res://source/model/PlayerSettings.gd" id="3_8b007"]
+[ext_resource type="Script" path="res://source/data-model/PlayerSettings.gd" id="3_8b007"]
 [ext_resource type="PackedScene" uid="uid://ct0ejt0trkhrf" path="res://source/match/units/CommandCenter.tscn" id="3_oqrnv"]
 [ext_resource type="PackedScene" uid="uid://cxilu6668nda6" path="res://source/match/units/AircraftFactory.tscn" id="4_a0u57"]
-[ext_resource type="Script" path="res://source/model/MatchSettings.gd" id="4_kwjav"]
+[ext_resource type="Script" path="res://source/data-model/MatchSettings.gd" id="4_kwjav"]
 [ext_resource type="Material" uid="uid://co8vfcoqqs5i8" path="res://source/match/resources/materials/terrain.material.tres" id="5_al0mb"]
 [ext_resource type="PackedScene" uid="uid://h5lqor1xl2sf" path="res://source/match/units/VehicleFactory.tscn" id="5_imqfl"]
 [ext_resource type="PackedScene" uid="uid://b8pckq1xn44ss" path="res://source/match/units/AntiGroundTurret.tscn" id="6_i5onm"]

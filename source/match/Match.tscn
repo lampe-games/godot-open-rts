@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://source/match/Match.gd" id="1_1555u"]
 [ext_resource type="Script" path="res://source/match/IsometricCamera3D.gd" id="1_qb2ry"]
-[ext_resource type="Script" path="res://source/model/PlayerSettings.gd" id="2_issh2"]
-[ext_resource type="Script" path="res://source/model/MatchSettings.gd" id="3_k87ed"]
+[ext_resource type="Script" path="res://source/data-model/PlayerSettings.gd" id="2_4dhvm"]
+[ext_resource type="Script" path="res://source/data-model/MatchSettings.gd" id="3_wftgs"]
 [ext_resource type="Script" path="res://source/match/FogOfWar.gd" id="5_eb52t"]
 [ext_resource type="PackedScene" uid="uid://co800e4shs7bh" path="res://source/generic-scenes-and-nodes/3d/RectangularSelection3D.tscn" id="5_yi0pu"]
 [ext_resource type="PackedScene" uid="uid://cbe63rdjw7y4p" path="res://source/match/maps/PlainAndSimple.tscn" id="6_au6gf"]
@@ -33,31 +33,31 @@
 [ext_resource type="PackedScene" uid="uid://q5w474dvts3f" path="res://source/match/handlers/StructurePlacementHandler.tscn" id="26_7heso"]
 
 [sub_resource type="Resource" id="Resource_hfc6q"]
-script = ExtResource("2_issh2")
+script = ExtResource("2_4dhvm")
 color = Color(0.4, 0.694118, 1, 1)
 controller = 1
 spawn_index = -1
 
 [sub_resource type="Resource" id="Resource_6k4u7"]
-script = ExtResource("2_issh2")
+script = ExtResource("2_4dhvm")
 color = Color(1, 0.360784, 0.45098, 1)
 controller = 2
 spawn_index = -1
 
 [sub_resource type="Resource" id="Resource_8ui6d"]
-script = ExtResource("2_issh2")
+script = ExtResource("2_4dhvm")
 color = Color(0.647059, 1, 0.6, 1)
 controller = 2
 spawn_index = -1
 
 [sub_resource type="Resource" id="Resource_qphv2"]
-script = ExtResource("2_issh2")
+script = ExtResource("2_4dhvm")
 color = Color(0.929412, 0.521569, 1, 1)
 controller = 2
 spawn_index = -1
 
 [sub_resource type="Resource" id="Resource_frabv"]
-script = ExtResource("3_k87ed")
+script = ExtResource("3_wftgs")
 players = Array[Resource]([SubResource("Resource_hfc6q"), SubResource("Resource_6k4u7"), SubResource("Resource_8ui6d"), SubResource("Resource_qphv2")])
 visibility = 1
 visible_player = 0

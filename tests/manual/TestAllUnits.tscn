@@ -4,11 +4,11 @@
 [ext_resource type="Script" path="res://tests/manual/Match.gd" id="2_ghr3h"]
 [ext_resource type="PackedScene" uid="uid://ct0ejt0trkhrf" path="res://source/match/units/CommandCenter.tscn" id="2_rm00b"]
 [ext_resource type="PackedScene" uid="uid://e7tko4kpeiau" path="res://source/match/units/Helicopter.tscn" id="3_0s0q8"]
-[ext_resource type="Script" path="res://source/model/PlayerSettings.gd" id="3_ml8xc"]
+[ext_resource type="Script" path="res://source/data-model/PlayerSettings.gd" id="3_dh4qg"]
 [ext_resource type="PackedScene" uid="uid://cxilu6668nda6" path="res://source/match/units/AircraftFactory.tscn" id="3_rq1vh"]
 [ext_resource type="PackedScene" uid="uid://0gow0ughqu8u" path="res://source/match/units/Drone.tscn" id="4_3o35x"]
+[ext_resource type="Script" path="res://source/data-model/MatchSettings.gd" id="4_bf0h3"]
 [ext_resource type="PackedScene" uid="uid://h5lqor1xl2sf" path="res://source/match/units/VehicleFactory.tscn" id="4_m1xri"]
-[ext_resource type="Script" path="res://source/model/MatchSettings.gd" id="4_qiwvm"]
 [ext_resource type="Shader" path="res://source/shaders/3d/simple_fog_of_war.gdshader" id="5_f2ny6"]
 [ext_resource type="PackedScene" uid="uid://b8pckq1xn44ss" path="res://source/match/units/AntiGroundTurret.tscn" id="5_g67iu"]
 [ext_resource type="Material" uid="uid://co8vfcoqqs5i8" path="res://source/match/resources/materials/terrain.material.tres" id="5_ki5yw"]
@@ -18,13 +18,13 @@
 [ext_resource type="Shader" path="res://source/shaders/2d/white_transparent.gdshader" id="16_mqpbu"]
 
 [sub_resource type="Resource" id="Resource_e1xtl"]
-script = ExtResource("3_ml8xc")
+script = ExtResource("3_dh4qg")
 color = Color(0.4, 0.694118, 1, 1)
 controller = 1
 spawn_index = -1
 
 [sub_resource type="Resource" id="Resource_rpdec"]
-script = ExtResource("4_qiwvm")
+script = ExtResource("4_bf0h3")
 players = Array[Resource]([SubResource("Resource_e1xtl")])
 visibility = 1
 visible_player = 0
