@@ -9,7 +9,7 @@ const EXPECTED_PROJECTION = PROJECTION_ORTHOGONAL
 @export var size_min = 1
 @export var size_max = 20
 @export_group("Movement")
-@export var screen_margin_for_movement = 1
+@export var screen_margin_for_movement = 2
 @export var movement_speed = 1.1
 @export var bounding_planes: Array[Plane] = []
 @export_group("Rotation")
