@@ -39,7 +39,7 @@ func provision(resources, metadata):
 		_number_of_pending_worker_resource_requests -= 1
 		if _ccs.is_empty():
 			return
-		_ccs[0].action.produce(WorkerScene)  # TODO: investigate how come CC has no action
+		_ccs[0].action.produce(WorkerScene)
 		_number_of_pending_workers += 1
 	elif metadata == "cc":
 		assert(

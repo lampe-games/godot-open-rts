@@ -15,6 +15,8 @@ func _ready():
 
 
 func _reset():
+	if not is_inside_tree():
+		return
 	_remove_queue_elements()
 	_clear_observed_production_manager()
 	if _try_observing_production_manager():
