@@ -21,6 +21,10 @@ func _ready():
 	_circle.hide()
 
 
+func _exit_tree():
+	deselect()
+
+
 func select():
 	if _selected:
 		return

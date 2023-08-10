@@ -39,12 +39,8 @@ func provision(resources, metadata):
 		_number_of_pending_worker_resource_requests -= 1
 		if _ccs.is_empty():
 			return
-		var action = _ccs[0].action
-		if action != null:
-			action.produce(WorkerScene)
-			_number_of_pending_workers += 1
-		else:
-			print("Tried to call `produce` on a null-action")
+		_ccs[0].action.produce(WorkerScene)  # TODO: investigate how come CC has no action
+		_number_of_pending_workers += 1
 	elif metadata == "cc":
 		assert(
 			resources == Constants.Match.Units.CONSTRUCTION_COSTS[CommandCenterScene.resource_path],

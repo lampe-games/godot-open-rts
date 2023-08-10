@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://b65yuqx0iw62f"]
+[gd_scene load_steps=25 format=3 uid="uid://b65yuqx0iw62f"]
 
 [ext_resource type="PackedScene" uid="uid://camns8fqod8d4" path="res://source/match/Match.tscn" id="1_oiu0k"]
 [ext_resource type="Script" path="res://tests/manual/Match.gd" id="2_ghr3h"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://cfa8cpnpk5pcb" path="res://source/match/units/AntiAirTurret.tscn" id="6_lglnp"]
 [ext_resource type="PackedScene" uid="uid://i58ffvwxbbwm" path="res://source/match/units/Tank.tscn" id="9_csgr3"]
 [ext_resource type="PackedScene" uid="uid://bf0r3fovbvf1m" path="res://source/match/units/Worker.tscn" id="10_c3eov"]
+[ext_resource type="Shader" path="res://source/shaders/2d/white_transparent.gdshader" id="16_mqpbu"]
 
 [sub_resource type="Resource" id="Resource_e1xtl"]
 script = ExtResource("3_ml8xc")
@@ -46,8 +47,16 @@ shader_parameter/texture_units_per_world_unit = 2
 shader_parameter/debug_texture_view = false
 shader_parameter/world_visibility_texture = SubResource("ViewportTexture_v46ss")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_38cip"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_cmtt0"]
 viewport_path = NodePath("FogOfWar/CombinedViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i0ai6"]
+resource_local_to_scene = true
+shader = ExtResource("16_mqpbu")
+shader_parameter/reference_texture = SubResource("ViewportTexture_cmtt0")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ltqxy"]
+viewport_path = NodePath("HUD/MarginContainer/Minimap/MarginContainer/MinimapViewport")
 
 [node name="Match" instance=ExtResource("1_oiu0k")]
 script = ExtResource("2_ghr3h")
@@ -87,7 +96,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.2469, 0, 5.45996)
 [node name="Worker" parent="Units/Player0" index="8" instance=ExtResource("10_c3eov")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5856, 0, 14.6178)
 
-[node name="TextureRect" parent="HUD/MarginContainer/Minimap/MarginContainer" index="0"]
-texture = SubResource("ViewportTexture_38cip")
+[node name="FogOfWarMask" parent="HUD/MarginContainer/Minimap/MarginContainer/MinimapViewport" index="3"]
+material = SubResource("ShaderMaterial_i0ai6")
+
+[node name="MinimapTextureRect" parent="HUD/MarginContainer/Minimap/MarginContainer" index="1"]
+texture = SubResource("ViewportTexture_ltqxy")
 
 [editable path="Map"]
