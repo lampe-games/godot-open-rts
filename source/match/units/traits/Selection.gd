@@ -18,11 +18,8 @@ func _ready():
 		return
 	MatchSignals.deselect_all_units.connect(deselect)
 	_unit.input_event.connect(_on_input_event)
+	_unit.tree_exiting.connect(deselect)
 	_circle.hide()
-
-
-func _exit_tree():
-	deselect()
 
 
 func select():
