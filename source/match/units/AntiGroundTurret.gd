@@ -5,6 +5,8 @@ const WaitingForTargets = preload("res://source/match/units/actions/WaitingForTa
 
 func _ready():
 	await super()
+	find_child("Geometry").visible = visible
+	visibility_changed.connect(func(): find_child("Geometry").visible = visible)
 	if not is_constructed():
 		await constructed
 	action = WaitingForTargets.new()

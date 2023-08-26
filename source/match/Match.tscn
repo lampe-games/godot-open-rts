@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://camns8fqod8d4"]
+[gd_scene load_steps=55 format=3 uid="uid://camns8fqod8d4"]
 
 [ext_resource type="Script" path="res://source/match/Match.gd" id="1_1555u"]
 [ext_resource type="Script" path="res://source/match/IsometricCamera3D.gd" id="1_qb2ry"]
@@ -31,6 +31,7 @@
 [ext_resource type="PackedScene" uid="uid://c3xjdp2yrr1fu" path="res://source/match/debug/DiagnosticHud.tscn" id="23_pocq6"]
 [ext_resource type="PackedScene" uid="uid://yn470qvc3eak" path="res://source/match/handlers/MatchEndHandler.tscn" id="26_4d7im"]
 [ext_resource type="PackedScene" uid="uid://q5w474dvts3f" path="res://source/match/handlers/StructurePlacementHandler.tscn" id="26_7heso"]
+[ext_resource type="PackedScene" uid="uid://b8p6lcwubx1tp" path="res://source/match/handlers/UnitVisibilityHandler.tscn" id="32_fci1c"]
 
 [sub_resource type="Resource" id="Resource_hfc6q"]
 script = ExtResource("2_4dhvm")
@@ -465,5 +466,7 @@ rectangular_selection_3d = NodePath("../../RectangularSelection3D")
 
 [node name="MatchEndHandler" parent="Handlers" instance=ExtResource("26_4d7im")]
 visible = false
+
+[node name="UnitVisibilityHandler" parent="Handlers" instance=ExtResource("32_fci1c")]
 
 [editable path="Map"]

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b8p6lcwubx1tp"]
+
+[ext_resource type="Script" path="res://source/match/handlers/UnitVisibilityHandler.gd" id="1_xi14o"]
+
+[node name="UnitVisibilityHandler" type="Node3D"]
+script = ExtResource("1_xi14o")

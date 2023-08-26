@@ -33,7 +33,7 @@ spawn_index = -1
 [sub_resource type="Resource" id="Resource_tnmkt"]
 script = ExtResource("4_kwjav")
 players = Array[Resource]([SubResource("Resource_sm6ga"), SubResource("Resource_7xhjj")])
-visibility = 1
+visibility = 0
 visible_player = 0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_rdr54"]
