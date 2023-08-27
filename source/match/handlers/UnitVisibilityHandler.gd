@@ -1,6 +1,8 @@
 extends Node3D
 
-# TODO: recalculate visibility of new units as they are created to remove "blink" effect
+
+func _ready():
+	MatchSignals.unit_spawned.connect(_on_unit_spawned)
 
 
 func _physics_process(_delta):
@@ -17,14 +19,32 @@ func _physics_process(_delta):
 	)
 	# TODO: check the performance of this O(N^2) algorithm vs the reading of FoW texture
 	for unit in non_revealed_units:
-		var should_be_visible = false
-		for revealed_unit in revealed_units:
-			if (
+		_recalculate_unit_visibility(unit, revealed_units)
+
+
+func _recalculate_unit_visibility(unit, revealed_units = null):
+	if unit.is_in_group("revealed_units"):
+		unit.show()
+		return
+	var should_be_visible = false
+	if revealed_units == null:
+		revealed_units = get_tree().get_nodes_in_group("units").filter(
+			func(unit): return unit.is_in_group("revealed_units")
+		)
+	for revealed_unit in revealed_units:
+		if (
+			revealed_unit.sight_range != null
+			and (
 				(revealed_unit.global_position * Vector3(1, 0, 1)).distance_to(
 					unit.global_position * Vector3(1, 0, 1)
 				)
 				<= revealed_unit.sight_range
-			):
-				should_be_visible = true
-				break
-		unit.visible = should_be_visible
+			)
+		):
+			should_be_visible = true
+			break
+	unit.visible = should_be_visible
+
+
+func _on_unit_spawned(unit):
+	_recalculate_unit_visibility(unit)
