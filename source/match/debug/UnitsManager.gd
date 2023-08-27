@@ -18,7 +18,8 @@ func _unhandled_input(event):
 		return
 	if event.is_action_pressed("god_mode_delete_units"):
 		for unit in get_tree().get_nodes_in_group("selected_units"):
-			unit.queue_free()
+			if "hp" in unit:
+				unit.hp = 0
 
 
 func _get_requested_units():

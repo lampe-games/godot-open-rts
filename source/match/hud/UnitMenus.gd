@@ -16,6 +16,7 @@ func _ready():
 	_reset_menus()
 	MatchSignals.unit_selected.connect(func(_unit): _reset_menus())
 	MatchSignals.unit_deselected.connect(func(_unit): _reset_menus())
+	MatchSignals.unit_died.connect(func(_unit): _reset_menus())
 
 
 func _reset_menus():

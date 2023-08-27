@@ -118,6 +118,7 @@ func _teardown_current_action():
 
 
 func _handle_unit_death():
+	tree_exited.connect(func(): MatchSignals.unit_died.emit(self))
 	queue_free()
 
 
