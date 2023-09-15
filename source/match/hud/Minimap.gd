@@ -1,6 +1,7 @@
 extends PanelContainer
 
 const Unit = preload("res://source/match/units/Unit.gd")
+const Moving = preload("res://source/match/units/actions/Moving.gd")
 
 const GROUND_LEVEL_PLANE = Plane(Vector3.UP, 0)
 const MINIMAP_PIXELS_PER_WORLD_METER = 2
@@ -13,7 +14,6 @@ var _camera_movement_active = false
 @onready var _camera_indicator = find_child("CameraIndicator")
 @onready var _viewport_background = find_child("Background")
 @onready var _texture_rect = find_child("MinimapTextureRect")
-
 
 func _ready():
 	if not FeatureFlags.show_minimap:
@@ -115,6 +115,8 @@ func _on_gui_input(event):
 			_camera_movement_active = true
 		if not event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
 			_camera_movement_active = false
+		if event.is_pressed() and event.button_index == MOUSE_BUTTON_RIGHT:
+			_issue_movement_action(event)
 	elif event is InputEventMouseMotion and _camera_movement_active:
 		_try_teleporting_camera_based_on_local_texture_rect_position(event.position)
 
@@ -145,3 +147,14 @@ func _try_teleporting_camera_based_on_local_texture_rect_position(position_2d_wi
 			/ MINIMAP_PIXELS_PER_WORLD_METER
 		)
 		get_viewport().get_camera_3d().set_position_safely(world_position_3d)
+
+
+func _issue_movement_action(event):
+	var map = _match.find_child("Map")
+	var target_position = Vector3(
+		map.size.x * event.position.x / size.x,
+		0,
+		map.size.y * event.position.y / size.y
+	)
+	for unit in get_tree().get_nodes_in_group("selected_units"):
+		unit.action = Moving.new( target_position )
