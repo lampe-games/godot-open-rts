@@ -15,6 +15,7 @@ var _camera_movement_active = false
 @onready var _viewport_background = find_child("Background")
 @onready var _texture_rect = find_child("MinimapTextureRect")
 
+
 func _ready():
 	if not FeatureFlags.show_minimap:
 		queue_free()
@@ -150,11 +151,10 @@ func _try_teleporting_camera_based_on_local_texture_rect_position(position_2d_wi
 
 
 func _issue_movement_action(event):
+	# TODO: either add owner check or change this func to emit 'terrain_targeted' signal
 	var map = _match.find_child("Map")
 	var target_position = Vector3(
-		map.size.x * event.position.x / size.x,
-		0,
-		map.size.y * event.position.y / size.y
+		map.size.x * event.position.x / size.x, 0, map.size.y * event.position.y / size.y
 	)
 	for unit in get_tree().get_nodes_in_group("selected_units"):
-		unit.action = Moving.new( target_position )
+		unit.action = Moving.new(target_position)
