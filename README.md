@@ -53,7 +53,12 @@ Everyone is free to fix bugs or perform refactoring just by opening PR. As for f
  - Pawel Lampe (Lampe Games)
  
 ### Contributors
- - Balázs Nagy (Bazsi1224)
+
+<a href="https://github.com/lampe-games/godot-open-rts/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=lampe-games/godot-open-rts" />
+</a>
+
+Made with [contrib.rocks](https://contrib.rocks).
 
 ### Assets
  - 3D Space Kit by [Kenney](https://www.kenney.nl/assets/space-kit)
