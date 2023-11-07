@@ -1,14 +1,12 @@
 extends Node3D
 
-# TODO: re-use dummies: show/hide them instead of re-creating
+const SIGHT_COMPENSATION = 2.0  # compensates for blurry edges of FoW
 
 const Structure = preload("res://source/match/units/Structure.gd")
 
 var _units_processed_at_least_once = {}
 var _structure_to_dummy_mapping = {}
-
-# TODO: handle dummies properly when changing player visibility
-#       -> dummies are not removed when created and switching player
+var _orphaned_dummies = []
 
 
 func _ready():
@@ -17,27 +15,19 @@ func _ready():
 
 
 func _physics_process(_delta):
-	var units_to_process = get_tree().get_nodes_in_group("units")
-
-	var revealed_units = units_to_process.filter(
-		func(unit): return unit.is_in_group("revealed_units")
-	)
-	for unit in revealed_units:
-		unit.show()
-
-	var non_revealed_units = units_to_process.filter(
-		func(unit): return not unit.is_in_group("revealed_units")
-	)
-	# TODO: check the performance of this O(N^2) algorithm vs the reading of FoW texture
-	for unit in non_revealed_units:
+	var all_units = get_tree().get_nodes_in_group("units")
+	var revealed_units = all_units.filter(func(unit): return unit.is_in_group("revealed_units"))
+	for unit in all_units:
 		_recalculate_unit_visibility(unit, revealed_units)
+	for orphaned_dummy in _orphaned_dummies:
+		_recalcuate_orphaned_dummy_existence(orphaned_dummy, revealed_units)
 
 
 func _recalculate_unit_visibility(unit, revealed_units = null):
 	if unit.is_in_group("revealed_units"):
-		unit.show()
-		_units_processed_at_least_once[unit] = true
+		_update_unit_visibility(unit, true)
 		return
+
 	var should_be_visible = false
 	if revealed_units == null:
 		revealed_units = get_tree().get_nodes_in_group("units").filter(
@@ -50,11 +40,15 @@ func _recalculate_unit_visibility(unit, revealed_units = null):
 				(revealed_unit.global_position * Vector3(1, 0, 1)).distance_to(
 					unit.global_position * Vector3(1, 0, 1)
 				)
-				<= revealed_unit.sight_range
+				<= revealed_unit.sight_range + SIGHT_COMPENSATION
 			)
 		):
 			should_be_visible = true
 			break
+	_update_unit_visibility(unit, should_be_visible)
+
+
+func _update_unit_visibility(unit, should_be_visible):
 	if (
 		unit in _units_processed_at_least_once
 		and unit is Structure
@@ -83,6 +77,33 @@ func _try_removing_dummy_structure(unit):
 		_structure_to_dummy_mapping.erase(unit)
 
 
+func _recalcuate_orphaned_dummy_existence(orphaned_dummy, revealed_units = null):
+	var should_exist = true
+	if revealed_units == null:
+		revealed_units = get_tree().get_nodes_in_group("units").filter(
+			func(unit): return unit.is_in_group("revealed_units")
+		)
+	for revealed_unit in revealed_units:
+		if (
+			revealed_unit.sight_range != null
+			and (
+				(revealed_unit.global_position * Vector3(1, 0, 1)).distance_to(
+					orphaned_dummy.global_position * Vector3(1, 0, 1)
+				)
+				<= revealed_unit.sight_range + SIGHT_COMPENSATION
+			)
+		):
+			should_exist = false
+			break
+	if not should_exist:
+		_orphaned_dummies.erase(orphaned_dummy)
+		orphaned_dummy.queue_free()
+
+
 func _on_unit_died(unit):
 	_units_processed_at_least_once.erase(unit)
-	_structure_to_dummy_mapping.erase(unit)
+	if unit in _structure_to_dummy_mapping:
+		var orphaned_dummy = _structure_to_dummy_mapping[unit]
+		_structure_to_dummy_mapping.erase(unit)
+		_orphaned_dummies.append(orphaned_dummy)
+		_recalcuate_orphaned_dummy_existence(orphaned_dummy)

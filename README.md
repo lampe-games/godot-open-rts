@@ -19,7 +19,7 @@ This game is not going to be a very advanced RTS that would compete with other g
  - [x] deathmatch mode (human vs AI or AI vs AI)
  - [x] runtime player switching
  - [x] basic fog of war
- - [ ] units disappearing in fog of war
+ - [x] units disappearing in fog of war
  - [x] minimap
  - [x] swarm movement to position
  - [ ] swarm movement to unit
