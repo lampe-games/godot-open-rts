@@ -109,20 +109,7 @@ func _update_camera_indicator():
 		)
 
 
-func _on_gui_input(event):
-	if event is InputEventMouseButton:
-		if event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
-			_try_teleporting_camera_based_on_local_texture_rect_position(event.position)
-			_camera_movement_active = true
-		if not event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
-			_camera_movement_active = false
-		if event.is_pressed() and event.button_index == MOUSE_BUTTON_RIGHT:
-			_issue_movement_action(event)
-	elif event is InputEventMouseMotion and _camera_movement_active:
-		_try_teleporting_camera_based_on_local_texture_rect_position(event.position)
-
-
-func _try_teleporting_camera_based_on_local_texture_rect_position(position_2d_within_texture_rect):
+func _texture_rect_position_to_world_position(position_2d_within_texture_rect):
 	assert(
 		_texture_rect.stretch_mode == _texture_rect.STRETCH_KEEP_ASPECT_CENTERED,
 		"world 3d position retrieval algorithm assumes 'STRETCH_KEEP_ASPECT_CENTERED'"
@@ -143,18 +130,42 @@ func _try_teleporting_camera_based_on_local_texture_rect_position(position_2d_wi
 			(position_2d_within_texture_rect - rect_containing_scaled_texture.position)
 			/ scaling_factor
 		)
-		var world_position_3d = (
-			Vector3(position_2d_within_minimap.x, 0.0, position_2d_within_minimap.y)
-			/ MINIMAP_PIXELS_PER_WORLD_METER
-		)
-		get_viewport().get_camera_3d().set_position_safely(world_position_3d)
+		return position_2d_within_minimap / MINIMAP_PIXELS_PER_WORLD_METER
+	return null
 
 
-func _issue_movement_action(event):
-	# TODO: either add owner check or change this func to emit 'terrain_targeted' signal
-	var map = _match.find_child("Map")
-	var target_position = Vector3(
-		map.size.x * event.position.x / size.x, 0, map.size.y * event.position.y / size.y
+func _try_teleporting_camera_based_on_local_texture_rect_position(position_2d_within_texture_rect):
+	var world_position_2d = _texture_rect_position_to_world_position(
+		position_2d_within_texture_rect
 	)
-	for unit in get_tree().get_nodes_in_group("selected_units"):
-		unit.action = Moving.new(target_position)
+	if world_position_2d == null:
+		return
+	var world_position_3d = Vector3(world_position_2d.x, 0, world_position_2d.y)
+	get_viewport().get_camera_3d().set_position_safely(world_position_3d)
+
+
+func _issue_movement_action(position_2d_within_texture_rect):
+	var world_position_2d = _texture_rect_position_to_world_position(
+		position_2d_within_texture_rect
+	)
+	if world_position_2d == null:
+		return
+	var abstract_world_position_3d = Vector3(world_position_2d.x, 0, world_position_2d.y)
+	var camera = get_viewport().get_camera_3d()
+	var target_point_on_colliding_surface = camera.get_ray_intersection(
+		camera.unproject_position(abstract_world_position_3d)
+	)
+	MatchSignals.terrain_targeted.emit(target_point_on_colliding_surface)
+
+
+func _on_gui_input(event):
+	if event is InputEventMouseButton:
+		if event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
+			_try_teleporting_camera_based_on_local_texture_rect_position(event.position)
+			_camera_movement_active = true
+		if not event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
+			_camera_movement_active = false
+		if event.is_pressed() and event.button_index == MOUSE_BUTTON_RIGHT:
+			_issue_movement_action(event.position)
+	elif event is InputEventMouseMotion and _camera_movement_active:
+		_try_teleporting_camera_based_on_local_texture_rect_position(event.position)
