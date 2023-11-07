@@ -37,7 +37,7 @@ func provision(resources, metadata):
 			"unexpected amount of resources"
 		)
 		_number_of_pending_worker_resource_requests -= 1
-		if _ccs.is_empty():
+		if _ccs.is_empty() or _ccs[0].action == null:
 			return
 		_ccs[0].action.produce(WorkerScene)
 		_number_of_pending_workers += 1
