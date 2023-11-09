@@ -21,9 +21,9 @@ gradient = SubResource("Gradient_sccs4")
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ujvjw"]
 direction = Vector3(0, 0, -1)
 spread = 5.0
-gravity = Vector3(0, 30, 0)
 initial_velocity_min = 5.0
 initial_velocity_max = 7.0
+gravity = Vector3(0, 30, 0)
 damping_min = 45.72
 damping_max = 57.9
 scale_min = 0.05
