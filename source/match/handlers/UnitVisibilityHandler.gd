@@ -31,7 +31,7 @@ func _recalculate_unit_visibility(unit, revealed_units = null):
 	var should_be_visible = false
 	if revealed_units == null:
 		revealed_units = get_tree().get_nodes_in_group("units").filter(
-			func(unit): return unit.is_in_group("revealed_units")
+			func(a_unit): return a_unit.is_in_group("revealed_units")
 		)
 	for revealed_unit in revealed_units:
 		if (
