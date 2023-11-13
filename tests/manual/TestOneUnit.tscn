@@ -47,7 +47,7 @@ resource_local_to_scene = true
 shader = ExtResource("8_fifyq")
 shader_parameter/reference_texture = SubResource("ViewportTexture_ll23y")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_hw1xu"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_n2lq6"]
 viewport_path = NodePath("HUD/MarginContainer/Minimap/MarginContainer/MinimapViewport")
 
 [node name="Match" instance=ExtResource("1_fe2sx")]
@@ -67,7 +67,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.263, 0, 12.637)
 [node name="FogOfWarMask" parent="HUD/MarginContainer/Minimap/MarginContainer/MinimapViewport" index="3"]
 material = SubResource("ShaderMaterial_kdlxq")
 
-[node name="MinimapTextureRect" parent="HUD/MarginContainer/Minimap/MarginContainer/Control" index="0"]
-texture = SubResource("ViewportTexture_hw1xu")
+[node name="MinimapTextureRect" parent="HUD/MarginContainer/Minimap/MarginContainer" index="1"]
+texture = SubResource("ViewportTexture_n2lq6")
 
 [editable path="Map"]
