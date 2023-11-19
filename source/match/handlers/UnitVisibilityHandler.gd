@@ -23,8 +23,12 @@ func _physics_process(_delta):
 		_recalcuate_orphaned_dummy_existence(orphaned_dummy, revealed_units)
 
 
+func _is_disabled():
+	return not visible
+
+
 func _recalculate_unit_visibility(unit, revealed_units = null):
-	if unit.is_in_group("revealed_units"):
+	if unit.is_in_group("revealed_units") or _is_disabled():
 		_update_unit_visibility(unit, true)
 		return
 
