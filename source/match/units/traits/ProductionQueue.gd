@@ -42,7 +42,9 @@ func get_elements():
 	return _queue
 
 
-func produce(unit_prototype):
+func produce(unit_prototype, ignore_limit = false):
+	if not ignore_limit and _queue.size() >= Constants.Match.Units.PRODUCTION_QUEUE_LIMIT:
+		return
 	var production_cost = Constants.Match.Units.PRODUCTION_COSTS[unit_prototype.resource_path]
 	if not _unit.player.has_resources(production_cost):
 		return

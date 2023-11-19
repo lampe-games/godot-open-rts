@@ -72,6 +72,7 @@ class Units:
 		"res://source/match/units/Drone.tscn": 3.0,
 		"res://source/match/units/Tank.tscn": 6.0,
 	}
+	const PRODUCTION_QUEUE_LIMIT = 5
 	const STRUCTURE_BLUEPRINTS = {
 		"res://source/match/units/CommandCenter.tscn":
 		"res://source/match/units/structure-geometries/CommandCenter.tscn",

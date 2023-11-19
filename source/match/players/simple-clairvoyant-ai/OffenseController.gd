@@ -102,7 +102,7 @@ func _provision_unit(unit_scene, structure_producing_unit, resources, metadata):
 	if structure_producing_unit == null:
 		return
 	_number_of_pending_unit_resource_requests[metadata] -= 1
-	structure_producing_unit.production_queue.produce(unit_scene)
+	structure_producing_unit.production_queue.produce(unit_scene, true)
 
 
 func _try_creating_new_battlegroup():

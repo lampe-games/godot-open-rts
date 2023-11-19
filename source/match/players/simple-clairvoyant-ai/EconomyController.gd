@@ -39,7 +39,7 @@ func provision(resources, metadata):
 		_number_of_pending_worker_resource_requests -= 1
 		if _ccs.is_empty():
 			return
-		if _ccs[0].production_queue.produce(WorkerScene) != null:
+		if _ccs[0].production_queue.produce(WorkerScene, true) != null:
 			_number_of_pending_workers += 1
 	elif metadata == "cc":
 		assert(
