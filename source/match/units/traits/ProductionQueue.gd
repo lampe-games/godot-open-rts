@@ -58,7 +58,17 @@ func produce(unit_prototype, ignore_limit = false):
 
 func cancel_all():
 	for element in _queue.duplicate():
-		_remove_element(element)
+		cancel(element)
+
+
+func cancel(element):
+	if not element in _queue:
+		return
+	var production_cost = Constants.Match.Units.PRODUCTION_COSTS[
+		element.unit_prototype.resource_path
+	]
+	_unit.player.add_resources(production_cost)
+	_remove_element(element)
 
 
 func _enqueue_element(element):

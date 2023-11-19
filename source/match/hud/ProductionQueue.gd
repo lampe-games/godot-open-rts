@@ -66,6 +66,7 @@ func _try_rendering_queue():
 
 func _add_queue_element_node(queue_element):
 	var queue_element_node = ProductionQueueElement.instantiate()
+	queue_element_node.queue = _production_queue
 	queue_element_node.queue_element = queue_element
 	_queue_elements.add_child(queue_element_node)
 	_queue_elements.move_child(queue_element_node, 0)

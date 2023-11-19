@@ -13,6 +13,11 @@ var color = Color.WHITE
 var _color_material = null
 
 
+func add_resources(resources):
+	for resource in resources:
+		set(resource, get(resource) + resources[resource])
+
+
 func has_resources(resources):
 	if FeatureFlags.allow_resources_deficit_spending:
 		return true
