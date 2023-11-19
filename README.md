@@ -24,16 +24,17 @@ This game is not going to be a very advanced RTS that would compete with other g
  - [x] swarm movement to position
  - [ ] swarm movement to unit
  - [x] simple UI
- - [ ] smooth & elegant UI
+ - [ ] polished UI
  - [ ] sounds
  - [ ] music
  - [ ] VFX
 
 ## Godot compatibility
 
-This project is compatible with Godot `4.1`.
+This project is compatible with Godot `4.2`.
 
-Support for Godot `4.0`, `4.0.1`, `4.0.2`, and `4.0.3` is available on `godot-4.0-support` branch.
+ - support for Godot `4.1` is available on `godot-4.1-support` branch.
+ - support for Godot `4.0` is available on `godot-4.0-support` branch.
 
 ## Screenshots
 
