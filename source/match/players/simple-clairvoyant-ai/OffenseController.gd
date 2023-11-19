@@ -102,7 +102,7 @@ func _provision_unit(unit_scene, structure_producing_unit, resources, metadata):
 	if structure_producing_unit == null:
 		return
 	_number_of_pending_unit_resource_requests[metadata] -= 1
-	structure_producing_unit.action.produce(unit_scene)
+	structure_producing_unit.production_queue.produce(unit_scene)
 
 
 func _try_creating_new_battlegroup():
@@ -111,7 +111,7 @@ func _try_creating_new_battlegroup():
 	if _battlegroups.size() == _ai.expected_number_of_battlegroups:
 		var primary_structure = _primary_structure()
 		if primary_structure != null:
-			primary_structure.action.cancel_all()
+			primary_structure.production_queue.cancel_all()
 		_battlegroup_under_forming = null
 		return false
 	var adversary_players = find_parent("Match").players.filter(
@@ -202,7 +202,7 @@ func _enforce_secondary_units_production():
 func _enforce_units_production(structure, unit_scene, type):
 	if structure == null or not structure.is_constructed() or not _is_units_production_allowed():
 		return
-	var number_of_pending_units = structure.action.queue.size()
+	var number_of_pending_units = structure.production_queue.size()
 	if number_of_pending_units + _number_of_pending_unit_resource_requests.get(type, 0) == 0:
 		_number_of_pending_unit_resource_requests[type] = (
 			_number_of_pending_unit_resource_requests.get(type, 0) + 1
@@ -248,12 +248,12 @@ func _is_units_production_allowed():
 		> (
 			Utils.Arr.sum(_number_of_pending_unit_resource_requests.values())
 			+ (
-				primary_structure.action.queue.size()
+				primary_structure.production_queue.size()
 				if primary_structure != null and primary_structure.is_constructed()
 				else 0
 			)
 			+ (
-				secondary_structure.action.queue.size()
+				secondary_structure.production_queue.size()
 				if secondary_structure != null and secondary_structure.is_constructed()
 				else 0
 			)

@@ -1,4 +1,4 @@
-extends "res://source/match/units/actions/Action.gd"
+extends Node
 
 signal queue_changed
 
@@ -20,7 +20,7 @@ class ProductionQueueElement:
 
 var queue = []
 
-@onready var _unit = Utils.NodeEx.find_parent_with_group(self, "units")
+@onready var _unit = get_parent()
 
 
 func _process(delta):
@@ -35,8 +35,8 @@ func _process(delta):
 		delta = max(0.0, delta - current_queue_element.time_left)
 
 
-func _to_string():
-	return "{0}({1} in queue)".format([super(), str(queue.size())])
+func size():
+	return queue.size()
 
 
 func produce(unit_prototype):

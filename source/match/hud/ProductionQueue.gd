@@ -1,6 +1,5 @@
 extends MarginContainer
 
-const ManagingProductionAction = preload("res://source/match/units/actions/ManagingProduction.gd")
 const ProductionQueueElement = preload("res://source/match/hud/ProductionQueueElement.tscn")
 
 var _production_manager = null
@@ -37,9 +36,9 @@ func _try_observing_production_manager():
 	if selected_controlled_units.size() != 1:
 		return false
 	var selected_unit = selected_controlled_units[0]
-	if selected_unit.action == null or not selected_unit.action is ManagingProductionAction:
+	if not "production_queue" in selected_unit or selected_unit.production_queue == null:
 		return false
-	_observe(selected_unit.action)
+	_observe(selected_unit.production_queue)
 	return true
 
 

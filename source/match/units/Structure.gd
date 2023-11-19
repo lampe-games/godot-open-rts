@@ -8,6 +8,10 @@ const UNDER_CONSTRUCTION_MATERIAL = preload(
 
 var _construction_progress = 1.0
 
+@onready var production_queue = find_child("ProductionQueue"):
+	set(_value):
+		pass
+
 
 func mark_as_under_construction():
 	assert(not is_under_construction(), "structure already under construction")
