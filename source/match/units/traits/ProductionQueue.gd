@@ -1,6 +1,7 @@
 extends Node
 
-signal queue_changed
+signal element_enqueued(element)
+signal element_removed(element)
 
 const Moving = preload("res://source/match/units/actions/Moving.gd")
 
@@ -18,25 +19,27 @@ class ProductionQueueElement:
 		return (time_total - time_left) / time_total
 
 
-var queue = []
+var _queue = []
 
 @onready var _unit = get_parent()
 
 
 func _process(delta):
-	while queue.size() > 0 and delta > 0.0:
-		var current_queue_element = queue.front()
+	while _queue.size() > 0 and delta > 0.0:
+		var current_queue_element = _queue.front()
 		current_queue_element.time_left = max(0.0, current_queue_element.time_left - delta)
 		if current_queue_element.time_left == 0.0:
-			queue.erase(current_queue_element)
+			_remove_element(current_queue_element)
 			_finalize_production(current_queue_element)
-			queue_changed.emit()
-			_unit.action_updated.emit()
 		delta = max(0.0, delta - current_queue_element.time_left)
 
 
 func size():
-	return queue.size()
+	return _queue.size()
+
+
+func get_elements():
+	return _queue
 
 
 func produce(unit_prototype):
@@ -48,15 +51,22 @@ func produce(unit_prototype):
 	queue_element.unit_prototype = unit_prototype
 	queue_element.time_total = Constants.Match.Units.PRODUCTION_TIMES[unit_prototype.resource_path]
 	queue_element.time_left = Constants.Match.Units.PRODUCTION_TIMES[unit_prototype.resource_path]
-	queue.push_back(queue_element)
-	queue_changed.emit()
-	_unit.action_updated.emit()
+	_enqueue_element(queue_element)
 
 
 func cancel_all():
-	queue = []
-	queue_changed.emit()
-	_unit.action_updated.emit()
+	for element in _queue.duplicate():
+		_remove_element(element)
+
+
+func _enqueue_element(element):
+	_queue.push_back(element)
+	element_enqueued.emit(element)
+
+
+func _remove_element(element):
+	_queue.erase(element)
+	element_removed.emit(element)
 
 
 func _finalize_production(former_queue_element):

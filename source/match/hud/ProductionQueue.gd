@@ -2,7 +2,7 @@ extends MarginContainer
 
 const ProductionQueueElement = preload("res://source/match/hud/ProductionQueueElement.tscn")
 
-var _production_manager = null
+var _production_queue = null
 
 @onready var _queue_elements = find_child("QueueElements")
 
@@ -16,68 +16,69 @@ func _ready():
 func _reset():
 	if not is_inside_tree():
 		return
-	_remove_queue_elements()
-	_clear_observed_production_manager()
-	if _try_observing_production_manager():
-		show()
-	else:
-		hide()
+	_detach_observed_production_queue()
+	_try_observing_production_queue()
+	visible = _is_observing_production_queue()
+	_remove_queue_element_nodes()
+	_try_rendering_queue()
 
 
-func _remove_queue_elements():
+func _remove_queue_element_nodes():
 	for child in _queue_elements.get_children():
 		child.queue_free()
 
 
-func _try_observing_production_manager():
+func _is_observing_production_queue():
+	return _production_queue != null
+
+
+func _detach_observed_production_queue():
+	if _production_queue != null:
+		_production_queue.element_enqueued.disconnect(_on_production_queue_element_enqueued)
+		_production_queue.element_removed.disconnect(_on_production_queue_element_removed)
+		_production_queue = null
+
+
+func _try_observing_production_queue():
 	var selected_controlled_units = get_tree().get_nodes_in_group("selected_units").filter(
 		func(unit): return unit.is_in_group("controlled_units")
 	)
 	if selected_controlled_units.size() != 1:
-		return false
+		return
 	var selected_unit = selected_controlled_units[0]
 	if not "production_queue" in selected_unit or selected_unit.production_queue == null:
-		return false
-	_observe(selected_unit.production_queue)
-	return true
-
-
-func _clear_observed_production_manager():
-	if _production_manager != null:
-		_production_manager.queue_changed.disconnect(_on_queue_changed)
-		_production_manager = null
-
-
-func _observe(production_manager):
-	_production_manager = production_manager
-	_production_manager.queue_changed.connect(_on_queue_changed)
-	_render_queue()
-
-
-func _render_queue():
-	var reversed_queue = _production_manager.queue.duplicate()
-	reversed_queue.reverse()
-	for queue_element in reversed_queue:
-		var queue_element_node = ProductionQueueElement.instantiate()
-		queue_element_node.queue_element = queue_element
-		_queue_elements.add_child(queue_element_node)
-
-
-func _update_queue():
-	if _production_manager.queue.size() > _queue_elements.get_child_count():
-		assert(
-			_production_manager.queue.size() == _queue_elements.get_child_count() + 1,
-			"unexpected number of elements added to the queue"
-		)
-		var queue_element = _production_manager.queue.back()
-		var queue_element_node = ProductionQueueElement.instantiate()
-		queue_element_node.queue_element = queue_element
-		_queue_elements.add_child(queue_element_node)
-		_queue_elements.move_child(queue_element_node, 0)
 		return
-	if _production_manager.queue.size() < _queue_elements.get_child_count():
-		_queue_elements.get_children()[-1].queue_free()
+	_observe(selected_unit.production_queue)
 
 
-func _on_queue_changed():
-	_update_queue()
+func _observe(production_queue):
+	_production_queue = production_queue
+	_production_queue.element_enqueued.connect(_on_production_queue_element_enqueued)
+	_production_queue.element_removed.connect(_on_production_queue_element_removed)
+
+
+func _try_rendering_queue():
+	if not _is_observing_production_queue():
+		return
+	for queue_element in _production_queue.get_elements():
+		_add_queue_element_node(queue_element)
+
+
+func _add_queue_element_node(queue_element):
+	var queue_element_node = ProductionQueueElement.instantiate()
+	queue_element_node.queue_element = queue_element
+	_queue_elements.add_child(queue_element_node)
+	_queue_elements.move_child(queue_element_node, 0)
+
+
+func _on_production_queue_element_enqueued(element):
+	_add_queue_element_node(element)
+
+
+func _on_production_queue_element_removed(element):
+	(
+		_queue_elements
+		. get_children()
+		. filter(func(queue_element_node): return queue_element_node.queue_element == element)
+		. map(func(queue_element_node): queue_element_node.queue_free())
+	)
