@@ -3,6 +3,7 @@ extends Node3D
 var target_unit = null
 
 @onready var _unit = get_parent()
+@onready var _visuals = find_child("Visuals")
 @onready var _path = find_child("Path3D")
 @onready var _animation_player = find_child("AnimationPlayer")
 @onready var _rocket = find_child("MeshInstance3D")
@@ -11,6 +12,7 @@ var target_unit = null
 
 func _ready():
 	assert(target_unit != null, "target unit was not provided")
+	_visuals.visible = _unit.visible
 	_rocket.hide()
 	_particles.hide()
 	target_unit.tree_exited.connect(queue_free)

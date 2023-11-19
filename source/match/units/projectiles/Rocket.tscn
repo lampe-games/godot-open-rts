@@ -40,7 +40,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("DetachTransform/Path3D/PathFollow3D:progress_ratio")
+tracks/0/path = NodePath("DetachTransform/Visuals/Path3D/PathFollow3D:progress_ratio")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -52,7 +52,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("DetachTransform/Path3D/PathFollow3D/Node3D/MeshInstance3D:visible")
+tracks/1/path = NodePath("DetachTransform/Visuals/Path3D/PathFollow3D/Node3D/MeshInstance3D:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -64,7 +64,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("DetachTransform/GPUParticles3D:emitting")
+tracks/2/path = NodePath("DetachTransform/Visuals/GPUParticles3D:emitting")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -76,7 +76,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("DetachTransform/GPUParticles3D:visible")
+tracks/3/path = NodePath("DetachTransform/Visuals/GPUParticles3D:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -92,7 +92,7 @@ length = 1.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("DetachTransform/Path3D/PathFollow3D:progress_ratio")
+tracks/0/path = NodePath("DetachTransform/Visuals/Path3D/PathFollow3D:progress_ratio")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -118,7 +118,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("DetachTransform/Path3D/PathFollow3D/Node3D/MeshInstance3D:visible")
+tracks/2/path = NodePath("DetachTransform/Visuals/Path3D/PathFollow3D/Node3D/MeshInstance3D:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -130,7 +130,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("DetachTransform/GPUParticles3D:emitting")
+tracks/3/path = NodePath("DetachTransform/Visuals/GPUParticles3D:emitting")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -142,7 +142,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("DetachTransform/GPUParticles3D:visible")
+tracks/4/path = NodePath("DetachTransform/Visuals/GPUParticles3D:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -163,26 +163,28 @@ script = ExtResource("1_dy0dc")
 
 [node name="DetachTransform" type="Node" parent="."]
 
-[node name="Path3D" type="Path3D" parent="DetachTransform"]
+[node name="Visuals" type="Node3D" parent="DetachTransform"]
+
+[node name="Path3D" type="Path3D" parent="DetachTransform/Visuals"]
 curve = SubResource("Curve3D_n2fv6")
 
-[node name="PathFollow3D" type="PathFollow3D" parent="DetachTransform/Path3D"]
+[node name="PathFollow3D" type="PathFollow3D" parent="DetachTransform/Visuals/Path3D"]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0)
 
-[node name="Node3D" type="Node3D" parent="DetachTransform/Path3D/PathFollow3D"]
+[node name="Node3D" type="Node3D" parent="DetachTransform/Visuals/Path3D/PathFollow3D"]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="DetachTransform/Path3D/PathFollow3D/Node3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="DetachTransform/Visuals/Path3D/PathFollow3D/Node3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_45jbp")
 mesh = SubResource("CapsuleMesh_vlm3w")
 
-[node name="RemoteTransform3D" type="RemoteTransform3D" parent="DetachTransform/Path3D/PathFollow3D/Node3D"]
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="DetachTransform/Visuals/Path3D/PathFollow3D/Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.129522)
 remote_path = NodePath("../../../../GPUParticles3D")
 update_rotation = false
 update_scale = false
 
-[node name="GPUParticles3D" type="GPUParticles3D" parent="DetachTransform"]
+[node name="GPUParticles3D" type="GPUParticles3D" parent="DetachTransform/Visuals"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0915859, 0, -0.0915859)
 material_override = SubResource("StandardMaterial3D_xyj84")
 emitting = false

@@ -39,7 +39,8 @@ func _recalculate_unit_visibility(unit, revealed_units = null):
 		)
 	for revealed_unit in revealed_units:
 		if (
-			revealed_unit.sight_range != null
+			revealed_unit.is_revealing()
+			and revealed_unit.sight_range != null
 			and (
 				(revealed_unit.global_position * Vector3(1, 0, 1)).distance_to(
 					unit.global_position * Vector3(1, 0, 1)
@@ -89,7 +90,8 @@ func _recalcuate_orphaned_dummy_existence(orphaned_dummy, revealed_units = null)
 		)
 	for revealed_unit in revealed_units:
 		if (
-			revealed_unit.sight_range != null
+			revealed_unit.is_revealing()
+			and revealed_unit.sight_range != null
 			and (
 				(revealed_unit.global_position * Vector3(1, 0, 1)).distance_to(
 					orphaned_dummy.global_position * Vector3(1, 0, 1)

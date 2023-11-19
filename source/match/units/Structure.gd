@@ -13,6 +13,10 @@ var _construction_progress = 1.0
 		pass
 
 
+func is_revealing():
+	return super() and is_constructed()
+
+
 func mark_as_under_construction():
 	assert(not is_under_construction(), "structure already under construction")
 	_construction_progress = 0.0

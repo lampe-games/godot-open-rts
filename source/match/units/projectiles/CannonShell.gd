@@ -9,6 +9,7 @@ var target_unit = null
 
 func _ready():
 	assert(target_unit != null, "target unit was not provided")
+	_unit_particles.visible = _unit.visible
 	_setup_unit_particles()
 	_setup_timer()
 	target_unit.hp -= _unit.attack_damage

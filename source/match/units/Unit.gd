@@ -45,6 +45,10 @@ func _ready():
 	_setup_default_properties_from_constants()
 
 
+func is_revealing():
+	return is_in_group("revealed_units") and visible
+
+
 func _ignore(_value):
 	pass
 
