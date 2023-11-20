@@ -1,6 +1,8 @@
 extends NavigationAgent3D
 
 signal movement_finished
+signal passive_movement_started
+signal passive_movement_finished
 
 const INITIAL_DISPERSION_FACTOR = 0.1
 
@@ -13,6 +15,8 @@ const ROTATION_LOW_PASS_FILTER_ENABLED = true
 const ROTATION_LOW_PASS_FILTER_WINDOW_SIZE = 10  # number of frames for accumulating directions
 const ROTATION_LOW_PASS_FILTER_VELOCITY_THRESHOLD = 0.01  # velocities below will be dropped
 
+const PASSIVE_MOVEMENT_TRACKING_ENABLED = true
+
 @export var domain = Constants.Match.Navigation.Domain.TERRAIN
 @export var speed: float = 4.0
 
@@ -24,6 +28,9 @@ var _number_of_forced_side_moves_left = 0
 
 var _rotation_low_pass_filter_window = []
 var _total_direction_in_the_low_pass_filter_window = Vector3.ZERO
+var _previously_set_global_transform_of_unit = null
+
+var _passive_movement_detected = false
 
 @onready var _match = find_parent("Match")
 @onready var _unit = get_parent()
@@ -125,6 +132,13 @@ func _update_stuck_prevention(safe_velocity: Vector3):
 
 func _get_filtered_rotation_direction(safe_velocity: Vector3):
 	var direction = safe_velocity.normalized()
+	if (
+		_previously_set_global_transform_of_unit != null
+		and not _previously_set_global_transform_of_unit.is_equal_approx(_unit.global_transform)
+	):
+		# reset filter if a global_transform of unit was altered from the outside
+		_rotation_low_pass_filter_window = []
+		_total_direction_in_the_low_pass_filter_window = Vector3.ZERO
 	if safe_velocity.length() >= ROTATION_LOW_PASS_FILTER_VELOCITY_THRESHOLD:
 		_rotation_low_pass_filter_window.append(direction)
 		_total_direction_in_the_low_pass_filter_window += direction
@@ -151,12 +165,27 @@ func _rotate_in_direction(direction: Vector3):
 		_unit.global_transform = _unit.global_transform.looking_at(rotation_target)
 
 
+func _update_passive_movement_tracking(safe_velocity):
+	if not PASSIVE_MOVEMENT_TRACKING_ENABLED:
+		return
+	if _is_moving_actively() or safe_velocity.is_zero_approx():
+		if _passive_movement_detected:
+			_passive_movement_detected = false
+			passive_movement_finished.emit()
+		return
+	if not _passive_movement_detected:
+		_passive_movement_detected = true
+		passive_movement_started.emit()
+
+
 func _on_velocity_computed(safe_velocity: Vector3):
 	_update_stuck_prevention(safe_velocity)
 	_rotate_in_direction(safe_velocity * Vector3(1, 0, 1))
 	_unit.global_transform.origin = _unit.global_transform.origin.move_toward(
 		_unit.global_transform.origin + safe_velocity, _interim_speed
 	)
+	_previously_set_global_transform_of_unit = _unit.global_transform
+	_update_passive_movement_tracking(safe_velocity)
 
 
 func _on_navigation_finished():
