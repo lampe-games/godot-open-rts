@@ -47,7 +47,7 @@ func _get_controlled_units_from_navigation_domain_within_topdown_polygon_2d(
 
 
 func _select_units(units_to_select):
-	if not units_to_select.empty():
+	if not units_to_select.empty() && not Input.is_action_pressed("shift_selecting"):
 		MatchSignals.deselect_all_units.emit()
 	for unit in units_to_select.iterate():
 		var selection = unit.find_child("Selection")
