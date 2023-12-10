@@ -1,9 +1,5 @@
 extends Node3D
 
-var _dummy_agent_rids = {
-	Constants.Match.Navigation.Domain.AIR: null,
-	Constants.Match.Navigation.Domain.TERRAIN: null,
-}
 var _static_obstacles = []
 
 @onready var air = find_child("Air")
