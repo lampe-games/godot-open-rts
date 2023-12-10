@@ -26,6 +26,11 @@ class Air:
 	const Y = 1.5
 	const PLANE = Plane(Vector3.UP, Y)
 
+	class Navmesh:
+		const CELL_SIZE = 0.4
+		const CELL_HEIGHT = 0.4
+		const MAX_AGENT_RADIUS = 0.8
+
 
 class Terrain:
 	const PLANE = Plane(Vector3.UP, 0)

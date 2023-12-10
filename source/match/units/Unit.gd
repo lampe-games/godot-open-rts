@@ -43,6 +43,7 @@ func _ready():
 	if player == null:
 		await _match.ready
 	_setup_default_properties_from_constants()
+	assert(_safety_checks())
 
 
 func is_revealing():
@@ -119,6 +120,18 @@ func _teardown_current_action():
 	if action != null and action.is_inside_tree():
 		action.queue_free()
 		remove_child(action)  # triggers _on_action_node_tree_exited immediately
+
+
+func _safety_checks():
+	if movement_domain == Constants.Match.Navigation.Domain.AIR:
+		assert(
+			(
+				radius < Constants.Match.Air.Navmesh.MAX_AGENT_RADIUS
+				or is_equal_approx(radius, Constants.Match.Air.Navmesh.MAX_AGENT_RADIUS)
+			),
+			"Unit radius exceeds the established limit"
+		)
+	return true
 
 
 func _handle_unit_death():
