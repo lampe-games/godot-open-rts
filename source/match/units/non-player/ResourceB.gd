@@ -8,11 +8,10 @@ const MATERIAL_ALBEDO_TO_REPLACE_EPSILON = 0.05
 		resource_b = max(0, value)
 		if resource_b == 0:
 			queue_free()
-
+@export var color = Constants.Match.Resources.B.COLOR
 
 func _ready():
 	_setup_mesh_colors()
-
 
 func _setup_mesh_colors():
 	# gdlint: ignore = function-preload-variable-name
