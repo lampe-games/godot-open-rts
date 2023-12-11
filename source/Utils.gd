@@ -21,10 +21,10 @@ class Set:
 
 
 class Dict:
-	static func items(d):
+	static func items(dict):
 		var pairs = []
-		for k in d:
-			pairs.append([k, d[k]])
+		for key in dict:
+			pairs.append([key, dict[key]])
 		return pairs
 
 
@@ -53,10 +53,10 @@ class NodeEx:
 
 
 class Arr:
-	static func sum(r):
+	static func sum(array):
 		var total = 0
-		for x in r:
-			total += x
+		for item in array:
+			total += item
 		return total
 
 
