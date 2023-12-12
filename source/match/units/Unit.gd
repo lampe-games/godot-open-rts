@@ -88,6 +88,10 @@ func _get_movement_speed():
 	return 0.0
 
 
+func _is_movable():
+	return _get_movement_speed() > 0.0
+
+
 func _set_color(a_color):
 	color = a_color
 	assert(player != null, "player must be set at this point")
@@ -128,6 +132,17 @@ func _safety_checks():
 			(
 				radius < Constants.Match.Air.Navmesh.MAX_AGENT_RADIUS
 				or is_equal_approx(radius, Constants.Match.Air.Navmesh.MAX_AGENT_RADIUS)
+			),
+			"Unit radius exceeds the established limit"
+		)
+	elif movement_domain == Constants.Match.Navigation.Domain.TERRAIN:
+		assert(
+			(
+				not _is_movable()
+				or (
+					radius < Constants.Match.Terrain.Navmesh.MAX_AGENT_RADIUS
+					or is_equal_approx(radius, Constants.Match.Terrain.Navmesh.MAX_AGENT_RADIUS)
+				)
 			),
 			"Unit radius exceeds the established limit"
 		)

@@ -114,3 +114,7 @@ locale/translations=PackedStringArray("res://assets/translations/match.en.transl
 3d_physics/layer_1="Terrain"
 3d_physics/layer_2="TerrainObjects"
 3d_physics/layer_3="AirObjects"
+
+[navigation]
+
+3d/use_edge_connections=false

@@ -141,12 +141,15 @@ agent_radius = 0.8
 agent_max_climb = 0.0
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_exfwj"]
-vertices = PackedVector3Array(6.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 6.5, 0.5, 0.5, 43.25, 0.5, 0.5, 49.5, 6.5, 0.5, 49.5, 49.5, 0.5, 6.5, 49.5, 0.5, 0.5, 43.25, 0.5, 0.5, 43.25, 0.5, 49.5, 49.5, 0.5, 49.5, 49.5, 0.5, 43.25, 0.5, 0.5, 37.25, 0.5, 0.5, 43.25, 6.5, 0.5, 49.5, 12.75, 0.5, 49.5, 49.5, 0.5, 6.5, 43.25, 0.5, 0.5, 37.25, 0.5, 0.5, 49.5, 0.5, 12.75, 12.75, 0.5, 0.5, 6.5, 0.5, 0.5, 0.5, 0.5, 6.5, 0.5, 0.5, 12.75, 37.25, 0.5, 49.5, 43.25, 0.5, 49.5, 49.5, 0.5, 43.25, 31, 0.5, 49.5, 49.5, 0.5, 37.25, 49.5, 0.5, 31, 25, 0.5, 49.5, 37.25, 0.5, 49.5, 49.5, 0.5, 43.25, 49.5, 0.5, 37.25, 31, 0.5, 49.5, 25, 0.5, 0.5, 18.75, 0.5, 0.5, 0.5, 0.5, 18.75, 0.5, 0.5, 25, 49.5, 0.5, 25, 25, 0.5, 0.5, 0.5, 0.5, 25, 18.75, 0.5, 49.5, 25, 0.5, 49.5, 49.5, 0.5, 31, 0.5, 0.5, 37.25, 12.75, 0.5, 49.5, 18.75, 0.5, 49.5, 0.5, 0.5, 31, 49.5, 0.5, 18.75, 49.5, 0.5, 12.75, 37.25, 0.5, 0.5, 31, 0.5, 0.5, 18.75, 0.5, 0.5, 12.75, 0.5, 0.5, 0.5, 0.5, 12.75, 0.5, 0.5, 18.75, 0.5, 0.5, 25, 0.5, 0.5, 31, 18.75, 0.5, 49.5, 49.5, 0.5, 18.75, 31, 0.5, 0.5, 25, 0.5, 0.5, 49.5, 0.5, 25)
-polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(5, 4, 3), PackedInt32Array(8, 7, 6), PackedInt32Array(11, 10, 9), PackedInt32Array(13, 12, 14), PackedInt32Array(14, 12, 15), PackedInt32Array(17, 16, 18), PackedInt32Array(18, 16, 19), PackedInt32Array(21, 20, 22), PackedInt32Array(22, 20, 23), PackedInt32Array(26, 25, 24), PackedInt32Array(28, 27, 29), PackedInt32Array(29, 27, 30), PackedInt32Array(32, 31, 33), PackedInt32Array(33, 31, 34), PackedInt32Array(36, 35, 37), PackedInt32Array(37, 35, 38), PackedInt32Array(44, 43, 39), PackedInt32Array(39, 43, 42), PackedInt32Array(39, 42, 41), PackedInt32Array(39, 41, 40), PackedInt32Array(46, 45, 47), PackedInt32Array(47, 45, 48), PackedInt32Array(50, 49, 51), PackedInt32Array(51, 49, 52), PackedInt32Array(54, 53, 55), PackedInt32Array(55, 53, 56), PackedInt32Array(59, 58, 57), PackedInt32Array(61, 60, 62), PackedInt32Array(62, 60, 63)]
+vertices = PackedVector3Array(1, 0.5, 1, 1, 0.5, 49, 49, 0.5, 49, 49, 0.5, 1)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
 geometry_parsed_geometry_type = 2
 geometry_collision_mask = 4278190082
 geometry_source_geometry_mode = 2
 geometry_source_group_name = &"terrain_navigation_input"
+agent_height = 2.0
+agent_radius = 1.0
+agent_max_climb = 0.0
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_vu2gm"]
 viewport_path = NodePath("FogOfWar/CombinedViewport")
