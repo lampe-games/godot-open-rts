@@ -50,7 +50,7 @@ func _ready():
 
 func _unhandled_input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		if(Input.is_action_pressed("shift_selecting")):
+		if Input.is_action_pressed("shift_selecting"):
 			return
 		MatchSignals.deselect_all_units.emit()
 
