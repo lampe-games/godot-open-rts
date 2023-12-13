@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dvqwcc562qxs5"]
+[gd_scene load_steps=26 format=3 uid="uid://dvqwcc562qxs5"]
 
 [ext_resource type="PackedScene" uid="uid://camns8fqod8d4" path="res://source/match/Match.tscn" id="1_cpaaw"]
 [ext_resource type="Script" path="res://tests/manual/Match.gd" id="2_mi5ae"]
@@ -6,8 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://ct0ejt0trkhrf" path="res://source/match/units/CommandCenter.tscn" id="3_oqrnv"]
 [ext_resource type="PackedScene" uid="uid://cxilu6668nda6" path="res://source/match/units/AircraftFactory.tscn" id="4_a0u57"]
 [ext_resource type="Script" path="res://source/data-model/MatchSettings.gd" id="4_kwjav"]
-[ext_resource type="Material" uid="uid://co8vfcoqqs5i8" path="res://source/match/resources/materials/terrain.material.tres" id="5_al0mb"]
 [ext_resource type="PackedScene" uid="uid://h5lqor1xl2sf" path="res://source/match/units/VehicleFactory.tscn" id="5_imqfl"]
+[ext_resource type="PackedScene" uid="uid://cbe63rdjw7y4p" path="res://source/match/maps/PlainAndSimple.tscn" id="5_rbjbk"]
 [ext_resource type="PackedScene" uid="uid://b8pckq1xn44ss" path="res://source/match/units/AntiGroundTurret.tscn" id="6_i5onm"]
 [ext_resource type="PackedScene" uid="uid://cfa8cpnpk5pcb" path="res://source/match/units/AntiAirTurret.tscn" id="7_hplpe"]
 [ext_resource type="PackedScene" uid="uid://0gow0ughqu8u" path="res://source/match/units/Drone.tscn" id="8_8jgl1"]
@@ -35,12 +35,6 @@ script = ExtResource("4_kwjav")
 players = Array[Resource]([SubResource("Resource_sm6ga"), SubResource("Resource_7xhjj")])
 visibility = 0
 visible_player = 0
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_rdr54"]
-resource_local_to_scene = true
-material = ExtResource("5_al0mb")
-size = Vector2(50, 50)
-center_offset = Vector3(25, 0, 25)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_v46ss"]
 viewport_path = NodePath("FogOfWar/CombinedViewport")
@@ -70,8 +64,7 @@ script = ExtResource("2_mi5ae")
 allow_resources_deficit_spending = false
 settings = SubResource("Resource_tnmkt")
 
-[node name="Terrain" parent="Map/Geometry" index="1"]
-mesh = SubResource("PlaneMesh_rdr54")
+[node name="Map" parent="." index="0" instance=ExtResource("5_rbjbk")]
 
 [node name="ScreenOverlay" parent="FogOfWar" index="1"]
 material_override = SubResource("ShaderMaterial_67o07")
@@ -114,5 +107,3 @@ texture = SubResource("ViewportTexture_tly7c")
 [node name="SimpleClairvoyantAI" parent="Players" index="1" instance=ExtResource("15_6w32d")]
 primary_offensive_structure = 1
 secondary_offensive_structure = 0
-
-[editable path="Map"]

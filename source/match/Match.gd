@@ -13,9 +13,10 @@ const Drone = preload("res://source/match/units/Drone.tscn")
 const Worker = preload("res://source/match/units/Worker.tscn")
 
 @export var settings: Resource = null
-@export var map_to_load_and_plug: PackedScene = null
-@export var map_to_plug: Node = null
 
+var map:
+	set = _set_map,
+	get = _get_map
 var players = []
 var controlled_player = null:
 	set = _set_controlled_player
@@ -25,7 +26,6 @@ var visible_players = null:
 	set = _ignore,
 	get = _get_visible_players
 
-@onready var map = $Map
 @onready var navigation = $Navigation
 @onready var fog_of_war = $FogOfWar
 
@@ -35,9 +35,14 @@ var visible_players = null:
 @onready var _terrain = $Terrain
 
 
+func _enter_tree():
+	assert(settings != null, "match cannot start without settings, see examples in tests/manual/")
+	assert(map != null, "match cannot start without map, see examples in tests/manual/")
+
+
 func _ready():
-	_try_setting_up_a_custom_map()
 	MatchSignals.setup_and_spawn_unit.connect(_setup_and_spawn_unit)
+	_setup_subsystems_dependent_on_map()
 	_create_players()
 	_choose_controlled_player()
 	visible_player = players[settings.visible_player]
@@ -55,14 +60,15 @@ func _unhandled_input(event):
 		MatchSignals.deselect_all_units.emit()
 
 
-func _ignore(_value):
-	pass
+func _set_map(a_map):
+	assert(get_node_or_null("Map") == null, "map already set")
+	a_map.name = "Map"
+	add_child(a_map)
+	a_map.owner = self
 
 
-func _get_visible_players():
-	if settings.visibility == settings.Visibility.PER_PLAYER:
-		return [visible_player]
-	return players
+func _get_map():
+	return get_node_or_null("Map")
 
 
 func _set_controlled_player(player):
@@ -105,34 +111,26 @@ func _set_visible_player(player):
 	visible_player = player
 
 
-func _try_setting_up_a_custom_map():
-	assert(
-		map_to_load_and_plug == null or map_to_plug == null,
-		"both 'map_to_load_and_plug' and 'map_to_plug' cannot be set at the same time"
-	)
-	if map_to_load_and_plug == null and map_to_plug == null:
-		return
-	var custom_map = map_to_plug if map_to_plug != null else map_to_load_and_plug.instantiate()
-	if custom_map != null:
-		_plug_custom_map(custom_map)
-		_terrain.update_shape(custom_map.find_child("Terrain").mesh)
-		fog_of_war.resize(custom_map.size)
-		_recalculate_camera_bounding_planes(custom_map.size)
-		navigation.rebake(custom_map)
+func _ignore(_value):
+	pass
+
+
+func _get_visible_players():
+	if settings.visibility == settings.Visibility.PER_PLAYER:
+		return [visible_player]
+	return players
+
+
+func _setup_subsystems_dependent_on_map():
+	_terrain.update_shape(map.find_child("Terrain").mesh)
+	fog_of_war.resize(map.size)
+	_recalculate_camera_bounding_planes(map.size)
+	navigation.rebake(map)
 
 
 func _recalculate_camera_bounding_planes(map_size: Vector2):
 	_camera.bounding_planes[1] = Plane(-1, 0, 0, -map_size.x)
 	_camera.bounding_planes[3] = Plane(0, 0, -1, -map_size.y)
-
-
-func _plug_custom_map(custom_map):
-	map.name = map.name + "1"
-	map.add_sibling(custom_map)
-	remove_child(map)
-	map.queue_free()
-	map = custom_map
-	map.owner = self
 
 
 func _create_players():

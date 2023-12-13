@@ -1,13 +1,9 @@
-[gd_scene load_steps=55 format=3 uid="uid://camns8fqod8d4"]
+[gd_scene load_steps=44 format=3 uid="uid://camns8fqod8d4"]
 
 [ext_resource type="Script" path="res://source/match/Match.gd" id="1_1555u"]
 [ext_resource type="Script" path="res://source/match/IsometricCamera3D.gd" id="1_qb2ry"]
-[ext_resource type="Script" path="res://source/data-model/PlayerSettings.gd" id="2_4dhvm"]
-[ext_resource type="Script" path="res://source/data-model/MatchSettings.gd" id="3_wftgs"]
 [ext_resource type="Script" path="res://source/match/FogOfWar.gd" id="5_eb52t"]
 [ext_resource type="PackedScene" uid="uid://co800e4shs7bh" path="res://source/generic-scenes-and-nodes/3d/RectangularSelection3D.tscn" id="5_yi0pu"]
-[ext_resource type="PackedScene" uid="uid://cbe63rdjw7y4p" path="res://source/match/maps/PlainAndSimple.tscn" id="6_au6gf"]
-[ext_resource type="Material" uid="uid://co8vfcoqqs5i8" path="res://source/match/resources/materials/terrain.material.tres" id="6_u47mu"]
 [ext_resource type="PackedScene" uid="uid://clbjgy724q2si" path="res://source/generic-scenes-and-nodes/2d/DynamicCircle2D.tscn" id="6_ux0ef"]
 [ext_resource type="Script" path="res://source/match/Terrain.gd" id="7_ccpu4"]
 [ext_resource type="Script" path="res://source/match/Navigation.gd" id="10_1wfp1"]
@@ -33,36 +29,6 @@
 [ext_resource type="PackedScene" uid="uid://q5w474dvts3f" path="res://source/match/handlers/StructurePlacementHandler.tscn" id="26_7heso"]
 [ext_resource type="PackedScene" uid="uid://b8p6lcwubx1tp" path="res://source/match/handlers/UnitVisibilityHandler.tscn" id="32_fci1c"]
 
-[sub_resource type="Resource" id="Resource_hfc6q"]
-script = ExtResource("2_4dhvm")
-color = Color(0.4, 0.694118, 1, 1)
-controller = 1
-spawn_index = -1
-
-[sub_resource type="Resource" id="Resource_6k4u7"]
-script = ExtResource("2_4dhvm")
-color = Color(1, 0.360784, 0.45098, 1)
-controller = 2
-spawn_index = -1
-
-[sub_resource type="Resource" id="Resource_8ui6d"]
-script = ExtResource("2_4dhvm")
-color = Color(0.647059, 1, 0.6, 1)
-controller = 2
-spawn_index = -1
-
-[sub_resource type="Resource" id="Resource_qphv2"]
-script = ExtResource("2_4dhvm")
-color = Color(0.929412, 0.521569, 1, 1)
-controller = 2
-spawn_index = -1
-
-[sub_resource type="Resource" id="Resource_frabv"]
-script = ExtResource("3_wftgs")
-players = Array[Resource]([SubResource("Resource_hfc6q"), SubResource("Resource_6k4u7"), SubResource("Resource_8ui6d"), SubResource("Resource_qphv2")])
-visibility = 1
-visible_player = 0
-
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ysb0j"]
 sun_angle_max = 200.0
 
@@ -80,15 +46,6 @@ fog_light_color = Color(0.960784, 0.745098, 0.654902, 1)
 fog_density = 0.0016
 fog_height = 0.25
 fog_height_density = 1.2
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_fmyt8"]
-resource_local_to_scene = true
-material = ExtResource("6_u47mu")
-size = Vector2(50, 50)
-center_offset = Vector3(25, 0, 25)
-
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_3sb7f"]
-data = PackedVector3Array(50, 0, 50, 0, 0, 50, 50, 0, 0, 0, 0, 50, 0, 0, 0, 50, 0, 0)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qw0ps"]
 render_priority = 0
@@ -130,8 +87,6 @@ size = Vector2(50, 50)
 center_offset = Vector3(25, 0, 25)
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_8emvl"]
-vertices = PackedVector3Array(0.8, 2.3, 0.8, 0.8, 2.3, 49.2, 49.2, 2.3, 49.2, 49.2, 2.3, 0.8)
-polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
 geometry_source_geometry_mode = 2
 geometry_source_group_name = &"air_navigation_input"
 cell_size = 0.4
@@ -141,8 +96,6 @@ agent_radius = 0.8
 agent_max_climb = 0.0
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_exfwj"]
-vertices = PackedVector3Array(1, 0.5, 1, 1, 0.5, 49, 49, 0.5, 49, 49, 0.5, 1)
-polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
 geometry_parsed_geometry_type = 2
 geometry_collision_mask = 4278190082
 geometry_source_geometry_mode = 2
@@ -164,7 +117,6 @@ viewport_path = NodePath("HUD/MarginContainer/Minimap/MarginContainer/MinimapVie
 
 [node name="Match" type="Node3D"]
 script = ExtResource("1_1555u")
-settings = SubResource("Resource_frabv")
 
 [node name="IsometricCamera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 49.5996, 12.4465, 65.9216)
@@ -190,17 +142,11 @@ environment = SubResource("Environment_qxcnu")
 
 [node name="RectangularSelection3D" parent="." instance=ExtResource("5_yi0pu")]
 
-[node name="Map" parent="." instance=ExtResource("6_au6gf")]
-
-[node name="Terrain" parent="Map/Geometry" index="1"]
-mesh = SubResource("PlaneMesh_fmyt8")
-
 [node name="Terrain" type="StaticBody3D" parent="."]
 collision_mask = 0
 script = ExtResource("7_ccpu4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain"]
-shape = SubResource("ConcavePolygonShape3D_3sb7f")
 
 [node name="Fog" type="MeshInstance3D" parent="."]
 material_override = SubResource("ShaderMaterial_qw0ps")
@@ -476,5 +422,3 @@ rectangular_selection_3d = NodePath("../../RectangularSelection3D")
 visible = false
 
 [node name="UnitVisibilityHandler" parent="Handlers" instance=ExtResource("32_fci1c")]
-
-[editable path="Map"]

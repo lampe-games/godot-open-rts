@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://tcq8nbsari5i"]
+[gd_scene load_steps=19 format=3 uid="uid://tcq8nbsari5i"]
 
 [ext_resource type="PackedScene" uid="uid://camns8fqod8d4" path="res://source/match/Match.tscn" id="1_f87ft"]
 [ext_resource type="Script" path="res://tests/manual/Match.gd" id="2_iedaw"]
@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://e7tko4kpeiau" path="res://source/match/units/Helicopter.tscn" id="3_vdlcv"]
 [ext_resource type="PackedScene" uid="uid://0gow0ughqu8u" path="res://source/match/units/Drone.tscn" id="4_g2xty"]
 [ext_resource type="Script" path="res://source/data-model/MatchSettings.gd" id="4_xj1co"]
-[ext_resource type="Material" uid="uid://co8vfcoqqs5i8" path="res://source/match/resources/materials/terrain.material.tres" id="5_djfah"]
+[ext_resource type="PackedScene" uid="uid://cbe63rdjw7y4p" path="res://source/match/maps/PlainAndSimple.tscn" id="10_3dtqy"]
 [ext_resource type="Shader" path="res://source/shaders/2d/white_transparent.gdshader" id="10_t0wf4"]
 
 [sub_resource type="Resource" id="Resource_ipatj"]
@@ -28,12 +28,6 @@ script = ExtResource("4_xj1co")
 players = Array[Resource]([SubResource("Resource_ipatj"), SubResource("Resource_clh6e")])
 visibility = 1
 visible_player = 0
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_83rft"]
-resource_local_to_scene = true
-material = ExtResource("5_djfah")
-size = Vector2(50, 50)
-center_offset = Vector3(25, 0, 25)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_v46ss"]
 viewport_path = NodePath("FogOfWar/CombinedViewport")
@@ -63,8 +57,7 @@ script = ExtResource("2_iedaw")
 allow_resources_deficit_spending = true
 settings = SubResource("Resource_e2qbq")
 
-[node name="Terrain" parent="Map/Geometry" index="1"]
-mesh = SubResource("PlaneMesh_83rft")
+[node name="Map" parent="." index="0" instance=ExtResource("10_3dtqy")]
 
 [node name="ScreenOverlay" parent="FogOfWar" index="1"]
 material_override = SubResource("ShaderMaterial_67o07")
@@ -125,5 +118,3 @@ material = SubResource("ShaderMaterial_7blp5")
 
 [node name="MinimapTextureRect" parent="HUD/MarginContainer/Minimap/MarginContainer" index="1"]
 texture = SubResource("ViewportTexture_5lqnb")
-
-[editable path="Map"]
