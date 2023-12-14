@@ -3,8 +3,9 @@
 [ext_resource type="Script" path="res://source/match/players/human/Human.gd" id="1_7iu1j"]
 [ext_resource type="Script" path="res://source/match/players/human/UnitActionsController.gd" id="1_m624e"]
 
-[node name="Human" type="Node"]
+[node name="Human" type="Node3D"]
 script = ExtResource("1_7iu1j")
+color = Color(0.4, 0.694118, 1, 1)
 
 [node name="UnitActionsController" type="Node" parent="."]
 script = ExtResource("1_m624e")

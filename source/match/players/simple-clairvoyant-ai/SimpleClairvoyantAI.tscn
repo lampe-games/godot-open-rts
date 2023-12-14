@@ -7,8 +7,9 @@
 [ext_resource type="Script" path="res://source/match/players/simple-clairvoyant-ai/IntelligenceController.gd" id="5_cxy6e"]
 [ext_resource type="Script" path="res://source/match/players/simple-clairvoyant-ai/ConstructionWorksController.gd" id="6_cbdwc"]
 
-[node name="SimpleClairvoyantAI" type="Node"]
+[node name="SimpleClairvoyantAI" type="Node3D"]
 script = ExtResource("1_shcx6")
+color = Color(1, 0.360784, 0.45098, 1)
 
 [node name="EconomyController" type="Node" parent="."]
 script = ExtResource("2_otp5l")

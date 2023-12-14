@@ -1,11 +1,11 @@
-[gd_scene load_steps=26 format=3 uid="uid://dvqwcc562qxs5"]
+[gd_scene load_steps=24 format=3 uid="uid://dvqwcc562qxs5"]
 
 [ext_resource type="PackedScene" uid="uid://camns8fqod8d4" path="res://source/match/Match.tscn" id="1_cpaaw"]
 [ext_resource type="Script" path="res://tests/manual/Match.gd" id="2_mi5ae"]
-[ext_resource type="Script" path="res://source/data-model/PlayerSettings.gd" id="3_8b007"]
 [ext_resource type="PackedScene" uid="uid://ct0ejt0trkhrf" path="res://source/match/units/CommandCenter.tscn" id="3_oqrnv"]
 [ext_resource type="PackedScene" uid="uid://cxilu6668nda6" path="res://source/match/units/AircraftFactory.tscn" id="4_a0u57"]
 [ext_resource type="Script" path="res://source/data-model/MatchSettings.gd" id="4_kwjav"]
+[ext_resource type="PackedScene" uid="uid://dh8dedilkhuoy" path="res://source/match/players/human/Human.tscn" id="5_4gwgf"]
 [ext_resource type="PackedScene" uid="uid://h5lqor1xl2sf" path="res://source/match/units/VehicleFactory.tscn" id="5_imqfl"]
 [ext_resource type="PackedScene" uid="uid://cbe63rdjw7y4p" path="res://source/match/maps/PlainAndSimple.tscn" id="5_rbjbk"]
 [ext_resource type="PackedScene" uid="uid://b8pckq1xn44ss" path="res://source/match/units/AntiGroundTurret.tscn" id="6_i5onm"]
@@ -18,21 +18,9 @@
 [ext_resource type="PackedScene" uid="uid://1qlllsy6h5tc" path="res://source/match/players/simple-clairvoyant-ai/SimpleClairvoyantAI.tscn" id="15_6w32d"]
 [ext_resource type="Shader" path="res://source/shaders/2d/white_transparent.gdshader" id="16_0dnxm"]
 
-[sub_resource type="Resource" id="Resource_sm6ga"]
-script = ExtResource("3_8b007")
-color = Color(0.4, 0.694118, 1, 1)
-controller = 1
-spawn_index = -1
-
-[sub_resource type="Resource" id="Resource_7xhjj"]
-script = ExtResource("3_8b007")
-color = Color(1, 0.360784, 0.45098, 1)
-controller = 3
-spawn_index = -1
-
 [sub_resource type="Resource" id="Resource_tnmkt"]
 script = ExtResource("4_kwjav")
-players = Array[Resource]([SubResource("Resource_sm6ga"), SubResource("Resource_7xhjj")])
+players = Array[Resource]([])
 visibility = 0
 visible_player = 0
 
@@ -66,44 +54,44 @@ settings = SubResource("Resource_tnmkt")
 
 [node name="Map" parent="." index="0" instance=ExtResource("5_rbjbk")]
 
-[node name="ScreenOverlay" parent="FogOfWar" index="1"]
-material_override = SubResource("ShaderMaterial_67o07")
+[node name="Human" parent="Players" index="0" instance=ExtResource("5_4gwgf")]
 
-[node name="CommandCenter" parent="Units/Player0" index="0" instance=ExtResource("3_oqrnv")]
+[node name="CommandCenter" parent="Players/Human" index="1" instance=ExtResource("3_oqrnv")]
 transform = Transform3D(-0.996198, 0, -0.087121, 0, 1, 0, 0.087121, 0, -0.996198, 12.2249, 0, 10.6336)
 
-[node name="AircraftFactory" parent="Units/Player0" index="1" instance=ExtResource("4_a0u57")]
+[node name="AircraftFactory" parent="Players/Human" index="2" instance=ExtResource("4_a0u57")]
 transform = Transform3D(-0.22473, 0, 0.974421, 0, 1, 0, -0.974421, 0, -0.22473, 5.13607, 0, 11.8659)
 
-[node name="VehicleFactory" parent="Units/Player0" index="2" instance=ExtResource("5_imqfl")]
+[node name="VehicleFactory" parent="Players/Human" index="3" instance=ExtResource("5_imqfl")]
 transform = Transform3D(0.802099, 0, 0.597191, 0, 1, 0, -0.597191, 0, 0.802099, 6.69677, 0, 5.61306)
 
-[node name="AntiGroundTurret" parent="Units/Player0" index="3" instance=ExtResource("6_i5onm")]
+[node name="AntiGroundTurret" parent="Players/Human" index="4" instance=ExtResource("6_i5onm")]
 transform = Transform3D(-0.452979, 0, -0.891521, 0, 1, 0, 0.891521, 0, -0.452979, 22.2618, 7.62939e-06, 9.86056)
 
-[node name="AntiAirTurret" parent="Units/Player0" index="4" instance=ExtResource("7_hplpe")]
+[node name="AntiAirTurret" parent="Players/Human" index="5" instance=ExtResource("7_hplpe")]
 transform = Transform3D(-0.775077, 0, -0.631867, 0, 1, 0, 0.631867, 0, -0.775077, 20.3453, -3.8147e-06, 17.1744)
 
-[node name="Drone" parent="Units/Player0" index="5" instance=ExtResource("8_8jgl1")]
+[node name="Drone" parent="Players/Human" index="6" instance=ExtResource("8_8jgl1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.9318, 0, 4.14556)
 
-[node name="Helicopter" parent="Units/Player0" index="6" instance=ExtResource("9_52a3q")]
+[node name="Helicopter" parent="Players/Human" index="7" instance=ExtResource("9_52a3q")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.67897, 0, 3.61146)
 
-[node name="Tank" parent="Units/Player0" index="7" instance=ExtResource("10_60e5v")]
+[node name="Tank" parent="Players/Human" index="8" instance=ExtResource("10_60e5v")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.2469, 0, 5.45996)
 
-[node name="Worker" parent="Units/Player0" index="8" instance=ExtResource("11_mhynl")]
+[node name="Worker" parent="Players/Human" index="9" instance=ExtResource("11_mhynl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5856, 0, 14.6178)
+
+[node name="SimpleClairvoyantAI" parent="Players" index="1" instance=ExtResource("15_6w32d")]
+primary_offensive_structure = 1
+secondary_offensive_structure = 0
+
+[node name="ScreenOverlay" parent="FogOfWar" index="1"]
+material_override = SubResource("ShaderMaterial_67o07")
 
 [node name="FogOfWarMask" parent="HUD/MarginContainer/Minimap/MarginContainer/MinimapViewport" index="3"]
 material = SubResource("ShaderMaterial_ummkj")
 
 [node name="MinimapTextureRect" parent="HUD/MarginContainer/Minimap/MarginContainer" index="1"]
 texture = SubResource("ViewportTexture_tly7c")
-
-[node name="Placeholder" type="Node" parent="Players" index="0"]
-
-[node name="SimpleClairvoyantAI" parent="Players" index="1" instance=ExtResource("15_6w32d")]
-primary_offensive_structure = 1
-secondary_offensive_structure = 0

@@ -1,4 +1,4 @@
-extends Node
+extends "res://source/match/players/Player.gd"
 
 enum ResourceRequestPriority { LOW, MEDIUM, HIGH }
 enum OffensiveStructure { VEHICLE_FACTORY, AIRCRAFT_FACTORY }
@@ -12,8 +12,6 @@ enum OffensiveStructure { VEHICLE_FACTORY, AIRCRAFT_FACTORY }
 @export var expected_number_of_battlegroups = 2
 @export var expected_number_of_units_in_battlegroup = 4
 
-var player: Resource = null
-
 var _provisioning_ongoing = false
 var _resource_requests = {
 	ResourceRequestPriority.LOW: [],
@@ -21,6 +19,8 @@ var _resource_requests = {
 	ResourceRequestPriority.HIGH: [],
 }
 var _call_to_perform_during_process = null
+
+@onready var player = self
 
 @onready var _economy_controller = find_child("EconomyController")
 @onready var _defense_controller = find_child("DefenseController")

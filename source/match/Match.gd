@@ -1,7 +1,9 @@
 extends Node3D
 
+const Unit = preload("res://source/match/units/Unit.gd")
 const Structure = preload("res://source/match/units/Structure.gd")
-const Player = preload("res://source/match/data-model/Player.gd")
+const Player = preload("res://source/match/players/Player.gd")
+const Human = preload("res://source/match/players/human/Human.gd")
 
 const HumanController = preload("res://source/match/players/human/Human.tscn")
 const SimpleClairvoyantAIController = preload(
@@ -17,7 +19,9 @@ const Worker = preload("res://source/match/units/Worker.tscn")
 var map:
 	set = _set_map,
 	get = _get_map
-var players = []
+var players: Array:
+	set = _ignore,
+	get = _get_players
 var controlled_player = null:
 	set = _set_controlled_player
 var visible_player = null:
@@ -38,19 +42,31 @@ var visible_players = null:
 func _enter_tree():
 	assert(settings != null, "match cannot start without settings, see examples in tests/manual/")
 	assert(map != null, "match cannot start without map, see examples in tests/manual/")
+	# TODO: remove - it's a temporary hack
+	$Players.get_children().filter(func(node): return node is Player).map(
+		func(player): player.add_to_group("players")
+	)
 
 
 func _ready():
 	MatchSignals.setup_and_spawn_unit.connect(_setup_and_spawn_unit)
 	_setup_subsystems_dependent_on_map()
-	_create_players()
-	_choose_controlled_player()
-	visible_player = players[settings.visible_player]
+	_setup_players()
 	_setup_player_units()
-	_create_and_setup_player_controllers()  # must happen after initial units are created
+	controlled_player = _get_human_player()
+	visible_player = players[settings.visible_player]
 	_move_camera_to_initial_position()
 	if settings.visibility == settings.Visibility.FULL:
 		fog_of_war.reveal()
+
+	# _create_players()
+	# _choose_controlled_player()
+	# visible_player = players[settings.visible_player]
+	# _setup_player_units()
+	# _create_and_setup_player_controllers()  # must happen after initial units are created
+	# _move_camera_to_initial_position()
+	# if settings.visibility == settings.Visibility.FULL:
+	# 	fog_of_war.reveal()
 
 
 func _unhandled_input(event):
@@ -67,41 +83,50 @@ func _set_map(a_map):
 	a_map.owner = self
 
 
+func _ignore(_value):
+	pass
+
+
 func _get_map():
 	return get_node_or_null("Map")
+
+
+func _get_players():
+	return get_tree().get_nodes_in_group("players")
 
 
 func _set_controlled_player(player):
 	MatchSignals.deselect_all_units.emit()
 	_renounce_control_of_player_units(controlled_player)
 	_assume_control_of_player_units(player)
-	if controlled_player != null:
-		# remove controller of old controlled_player
-		(
-			_players
-			. get_children()
-			. filter(func(controller): return controller.player == controlled_player)[0]
-			. queue_free()
-		)
-		# add AI controller for old controlled_player
-		var ai_controller = SimpleClairvoyantAIController.instantiate()
-		ai_controller.player = controlled_player
-		_players.add_child(ai_controller)
+	assert(controlled_player == null, "not implemented")
+	# if controlled_player != null:
+	# 	# remove controller of old controlled_player
+	# 	(
+	# 		_players
+	# 		. get_children()
+	# 		. filter(func(controller): return controller.player == controlled_player)[0]
+	# 		. queue_free()
+	# 	)
+	# 	# add AI controller for old controlled_player
+	# 	var ai_controller = SimpleClairvoyantAIController.instantiate()
+	# 	ai_controller.player = controlled_player
+	# 	_players.add_child(ai_controller)
 	controlled_player = player
-	if controlled_player != null:
-		# if new controlled_player had some controller before, remove it
-		var found_controllers = _players.get_children().filter(
-			func(controller): return (
-				not controller.name.begins_with("Placeholder")
-				and controller.player == controlled_player
-			)
-		)
-		if not found_controllers.is_empty():
-			found_controllers[0].queue_free()
-		# and create human controller for new controller_player
-		var human_controller = HumanController.instantiate()
-		human_controller.player = controlled_player
-		_players.add_child(human_controller)
+	# if controlled_player != null:
+	# 	# if new controlled_player had some controller before, remove it
+	# 	var found_controllers = _players.get_children().filter(
+	# 		func(controller): return (
+	# 			not controller.name.begins_with("Placeholder")
+	# 			and controller.player == controlled_player
+	# 		)
+	# 	)
+	# 	if not found_controllers.is_empty():
+	# 		found_controllers[0].queue_free()
+	# 	# and create human controller for new controller_player
+	# 	var human_controller = HumanController.instantiate()
+	# 	human_controller.player = controlled_player
+	# 	_players.add_child(human_controller)
 	MatchSignals.controlled_player_changed.emit(controlled_player)
 
 
@@ -109,10 +134,6 @@ func _set_visible_player(player):
 	_conceal_player_units(visible_player)
 	_reveal_player_units(player)
 	visible_player = player
-
-
-func _ignore(_value):
-	pass
 
 
 func _get_visible_players():
@@ -133,90 +154,101 @@ func _recalculate_camera_bounding_planes(map_size: Vector2):
 	_camera.bounding_planes[3] = Plane(0, 0, -1, -map_size.y)
 
 
-func _create_players():
-	for player_settings in settings.players:
-		var player = Player.new()
-		player.color = player_settings.color
-		players.append(player)
+func _setup_players():
+	assert(
+		_players.get_children().is_empty() or settings.players.is_empty(),
+		"players can be defined either in settings or in scene tree, not in both"
+	)
+	if _players.get_children().is_empty():
+		_create_players_from_settings()
 
 
-func _create_and_setup_player_controllers():
-	var existing_player_controllers = _players.get_children()
-	for player_id in range(players.size()):
-		var pending_placeholder = null
-		if player_id < existing_player_controllers.size():
-			var detected_player_controller = existing_player_controllers[player_id]
-			if not detected_player_controller.name.begins_with("Placeholder"):
-				detected_player_controller.player = players[player_id]
-				continue
-			else:
-				pending_placeholder = detected_player_controller
-		var desired_player_controller = settings.players[player_id].controller
-		assert(
-			desired_player_controller != Constants.PlayerController.DETECT_FROM_SCENE,
-			"cannot detect existing player controller"
-		)
-		if desired_player_controller == Constants.PlayerController.NONE:
-			continue
-		var controller_scene = Constants.Match.Player.CONTROLLER_SCENES[desired_player_controller]
-		var controller_node = controller_scene.instantiate()
-		controller_node.player = players[player_id]
-		if pending_placeholder != null:
-			pending_placeholder.add_sibling(controller_node)
-			pending_placeholder.queue_free()
-		else:
-			_players.add_child(controller_node)
+func _create_players_from_settings():
+	# for player_settings in settings.players:
+	# 	var player = Player.new()
+	# 	player.color = player_settings.color
+	# 	players.append(player)
+	assert(false, "not implemented")
 
 
-func _choose_controlled_player():
-	for player_id in range(players.size()):
-		if settings.players[player_id].controller == Constants.PlayerController.HUMAN:
-			assert(controlled_player == null, "more than one human player in settings")
-			controlled_player = players[player_id]
+# func _create_and_setup_player_controllers():
+# 	var existing_player_controllers = _players.get_children()
+# 	for player_id in range(players.size()):
+# 		var pending_placeholder = null
+# 		if player_id < existing_player_controllers.size():
+# 			var detected_player_controller = existing_player_controllers[player_id]
+# 			if not detected_player_controller.name.begins_with("Placeholder"):
+# 				detected_player_controller.player = players[player_id]
+# 				continue
+# 			else:
+# 				pending_placeholder = detected_player_controller
+# 		var desired_player_controller = settings.players[player_id].controller
+# 		assert(
+# 			desired_player_controller != Constants.PlayerController.DETECT_FROM_SCENE,
+# 			"cannot detect existing player controller"
+# 		)
+# 		if desired_player_controller == Constants.PlayerController.NONE:
+# 			continue
+# 		var controller_scene = Constants.Match.Player.CONTROLLER_SCENES[desired_player_controller]
+# 		var controller_node = controller_scene.instantiate()
+# 		controller_node.player = players[player_id]
+# 		if pending_placeholder != null:
+# 			pending_placeholder.add_sibling(controller_node)
+# 			pending_placeholder.queue_free()
+# 		else:
+# 			_players.add_child(controller_node)
 
+# func _choose_controlled_player():
+# for player_id in range(players.size()):
+# 	if settings.players[player_id].controller == Constants.PlayerController.HUMAN:
+# 		assert(controlled_player == null, "more than one human player in settings")
+# 		controlled_player = players[player_id]
 
-func _caclulate_player_to_spawn_point_mapping():
-	var player_to_spawn_point_mapping = {}
-	var spawn_points = map.find_child("SpawnPoints").get_children()
-	var unassigned_spawn_point_indexes = range(spawn_points.size())
-	for player_id in range(players.size()):
-		var player = players[player_id]
-		if settings.players[player_id].spawn_index != -1:
-			assert(
-				settings.players[player_id].spawn_index in unassigned_spawn_point_indexes,
-				"another player already assigned to this spawn position"
-			)
-			player_to_spawn_point_mapping[player] = spawn_points[
-				settings.players[player_id].spawn_index
-			]
-			unassigned_spawn_point_indexes.erase(settings.players[player_id].spawn_index)
-	for player_id in range(players.size()):
-		var player = players[player_id]
-		if settings.players[player_id].spawn_index == -1:
-			var spawn_point_index = unassigned_spawn_point_indexes.pop_front()
-			player_to_spawn_point_mapping[player] = spawn_points[spawn_point_index]
-	return player_to_spawn_point_mapping
+# func _caclulate_player_to_spawn_point_mapping():
+# 	var player_to_spawn_point_mapping = {}
+# 	var spawn_points = map.find_child("SpawnPoints").get_children()
+# 	var unassigned_spawn_point_indexes = range(spawn_points.size())
+# 	for player_id in range(players.size()):
+# 		var player = players[player_id]
+# 		if settings.players[player_id].spawn_index != -1:
+# 			assert(
+# 				settings.players[player_id].spawn_index in unassigned_spawn_point_indexes,
+# 				"another player already assigned to this spawn position"
+# 			)
+# 			player_to_spawn_point_mapping[player] = spawn_points[
+# 				settings.players[player_id].spawn_index
+# 			]
+# 			unassigned_spawn_point_indexes.erase(settings.players[player_id].spawn_index)
+# 	for player_id in range(players.size()):
+# 		var player = players[player_id]
+# 		if settings.players[player_id].spawn_index == -1:
+# 			var spawn_point_index = unassigned_spawn_point_indexes.pop_front()
+# 			player_to_spawn_point_mapping[player] = spawn_points[spawn_point_index]
+# 	return player_to_spawn_point_mapping
 
 
 func _setup_player_units():
-	var player_to_spawn_point_mapping = _caclulate_player_to_spawn_point_mapping()
-	for player_id in range(players.size()):
-		var player = players[player_id]
-		var predefined_units_root = _predefined_units.find_child("Player{0}".format([player_id]))
-		var predefined_units = (
-			predefined_units_root.get_children() if predefined_units_root != null else []
-		)
+	for player in _players.get_children():
+		if not player is Player:
+			continue
+		var player_index = player.get_index()
+		var predefined_units = player.get_children().filter(func(child): return child is Unit)
 		if not predefined_units.is_empty():
 			predefined_units.map(func(unit): _setup_unit(unit, player))
 		else:
-			_spawn_player_units(player, player_to_spawn_point_mapping[player].global_transform)
+			_spawn_player_units(
+				player, map.find_child("SpawnPoints").get_child(player_index).global_transform
+			)
 
 
-func _move_camera_to_initial_position():
-	if controlled_player != null:
-		_move_camera_to_player_units_crowd_pivot(controlled_player)
-	else:
-		_move_camera_to_player_units_crowd_pivot(players[0])
+func _get_human_player():
+	var human_players = get_tree().get_nodes_in_group("players").filter(
+		func(player): return player is Human
+	)
+	assert(human_players.size() <= 1, "more than one human player is not allowed")
+	if not human_players.is_empty():
+		return human_players[0]
+	return null
 
 
 func _spawn_player_units(player, spawn_transform):
@@ -251,6 +283,13 @@ func _setup_unit(unit, player):
 		unit.add_to_group("adversary_units")
 	if player in visible_players:
 		unit.add_to_group("revealed_units")
+
+
+func _move_camera_to_initial_position():
+	if controlled_player != null:
+		_move_camera_to_player_units_crowd_pivot(controlled_player)
+	else:
+		_move_camera_to_player_units_crowd_pivot(players[0])
 
 
 func _move_camera_to_player_units_crowd_pivot(player):

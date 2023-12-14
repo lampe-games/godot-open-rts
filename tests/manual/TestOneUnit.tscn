@@ -1,23 +1,17 @@
-[gd_scene load_steps=16 format=3 uid="uid://qhgcfjxa2ykg"]
+[gd_scene load_steps=15 format=3 uid="uid://qhgcfjxa2ykg"]
 
 [ext_resource type="PackedScene" uid="uid://camns8fqod8d4" path="res://source/match/Match.tscn" id="1_fe2sx"]
 [ext_resource type="Script" path="res://tests/manual/Match.gd" id="2_sflin"]
-[ext_resource type="Script" path="res://source/data-model/PlayerSettings.gd" id="3_3drrn"]
 [ext_resource type="Script" path="res://source/data-model/MatchSettings.gd" id="4_go41p"]
 [ext_resource type="PackedScene" uid="uid://cbe63rdjw7y4p" path="res://source/match/maps/PlainAndSimple.tscn" id="5_pl4hu"]
+[ext_resource type="PackedScene" uid="uid://dh8dedilkhuoy" path="res://source/match/players/human/Human.tscn" id="6_rkbjn"]
 [ext_resource type="Shader" path="res://source/shaders/2d/white_transparent.gdshader" id="8_fifyq"]
 [ext_resource type="PackedScene" uid="uid://i58ffvwxbbwm" path="res://source/match/units/Tank.tscn" id="10_tqe5i"]
 [ext_resource type="Shader" path="res://source/shaders/3d/simple_fog_of_war.gdshader" id="12_ke5ti"]
 
-[sub_resource type="Resource" id="Resource_aehri"]
-script = ExtResource("3_3drrn")
-color = Color(0.4, 0.694118, 1, 1)
-controller = 1
-spawn_index = -1
-
 [sub_resource type="Resource" id="Resource_qqc8i"]
 script = ExtResource("4_go41p")
-players = Array[Resource]([SubResource("Resource_aehri")])
+players = Array[Resource]([])
 visibility = 0
 visible_player = 0
 
@@ -51,11 +45,13 @@ settings = SubResource("Resource_qqc8i")
 
 [node name="Map" parent="." index="0" instance=ExtResource("5_pl4hu")]
 
+[node name="Human" parent="Players" index="0" instance=ExtResource("6_rkbjn")]
+
+[node name="Tank" parent="Players/Human" index="1" instance=ExtResource("10_tqe5i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.263, 0, 12.637)
+
 [node name="ScreenOverlay" parent="FogOfWar" index="1"]
 material_override = SubResource("ShaderMaterial_67o07")
-
-[node name="Tank" parent="Units/Player0" index="0" instance=ExtResource("10_tqe5i")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.263, 0, 12.637)
 
 [node name="FogOfWarMask" parent="HUD/MarginContainer/Minimap/MarginContainer/MinimapViewport" index="3"]
 material = SubResource("ShaderMaterial_kdlxq")

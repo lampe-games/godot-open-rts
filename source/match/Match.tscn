@@ -118,6 +118,8 @@ viewport_path = NodePath("HUD/MarginContainer/Minimap/MarginContainer/MinimapVie
 [node name="Match" type="Node3D"]
 script = ExtResource("1_1555u")
 
+[node name="Players" type="Node3D" parent="."]
+
 [node name="IsometricCamera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 49.5996, 12.4465, 65.9216)
 projection = 1
@@ -398,8 +400,6 @@ size_flags_horizontal = 8
 
 [node name="Menu" parent="." instance=ExtResource("22_ofmlu")]
 visible = false
-
-[node name="Players" type="Node" parent="."]
 
 [node name="Debug" type="Node3D" parent="."]
 
