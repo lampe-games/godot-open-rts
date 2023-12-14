@@ -5,10 +5,10 @@ const Structure = preload("res://source/match/units/Structure.gd")
 const Player = preload("res://source/match/players/Player.gd")
 const Human = preload("res://source/match/players/human/Human.gd")
 
-const HumanController = preload("res://source/match/players/human/Human.tscn")
-const SimpleClairvoyantAIController = preload(
-	"res://source/match/players/simple-clairvoyant-ai/SimpleClairvoyantAI.tscn"
-)
+# const HumanController = preload("res://source/match/players/human/Human.tscn")
+# const SimpleClairvoyantAIController = preload(
+# 	"res://source/match/players/simple-clairvoyant-ai/SimpleClairvoyantAI.tscn"
+# )
 
 const CommandCenter = preload("res://source/match/units/CommandCenter.tscn")
 const Drone = preload("res://source/match/units/Drone.tscn")
@@ -35,7 +35,6 @@ var visible_players = null:
 
 @onready var _camera = $IsometricCamera3D
 @onready var _players = $Players
-@onready var _predefined_units = $Units
 @onready var _terrain = $Terrain
 
 
@@ -58,15 +57,6 @@ func _ready():
 	_move_camera_to_initial_position()
 	if settings.visibility == settings.Visibility.FULL:
 		fog_of_war.reveal()
-
-	# _create_players()
-	# _choose_controlled_player()
-	# visible_player = players[settings.visible_player]
-	# _setup_player_units()
-	# _create_and_setup_player_controllers()  # must happen after initial units are created
-	# _move_camera_to_initial_position()
-	# if settings.visibility == settings.Visibility.FULL:
-	# 	fog_of_war.reveal()
 
 
 func _unhandled_input(event):
@@ -161,70 +151,25 @@ func _setup_players():
 	)
 	if _players.get_children().is_empty():
 		_create_players_from_settings()
+	for node in _players.get_children():
+		if node is Player:
+			node.add_to_group("players")
 
 
 func _create_players_from_settings():
-	# for player_settings in settings.players:
-	# 	var player = Player.new()
-	# 	player.color = player_settings.color
-	# 	players.append(player)
-	assert(false, "not implemented")
-
-
-# func _create_and_setup_player_controllers():
-# 	var existing_player_controllers = _players.get_children()
-# 	for player_id in range(players.size()):
-# 		var pending_placeholder = null
-# 		if player_id < existing_player_controllers.size():
-# 			var detected_player_controller = existing_player_controllers[player_id]
-# 			if not detected_player_controller.name.begins_with("Placeholder"):
-# 				detected_player_controller.player = players[player_id]
-# 				continue
-# 			else:
-# 				pending_placeholder = detected_player_controller
-# 		var desired_player_controller = settings.players[player_id].controller
-# 		assert(
-# 			desired_player_controller != Constants.PlayerController.DETECT_FROM_SCENE,
-# 			"cannot detect existing player controller"
-# 		)
-# 		if desired_player_controller == Constants.PlayerController.NONE:
-# 			continue
-# 		var controller_scene = Constants.Match.Player.CONTROLLER_SCENES[desired_player_controller]
-# 		var controller_node = controller_scene.instantiate()
-# 		controller_node.player = players[player_id]
-# 		if pending_placeholder != null:
-# 			pending_placeholder.add_sibling(controller_node)
-# 			pending_placeholder.queue_free()
-# 		else:
-# 			_players.add_child(controller_node)
-
-# func _choose_controlled_player():
-# for player_id in range(players.size()):
-# 	if settings.players[player_id].controller == Constants.PlayerController.HUMAN:
-# 		assert(controlled_player == null, "more than one human player in settings")
-# 		controlled_player = players[player_id]
-
-# func _caclulate_player_to_spawn_point_mapping():
-# 	var player_to_spawn_point_mapping = {}
-# 	var spawn_points = map.find_child("SpawnPoints").get_children()
-# 	var unassigned_spawn_point_indexes = range(spawn_points.size())
-# 	for player_id in range(players.size()):
-# 		var player = players[player_id]
-# 		if settings.players[player_id].spawn_index != -1:
-# 			assert(
-# 				settings.players[player_id].spawn_index in unassigned_spawn_point_indexes,
-# 				"another player already assigned to this spawn position"
-# 			)
-# 			player_to_spawn_point_mapping[player] = spawn_points[
-# 				settings.players[player_id].spawn_index
-# 			]
-# 			unassigned_spawn_point_indexes.erase(settings.players[player_id].spawn_index)
-# 	for player_id in range(players.size()):
-# 		var player = players[player_id]
-# 		if settings.players[player_id].spawn_index == -1:
-# 			var spawn_point_index = unassigned_spawn_point_indexes.pop_front()
-# 			player_to_spawn_point_mapping[player] = spawn_points[spawn_point_index]
-# 	return player_to_spawn_point_mapping
+	for player_settings in settings.players:
+		assert(
+			not (
+				player_settings.controller
+				in [Constants.PlayerController.NONE, Constants.PlayerController.DETECT_FROM_SCENE]
+			),
+			"not supported anymore"
+		)
+		var player_scene = Constants.Match.Player.CONTROLLER_SCENES[player_settings.controller]
+		var player = player_scene.instantiate()
+		player.color = player_settings.color
+		assert(player_settings.spawn_index < 0, "not implemented")
+		_players.add_child(player)
 
 
 func _setup_player_units():
