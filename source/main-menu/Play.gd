@@ -33,14 +33,18 @@ func _create_match_settings():
 	var match_settings = MatchSettings.new()
 
 	var option_nodes = find_child("GridContainer").find_children("OptionButton*")
+	var spawn_index_offset = 0
 	for option_node_id in range(option_nodes.size()):
 		var player_controller = option_nodes[option_node_id].selected
 		if player_controller != Constants.PlayerController.NONE:
 			var player_settings = PlayerSettings.new()
 			player_settings.controller = player_controller
 			player_settings.color = Constants.Player.COLORS[option_node_id]
-			player_settings.spawn_index = option_node_id
+			player_settings.spawn_index_offset = spawn_index_offset
 			match_settings.players.append(player_settings)
+			spawn_index_offset = 0
+		else:
+			spawn_index_offset += 1
 
 	match_settings.visible_player = -1
 	for player_id in range(match_settings.players.size()):

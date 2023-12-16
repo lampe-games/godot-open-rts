@@ -13,6 +13,7 @@ script = ExtResource("3_eliam")
 color = Color(0.4, 0.694118, 1, 1)
 controller = 1
 spawn_index = -1
+spawn_index_offset = 0
 
 [sub_resource type="Resource" id="Resource_qgn77"]
 script = ExtResource("3_52248")
