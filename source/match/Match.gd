@@ -41,10 +41,6 @@ var visible_players = null:
 func _enter_tree():
 	assert(settings != null, "match cannot start without settings, see examples in tests/manual/")
 	assert(map != null, "match cannot start without map, see examples in tests/manual/")
-	# TODO: remove - it's a temporary hack
-	$Players.get_children().filter(func(node): return node is Player).map(
-		func(player): player.add_to_group("players")
-	)
 
 
 func _ready():

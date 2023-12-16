@@ -20,7 +20,7 @@ var _resource_requests = {
 }
 var _call_to_perform_during_process = null
 
-@onready var player = self
+@onready var _match = find_parent("Match")
 
 @onready var _economy_controller = find_child("EconomyController")
 @onready var _defense_controller = find_child("DefenseController")
@@ -30,24 +30,27 @@ var _call_to_perform_during_process = null
 
 
 func _ready():
-	if player == null:
-		await find_parent("Match").ready
-	assert(player != null, "player cannot be null at this point")
-	player.changed.connect(_on_player_resource_changed)
+	# wait for match to be ready
+	if not _match.is_node_ready():
+		await _match.ready
+	# wait additional frame to make sure other players are in place
+	await get_tree().physics_frame
+
+	changed.connect(_on_player_data_changed)
 	_economy_controller.resources_required.connect(
 		_on_resource_request.bind(_economy_controller, ResourceRequestPriority.HIGH)
 	)
-	_economy_controller.setup(player)
+	_economy_controller.setup(self)
 	_defense_controller.resources_required.connect(
 		_on_resource_request.bind(_defense_controller, ResourceRequestPriority.MEDIUM)
 	)
-	_defense_controller.setup(player)
+	_defense_controller.setup(self)
 	_offense_controller.resources_required.connect(
 		_on_resource_request.bind(_offense_controller, ResourceRequestPriority.LOW)
 	)
-	_offense_controller.setup(player)
-	_intelligence_controller.setup(player)
-	_construction_works_controller.setup(player)
+	_offense_controller.setup(self)
+	_intelligence_controller.setup(self)
+	_construction_works_controller.setup(self)
 
 
 func _process(_delta):
@@ -78,7 +81,7 @@ func _try_fulfilling_resource_requests_according_to_priorities():
 	]:
 		while (
 			not _resource_requests[priority].is_empty()
-			and player.has_resources(_resource_requests[priority].front()["resources"])
+			and has_resources(_resource_requests[priority].front()["resources"])
 		):
 			var resource_request = _resource_requests[priority].pop_front()
 			_provision(
@@ -88,12 +91,12 @@ func _try_fulfilling_resource_requests_according_to_priorities():
 			)
 		if (
 			not _resource_requests[priority].is_empty()
-			and not player.has_resources(_resource_requests[priority].front()["resources"])
+			and not has_resources(_resource_requests[priority].front()["resources"])
 		):
 			break
 
 
-func _on_player_resource_changed():
+func _on_player_data_changed():
 	_try_fulfilling_resource_requests_according_to_priorities_next_frame()
 
 
