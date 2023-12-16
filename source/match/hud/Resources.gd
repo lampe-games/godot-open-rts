@@ -11,7 +11,7 @@ func _ready():
 		MatchSignals.controlled_player_changed.connect(_on_controlled_player_changed)
 		_show_player_bars([_match.controlled_player])
 	else:
-		_show_player_bars(_match.players)
+		_show_player_bars(get_tree().get_nodes_in_group("players"))
 
 
 func _hide_all_bars():
@@ -21,8 +21,9 @@ func _hide_all_bars():
 
 func _setup_all_bars():
 	var bar_nodes = get_children()
-	for i in range(_match.players.size()):
-		bar_nodes[i].setup(_match.players[i])
+	var players = get_tree().get_nodes_in_group("players")
+	for i in range(players.size()):
+		bar_nodes[i].setup(players[i])
 
 
 func _show_player_bars(players):

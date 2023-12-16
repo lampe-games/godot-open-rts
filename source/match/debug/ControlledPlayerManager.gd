@@ -7,11 +7,12 @@ extends PanelContainer
 
 func _ready():
 	await _match.ready
-	_controlled_player.value = _match.players.find(_match.controlled_player)
+	_controlled_player.value = get_tree().get_nodes_in_group("players").find(
+		_match.controlled_player
+	)
 	_controlled_player.value_changed.connect(_on_controlled_player_spin_box_value_changed)
 
 
 func _on_controlled_player_spin_box_value_changed(value):
-	_match.controlled_player = (
-		_match.players[value] if value >= 0 and value < _match.players.size() else null
-	)
+	var players = get_tree().get_nodes_in_group("players")
+	_match.controlled_player = (players[value] if value >= 0 and value < players.size() else null)

@@ -114,7 +114,7 @@ func _try_creating_new_battlegroup():
 			primary_structure.production_queue.cancel_all()
 		_battlegroup_under_forming = null
 		return false
-	var adversary_players = find_parent("Match").players.filter(
+	var adversary_players = get_tree().get_nodes_in_group("players").filter(
 		func(player): return player != _player
 	)
 	adversary_players.shuffle()

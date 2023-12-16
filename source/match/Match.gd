@@ -5,11 +5,6 @@ const Structure = preload("res://source/match/units/Structure.gd")
 const Player = preload("res://source/match/players/Player.gd")
 const Human = preload("res://source/match/players/human/Human.gd")
 
-# const HumanController = preload("res://source/match/players/human/Human.tscn")
-# const SimpleClairvoyantAIController = preload(
-# 	"res://source/match/players/simple-clairvoyant-ai/SimpleClairvoyantAI.tscn"
-# )
-
 const CommandCenter = preload("res://source/match/units/CommandCenter.tscn")
 const Drone = preload("res://source/match/units/Drone.tscn")
 const Worker = preload("res://source/match/units/Worker.tscn")
@@ -19,9 +14,6 @@ const Worker = preload("res://source/match/units/Worker.tscn")
 var map:
 	set = _set_map,
 	get = _get_map
-var players: Array:
-	set = _ignore,
-	get = _get_players
 var controlled_player = null:
 	set = _set_controlled_player
 var visible_player = null:
@@ -49,7 +41,7 @@ func _ready():
 	_setup_players()
 	_setup_player_units()
 	controlled_player = _get_human_player()
-	visible_player = players[settings.visible_player]
+	visible_player = get_tree().get_nodes_in_group("players")[settings.visible_player]
 	_move_camera_to_initial_position()
 	if settings.visibility == settings.Visibility.FULL:
 		fog_of_war.reveal()
@@ -77,42 +69,13 @@ func _get_map():
 	return get_node_or_null("Map")
 
 
-func _get_players():
-	return get_tree().get_nodes_in_group("players")
-
-
+# TODO: remove & replace by human_player
 func _set_controlled_player(player):
 	MatchSignals.deselect_all_units.emit()
 	_renounce_control_of_player_units(controlled_player)
 	_assume_control_of_player_units(player)
 	assert(controlled_player == null, "not implemented")
-	# if controlled_player != null:
-	# 	# remove controller of old controlled_player
-	# 	(
-	# 		_players
-	# 		. get_children()
-	# 		. filter(func(controller): return controller.player == controlled_player)[0]
-	# 		. queue_free()
-	# 	)
-	# 	# add AI controller for old controlled_player
-	# 	var ai_controller = SimpleClairvoyantAIController.instantiate()
-	# 	ai_controller.player = controlled_player
-	# 	_players.add_child(ai_controller)
 	controlled_player = player
-	# if controlled_player != null:
-	# 	# if new controlled_player had some controller before, remove it
-	# 	var found_controllers = _players.get_children().filter(
-	# 		func(controller): return (
-	# 			not controller.name.begins_with("Placeholder")
-	# 			and controller.player == controlled_player
-	# 		)
-	# 	)
-	# 	if not found_controllers.is_empty():
-	# 		found_controllers[0].queue_free()
-	# 	# and create human controller for new controller_player
-	# 	var human_controller = HumanController.instantiate()
-	# 	human_controller.player = controlled_player
-	# 	_players.add_child(human_controller)
 	MatchSignals.controlled_player_changed.emit(controlled_player)
 
 
@@ -125,7 +88,7 @@ func _set_visible_player(player):
 func _get_visible_players():
 	if settings.visibility == settings.Visibility.PER_PLAYER:
 		return [visible_player]
-	return players
+	return get_tree().get_nodes_in_group("players")
 
 
 func _setup_subsystems_dependent_on_map():
@@ -205,7 +168,7 @@ func _setup_and_spawn_unit(unit, a_transform, player, mark_structure_under_const
 	_setup_unit(unit, player)
 	if unit is Structure and mark_structure_under_construction:
 		unit.mark_as_under_construction()
-	add_child(unit)
+	player.add_child(unit)
 	MatchSignals.unit_spawned.emit(unit)
 
 
@@ -225,7 +188,7 @@ func _move_camera_to_initial_position():
 	if controlled_player != null:
 		_move_camera_to_player_units_crowd_pivot(controlled_player)
 	else:
-		_move_camera_to_player_units_crowd_pivot(players[0])
+		_move_camera_to_player_units_crowd_pivot(get_tree().get_nodes_in_group("players")[0])
 
 
 func _move_camera_to_player_units_crowd_pivot(player):
