@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://camns8fqod8d4"]
+[gd_scene load_steps=43 format=3 uid="uid://camns8fqod8d4"]
 
 [ext_resource type="Script" path="res://source/match/Match.gd" id="1_1555u"]
 [ext_resource type="Script" path="res://source/match/IsometricCamera3D.gd" id="1_qb2ry"]
@@ -26,7 +26,6 @@
 [ext_resource type="PackedScene" uid="uid://b83l4dny3gly0" path="res://source/match/debug/FrameIncrementer.tscn" id="23_exhtd"]
 [ext_resource type="PackedScene" uid="uid://c3xjdp2yrr1fu" path="res://source/match/debug/DiagnosticHud.tscn" id="23_pocq6"]
 [ext_resource type="PackedScene" uid="uid://yn470qvc3eak" path="res://source/match/handlers/MatchEndHandler.tscn" id="26_4d7im"]
-[ext_resource type="PackedScene" uid="uid://q5w474dvts3f" path="res://source/match/handlers/StructurePlacementHandler.tscn" id="26_7heso"]
 [ext_resource type="PackedScene" uid="uid://b8p6lcwubx1tp" path="res://source/match/handlers/UnitVisibilityHandler.tscn" id="32_fci1c"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ysb0j"]
@@ -410,8 +409,6 @@ visible = false
 [node name="FrameIncrementer" parent="Debug" instance=ExtResource("23_exhtd")]
 
 [node name="Handlers" type="Node3D" parent="."]
-
-[node name="StructurePlacementHandler" parent="Handlers" instance=ExtResource("26_7heso")]
 
 [node name="UnitSelectionHandler" parent="Handlers" instance=ExtResource("20_tw1wp")]
 rectangular_selection_3d = NodePath("../../RectangularSelection3D")

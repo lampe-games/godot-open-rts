@@ -14,8 +14,6 @@ const Worker = preload("res://source/match/units/Worker.tscn")
 var map:
 	set = _set_map,
 	get = _get_map
-var controlled_player = null:
-	set = _set_controlled_player
 var visible_player = null:
 	set = _set_visible_player
 var visible_players = null:
@@ -40,7 +38,6 @@ func _ready():
 	_setup_subsystems_dependent_on_map()
 	_setup_players()
 	_setup_player_units()
-	controlled_player = _get_human_player()
 	visible_player = get_tree().get_nodes_in_group("players")[settings.visible_player]
 	_move_camera_to_initial_position()
 	if settings.visibility == settings.Visibility.FULL:
@@ -67,16 +64,6 @@ func _ignore(_value):
 
 func _get_map():
 	return get_node_or_null("Map")
-
-
-# TODO: remove & replace by human_player
-func _set_controlled_player(player):
-	MatchSignals.deselect_all_units.emit()
-	_renounce_control_of_player_units(controlled_player)
-	_assume_control_of_player_units(player)
-	assert(controlled_player == null, "not implemented")
-	controlled_player = player
-	MatchSignals.controlled_player_changed.emit(controlled_player)
 
 
 func _set_visible_player(player):
@@ -140,16 +127,6 @@ func _setup_player_units():
 			)
 
 
-func _get_human_player():
-	var human_players = get_tree().get_nodes_in_group("players").filter(
-		func(player): return player is Human
-	)
-	assert(human_players.size() <= 1, "more than one human player is not allowed")
-	if not human_players.is_empty():
-		return human_players[0]
-	return null
-
-
 func _spawn_player_units(player, spawn_transform):
 	_setup_and_spawn_unit(CommandCenter.instantiate(), spawn_transform, player, false)
 	_setup_and_spawn_unit(
@@ -176,7 +153,7 @@ func _setup_unit(unit, player):
 	unit.player = player
 	unit.color = unit.player.color
 	unit.add_to_group("units")
-	if player == controlled_player:
+	if player == _get_human_player():
 		unit.add_to_group("controlled_units")
 	else:
 		unit.add_to_group("adversary_units")
@@ -184,9 +161,20 @@ func _setup_unit(unit, player):
 		unit.add_to_group("revealed_units")
 
 
+func _get_human_player():
+	var human_players = get_tree().get_nodes_in_group("players").filter(
+		func(player): return player is Human
+	)
+	assert(human_players.size() <= 1, "more than one human player is not allowed")
+	if not human_players.is_empty():
+		return human_players[0]
+	return null
+
+
 func _move_camera_to_initial_position():
-	if controlled_player != null:
-		_move_camera_to_player_units_crowd_pivot(controlled_player)
+	var human_player = _get_human_player()
+	if human_player != null:
+		_move_camera_to_player_units_crowd_pivot(human_player)
 	else:
 		_move_camera_to_player_units_crowd_pivot(get_tree().get_nodes_in_group("players")[0])
 
@@ -198,26 +186,6 @@ func _move_camera_to_player_units_crowd_pivot(player):
 	assert(not player_units.is_empty(), "player must have at least one initial unit")
 	var crowd_pivot = Utils.Match.Unit.Movement.calculate_aabb_crowd_pivot_yless(player_units)
 	_camera.set_position_safely(crowd_pivot)
-
-
-func _assume_control_of_player_units(player):
-	if player == null:
-		return
-	for unit in get_tree().get_nodes_in_group("units").filter(
-		func(a_unit): return a_unit.player == player
-	):
-		unit.add_to_group("controlled_units")
-		unit.remove_from_group("adversary_units")
-
-
-func _renounce_control_of_player_units(player):
-	if player == null:
-		return
-	for unit in get_tree().get_nodes_in_group("units").filter(
-		func(a_unit): return a_unit.player == player
-	):
-		unit.add_to_group("adversary_units")
-		unit.remove_from_group("controlled_units")
 
 
 func _reveal_player_units(player):

@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+const Human = preload("res://source/match/players/human/Human.gd")
+
 @onready var _match = find_parent("Match")
 @onready var _victory_tile = find_child("Victory")
 @onready var _defeat_tile = find_child("Defeat")
@@ -35,14 +37,13 @@ func _on_unit_tree_exited():
 	var players = Utils.Set.new()
 	for unit in get_tree().get_nodes_in_group("units"):
 		players.add(unit.player)
-	if _match.controlled_player != null and not players.has(_match.controlled_player):
+	var human_players = get_tree().get_nodes_in_group("players").filter(
+		func(player): return player is Human
+	)
+	if not human_players.is_empty() and not players.has(human_players[0]):
 		_defeat_tile.show()
 		_show()
-	elif (
-		_match.controlled_player != null
-		and players.has(_match.controlled_player)
-		and players.size() == 1
-	):
+	elif not human_players.is_empty() and players.has(human_players[0]) and players.size() == 1:
 		_victory_tile.show()
 		_show()
 	elif players.size() == 1:

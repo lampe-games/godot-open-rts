@@ -1,9 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://b6n7cwv706x5n"]
+[gd_scene load_steps=7 format=3 uid="uid://b6n7cwv706x5n"]
 
 [ext_resource type="Script" path="res://source/match/debug/GodModeHud.gd" id="1_n4lpk"]
 [ext_resource type="Script" path="res://source/match/debug/UnitsManager.gd" id="3_1fe88"]
 [ext_resource type="Script" path="res://source/match/debug/TimeManager.gd" id="4_0nfe7"]
-[ext_resource type="Script" path="res://source/match/debug/ControlledPlayerManager.gd" id="4_aw547"]
 [ext_resource type="Script" path="res://source/match/debug/FogOfWarManager.gd" id="5_8n1qy"]
 [ext_resource type="Script" path="res://source/match/debug/VisiblePlayerManager.gd" id="5_tlapw"]
 
@@ -138,38 +137,6 @@ theme_override_constants/margin_left = 5
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2"]
 layout_mode = 2
 theme_override_constants/separation = 5
-
-[node name="ControlledPlayerManager" type="PanelContainer" parent="MarginContainer2/VBoxContainer"]
-layout_mode = 2
-script = ExtResource("4_aw547")
-
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2/VBoxContainer/ControlledPlayerManager"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2/VBoxContainer/ControlledPlayerManager/MarginContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="MarginContainer2/VBoxContainer/ControlledPlayerManager/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "  Controlled Player  "
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Panel" type="Panel" parent="MarginContainer2/VBoxContainer/ControlledPlayerManager/MarginContainer/VBoxContainer/Label"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="ControlledPlayerSpinBox" type="SpinBox" parent="MarginContainer2/VBoxContainer/ControlledPlayerManager/MarginContainer/VBoxContainer"]
-layout_mode = 2
 
 [node name="VisiblePlayerManager" type="PanelContainer" parent="MarginContainer2/VBoxContainer"]
 layout_mode = 2

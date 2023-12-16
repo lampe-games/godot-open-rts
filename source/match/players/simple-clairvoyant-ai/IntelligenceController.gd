@@ -13,8 +13,6 @@ const Drone = preload("res://source/match/units/Drone.gd")
 var _player = null
 var _blacklisted_drone_target_paths = {}
 
-@onready var _match = find_parent("Match")
-
 
 func setup(player):
 	_player = player
