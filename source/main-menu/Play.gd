@@ -36,7 +36,7 @@ func _create_match_settings():
 	var spawn_index_offset = 0
 	for option_node_id in range(option_nodes.size()):
 		var player_controller = option_nodes[option_node_id].selected
-		if player_controller != Constants.PlayerController.NONE:
+		if player_controller != Constants.PlayerType.NONE:
 			var player_settings = PlayerSettings.new()
 			player_settings.controller = player_controller
 			player_settings.color = Constants.Player.COLORS[option_node_id]
@@ -49,7 +49,7 @@ func _create_match_settings():
 	match_settings.visible_player = -1
 	for player_id in range(match_settings.players.size()):
 		var player = match_settings.players[player_id]
-		if player.controller == Constants.PlayerController.HUMAN:
+		if player.controller == Constants.PlayerType.HUMAN:
 			match_settings.visible_player = player_id
 	if match_settings.visible_player == -1:
 		match_settings.visibility = match_settings.Visibility.ALL_PLAYERS
@@ -86,23 +86,19 @@ func _align_player_controls_visibility_to_map(map):
 
 func _on_player_selected(selected_option_id, selected_player_id):
 	_start_button.disabled = false
-	if selected_option_id == Constants.PlayerController.HUMAN:
+	if selected_option_id == Constants.PlayerType.HUMAN:
 		var option_nodes = find_child("GridContainer").find_children("OptionButton*")
 		for option_node_id in range(option_nodes.size()):
 			if (
 				option_node_id != selected_player_id
-				and option_nodes[option_node_id].selected == Constants.PlayerController.HUMAN
+				and option_nodes[option_node_id].selected == Constants.PlayerType.HUMAN
 			):
-				option_nodes[option_node_id].selected = (
-					Constants.PlayerController.SIMPLE_CLAIRVOYANT_AI
-				)
-	elif selected_option_id == Constants.PlayerController.NONE:
+				option_nodes[option_node_id].selected = (Constants.PlayerType.SIMPLE_CLAIRVOYANT_AI)
+	elif selected_option_id == Constants.PlayerType.NONE:
 		var option_nodes_with_player_controllers = (
 			find_child("GridContainer")
 			. find_children("OptionButton*")
-			. filter(
-				func(option_node): return option_node.selected != Constants.PlayerController.NONE
-			)
+			. filter(func(option_node): return option_node.selected != Constants.PlayerType.NONE)
 		)
 		if option_nodes_with_player_controllers.size() < 2:
 			_start_button.disabled = true

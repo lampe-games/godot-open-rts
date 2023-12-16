@@ -158,13 +158,6 @@ func _setup_players():
 
 func _create_players_from_settings():
 	for player_settings in settings.players:
-		assert(
-			not (
-				player_settings.controller
-				in [Constants.PlayerController.NONE, Constants.PlayerController.DETECT_FROM_SCENE]
-			),
-			"not supported anymore"
-		)
 		var player_scene = Constants.Match.Player.CONTROLLER_SCENES[player_settings.controller]
 		var player = player_scene.instantiate()
 		player.color = player_settings.color
