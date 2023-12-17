@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://b65yuqx0iw62f"]
+[gd_scene load_steps=27 format=3 uid="uid://b65yuqx0iw62f"]
 
 [ext_resource type="PackedScene" uid="uid://camns8fqod8d4" path="res://source/match/Match.tscn" id="1_oiu0k"]
 [ext_resource type="Script" path="res://tests/manual/Match.gd" id="2_ghr3h"]
@@ -10,9 +10,12 @@
 [ext_resource type="PackedScene" uid="uid://h5lqor1xl2sf" path="res://source/match/units/VehicleFactory.tscn" id="4_m1xri"]
 [ext_resource type="Shader" path="res://source/shaders/3d/simple_fog_of_war.gdshader" id="5_f2ny6"]
 [ext_resource type="PackedScene" uid="uid://b8pckq1xn44ss" path="res://source/match/units/AntiGroundTurret.tscn" id="5_g67iu"]
+[ext_resource type="Material" uid="uid://co8vfcoqqs5i8" path="res://source/match/resources/materials/terrain.material.tres" id="5_q15cp"]
 [ext_resource type="PackedScene" uid="uid://cbe63rdjw7y4p" path="res://source/match/maps/PlainAndSimple.tscn" id="5_t3ibh"]
 [ext_resource type="PackedScene" uid="uid://dh8dedilkhuoy" path="res://source/match/players/human/Human.tscn" id="5_tlbff"]
+[ext_resource type="PackedScene" uid="uid://bf3jjdafqvh0w" path="res://source/match/units/non-player/ResourceA.tscn" id="6_414qe"]
 [ext_resource type="PackedScene" uid="uid://cfa8cpnpk5pcb" path="res://source/match/units/AntiAirTurret.tscn" id="6_lglnp"]
+[ext_resource type="PackedScene" uid="uid://bufgjfa3ne3uk" path="res://source/match/units/non-player/ResourceB.tscn" id="7_g0wbf"]
 [ext_resource type="PackedScene" uid="uid://i58ffvwxbbwm" path="res://source/match/units/Tank.tscn" id="9_csgr3"]
 [ext_resource type="PackedScene" uid="uid://bf0r3fovbvf1m" path="res://source/match/units/Worker.tscn" id="10_c3eov"]
 [ext_resource type="Shader" path="res://source/shaders/2d/white_transparent.gdshader" id="16_mqpbu"]
@@ -22,6 +25,12 @@ script = ExtResource("4_bf0h3")
 players = Array[Resource]([])
 visibility = 1
 visible_player = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ynnr0"]
+resource_local_to_scene = true
+material = ExtResource("5_q15cp")
+size = Vector2(50, 50)
+center_offset = Vector3(25, 0, 25)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_v46ss"]
 viewport_path = NodePath("FogOfWar/CombinedViewport")
@@ -52,6 +61,25 @@ allow_resources_deficit_spending = true
 settings = SubResource("Resource_rpdec")
 
 [node name="Map" parent="." index="0" instance=ExtResource("5_t3ibh")]
+
+[node name="Terrain" parent="Map/Geometry" index="1"]
+mesh = SubResource("PlaneMesh_ynnr0")
+
+[node name="ResourceA13" parent="Map/Resources" index="2" instance=ExtResource("6_414qe")]
+transform = Transform3D(0.157813, 0, -0.987469, 0, 1, 0, 0.987469, 0, 0.157813, 8.48506, -7.15256e-06, 13.997)
+resource_a = 2
+
+[node name="ResourceA14" parent="Map/Resources" index="3" instance=ExtResource("6_414qe")]
+transform = Transform3D(0.157813, 0, -0.987469, 0, 1, 0, 0.987469, 0, 0.157813, 10.6949, -7.15256e-06, 16.48)
+resource_a = 2
+
+[node name="ResourceA15" parent="Map/Resources" index="4" instance=ExtResource("6_414qe")]
+transform = Transform3D(0.157813, 0, -0.987469, 0, 1, 0, 0.987469, 0, 0.157813, 11.6939, -7.15256e-06, 17.7958)
+resource_a = 2
+
+[node name="ResourceB5" parent="Map/Resources" index="10" instance=ExtResource("7_g0wbf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9437, -7.62939e-06, 16.1825)
+resource_b = 2
 
 [node name="Human" parent="Players" index="0" instance=ExtResource("5_tlbff")]
 
@@ -90,3 +118,5 @@ material = SubResource("ShaderMaterial_i0ai6")
 
 [node name="MinimapTextureRect" parent="HUD/MarginContainer/Minimap/MarginContainer" index="1"]
 texture = SubResource("ViewportTexture_ltqxy")
+
+[editable path="Map"]

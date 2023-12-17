@@ -1,0 +1,47 @@
+[gd_scene load_steps=9 format=3 uid="uid://th6p6c16rur5"]
+
+[ext_resource type="ArrayMesh" uid="uid://b4iu37hx5nsmp" path="res://assets/models/primitives/icosphere.obj" id="1_2m585"]
+[ext_resource type="Script" path="res://source/match/utils/ResourceDecayAnimation.gd" id="1_wnl5r"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eoeij"]
+transparency = 1
+vertex_color_use_as_albedo = true
+
+[sub_resource type="Gradient" id="Gradient_n80mp"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_v2005"]
+gradient = SubResource("Gradient_n80mp")
+
+[sub_resource type="Curve" id="Curve_eymjl"]
+max_value = 3.0
+_data = [Vector2(0, 0.396055), 0.0, 0.0, 0, 0, Vector2(0.0147602, 3), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_om0lt"]
+curve = SubResource("Curve_eymjl")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_4ju5i"]
+emission_shape_offset = Vector3(0, 0.1, 0)
+emission_shape = 1
+emission_sphere_radius = 0.5
+gravity = Vector3(0, 0.1, 0)
+linear_accel_min = 0.01
+linear_accel_max = 0.05
+scale_min = 0.05
+scale_max = 0.15
+scale_over_velocity_curve = SubResource("CurveTexture_om0lt")
+color = Color(0.960784, 0.745098, 0.654902, 1)
+color_ramp = SubResource("GradientTexture1D_v2005")
+
+[node name="ResourceDecayAnimation" type="Node3D"]
+script = ExtResource("1_wnl5r")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_eoeij")
+emitting = false
+one_shot = true
+speed_scale = 2.0
+explosiveness = 0.79
+process_material = SubResource("ParticleProcessMaterial_4ju5i")
+draw_pass_1 = ExtResource("1_2m585")
