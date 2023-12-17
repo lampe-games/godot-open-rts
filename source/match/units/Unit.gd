@@ -28,7 +28,9 @@ var movement_speed = null:
 	get = _get_movement_speed
 var sight_range = null
 
-var player = null
+var player:
+	get:
+		return get_parent()
 var color = null:
 	set = _set_color
 var action = null:
@@ -40,7 +42,7 @@ var _action_locked = false
 
 
 func _ready():
-	if player == null:
+	if not _match.is_node_ready():
 		await _match.ready
 	_setup_default_properties_from_constants()
 	assert(_safety_checks())
@@ -94,7 +96,6 @@ func _is_movable():
 
 func _set_color(a_color):
 	color = a_color
-	assert(player != null, "player must be set at this point")
 	var material = player.get_color_material()
 	Utils.Match.traverse_node_tree_and_replace_materials_matching_albedo(
 		find_child("Geometry"),

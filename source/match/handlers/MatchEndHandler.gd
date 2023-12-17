@@ -2,7 +2,6 @@ extends CanvasLayer
 
 const Human = preload("res://source/match/players/human/Human.gd")
 
-@onready var _match = find_parent("Match")
 @onready var _victory_tile = find_child("Victory")
 @onready var _defeat_tile = find_child("Defeat")
 @onready var _finish_tile = find_child("Finish")
