@@ -12,6 +12,11 @@ func _init(target_unit):
 func _ready():
 	_target_unit.tree_exited.connect(queue_free)
 	_target_unit.constructed.connect(queue_free)
+	_unit.get_node("Sparkling").enable()
+
+
+func _exit_tree():
+	_unit.get_node("Sparkling").disable()
 
 
 func _process(delta):

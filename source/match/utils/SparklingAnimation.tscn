@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://rq0e1gkndx6l"]
+
+[ext_resource type="Script" path="res://source/match/utils/SparklingAnimation.gd" id="1_yxgnt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eymln"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+billboard_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_5s2nf"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ermdy"]
+gradient = SubResource("Gradient_5s2nf")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0fbke"]
+emission_shape_offset = Vector3(0, 0.15, 0)
+emission_shape_scale = Vector3(1, 1, 0.5)
+emission_shape = 1
+emission_sphere_radius = 0.3
+gravity = Vector3(0, 1, 0)
+linear_accel_min = 0.5
+linear_accel_max = 2.0
+radial_accel_min = 1.8
+radial_accel_max = 1.8
+color_ramp = SubResource("GradientTexture1D_ermdy")
+
+[sub_resource type="QuadMesh" id="QuadMesh_gmxym"]
+size = Vector2(0.05, 0.05)
+
+[node name="SparklingAnimation" type="Node3D"]
+script = ExtResource("1_yxgnt")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_eymln")
+emitting = false
+amount = 16
+lifetime = 0.5
+speed_scale = 1.2
+explosiveness = 0.3
+randomness = 0.1
+process_material = SubResource("ParticleProcessMaterial_0fbke")
+draw_pass_1 = SubResource("QuadMesh_gmxym")

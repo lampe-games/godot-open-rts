@@ -28,6 +28,11 @@ func _ready():
 	_unit_movement_trait.passive_movement_started.connect(_on_passive_movement_started)
 	_unit_movement_trait.passive_movement_finished.connect(_on_passive_movement_finished)
 	_setup_timer()
+	_unit.get_node("Sparkling").enable()
+
+
+func _exit_tree():
+	_unit.get_node("Sparkling").disable()
 
 
 func _setup_timer():
