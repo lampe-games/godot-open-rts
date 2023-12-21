@@ -210,3 +210,13 @@ class Units:
 	const MOVING_UNIT_RADIUS_MAX_M = 1.0
 	const EMPTY_SPACE_RADIUS_SURROUNDING_STRUCTURE_M = MOVING_UNIT_RADIUS_MAX_M * 2.5
 	const STRUCTURE_CONSTRUCTING_SPEED = 0.3  # progress [0.0..1.0] per second
+
+
+class VoiceNarrator:
+	enum Events {
+		UNIT_LOST,
+	}
+
+	const EVENT_TO_ASSET_MAPPING = {
+		Events.UNIT_LOST: preload("res://assets/voice/english/unit_lost.ogg"),
+	}
