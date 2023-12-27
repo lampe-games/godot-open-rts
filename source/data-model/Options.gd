@@ -4,7 +4,7 @@ enum Screen { FULL = 0, WINDOW = 1 }
 
 @export var screen: Screen = Screen.FULL:
 	set = _set_screen
-@export var mouse_restricted = true:
+@export var mouse_restricted = false:
 	set = _set_mouse_restricted
 
 
