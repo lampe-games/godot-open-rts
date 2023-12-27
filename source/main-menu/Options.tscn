@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://bawu5eau3t4ek"]
+[gd_scene load_steps=4 format=3 uid="uid://bawu5eau3t4ek"]
 
+[ext_resource type="Theme" uid="uid://c2kgsk4ffhbwo" path="res://source/resources/main_menu.theme" id="1_a5uwh"]
 [ext_resource type="Script" path="res://source/main-menu/Options.gd" id="1_msrcd"]
 [ext_resource type="PackedScene" uid="uid://dij5xr8swlfdx" path="res://source/main-menu/Background.tscn" id="2_mgrkx"]
 
@@ -80,13 +81,14 @@ text = "Mouse movement restricted to the game window"
 
 [node name="Button" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-focus_mode = 0
-text = "Back"
+theme = ExtResource("1_a5uwh")
+text = "BACK"
 
 [node name="Panel" type="Panel" parent="MarginContainer"]
 show_behind_parent = true
 layout_mode = 2
 mouse_filter = 2
+theme = ExtResource("1_a5uwh")
 
 [connection signal="item_selected" from="MarginContainer/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/Screen" to="." method="_on_screen_item_selected"]
 [connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/PanelContainer2/VBoxContainer/MouseMovementRestricted" to="." method="_on_mouse_movement_restricted_pressed"]

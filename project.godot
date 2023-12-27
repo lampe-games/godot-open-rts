@@ -112,7 +112,7 @@ shift_selecting={
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://assets/translations/match.en.translation", "res://assets/translations/match.pl.translation")
+locale/translations=PackedStringArray("res://assets/translations/match.en.translation", "res://assets/translations/match.pl.translation", "res://assets/translations/main_menu.en.translation", "res://assets/translations/main_menu.pl.translation")
 
 [layer_names]
 

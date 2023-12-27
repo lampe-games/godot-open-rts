@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://ctyd01bv020i8"]
+[gd_scene load_steps=4 format=3 uid="uid://ctyd01bv020i8"]
 
 [ext_resource type="Script" path="res://source/main-menu/Main.gd" id="1_2uj2d"]
+[ext_resource type="Theme" uid="uid://c2kgsk4ffhbwo" path="res://source/resources/main_menu.theme" id="1_sc713"]
 [ext_resource type="PackedScene" uid="uid://dij5xr8swlfdx" path="res://source/main-menu/Background.tscn" id="2_depxw"]
 
 [node name="Main" type="Control"]
@@ -10,6 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_sc713")
 script = ExtResource("1_2uj2d")
 
 [node name="Background" parent="." instance=ExtResource("2_depxw")]
@@ -44,23 +46,19 @@ alignment = 1
 
 [node name="Button" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-focus_mode = 0
-text = "Play"
+text = "PLAY"
 
 [node name="Button2" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-focus_mode = 0
-text = "Options"
+text = "OPTIONS"
 
 [node name="Button3" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-focus_mode = 0
-text = "Credits"
+text = "CREDITS"
 
 [node name="Button4" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-focus_mode = 0
-text = "Quit"
+text = "QUIT"
 
 [node name="Panel" type="Panel" parent="MarginContainer"]
 show_behind_parent = true

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://baeshrvg30aer"]
+[gd_scene load_steps=4 format=3 uid="uid://baeshrvg30aer"]
 
 [ext_resource type="Script" path="res://source/main-menu/Play.gd" id="1_o62d3"]
 [ext_resource type="PackedScene" uid="uid://dij5xr8swlfdx" path="res://source/main-menu/Background.tscn" id="2_xtk15"]
+[ext_resource type="Theme" uid="uid://c2kgsk4ffhbwo" path="res://source/resources/main_menu.theme" id="3_qwd67"]
 
 [node name="Play" type="Control"]
 layout_mode = 3
@@ -400,22 +401,22 @@ popup/item_2/id = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("3_qwd67")
 theme_override_constants/separation = 4
 
 [node name="StartButton" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-focus_mode = 0
-text = "Start"
+text = "START"
 
 [node name="BackButton" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-focus_mode = 0
-text = "Back"
+text = "BACK"
 
 [node name="Panel" type="Panel" parent="MarginContainer"]
 show_behind_parent = true
 layout_mode = 2
 mouse_filter = 2
+theme = ExtResource("3_qwd67")
 
 [connection signal="item_selected" from="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer/MapList" to="." method="_on_map_list_item_selected"]
 [connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]

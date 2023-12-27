@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://ds57esabi07np"]
+[gd_scene load_steps=4 format=3 uid="uid://ds57esabi07np"]
 
+[ext_resource type="Theme" uid="uid://c2kgsk4ffhbwo" path="res://source/resources/main_menu.theme" id="1_7ubwb"]
 [ext_resource type="Script" path="res://source/main-menu/Credits.gd" id="1_33n17"]
 [ext_resource type="PackedScene" uid="uid://dij5xr8swlfdx" path="res://source/main-menu/Background.tscn" id="2_txygx"]
 
@@ -10,6 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_7ubwb")
 script = ExtResource("1_33n17")
 
 [node name="Background" parent="." instance=ExtResource("2_txygx")]
@@ -47,11 +49,12 @@ size_flags_vertical = 3
 
 [node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
-text = "[center][u]Core contributors:[/u]
+text = "[center][u]CORE_CONTRIBUTORS:[/u]
 - Pawel Lampe (Scony) | Lampe Games
 
-[u]Assets:[/u]
+[u]ASSETS:[/u]
 - 3D Space Kit by Kenney.nl"
 fit_content = true
 
@@ -61,9 +64,7 @@ size_flags_vertical = 3
 
 [node name="Button" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-focus_mode = 0
-text = "Back
-"
+text = "BACK"
 
 [node name="Panel" type="Panel" parent="MarginContainer"]
 show_behind_parent = true
