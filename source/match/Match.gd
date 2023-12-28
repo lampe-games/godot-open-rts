@@ -120,7 +120,7 @@ func _setup_player_units():
 		var player_index = player.get_index()
 		var predefined_units = player.get_children().filter(func(child): return child is Unit)
 		if not predefined_units.is_empty():
-			predefined_units.map(func(unit): _setup_unit_groups(unit))
+			predefined_units.map(func(unit): _setup_unit_groups(unit, unit.player))
 		else:
 			_spawn_player_units(
 				player, map.find_child("SpawnPoints").get_child(player_index).global_transform
@@ -144,18 +144,18 @@ func _setup_and_spawn_unit(unit, a_transform, player, mark_structure_under_const
 	unit.global_transform = a_transform
 	if unit is Structure and mark_structure_under_construction:
 		unit.mark_as_under_construction()
-	_setup_unit_groups(unit)
+	_setup_unit_groups(unit, player)
 	player.add_child(unit)
 	MatchSignals.unit_spawned.emit(unit)
 
 
-func _setup_unit_groups(unit):
+func _setup_unit_groups(unit, player):
 	unit.add_to_group("units")
-	if unit.player == _get_human_player():
+	if player == _get_human_player():
 		unit.add_to_group("controlled_units")
 	else:
 		unit.add_to_group("adversary_units")
-	if unit.player in visible_players:
+	if player in visible_players:
 		unit.add_to_group("revealed_units")
 
 
