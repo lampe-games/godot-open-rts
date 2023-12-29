@@ -27,14 +27,13 @@ func is_idle():
 
 
 func _get_units_to_attack():
-	var self_position_yless = _unit.global_position * Vector3(1, 0, 1)
 	return get_tree().get_nodes_in_group("units").filter(
 		func(unit): return (
 			unit.player != _unit.player
 			and unit.movement_domain in _unit.attack_domains
 			and (
-				self_position_yless.distance_to(unit.global_position * Vector3(1, 0, 1))
-				<= _unit.attack_range
+				_unit.location.distance_to(unit.location)
+				<= _unit.sight_range
 			)
 		)
 	)
@@ -53,7 +52,13 @@ func _attack_unit(unit):
 func _on_timer_timeout():
 	var units_to_attack = _get_units_to_attack()
 	if not units_to_attack.is_empty():
-		_attack_unit(units_to_attack.pick_random())
+		var dist = _unit.sight_range
+		var target_unit = units_to_attack[0]
+		for unit in units_to_attack:
+			if unit.location.distance_to(_unit.location) < dist:
+				target_unit = unit
+				dist = unit.location.distance_to(_unit.location)
+		_attack_unit(target_unit)
 
 
 func _on_attack_finished():
