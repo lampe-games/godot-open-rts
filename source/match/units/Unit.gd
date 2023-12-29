@@ -39,6 +39,10 @@ var action = null:
 
 var _action_locked = false
 
+var location:
+	get:
+		return global_position * Vector3(1, 0, 1)
+		
 @onready var _match = find_parent("Match")
 
 
