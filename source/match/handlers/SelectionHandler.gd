@@ -5,6 +5,8 @@ extends Node3D
 var _rectangular_selection_3d = null
 var _highlighted_units = Utils.Set.new()
 
+var double_click_last_unit = null
+var double_click_timer = 0
 
 func _ready():
 	_rectangular_selection_3d = get_node_or_null(rectangular_selection_3d)
@@ -13,6 +15,7 @@ func _ready():
 	_rectangular_selection_3d.started.connect(_on_selection_started)
 	_rectangular_selection_3d.interrupted.connect(_on_selection_interrupted)
 	_rectangular_selection_3d.finished.connect(_on_selection_finished)
+	MatchSignals.unit_selected.connect(_on_unit_selected)
 
 
 func _force_highlight(units_to_highlight):
@@ -112,4 +115,29 @@ func _on_selection_finished(topdown_polygon_2d):
 			)
 		)
 	)
+	_select_units(units_to_select)
+
+func _on_unit_selected(unit):
+	if Time.get_ticks_msec() <= double_click_timer + 50:
+		return
+	if not unit.is_in_group("controlled_units"):
+		return
+	if unit == double_click_last_unit and Time.get_ticks_msec() <= double_click_timer + 600:
+		double_click_last_unit = unit 
+		double_click_timer = Time.get_ticks_msec()
+		_double_click(unit)
+	else:
+		double_click_last_unit = unit 
+		double_click_timer = Time.get_ticks_msec()
+
+	
+
+func _double_click(unit):
+	var units_to_select = Utils.Set.new();
+	var camera = get_viewport().get_camera_3d()
+	for u in get_tree().get_nodes_in_group("controlled_units"):
+		if not u.visible or not camera.is_position_in_frustum(u.global_position):
+			continue
+		if u.type == unit.type:
+			units_to_select.add(u)
 	_select_units(units_to_select)
