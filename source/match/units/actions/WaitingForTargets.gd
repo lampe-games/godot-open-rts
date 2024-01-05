@@ -28,7 +28,8 @@ func is_idle():
 
 func _get_units_to_attack():
 	var self_position_yless = _unit.global_position * Vector3(1, 0, 1)
-	return get_tree().get_nodes_in_group("units").filter(
+
+	var units_to_attack = get_tree().get_nodes_in_group("units").filter(
 		func(unit): return (
 			unit.player != _unit.player
 			and unit.movement_domain in _unit.attack_domains
@@ -38,6 +39,12 @@ func _get_units_to_attack():
 			)
 		)
 	)
+
+	if units_to_attack.is_empty():
+		if _unit._auxillary_target != null:
+			units_to_attack.append(_unit._auxillary_target)
+
+	return units_to_attack
 
 
 func _attack_unit(unit):

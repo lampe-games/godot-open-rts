@@ -12,6 +12,7 @@ func _ready():
 	_unit_particles.visible = _unit.visible
 	_setup_unit_particles()
 	_setup_timer()
+	MatchSignals.attacked_by.emit(target_unit, _unit)
 	target_unit.hp -= _unit.attack_damage
 
 

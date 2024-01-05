@@ -39,6 +39,8 @@ var action = null:
 
 var _action_locked = false
 
+var _auxillary_target = null
+
 @onready var _match = find_parent("Match")
 
 
@@ -47,6 +49,9 @@ func _ready():
 		await _match.ready
 	_setup_color()
 	_setup_default_properties_from_constants()
+
+	MatchSignals.attacked_by.connect(_on_friendly_attacked)
+
 	assert(_safety_checks())
 
 
@@ -167,3 +172,9 @@ func _setup_default_properties_from_constants():
 func _on_action_node_tree_exited(action_node):
 	assert(action_node == action, "unexpected action released")
 	action = null
+
+
+func _on_friendly_attacked(attacked, target):
+	if self.player == attacked.player:
+		if self.position.distance_to(attacked.position) <= self.sight_range:
+			_auxillary_target = target
