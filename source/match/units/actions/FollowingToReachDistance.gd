@@ -36,9 +36,8 @@ func _refresh():
 
 
 func _teardown_if_distance_reached():
-	var self_position_yless = _unit.global_position * Vector3(1, 0, 1)
 	if (
-		self_position_yless.distance_to(_target_unit.global_position * Vector3(1, 0, 1))
+		_unit.global_position_yless.distance_to(_target_unit.global_position_yless)
 		<= _distance_to_reach
 	):
 		queue_free()

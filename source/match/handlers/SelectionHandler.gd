@@ -2,11 +2,11 @@ extends Node3D
 
 @export var rectangular_selection_3d: NodePath
 
-var double_click_last_unit = null
-var double_click_timer = 0
-
 var _rectangular_selection_3d = null
 var _highlighted_units = Utils.Set.new()
+
+var _double_click_last_unit = null
+var _double_click_timer = 0
 
 
 func _ready():
@@ -120,17 +120,17 @@ func _on_selection_finished(topdown_polygon_2d):
 
 
 func _on_unit_selected(unit):
-	if Time.get_ticks_msec() <= double_click_timer + 50:
+	if Time.get_ticks_msec() <= _double_click_timer + 50:
 		return
 	if not unit.is_in_group("controlled_units"):
 		return
-	if unit == double_click_last_unit and Time.get_ticks_msec() <= double_click_timer + 600:
-		double_click_last_unit = unit
-		double_click_timer = Time.get_ticks_msec()
+	if unit == _double_click_last_unit and Time.get_ticks_msec() <= _double_click_timer + 600:
+		_double_click_last_unit = unit
+		_double_click_timer = Time.get_ticks_msec()
 		_double_click(unit)
 	else:
-		double_click_last_unit = unit
-		double_click_timer = Time.get_ticks_msec()
+		_double_click_last_unit = unit
+		_double_click_timer = Time.get_ticks_msec()
 
 
 func _double_click(unit):

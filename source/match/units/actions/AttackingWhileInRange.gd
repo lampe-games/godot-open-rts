@@ -85,9 +85,8 @@ func _hit_target():
 
 
 func _teardown_if_out_of_range():
-	var self_position_yless = _unit.global_position * Vector3(1, 0, 1)
 	if (
-		self_position_yless.distance_to(_target_unit.global_position * Vector3(1, 0, 1))
+		_unit.global_position_yless.distance_to(_target_unit.global_position_yless)
 		> _unit.attack_range
 	):
 		queue_free()

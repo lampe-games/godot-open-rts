@@ -33,9 +33,8 @@ func _to_string():
 
 
 func _target_in_range():
-	var self_position_yless = _unit.global_position * Vector3(1, 0, 1)
 	return (
-		self_position_yless.distance_to(_target_unit.global_position * Vector3(1, 0, 1))
+		_unit.global_position_yless.distance_to(_target_unit.global_position_yless)
 		<= _unit.attack_range
 	)
 
