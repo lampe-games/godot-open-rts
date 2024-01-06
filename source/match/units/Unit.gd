@@ -36,19 +36,17 @@ var color:
 		return player.color
 var action = null:
 	set = _set_action
-
-var _action_locked = false
-
 var location:
 	get:
 		return global_position * Vector3(1, 0, 1)
-		
 var type:
 	get:
 		var unit_script_path = get_script().resource_path
 		var unit_file_name = unit_script_path.substr(unit_script_path.rfind("/") + 1)
 		var unit_name = unit_file_name.split(".")[0]
 		return unit_name
+
+var _action_locked = false
 
 @onready var _match = find_parent("Match")
 

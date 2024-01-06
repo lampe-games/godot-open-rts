@@ -31,10 +31,7 @@ func _get_units_to_attack():
 		func(unit): return (
 			unit.player != _unit.player
 			and unit.movement_domain in _unit.attack_domains
-			and (
-				_unit.location.distance_to(unit.location)
-				<= _unit.sight_range
-			)
+			and (_unit.location.distance_to(unit.location) <= _unit.sight_range)
 		)
 	)
 
