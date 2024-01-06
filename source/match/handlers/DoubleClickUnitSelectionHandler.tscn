@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://pi813oou7xim"]
+
+[ext_resource type="Script" path="res://source/match/handlers/DoubleClickUnitSelectionHandler.gd" id="1_myskc"]
+
+[node name="DoubleClickUnitSelectionHandler" type="Node3D"]
+script = ExtResource("1_myskc")

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bocb7hjilvri5"]
+
+[ext_resource type="Script" path="res://source/match/handlers/ArealUnitSelectionHandler.gd" id="1_xmfnv"]
+
+[node name="ArealUnitSelectionHandler" type="Node3D"]
+script = ExtResource("1_xmfnv")

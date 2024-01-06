@@ -23,3 +23,12 @@ static func traverse_node_tree_and_replace_materials_matching_albedo(
 				)
 			):
 				child.set("surface_material_override/{0}".format([surface_id]), material_to_set)
+
+
+static func select_units(units_to_select):
+	if not units_to_select.empty() and not Input.is_action_pressed("shift_selecting"):
+		MatchSignals.deselect_all_units.emit()
+	for unit in units_to_select.iterate():
+		var selection = unit.find_child("Selection")
+		if selection != null:
+			selection.select()

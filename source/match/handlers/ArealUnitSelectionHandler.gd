@@ -5,9 +5,6 @@ extends Node3D
 var _rectangular_selection_3d = null
 var _highlighted_units = Utils.Set.new()
 
-var _double_click_last_unit = null
-var _double_click_timer = 0
-
 
 func _ready():
 	_rectangular_selection_3d = get_node_or_null(rectangular_selection_3d)
@@ -16,7 +13,6 @@ func _ready():
 	_rectangular_selection_3d.started.connect(_on_selection_started)
 	_rectangular_selection_3d.interrupted.connect(_on_selection_interrupted)
 	_rectangular_selection_3d.finished.connect(_on_selection_finished)
-	MatchSignals.unit_selected.connect(_on_unit_selected)
 
 
 func _force_highlight(units_to_highlight):
@@ -48,15 +44,6 @@ func _get_controlled_units_from_navigation_domain_within_topdown_polygon_2d(
 		if Geometry2D.is_point_in_polygon(unit_position_2d, topdown_polygon_2d):
 			units_within_polygon.add(unit)
 	return units_within_polygon
-
-
-func _select_units(units_to_select):
-	if not units_to_select.empty() && not Input.is_action_pressed("shift_selecting"):
-		MatchSignals.deselect_all_units.emit()
-	for unit in units_to_select.iterate():
-		var selection = unit.find_child("Selection")
-		if selection != null:
-			selection.select()
 
 
 func _rebase_topdown_polygon_2d_to_different_plane(topdown_polygon_2d, plane):
@@ -116,29 +103,4 @@ func _on_selection_finished(topdown_polygon_2d):
 			)
 		)
 	)
-	_select_units(units_to_select)
-
-
-func _on_unit_selected(unit):
-	if Time.get_ticks_msec() <= _double_click_timer + 50:
-		return
-	if not unit.is_in_group("controlled_units"):
-		return
-	if unit == _double_click_last_unit and Time.get_ticks_msec() <= _double_click_timer + 600:
-		_double_click_last_unit = unit
-		_double_click_timer = Time.get_ticks_msec()
-		_double_click(unit)
-	else:
-		_double_click_last_unit = unit
-		_double_click_timer = Time.get_ticks_msec()
-
-
-func _double_click(unit):
-	var units_to_select = Utils.Set.new()
-	var camera = get_viewport().get_camera_3d()
-	for u in get_tree().get_nodes_in_group("controlled_units"):
-		if not u.visible or not camera.is_position_in_frustum(u.global_position):
-			continue
-		if u.type == unit.type:
-			units_to_select.add(u)
-	_select_units(units_to_select)
+	Utils.Match.select_units(units_to_select)
