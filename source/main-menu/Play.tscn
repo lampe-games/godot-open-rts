@@ -11,55 +11,57 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("3_qwd67")
 script = ExtResource("1_o62d3")
 
 [node name="Background" parent="." instance=ExtResource("2_xtk15")]
 layout_mode = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 0
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -55.0
-offset_top = -97.0
-offset_right = 55.0
-offset_bottom = 97.0
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
 custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 theme_override_constants/separation = 5
 
-[node name="Label" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 text = "Map"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Panel" type="Panel" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Label"]
+[node name="Panel" type="Panel" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Label"]
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15
@@ -68,12 +70,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 4
 
-[node name="MapList" type="ItemList" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer"]
+[node name="MapList" type="ItemList" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
@@ -86,7 +88,7 @@ item_3/text = "Map 4"
 item_4/text = "Map (...)"
 item_5/text = "Map n"
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 4
@@ -94,25 +96,25 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="MapDetailsLabel" type="RichTextLabel" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer/MarginContainer"]
+[node name="MapDetailsLabel" type="RichTextLabel" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer/MarginContainer"]
 layout_mode = 2
 bbcode_enabled = true
 text = "[u]Players:[/u] 4
 [u]Size:[/u] 50x50"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 5
 
-[node name="Label" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 text = "Players"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Panel" type="Panel" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Label"]
+[node name="Panel" type="Panel" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Label"]
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15
@@ -121,17 +123,17 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="GridContainer" type="GridContainer" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="GridContainer" type="GridContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 556)
 layout_mode = 2
 theme_override_constants/h_separation = 5
 columns = 2
 
-[node name="Label0" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="Label0" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "1."
 
-[node name="OptionButton0" type="OptionButton" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="OptionButton0" type="OptionButton" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
@@ -144,11 +146,11 @@ popup/item_1/id = 1
 popup/item_2/text = "Simple AI"
 popup/item_2/id = 2
 
-[node name="Label1" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="Label1" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "2."
 
-[node name="OptionButton1" type="OptionButton" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="OptionButton1" type="OptionButton" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
@@ -161,11 +163,11 @@ popup/item_1/id = 1
 popup/item_2/text = "Simple AI"
 popup/item_2/id = 2
 
-[node name="Label2" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="Label2" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "3."
 
-[node name="OptionButton2" type="OptionButton" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="OptionButton2" type="OptionButton" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
@@ -178,11 +180,11 @@ popup/item_1/id = 1
 popup/item_2/text = "Simple AI"
 popup/item_2/id = 2
 
-[node name="Label3" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="Label3" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "4."
 
-[node name="OptionButton3" type="OptionButton" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="OptionButton3" type="OptionButton" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
@@ -195,11 +197,11 @@ popup/item_1/id = 1
 popup/item_2/text = "Simple AI"
 popup/item_2/id = 2
 
-[node name="Label4" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="Label4" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "5."
 
-[node name="OptionButton4" type="OptionButton" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="OptionButton4" type="OptionButton" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
@@ -212,11 +214,11 @@ popup/item_1/id = 1
 popup/item_2/text = "Simple AI"
 popup/item_2/id = 2
 
-[node name="Label5" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="Label5" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "6."
 
-[node name="OptionButton5" type="OptionButton" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="OptionButton5" type="OptionButton" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
@@ -229,11 +231,11 @@ popup/item_1/id = 1
 popup/item_2/text = "Simple AI"
 popup/item_2/id = 2
 
-[node name="Label6" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="Label6" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "7."
 
-[node name="OptionButton6" type="OptionButton" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="OptionButton6" type="OptionButton" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
@@ -246,11 +248,11 @@ popup/item_1/id = 1
 popup/item_2/text = "Simple AI"
 popup/item_2/id = 2
 
-[node name="Label7" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="Label7" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "8."
 
-[node name="OptionButton7" type="OptionButton" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="OptionButton7" type="OptionButton" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
@@ -263,11 +265,11 @@ popup/item_1/id = 1
 popup/item_2/text = "Simple AI"
 popup/item_2/id = 2
 
-[node name="Label8" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="Label8" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "9."
 
-[node name="OptionButton8" type="OptionButton" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="OptionButton8" type="OptionButton" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
@@ -280,11 +282,11 @@ popup/item_1/id = 1
 popup/item_2/text = "Simple AI"
 popup/item_2/id = 2
 
-[node name="Label9" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="Label9" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "10."
 
-[node name="OptionButton9" type="OptionButton" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="OptionButton9" type="OptionButton" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
@@ -297,11 +299,11 @@ popup/item_1/id = 1
 popup/item_2/text = "Simple AI"
 popup/item_2/id = 2
 
-[node name="Label10" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="Label10" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "11."
 
-[node name="OptionButton10" type="OptionButton" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="OptionButton10" type="OptionButton" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
@@ -314,11 +316,11 @@ popup/item_1/id = 1
 popup/item_2/text = "Simple AI"
 popup/item_2/id = 2
 
-[node name="Label11" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="Label11" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "12."
 
-[node name="OptionButton11" type="OptionButton" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="OptionButton11" type="OptionButton" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
@@ -331,11 +333,11 @@ popup/item_1/id = 1
 popup/item_2/text = "Simple AI"
 popup/item_2/id = 2
 
-[node name="Label12" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="Label12" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "13."
 
-[node name="OptionButton12" type="OptionButton" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="OptionButton12" type="OptionButton" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
@@ -348,11 +350,11 @@ popup/item_1/id = 1
 popup/item_2/text = "Simple AI"
 popup/item_2/id = 2
 
-[node name="Label13" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="Label13" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "14."
 
-[node name="OptionButton13" type="OptionButton" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="OptionButton13" type="OptionButton" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
@@ -365,11 +367,11 @@ popup/item_1/id = 1
 popup/item_2/text = "Simple AI"
 popup/item_2/id = 2
 
-[node name="Label14" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="Label14" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "15."
 
-[node name="OptionButton14" type="OptionButton" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="OptionButton14" type="OptionButton" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
@@ -382,11 +384,11 @@ popup/item_1/id = 1
 popup/item_2/text = "Simple AI"
 popup/item_2/id = 2
 
-[node name="Label15" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="Label15" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "16."
 
-[node name="OptionButton15" type="OptionButton" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="OptionButton15" type="OptionButton" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
@@ -399,25 +401,18 @@ popup/item_1/id = 1
 popup/item_2/text = "Simple AI"
 popup/item_2/id = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme = ExtResource("3_qwd67")
 theme_override_constants/separation = 4
 
-[node name="StartButton" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="StartButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "START"
 
-[node name="BackButton" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="BackButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "BACK"
 
-[node name="Panel" type="Panel" parent="MarginContainer"]
-show_behind_parent = true
-layout_mode = 2
-mouse_filter = 2
-theme = ExtResource("3_qwd67")
-
-[connection signal="item_selected" from="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer/MapList" to="." method="_on_map_list_item_selected"]
-[connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
-[connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="item_selected" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer/MapList" to="." method="_on_map_list_item_selected"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
