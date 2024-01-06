@@ -27,7 +27,6 @@ var movement_speed = null:
 	set = _ignore,
 	get = _get_movement_speed
 var sight_range = null
-
 var player:
 	get:
 		return get_parent()
@@ -36,7 +35,7 @@ var color:
 		return player.color
 var action = null:
 	set = _set_action
-var location:
+var global_position_yless:
 	get:
 		return global_position * Vector3(1, 0, 1)
 var type:

@@ -31,7 +31,10 @@ func _get_units_to_attack():
 		func(unit): return (
 			unit.player != _unit.player
 			and unit.movement_domain in _unit.attack_domains
-			and (_unit.location.distance_to(unit.location) <= _unit.sight_range)
+			and (
+				_unit.global_position_yless.distance_to(unit.global_position_yless)
+				<= _unit.sight_range
+			)
 		)
 	)
 
@@ -52,9 +55,9 @@ func _on_timer_timeout():
 		var dist = _unit.sight_range
 		var target_unit = units_to_attack[0]
 		for unit in units_to_attack:
-			if unit.location.distance_to(_unit.location) < dist:
+			if unit.global_position_yless.distance_to(_unit.global_position_yless) < dist:
 				target_unit = unit
-				dist = unit.location.distance_to(_unit.location)
+				dist = unit.global_position_yless.distance_to(_unit.global_position_yless)
 		_attack_unit(target_unit)
 
 
