@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ck6vrgdyg7hja"]
+
+[ext_resource type="Script" path="res://source/match/handlers/UnitGroupSelectionHandler.gd" id="1_jgs3c"]
+
+[node name="UnitGroupSelectionHandler" type="Node3D"]
+script = ExtResource("1_jgs3c")
