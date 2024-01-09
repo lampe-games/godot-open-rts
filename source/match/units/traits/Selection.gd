@@ -45,11 +45,6 @@ func deselect():
 		_unit.deselected.emit()
 	MatchSignals.unit_deselected.emit(_unit)
 
-func assign_group(group_id:int):
-	if _unit.is_in_group("unit_group_"+str(group_id)):
-		return
-	else:
-		_unit.add_to_group("unit_group_"+str(group_id))
 
 func _set_radius(a_radius):
 	radius = a_radius

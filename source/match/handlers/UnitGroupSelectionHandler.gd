@@ -1,65 +1,37 @@
 extends Node3D
 
+var _set_action_names = [null]
+var _get_action_names = [null]
+var _unit_group_names = [null]
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
-	pass # Replace with function body.
+	for group_id in range(1, 10):
+		_set_action_names.append("unit_groups_set_{0}".format([group_id]))
+		_get_action_names.append("unit_groups_access_{0}".format([group_id]))
+		_unit_group_names.append("unit_group_{0}".format([group_id]))
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
 
 func _input(event):
-	if event.is_action_pressed("unit_groups_set_1"):
-		set_group(1)
-	elif event.is_action_pressed("unit_groups_set_2"):
-		set_group(2)
-	elif event.is_action_pressed("unit_groups_set_3"):
-		set_group(3)
-	elif event.is_action_pressed("unit_groups_set_4"):
-		set_group(4)
-	elif event.is_action_pressed("unit_groups_set_5"):
-		set_group(5)
-	elif event.is_action_pressed("unit_groups_set_6"):
-		set_group(6)
-	elif event.is_action_pressed("unit_groups_set_7"):
-		set_group(7)
-	elif event.is_action_pressed("unit_groups_set_8"):
-		set_group(8)
-	elif event.is_action_pressed("unit_groups_set_9"):
-		set_group(9)
-	elif event.is_action_pressed("unit_groups_access_1"):
-		access_group(1)
-	elif event.is_action_pressed("unit_groups_access_2"):
-		access_group(2)
-	elif event.is_action_pressed("unit_groups_access_3"):
-		access_group(3)
-	elif event.is_action_pressed("unit_groups_access_4"):
-		access_group(4)
-	elif event.is_action_pressed("unit_groups_access_5"):
-		access_group(5)
-	elif event.is_action_pressed("unit_groups_access_6"):
-		access_group(6)
-	elif event.is_action_pressed("unit_groups_access_7"):
-		access_group(7)
-	elif event.is_action_pressed("unit_groups_access_8"):
-		access_group(8)
-	elif event.is_action_pressed("unit_groups_access_9"):
-		access_group(9)
+	for group_id in range(1, 10):
+		if event.is_action_pressed(_set_action_names[group_id]):
+			set_group(group_id)
+			return
+		if event.is_action_pressed(_get_action_names[group_id]):
+			access_group(group_id)
+			return
 
-func access_group(group_id:int):
-	var unit_group = Utils.Set.new()
-	for unit in get_tree().get_nodes_in_group("unit_group_"+str(group_id)):
-		if unit != null:
-			unit_group.add(unit)
-	Utils.Match.select_units(unit_group)
-	
-	
-func set_group(group_id:int):
-	for unit in get_tree().get_nodes_in_group("unit_group_"+str(group_id)):
-		unit.remove_from_group("unit_group_"+str(group_id))
-	var unit_group = get_tree().get_nodes_in_group("selected_units")
-	for unit in unit_group:
+
+func access_group(group_id: int):
+	var units_in_group = Utils.Set.from_array(
+		get_tree().get_nodes_in_group(_unit_group_names[group_id])
+	)
+	Utils.Match.select_units(units_in_group)
+
+
+func set_group(group_id: int):
+	for unit in get_tree().get_nodes_in_group(_unit_group_names[group_id]):
+		unit.remove_from_group(_unit_group_names[group_id])
+	for unit in get_tree().get_nodes_in_group("selected_units"):
 		if unit.is_in_group("controlled_units"):
-			unit.add_to_group("unit_group_"+str(group_id))
+			unit.add_to_group(_unit_group_names[group_id])
