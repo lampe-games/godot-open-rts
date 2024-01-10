@@ -213,5 +213,4 @@ func _on_unit_died(unit):
 		navigation.update_terrain()
 		
 func _on_resource_depleted():
-	print("die")
 	navigation.update_terrain()
