@@ -34,7 +34,6 @@ func rebake(map):
 	
 func update_terrain():
 	terrain.rebake(true)
-	print("update_terrain")
 
 func _clear_static_obstacles():
 	for static_obstacle in _static_obstacles:
