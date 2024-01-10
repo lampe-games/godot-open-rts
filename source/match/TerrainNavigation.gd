@@ -16,8 +16,8 @@ func _ready():
 	NavigationServer3D.map_force_update(navigation_map_rid)
 
 
-func rebake():
-	_navigation_region.bake_navigation_mesh(false)
+func rebake(on_thread:bool):
+	_navigation_region.bake_navigation_mesh(on_thread)
 
 
 func _safety_checks():

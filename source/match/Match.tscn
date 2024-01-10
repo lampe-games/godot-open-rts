@@ -27,7 +27,7 @@
 [ext_resource type="PackedScene" uid="uid://bocb7hjilvri5" path="res://source/match/handlers/ArealUnitSelectionHandler.tscn" id="24_aug7m"]
 [ext_resource type="PackedScene" uid="uid://pi813oou7xim" path="res://source/match/handlers/DoubleClickUnitSelectionHandler.tscn" id="25_ldkhw"]
 [ext_resource type="PackedScene" uid="uid://yn470qvc3eak" path="res://source/match/handlers/MatchEndHandler.tscn" id="26_4d7im"]
-[ext_resource type="PackedScene" path="res://source/match/handlers/UnitGroupSelectionHandler.tscn" id="27_j2drv"]
+[ext_resource type="PackedScene" uid="uid://ck6vrgdyg7hja" path="res://source/match/handlers/UnitGroupSelectionHandler.tscn" id="27_j2drv"]
 [ext_resource type="PackedScene" uid="uid://b8p6lcwubx1tp" path="res://source/match/handlers/UnitVisibilityHandler.tscn" id="32_fci1c"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ysb0j"]
@@ -101,8 +101,9 @@ geometry_parsed_geometry_type = 2
 geometry_collision_mask = 4278190082
 geometry_source_geometry_mode = 2
 geometry_source_group_name = &"terrain_navigation_input"
+cell_size = 0.2
 agent_height = 2.0
-agent_radius = 1.0
+agent_radius = 0.6
 agent_max_climb = 0.0
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_vu2gm"]

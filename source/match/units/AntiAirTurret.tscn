@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cfa8cpnpk5pcb"]
+[gd_scene load_steps=11 format=3 uid="uid://cfa8cpnpk5pcb"]
 
 [ext_resource type="Script" path="res://source/match/units/AntiAirTurret.gd" id="1_ec2s5"]
 [ext_resource type="PackedScene" uid="uid://cgsi062w5fjia" path="res://source/match/units/traits/Highlight.tscn" id="1_tbjvv"]
@@ -12,6 +12,11 @@
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_xa2u4"]
 height = 0.8
 radius = 0.6
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_v80fm"]
+top_radius = 0.6
+bottom_radius = 0.6
+height = 0.8
 
 [node name="AntiAirTurret" type="Area3D"]
 collision_layer = 2
@@ -67,6 +72,12 @@ radius = 0.6
 
 [node name="RotateRandomlyWhenLookingForTargetsIdle" parent="." instance=ExtResource("8_hqxqv")]
 node_to_rotate = NodePath("../DetachTransform/Geometry/turret_double/tmpParent/turret_double2/turret")
+
+[node name="NavMeshObstacle" type="MeshInstance3D" parent="." groups=["terrain_navigation_input"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+layers = 0
+mesh = SubResource("CylinderMesh_v80fm")
+skeleton = NodePath("../CollisionShape3D")
 
 [editable path="DetachTransform/Geometry"]
 [editable path="DetachTransform/Geometry/turret_double"]

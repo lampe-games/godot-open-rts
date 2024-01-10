@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cxilu6668nda6"]
+[gd_scene load_steps=12 format=3 uid="uid://cxilu6668nda6"]
 
 [ext_resource type="Script" path="res://source/match/units/AircraftFactory.gd" id="1_n6n1v"]
 [ext_resource type="PackedScene" uid="uid://cgsi062w5fjia" path="res://source/match/units/traits/Highlight.tscn" id="1_r5i7t"]
@@ -13,6 +13,9 @@
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_uvm5u"]
 height = 1.0
 radius = 1.5
+
+[sub_resource type="BoxMesh" id="BoxMesh_oki0p"]
+size = Vector3(2, 1, 2)
 
 [node name="AircraftFactory" type="Area3D"]
 collision_layer = 2
@@ -48,5 +51,11 @@ radius = 1.5
 [node name="RallyPoint" parent="." instance=ExtResource("8_opfgx")]
 
 [node name="ProductionQueue" parent="." instance=ExtResource("9_c3qd5")]
+
+[node name="NavMeshObstacle" type="MeshInstance3D" parent="." groups=["terrain_navigation_input"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+layers = 0
+mesh = SubResource("BoxMesh_oki0p")
+skeleton = NodePath("../CollisionShape3D")
 
 [editable path="Geometry"]

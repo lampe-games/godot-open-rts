@@ -35,6 +35,8 @@ func _enter_tree():
 
 func _ready():
 	MatchSignals.setup_and_spawn_unit.connect(_setup_and_spawn_unit)
+	MatchSignals.unit_died.connect(_on_unit_died)
+	MatchSignals.resource_depleted.connect(_on_resource_depleted)
 	_setup_subsystems_dependent_on_map()
 	_setup_players()
 	_setup_player_units()
@@ -42,6 +44,8 @@ func _ready():
 	_move_camera_to_initial_position()
 	if settings.visibility == settings.Visibility.FULL:
 		fog_of_war.reveal()
+	await get_tree().process_frame
+	navigation.update_terrain()
 
 
 func _unhandled_input(event):
@@ -126,7 +130,6 @@ func _setup_player_units():
 				player, map.find_child("SpawnPoints").get_child(player_index).global_transform
 			)
 
-
 func _spawn_player_units(player, spawn_transform):
 	_setup_and_spawn_unit(CommandCenter.instantiate(), spawn_transform, player, false)
 	_setup_and_spawn_unit(
@@ -146,6 +149,8 @@ func _setup_and_spawn_unit(unit, a_transform, player, mark_structure_under_const
 		unit.mark_as_under_construction()
 	_setup_unit_groups(unit, player)
 	player.add_child(unit)
+	if unit is Structure  and mark_structure_under_construction:
+		navigation.update_terrain()
 	MatchSignals.unit_spawned.emit(unit)
 
 
@@ -202,3 +207,11 @@ func _conceal_player_units(player):
 		func(a_unit): return a_unit.player == player
 	):
 		unit.remove_from_group("revealed_units")
+
+func _on_unit_died(unit):
+	if unit is Structure:
+		navigation.update_terrain()
+		
+func _on_resource_depleted():
+	print("die")
+	navigation.update_terrain()

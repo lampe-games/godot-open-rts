@@ -11,7 +11,7 @@
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_sjc11"]
 height = 0.6
-radius = 0.8
+radius = 0.6
 
 [node name="Tank" type="Area3D"]
 collision_layer = 2
@@ -45,7 +45,7 @@ path_desired_distance = 0.5
 target_desired_distance = 0.5
 path_height_offset = 0.5
 path_max_distance = 0.51
-radius = 1.0
+radius = 0.6
 neighbor_distance = 8.0
 max_neighbors = 40
 time_horizon_agents = 3.0

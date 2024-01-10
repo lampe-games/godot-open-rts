@@ -7,6 +7,7 @@ const MATERIAL_ALBEDO_TO_REPLACE_EPSILON = 0.05
 	set(value):
 		resource_b = max(0, value)
 		if resource_b == 0:
+			tree_exited.connect(func(): MatchSignals.resource_depleted.emit())
 			queue_free()
 
 var color = Constants.Match.Resources.B.COLOR:
