@@ -101,9 +101,8 @@ geometry_parsed_geometry_type = 2
 geometry_collision_mask = 4278190082
 geometry_source_geometry_mode = 2
 geometry_source_group_name = &"terrain_navigation_input"
-cell_size = 0.2
 agent_height = 2.0
-agent_radius = 0.6
+agent_radius = 1.0
 agent_max_climb = 0.0
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_vu2gm"]

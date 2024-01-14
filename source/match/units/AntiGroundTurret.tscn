@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b8pckq1xn44ss"]
+[gd_scene load_steps=12 format=3 uid="uid://b8pckq1xn44ss"]
 
 [ext_resource type="PackedScene" uid="uid://cgsi062w5fjia" path="res://source/match/units/traits/Highlight.tscn" id="1_5gp2d"]
 [ext_resource type="Script" path="res://source/match/units/AntiGroundTurret.gd" id="1_6hw4x"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bmiqncjpgsw2e" path="res://source/match/units/structure-geometries/AntiGroundTurret.tscn" id="2_tlome"]
 [ext_resource type="PackedScene" uid="uid://d4cwip5hpxlmo" path="res://source/match/units/traits/MovementObstacle.tscn" id="3_ds80w"]
 [ext_resource type="PackedScene" uid="uid://c3ssj2p6voauk" path="res://source/match/units/traits/HealthBar.tscn" id="4_r6emo"]
+[ext_resource type="PackedScene" uid="uid://c471ahpwuxv57" path="res://source/match/units/traits/StaticMovementObstacle.tscn" id="6_w6nbo"]
 [ext_resource type="PackedScene" uid="uid://d4cm4yhtf11ur" path="res://source/match/units/traits/Targetability.tscn" id="7_4hifs"]
 [ext_resource type="PackedScene" uid="uid://cd66t0u7kf84j" path="res://source/match/units/traits/RotateRandomlyWhenLookingForTargetsIdle.tscn" id="8_l7mop"]
 
@@ -13,10 +14,9 @@
 height = 0.8
 radius = 0.6
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_ymrt0"]
-top_radius = 0.6
-bottom_radius = 0.6
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_t2frt"]
 height = 0.8
+radius = 0.6
 
 [node name="AntiGroundTurret" type="Area3D"]
 collision_layer = 2
@@ -56,6 +56,9 @@ radius = 0.6
 radius = 0.6
 path_height_offset = 0.5
 
+[node name="StaticMovementObstacle" parent="." instance=ExtResource("6_w6nbo")]
+shape = SubResource("CylinderShape3D_t2frt")
+
 [node name="HealthBar" parent="." instance=ExtResource("4_r6emo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
 size = Vector2(110, 10)
@@ -66,12 +69,6 @@ radius = 0.6
 
 [node name="RotateRandomlyWhenLookingForTargets" parent="." instance=ExtResource("8_l7mop")]
 node_to_rotate = NodePath("../DetachTransform/Geometry/turret_single/tmpParent/turret_single2/turret")
-
-[node name="NavMeshObstacle" type="MeshInstance3D" parent="." groups=["terrain_navigation_input"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
-layers = 0
-mesh = SubResource("CylinderMesh_ymrt0")
-skeleton = NodePath("../CollisionShape3D")
 
 [editable path="DetachTransform/Geometry"]
 [editable path="DetachTransform/Geometry/turret_single"]

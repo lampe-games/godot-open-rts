@@ -21,20 +21,10 @@ func get_navigation_map_rid_by_domain(domain):
 
 
 func rebake(map):
-	var obstacles = get_tree().get_nodes_in_group("terrain_navigation_input")
-	for obstacle in obstacles:
-		if obstacle.name.to_lower() != "terrain":
-			obstacle.remove_from_group("terrain_navigation_input")
 	air.rebake(map)
-	terrain.rebake(false)
-	for obstacle in obstacles:
-		obstacle.add_to_group("terrain_navigation_input")
+	terrain.rebake()
 	_clear_static_obstacles()
 	_setup_static_obstacles()
-
-
-func update_terrain():
-	terrain.rebake(true)
 
 
 func _clear_static_obstacles():

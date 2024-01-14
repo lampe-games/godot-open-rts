@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bufgjfa3ne3uk"]
+[gd_scene load_steps=10 format=3 uid="uid://bufgjfa3ne3uk"]
 
 [ext_resource type="Script" path="res://source/match/units/non-player/ResourceB.gd" id="1_57n8v"]
 [ext_resource type="PackedScene" uid="uid://cgsi062w5fjia" path="res://source/match/units/traits/Highlight.tscn" id="2_c8mwe"]
@@ -6,14 +6,13 @@
 [ext_resource type="PackedScene" uid="uid://3c1h14nqdumt" path="res://source/match/units/traits/Selection.tscn" id="3_6dh54"]
 [ext_resource type="PackedScene" uid="uid://d4cwip5hpxlmo" path="res://source/match/units/traits/MovementObstacle.tscn" id="4_sxjck"]
 [ext_resource type="PackedScene" uid="uid://d4cm4yhtf11ur" path="res://source/match/units/traits/Targetability.tscn" id="5_y6273"]
+[ext_resource type="PackedScene" uid="uid://c471ahpwuxv57" path="res://source/match/units/traits/StaticMovementObstacle.tscn" id="6_vvgyq"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_msmnm"]
 height = 0.8
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_ajrhd"]
-top_radius = 0.4
-bottom_radius = 0.4
-height = 1.0
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_002vj"]
+height = 0.8
 
 [node name="ResourceB" type="Area3D" groups=["resource_units"]]
 script = ExtResource("1_57n8v")
@@ -39,12 +38,9 @@ radius = 0.6
 radius = 0.6
 path_height_offset = 0.5
 
+[node name="StaticMovementObstacle" parent="." instance=ExtResource("6_vvgyq")]
+shape = SubResource("CylinderShape3D_002vj")
+
 [node name="Targetability" parent="." instance=ExtResource("5_y6273")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
 radius = 0.6
-
-[node name="NavMeshObstacle" type="MeshInstance3D" parent="." groups=["terrain_navigation_input"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-layers = 0
-mesh = SubResource("CylinderMesh_ajrhd")
-skeleton = NodePath("../CollisionShape3D")

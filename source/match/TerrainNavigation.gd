@@ -1,5 +1,10 @@
 extends Node3D
 
+const DOMAIN = Constants.Match.Navigation.Domain.TERRAIN
+
+var _earliest_frame_to_perform_next_rebake = null
+var _is_baking = false
+
 @onready var navigation_map_rid = get_world_3d().navigation_map
 
 @onready var _navigation_region = find_child("NavigationRegion3D")
@@ -14,10 +19,23 @@ func _ready():
 		navigation_map_rid, Constants.Match.Terrain.Navmesh.CELL_HEIGHT
 	)
 	NavigationServer3D.map_force_update(navigation_map_rid)
+	MatchSignals.schedule_navigation_rebake.connect(_on_schedule_navigation_rebake)
+	_navigation_region.bake_finished.connect(_on_bake_finished)
 
 
-func rebake(on_thread: bool):
-	_navigation_region.bake_navigation_mesh(on_thread)
+func _process(_delta):
+	if (
+		not _is_baking
+		and _earliest_frame_to_perform_next_rebake != null
+		and get_tree().get_frame() >= _earliest_frame_to_perform_next_rebake
+	):
+		_is_baking = true
+		_earliest_frame_to_perform_next_rebake = null
+		_navigation_region.bake_navigation_mesh(true)
+
+
+func rebake():
+	_navigation_region.bake_navigation_mesh(false)
 
 
 func _safety_checks():
@@ -42,3 +60,14 @@ func _safety_checks():
 		"Navmesh 'cell_height' must match established constant"
 	)
 	return true
+
+
+func _on_schedule_navigation_rebake(domain):
+	if domain != DOMAIN or not is_inside_tree() or not FeatureFlags.allow_navigation_rebaking:
+		return
+	if _earliest_frame_to_perform_next_rebake == null:
+		_earliest_frame_to_perform_next_rebake = get_tree().get_frame() + 1
+
+
+func _on_bake_finished():
+	_is_baking = false

@@ -4,6 +4,7 @@ extends Node
 signal deselect_all_units
 signal setup_and_spawn_unit(unit, transform, player)
 signal place_structure(structure_prototype)
+signal schedule_navigation_rebake(domain)
 
 # notifications
 signal terrain_targeted(position)
@@ -12,4 +13,3 @@ signal unit_targeted(unit)
 signal unit_selected(unit)
 signal unit_deselected(unit)
 signal unit_died(unit)
-signal resource_depleted
