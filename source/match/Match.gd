@@ -82,7 +82,7 @@ func _setup_subsystems_dependent_on_map():
 	_terrain.update_shape(map.find_child("Terrain").mesh)
 	fog_of_war.resize(map.size)
 	_recalculate_camera_bounding_planes(map.size)
-	navigation.rebake(map)
+	navigation.setup(map)
 
 
 func _recalculate_camera_bounding_planes(map_size: Vector2):

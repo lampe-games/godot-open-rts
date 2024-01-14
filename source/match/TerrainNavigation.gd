@@ -34,7 +34,11 @@ func _process(_delta):
 		_navigation_region.bake_navigation_mesh(true)
 
 
-func rebake():
+func bake():
+	assert(
+		_navigation_region.navigation_mesh.get_polygon_count() == 0,
+		"bake() should be called exactly once - during runtime"
+	)
 	_navigation_region.bake_navigation_mesh(false)
 
 

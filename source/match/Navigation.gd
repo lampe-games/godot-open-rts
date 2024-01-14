@@ -20,17 +20,11 @@ func get_navigation_map_rid_by_domain(domain):
 	}[domain]
 
 
-func rebake(map):
-	air.rebake(map)
-	terrain.rebake()
-	_clear_static_obstacles()
+func setup(map):
+	assert(_static_obstacles.is_empty())
+	air.bake(map)
+	terrain.bake()
 	_setup_static_obstacles()
-
-
-func _clear_static_obstacles():
-	for static_obstacle in _static_obstacles:
-		NavigationServer3D.free_rid(static_obstacle)
-	_static_obstacles = []
 
 
 func _setup_static_obstacles():

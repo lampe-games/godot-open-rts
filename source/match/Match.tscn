@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://camns8fqod8d4"]
+[gd_scene load_steps=44 format=3 uid="uid://camns8fqod8d4"]
 
 [ext_resource type="Script" path="res://source/match/Match.gd" id="1_1555u"]
 [ext_resource type="Script" path="res://source/match/IsometricCamera3D.gd" id="1_qb2ry"]
@@ -82,10 +82,6 @@ shader_parameter/world_visibility_texture = SubResource("ViewportTexture_7yqgo")
 [sub_resource type="QuadMesh" id="QuadMesh_xttrh"]
 flip_faces = true
 size = Vector2(2, 2)
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_g1mtu"]
-size = Vector2(50, 50)
-center_offset = Vector3(25, 0, 25)
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_8emvl"]
 geometry_source_geometry_mode = 2
@@ -224,7 +220,6 @@ script = ExtResource("16_ravsv")
 [node name="ReferenceMesh" type="MeshInstance3D" parent="Navigation/Air" groups=["air_navigation_input"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 visible = false
-mesh = SubResource("PlaneMesh_g1mtu")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="Navigation/Air"]
 navigation_mesh = SubResource("NavigationMesh_8emvl")

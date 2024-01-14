@@ -19,8 +19,15 @@ func _ready():
 	_reference_mesh.global_transform.origin.y = Constants.Match.Air.Y
 
 
-func rebake(map):
-	find_child("ReferenceMesh").mesh = map.find_child("Terrain").mesh
+func bake(map):
+	assert(
+		_navigation_region.navigation_mesh.get_polygon_count() == 0,
+		"bake() should be called exactly once - during runtime"
+	)
+	var plane_mesh = PlaneMesh.new()
+	plane_mesh.size = map.size
+	plane_mesh.center_offset = Vector3(map.size.x, 0, map.size.y) / 2.0
+	_reference_mesh.mesh = plane_mesh
 	_navigation_region.bake_navigation_mesh(false)
 
 
