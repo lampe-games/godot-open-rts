@@ -31,9 +31,11 @@ func rebake(map):
 		obstacle.add_to_group("terrain_navigation_input")
 	_clear_static_obstacles()
 	_setup_static_obstacles()
-	
+
+
 func update_terrain():
 	terrain.rebake(true)
+
 
 func _clear_static_obstacles():
 	for static_obstacle in _static_obstacles:

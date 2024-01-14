@@ -12,4 +12,4 @@ signal unit_targeted(unit)
 signal unit_selected(unit)
 signal unit_deselected(unit)
 signal unit_died(unit)
-signal resource_depleted()
+signal resource_depleted

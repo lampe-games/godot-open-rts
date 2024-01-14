@@ -130,6 +130,7 @@ func _setup_player_units():
 				player, map.find_child("SpawnPoints").get_child(player_index).global_transform
 			)
 
+
 func _spawn_player_units(player, spawn_transform):
 	_setup_and_spawn_unit(CommandCenter.instantiate(), spawn_transform, player, false)
 	_setup_and_spawn_unit(
@@ -149,7 +150,7 @@ func _setup_and_spawn_unit(unit, a_transform, player, mark_structure_under_const
 		unit.mark_as_under_construction()
 	_setup_unit_groups(unit, player)
 	player.add_child(unit)
-	if unit is Structure  and mark_structure_under_construction:
+	if unit is Structure and mark_structure_under_construction:
 		navigation.update_terrain()
 	MatchSignals.unit_spawned.emit(unit)
 
@@ -208,9 +209,11 @@ func _conceal_player_units(player):
 	):
 		unit.remove_from_group("revealed_units")
 
+
 func _on_unit_died(unit):
 	if unit is Structure:
 		navigation.update_terrain()
-		
+
+
 func _on_resource_depleted():
 	navigation.update_terrain()

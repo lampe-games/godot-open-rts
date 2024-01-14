@@ -1,6 +1,6 @@
 enum { VALID, COLLIDES_WITH_AGENT, NOT_NAVIGABLE }
 
-const epsilon = 0.05 # Custom approximation variable check for terrain
+const EPSILON = 0.05  # Custom approximation variable check for terrain
 
 
 static func find_valid_position_radially(
@@ -81,14 +81,17 @@ static func validate_agent_placement_position(position, radius, existing_units, 
 				position + Vector3(x, 0, z).normalized() * radius
 			)
 	for point_expected_to_be_navigable in points_expected_to_be_navigable:
-		if not (point_expected_to_be_navigable * Vector3(1, 0, 1)).distance_to(
-			(
-				NavigationServer3D.map_get_closest_point(
-					navigation_map_rid, point_expected_to_be_navigable
+		if not (
+			(point_expected_to_be_navigable * Vector3(1, 0, 1)).distance_to(
+				(
+					NavigationServer3D.map_get_closest_point(
+						navigation_map_rid, point_expected_to_be_navigable
+					)
+					* Vector3(1, 0, 1)
 				)
-				* Vector3(1, 0, 1)
-			 )
-		) < epsilon :
+			)
+			< EPSILON
+		):
 			return NOT_NAVIGABLE
 	return VALID
 
