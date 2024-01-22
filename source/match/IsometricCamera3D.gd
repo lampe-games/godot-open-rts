@@ -14,6 +14,7 @@ const EXPECTED_PROJECTION = PROJECTION_ORTHOGONAL
 @export var bounding_planes: Array[Plane] = []
 @export_group("Rotation")
 @export var rotation_speed = 0.005
+@export var arrowkey_rotation_speed = 200
 @export var default_y_rotation_degrees = 0.0
 @export var reference_plane_for_rotation = Plane(Vector3.UP, 0.0)
 @export_group("View")
@@ -24,7 +25,8 @@ var _movement_vector_2d = Vector2(0, 0)
 var _pivot_point_2d = null
 var _pivot_point_3d = null
 var _camera_point_3d = null
-
+var _rotation_pos = Vector2.ZERO
+var _arrowkey_rotation = false
 
 func _ready():
 	assert(projection == EXPECTED_PROJECTION, "unexpected projection")
@@ -54,9 +56,24 @@ func _physics_process(delta):
 func _process(_delta):
 	if !_is_rotating():
 		_move()
+	elif _arrowkey_rotation:
+		if (Input.is_action_pressed("rotate_map_clock")):
+			_rotation_pos.x += _delta * arrowkey_rotation_speed
+		if (Input.is_action_pressed("rotate_map_counterclock")):
+			_rotation_pos.x -= _delta * arrowkey_rotation_speed
+		_rotate(_rotation_pos)
 
 
 func _unhandled_input(event):
+	if !_is_rotating():
+		if Input.is_action_just_pressed("rotate_map_clock") or Input.is_action_just_pressed("rotate_map_counterclock"):
+			_arrowkey_rotation = true
+			_start_rotation(event)
+	else:
+		if Input.is_action_just_released("rotate_map_clock") or Input.is_action_just_released("rotate_map_counterclock")  :
+			if not (Input.is_action_pressed("rotate_map_clock") or Input.is_action_pressed("rotate_map_counterclock")):
+				_arrowkey_rotation = false
+				_stop_rotation()
 	if event is InputEventMouseButton:
 		if event.is_pressed() and event.button_index == MOUSE_BUTTON_WHEEL_UP:
 			_zoom_in()
@@ -66,14 +83,14 @@ func _unhandled_input(event):
 			event.is_pressed() and event.button_index == MOUSE_BUTTON_MIDDLE and event.double_click
 		):
 			_reset_rotation()
-		elif event.is_pressed() and event.button_index == MOUSE_BUTTON_MIDDLE:
+		elif event.is_pressed() and event.button_index == MOUSE_BUTTON_MIDDLE and !_arrowkey_rotation:
 			_start_rotation(event)
-		elif not event.is_pressed() and event.button_index == MOUSE_BUTTON_MIDDLE:
+		elif not event.is_pressed() and event.button_index == MOUSE_BUTTON_MIDDLE and !_arrowkey_rotation:
 			_stop_rotation()
 	elif event is InputEventMouseMotion:
-		var mouse_pos = event.position
-		if _is_rotating():
-			_rotate(mouse_pos)
+		var rotation_pos = event.position #the mouse position
+		if !_arrowkey_rotation and _is_rotating():
+			_rotate(rotation_pos)
 
 
 func set_size_safely(a_size):
@@ -128,16 +145,20 @@ func _start_rotation(event):
 	_pivot_point_3d = _calculate_pivot_point_3d()
 	if _pivot_point_3d != null:
 		_movement_vector_2d = Vector2(0, 0)
-		_pivot_point_2d = event.position
+		if "position" in event:
+			_pivot_point_2d = event.position
+		else:
+			_pivot_point_2d = Vector2.ZERO
 		_camera_point_3d = global_transform.origin
 
 
 func _stop_rotation():
 	_pivot_point_2d = null
+	_rotation_pos = Vector2.ZERO
 
 
-func _rotate(mouse_pos):
-	var strength = mouse_pos.x - _pivot_point_2d.x
+func _rotate(rotation_pos):
+	var strength = rotation_pos.x - _pivot_point_2d.x
 	var camera_point_2d = Vector2(_camera_point_3d.x, _camera_point_3d.z)
 	var pivot_point_2d = Vector2(_pivot_point_3d.x, _pivot_point_3d.z)
 	var diff_vec = camera_point_2d - pivot_point_2d
