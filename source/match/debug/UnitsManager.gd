@@ -20,6 +20,8 @@ func _unhandled_input(event):
 		for unit in get_tree().get_nodes_in_group("selected_units"):
 			if "hp" in unit:
 				unit.hp = 0
+			else:
+				unit.queue_free()
 
 
 func _get_requested_units():
