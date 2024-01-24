@@ -34,10 +34,15 @@ func _process(_delta):
 		_rebake()
 
 
-func bake():
+func bake(map):
 	assert(
 		_navigation_region.navigation_mesh.get_polygon_count() == 0,
 		"bake() should be called exactly once - during runtime"
+	)
+	# setting custom AABB for baking so that height of dynamic AABB is always the same
+	# - without such setting, re-baking may yield different results depending on geometry height
+	_navigation_region.navigation_mesh.filter_baking_aabb = AABB(
+		Vector3.ZERO, Vector3(map.size.x, 5.0, map.size.y)
 	)
 	NavigationServer3D.parse_source_geometry_data(
 		_navigation_region.navigation_mesh, _map_geometry, get_tree().root

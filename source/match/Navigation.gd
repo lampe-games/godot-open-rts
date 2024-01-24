@@ -23,7 +23,7 @@ func get_navigation_map_rid_by_domain(domain):
 func setup(map):
 	assert(_static_obstacles.is_empty())
 	air.bake(map)
-	terrain.bake()
+	terrain.bake(map)
 	_setup_static_obstacles()
 
 
