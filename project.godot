@@ -33,6 +33,7 @@ gdscript/warnings/standalone_expression=0
 gdscript/warnings/incompatible_ternary=0
 gdscript/warnings/static_called_on_instance=0
 gdscript/warnings/assert_always_false=0
+gdscript/warnings/integer_division=0
 
 [display]
 
