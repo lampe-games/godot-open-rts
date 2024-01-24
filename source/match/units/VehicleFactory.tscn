@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://h5lqor1xl2sf"]
+[gd_scene load_steps=14 format=3 uid="uid://h5lqor1xl2sf"]
 
 [ext_resource type="Script" path="res://source/match/units/VehicleFactory.gd" id="1_1a20j"]
 [ext_resource type="PackedScene" uid="uid://cgsi062w5fjia" path="res://source/match/units/traits/Highlight.tscn" id="1_8fcgb"]
@@ -18,6 +18,9 @@ radius = 1.5
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_x8l2r"]
 height = 1.0
 radius = 1.5
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jajvw"]
+size = Vector3(0.1, 5, 0.1)
 
 [node name="VehicleFactory" type="Area3D"]
 collision_layer = 2
@@ -44,6 +47,9 @@ path_height_offset = 0.5
 
 [node name="StaticMovementObstacle" parent="." instance=ExtResource("6_rohol")]
 shape = SubResource("CylinderShape3D_x8l2r")
+
+[node name="PreventNavmeshIsland" type="CollisionShape3D" parent="StaticMovementObstacle"]
+shape = SubResource("BoxShape3D_jajvw")
 
 [node name="HealthBar" parent="." instance=ExtResource("4_xd2eg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, 0)
