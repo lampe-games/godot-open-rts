@@ -16,7 +16,7 @@ radius = 0.6
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_t2frt"]
 height = 0.8
-radius = 0.6
+radius = 0.2
 
 [node name="AntiGroundTurret" type="Area3D"]
 collision_layer = 2

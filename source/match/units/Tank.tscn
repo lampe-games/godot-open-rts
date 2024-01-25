@@ -36,16 +36,18 @@ shape = SubResource("CylinderShape3D_sjc11")
 
 [node name="Highlight" parent="." instance=ExtResource("1_n4t54")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+radius = 0.9
 
 [node name="Selection" parent="." instance=ExtResource("2_mbcqe")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+radius = 0.9
 
 [node name="Movement" parent="." instance=ExtResource("3_4m8ma")]
 path_desired_distance = 0.5
 target_desired_distance = 0.5
 path_height_offset = 0.5
 path_max_distance = 0.51
-radius = 1.0
+radius = 0.9
 neighbor_distance = 8.0
 max_neighbors = 40
 time_horizon_agents = 3.0
@@ -57,3 +59,4 @@ size = Vector2(160, 10)
 
 [node name="Targetability" parent="." instance=ExtResource("8_ca2nt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+radius = 0.9

@@ -13,6 +13,7 @@ height = 0.8
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_002vj"]
 height = 0.8
+radius = 0.1
 
 [node name="ResourceB" type="Area3D" groups=["resource_units"]]
 script = ExtResource("1_57n8v")

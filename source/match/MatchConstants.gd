@@ -41,9 +41,9 @@ class Terrain:
 	const PLANE = Plane(Vector3.UP, 0)
 
 	class Navmesh:
-		const CELL_SIZE = 0.25
-		const CELL_HEIGHT = 0.25
-		const MAX_AGENT_RADIUS = 1.0  # max radius of movable units
+		const CELL_SIZE = 0.3
+		const CELL_HEIGHT = 0.3
+		const MAX_AGENT_RADIUS = 0.9  # max radius of movable units
 
 
 class Resources:

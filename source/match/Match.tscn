@@ -97,9 +97,12 @@ geometry_parsed_geometry_type = 2
 geometry_collision_mask = 4278190082
 geometry_source_geometry_mode = 2
 geometry_source_group_name = &"terrain_navigation_input"
-agent_height = 2.0
-agent_radius = 1.0
+cell_size = 0.3
+cell_height = 0.3
+agent_height = 1.8
+agent_radius = 0.9
 agent_max_climb = 0.0
+edge_max_error = 1.0
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_vu2gm"]
 viewport_path = NodePath("FogOfWar/CombinedViewport")
