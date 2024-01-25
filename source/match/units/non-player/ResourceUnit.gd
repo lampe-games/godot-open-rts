@@ -2,21 +2,16 @@ extends Area3D
 
 const ResourceDecayAnimation = preload("res://source/match/utils/ResourceDecayAnimation.tscn")
 
-var radius = null:
-	set = _ignore,
-	get = _get_radius
+var radius:
+	get:
+		return find_child("MovementObstacle").radius
+var global_position_yless:
+	get:
+		return global_position * Vector3(1, 0, 1)
 
 
 func _enter_tree():
 	tree_exiting.connect(_animate_decay)
-
-
-func _ignore(_value):
-	pass
-
-
-func _get_radius():
-	return find_child("MovementObstacle").radius
 
 
 func _animate_decay():
