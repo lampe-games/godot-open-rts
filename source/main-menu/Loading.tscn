@@ -43,6 +43,7 @@ offset_right = 200.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
 text = "loading"
 horizontal_alignment = 1
 vertical_alignment = 1

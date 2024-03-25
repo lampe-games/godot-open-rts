@@ -24,10 +24,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = -420.0
+offset_top = -429.0
+offset_right = 420.0
+offset_bottom = 429.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -39,23 +39,23 @@ theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
-custom_minimum_size = Vector2(600, 0)
+custom_minimum_size = Vector2(800, 0)
 layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 theme_override_constants/separation = 4
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 2.0
+size_flags_stretch_ratio = 3.0
 theme_override_constants/separation = 5
 
 [node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
-custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 text = "Map"
 horizontal_alignment = 1
@@ -78,7 +78,7 @@ theme_override_constants/separation = 4
 [node name="MapList" type="ItemList" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 2.0
+size_flags_stretch_ratio = 1.5
 focus_mode = 0
 item_count = 6
 item_0/text = "Map 1"
@@ -108,7 +108,6 @@ size_flags_horizontal = 3
 theme_override_constants/separation = 5
 
 [node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 text = "Players"
 horizontal_alignment = 1
