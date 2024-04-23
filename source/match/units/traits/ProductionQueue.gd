@@ -47,6 +47,7 @@ func produce(unit_prototype, ignore_limit = false):
 		return
 	var production_cost = Constants.Match.Units.PRODUCTION_COSTS[unit_prototype.resource_path]
 	if not _unit.player.has_resources(production_cost):
+		MatchSignals.not_enough_resources_for_production.emit(_unit.player)
 		return
 	_unit.player.subtract_resources(production_cost)
 	var queue_element = ProductionQueueElement.new()
@@ -54,6 +55,7 @@ func produce(unit_prototype, ignore_limit = false):
 	queue_element.time_total = Constants.Match.Units.PRODUCTION_TIMES[unit_prototype.resource_path]
 	queue_element.time_left = Constants.Match.Units.PRODUCTION_TIMES[unit_prototype.resource_path]
 	_enqueue_element(queue_element)
+	MatchSignals.unit_production_started.emit(unit_prototype, _unit)
 
 
 func cancel_all():

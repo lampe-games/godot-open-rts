@@ -18,3 +18,4 @@ script = ExtResource("1_m624e")
 script = ExtResource("4_ljr74")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="VoiceNarratorController"]
+process_mode = 3

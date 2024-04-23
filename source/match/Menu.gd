@@ -23,5 +23,7 @@ func _on_resume_button_pressed():
 
 
 func _on_exit_button_pressed():
+	MatchSignals.match_aborted.emit()
+	await get_tree().create_timer(1.74).timeout  # Give voice narrator some time to finish.
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://source/main-menu/Main.tscn")

@@ -42,6 +42,7 @@ func _ready():
 	_move_camera_to_initial_position()
 	if settings.visibility == settings.Visibility.FULL:
 		fog_of_war.reveal()
+	MatchSignals.match_started.emit()
 
 
 func _unhandled_input(event):
