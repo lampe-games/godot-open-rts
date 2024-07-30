@@ -32,22 +32,29 @@ var _previously_set_global_transform_of_unit = null
 
 var _passive_movement_detected = false
 
+var piloted = false
+
 @onready var _match = find_parent("Match")
 @onready var _unit = get_parent()
 
 
 func _physics_process(delta):
 	_interim_speed = speed * delta
-	var fake_direction = _get_fake_direction_due_to_stuck_prevention()
-	if fake_direction != null:
-		set_velocity(fake_direction * _interim_speed)
-		return
-	var next_path_position: Vector3 = get_next_path_position()
-	var current_agent_position: Vector3 = _unit.global_transform.origin
-	var new_velocity: Vector3 = (
-		(next_path_position - current_agent_position).normalized() * _interim_speed
-	)
-	set_velocity(new_velocity)
+	if not piloted:
+		var fake_direction = _get_fake_direction_due_to_stuck_prevention()
+		if fake_direction != null:
+			set_velocity(fake_direction * _interim_speed)
+			return
+		var next_path_position: Vector3 = get_next_path_position()
+		var current_agent_position: Vector3 = _unit.global_transform.origin
+		var new_velocity: Vector3 = (
+			(next_path_position - current_agent_position).normalized() * _interim_speed
+		)
+		set_velocity(new_velocity)
+	else:
+		var input = Input.get_vector("move_map_left", "move_map_right", "move_map_up", "move_map_down")
+		var dir = Vector3(input.x, 0, input.y).rotated(Vector3.UP, _unit.rotation.y)
+		set_velocity(dir * _interim_speed)
 
 
 func _ready():
@@ -179,8 +186,10 @@ func _update_passive_movement_tracking(safe_velocity):
 
 
 func _on_velocity_computed(safe_velocity: Vector3):
-	_update_stuck_prevention(safe_velocity)
-	_rotate_in_direction(safe_velocity * Vector3(1, 0, 1))
+	if not piloted:
+		_update_stuck_prevention(safe_velocity)
+		_rotate_in_direction(safe_velocity * Vector3(1, 0, 1))
+		
 	_unit.global_transform.origin = _unit.global_transform.origin.move_toward(
 		_unit.global_transform.origin + safe_velocity, _interim_speed
 	)

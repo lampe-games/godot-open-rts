@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://camns8fqod8d4"]
+[gd_scene load_steps=45 format=3 uid="uid://camns8fqod8d4"]
 
 [ext_resource type="Script" path="res://source/match/Match.gd" id="1_1555u"]
 [ext_resource type="Script" path="res://source/match/IsometricCamera3D.gd" id="1_qb2ry"]
@@ -28,6 +28,7 @@
 [ext_resource type="PackedScene" uid="uid://pi813oou7xim" path="res://source/match/handlers/DoubleClickUnitSelectionHandler.tscn" id="25_ldkhw"]
 [ext_resource type="PackedScene" uid="uid://yn470qvc3eak" path="res://source/match/handlers/MatchEndHandler.tscn" id="26_4d7im"]
 [ext_resource type="PackedScene" uid="uid://ck6vrgdyg7hja" path="res://source/match/handlers/UnitGroupSelectionHandler.tscn" id="27_j2drv"]
+[ext_resource type="PackedScene" uid="uid://cq6ebbwygfl6" path="res://source/match/handlers/PlayModeSwitchHandler.tscn" id="30_aft50"]
 [ext_resource type="PackedScene" uid="uid://b8p6lcwubx1tp" path="res://source/match/handlers/UnitVisibilityHandler.tscn" id="32_fci1c"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ysb0j"]
@@ -397,6 +398,32 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 8
 
+[node name="PlayMode" type="MarginContainer" parent="HUD"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Panel" type="Panel" parent="HUD/PlayMode"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/PlayMode"]
+layout_mode = 2
+
+[node name="Pilotable" type="Label" parent="HUD/PlayMode/VBoxContainer"]
+layout_mode = 2
+text = "Pilotable: "
+
+[node name="CC" type="Label" parent="HUD/PlayMode/VBoxContainer"]
+layout_mode = 2
+text = "CommandCenter: "
+
 [node name="Menu" parent="." instance=ExtResource("22_ofmlu")]
 visible = false
 
@@ -423,3 +450,5 @@ rectangular_selection_3d = NodePath("../../RectangularSelection3D")
 visible = false
 
 [node name="UnitVisibilityHandler" parent="Handlers" instance=ExtResource("32_fci1c")]
+
+[node name="PlayModeSwitchHandler" parent="Handlers" instance=ExtResource("30_aft50")]

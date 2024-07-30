@@ -8,6 +8,7 @@ const Human = preload("res://source/match/players/human/Human.gd")
 const CommandCenter = preload("res://source/match/units/CommandCenter.tscn")
 const Drone = preload("res://source/match/units/Drone.tscn")
 const Worker = preload("res://source/match/units/Worker.tscn")
+const Pilot = preload("res://source/match/units/Pilot.tscn")
 
 @export var settings: Resource = null
 
@@ -26,6 +27,7 @@ var visible_players = null:
 @onready var _camera = $IsometricCamera3D
 @onready var _players = $Players
 @onready var _terrain = $Terrain
+@onready var _SH = $Handlers/PlayModeSwitchHandler
 
 
 func _enter_tree():
@@ -126,6 +128,11 @@ func _setup_player_units():
 			_spawn_player_units(
 				player, map.find_child("SpawnPoints").get_child(player_index).global_transform
 			)
+		if player is Human:
+			Globals.player = player
+			var pilot = Pilot.instantiate()
+			_setup_and_spawn_unit(pilot, map.find_child("SpawnPoints").get_child(player_index).global_transform.translated(Vector3(-3, 0, -3)), player)
+			_SH.pilot_unit(pilot)
 
 
 func _spawn_player_units(player, spawn_transform):

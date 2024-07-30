@@ -128,6 +128,12 @@ class Units:
 		},
 	}
 	const DEFAULT_PROPERTIES = {
+		"res://source/match/units/Pilot.tscn":
+		{
+			"sight_range": 10.0,
+			"hp": 3,
+			"hp_max": 3,
+		},
 		"res://source/match/units/Drone.tscn":
 		{
 			"sight_range": 10.0,

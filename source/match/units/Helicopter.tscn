@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://e7tko4kpeiau"]
+[gd_scene load_steps=16 format=3 uid="uid://e7tko4kpeiau"]
 
 [ext_resource type="Script" path="res://source/match/units/Helicopter.gd" id="1_4fna5"]
 [ext_resource type="PackedScene" uid="uid://cgsi062w5fjia" path="res://source/match/units/traits/Highlight.tscn" id="1_nqs7t"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://d1ekv61cse3bl" path="res://assets/models/kenney-spacekit/craft_racer.glb" id="6_3gekj"]
 [ext_resource type="PackedScene" uid="uid://b1r67ex7h3veu" path="res://source/match/units/traits/AirToTerrainMarker.tscn" id="7_5wh2l"]
 [ext_resource type="PackedScene" uid="uid://d4cm4yhtf11ur" path="res://source/match/units/traits/Targetability.tscn" id="8_ib4xd"]
+[ext_resource type="Script" path="res://source/match/FpsCamera3D.gd" id="9_sbnro"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_io5xm"]
 resource_name = "metal"
@@ -95,3 +96,7 @@ size = Vector2(140, 10)
 
 [node name="Targetability" parent="." instance=ExtResource("8_ib4xd")]
 radius = 0.8
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.452916, -0.386677)
+script = ExtResource("9_sbnro")

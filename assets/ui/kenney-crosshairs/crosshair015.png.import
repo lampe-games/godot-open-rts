@@ -16,9 +16,9 @@ dest_files=["res://.godot/imported/crosshair015.png-78d4f3cf4f69821e17a4cc5a45dd
 [params]
 
 compress/mode=0
+compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
-compress/bptc_ldr=0
 compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=false

@@ -91,21 +91,40 @@ func _update_camera_indicator():
 		Vector2(viewport.size.x, 0),
 		Vector2.ZERO
 	]
+	
+	var mapSize = find_child("MinimapViewport").size
+	var default_collisions = [
+		Vector2i(0,0),
+		mapSize * Vector2i(0,1),
+		mapSize,
+		mapSize * Vector2i(1,0),
+		Vector2i(0,0),
+	]
+	
 	for index in range(camera_corners.size()):
-		var corner_mapped_to_3d_position_on_ground_level = (
-			GROUND_LEVEL_PLANE.intersects_ray(
-				camera.project_ray_origin(camera_corners[index]),
-				camera.project_ray_normal(camera_corners[index])
+		var ray_origin = camera.project_ray_origin(camera_corners[index])
+		var ray_normal = camera.project_ray_normal(camera_corners[index])
+		var ground_intersect = GROUND_LEVEL_PLANE.intersects_ray(
+				ray_origin,
+				ray_normal
 			)
-			* MINIMAP_PIXELS_PER_WORLD_METER
-		)
-		_camera_indicator.set_point_position(
-			index,
-			Vector2(
-				corner_mapped_to_3d_position_on_ground_level.x,
-				corner_mapped_to_3d_position_on_ground_level.z
+		if ground_intersect == null:
+			_camera_indicator.set_point_position(
+				index,
+				default_collisions[index]
 			)
-		)
+		else:
+			var corner_mapped_to_3d_position_on_ground_level = (
+				ground_intersect
+				* MINIMAP_PIXELS_PER_WORLD_METER
+			)
+			_camera_indicator.set_point_position(
+				index,
+				Vector2(
+					corner_mapped_to_3d_position_on_ground_level.x,
+					corner_mapped_to_3d_position_on_ground_level.z
+				)
+			)
 
 
 func _texture_rect_position_to_world_position(position_2d_within_texture_rect):
