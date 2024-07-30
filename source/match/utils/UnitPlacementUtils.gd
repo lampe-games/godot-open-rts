@@ -65,6 +65,7 @@ static func find_valid_position_radially_yet_skip_starting_radius(
 
 static func validate_agent_placement_position(position, radius, existing_units, navigation_map_rid):
 	for existing_unit in existing_units:
+		print(existing_unit.global_position)
 		if (
 			(existing_unit.global_position * Vector3(1, 0, 1)).distance_to(
 				position * Vector3(1, 0, 1)

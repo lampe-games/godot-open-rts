@@ -6,6 +6,11 @@ enum PlayerType {
 	SIMPLE_CLAIRVOYANT_AI = 2,
 }
 
+enum PlayModes {
+	Operator = 0,
+	Pilot = 1,
+}
+
 
 class Match:
 	extends "res://source/match/MatchConstants.gd"

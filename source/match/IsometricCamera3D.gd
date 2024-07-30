@@ -35,7 +35,7 @@ func _ready():
 
 
 func _physics_process(delta):
-	if _movement_vector_2d != Vector2(0, 0):
+	if current and _movement_vector_2d != Vector2(0, 0):
 		var real_delta = delta / Engine.time_scale
 		var scaled_movement_vector_2d = (
 			_movement_vector_2d.normalized()
@@ -57,6 +57,9 @@ func _process(_delta):
 
 
 func _unhandled_input(event):
+	if not current:
+		return
+		
 	if event is InputEventMouseButton:
 		if event.is_pressed() and event.button_index == MOUSE_BUTTON_WHEEL_UP:
 			_zoom_in()

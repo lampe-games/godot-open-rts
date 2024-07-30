@@ -8,7 +8,10 @@ var options = (
 	else Options.new()
 )
 var god_mode = false
+var play_mode = Constants.PlayModes.Pilot
 var cache = {}
+
+var player
 
 
 func _unhandled_input(event):

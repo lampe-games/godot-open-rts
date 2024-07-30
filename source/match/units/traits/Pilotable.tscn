@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://ccwgdcyfg8job"]
+
+[ext_resource type="Script" path="res://source/match/units/traits/Pilotable.gd" id="1_vuhfg"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_6hfjy"]
+height = 6.0
+radius = 1.0
+
+[node name="Pilotable" type="Node3D"]
+script = ExtResource("1_vuhfg")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 6
+input_ray_pickable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("CylinderShape3D_6hfjy")
