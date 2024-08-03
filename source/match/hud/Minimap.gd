@@ -92,15 +92,6 @@ func _update_camera_indicator():
 		Vector2.ZERO
 	]
 	
-	var mapSize = find_child("MinimapViewport").size
-	var default_collisions = [
-		Vector2i(0,0),
-		mapSize * Vector2i(0,1),
-		mapSize,
-		mapSize * Vector2i(1,0),
-		Vector2i(0,0),
-	]
-	
 	for index in range(camera_corners.size()):
 		var ray_origin = camera.project_ray_origin(camera_corners[index])
 		var ray_normal = camera.project_ray_normal(camera_corners[index])
@@ -109,9 +100,10 @@ func _update_camera_indicator():
 				ray_normal
 			)
 		if ground_intersect == null:
+			var maxView = ray_origin+ray_normal*10.0
 			_camera_indicator.set_point_position(
 				index,
-				default_collisions[index]
+				Vector2(maxView.x,maxView.z) * MINIMAP_PIXELS_PER_WORLD_METER
 			)
 		else:
 			var corner_mapped_to_3d_position_on_ground_level = (

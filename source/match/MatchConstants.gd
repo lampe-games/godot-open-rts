@@ -165,6 +165,7 @@ class Units:
 			"attack_damage": 2,
 			"attack_interval": 0.75,
 			"attack_range": 5.0,
+			"attack_aim": 0.6,
 			"attack_domains": [Navigation.Domain.TERRAIN],
 		},
 		"res://source/match/units/CommandCenter.tscn":
@@ -193,6 +194,7 @@ class Units:
 			"attack_damage": 2,
 			"attack_interval": 1.0,
 			"attack_range": 8.0,
+			"attack_aim": 0.6,
 			"attack_domains": [Navigation.Domain.TERRAIN],
 		},
 		"res://source/match/units/AntiAirTurret.tscn":

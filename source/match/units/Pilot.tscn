@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bmrlqm21kb1v7"]
+[gd_scene load_steps=12 format=3 uid="uid://bmrlqm21kb1v7"]
 
 [ext_resource type="Script" path="res://source/match/units/Pilot.gd" id="1_irnbs"]
 [ext_resource type="PackedScene" uid="uid://cgsi062w5fjia" path="res://source/match/units/traits/Highlight.tscn" id="3_hn016"]
@@ -9,7 +9,15 @@
 [ext_resource type="PackedScene" uid="uid://ccwgdcyfg8job" path="res://source/match/units/traits/Pilotable.tscn" id="8_lcav2"]
 [ext_resource type="Script" path="res://source/match/FpsCamera3D.gd" id="9_lj8hp"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_psm1c"]
+albedo_color = Color(0.0460029, 0.283837, 1, 1)
+metallic = 0.8
+metallic_texture_channel = 3
+roughness = 0.22
+subsurf_scatter_strength = 0.77
+
 [sub_resource type="SphereMesh" id="SphereMesh_hcmi7"]
+material = SubResource("StandardMaterial3D_psm1c")
 radius = 0.25
 height = 0.5
 

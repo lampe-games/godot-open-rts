@@ -15,20 +15,22 @@ var _time_since_last_update = 0.0  # s
 
 
 func _physics_process(delta):
-	_throttle_update(delta)
-	if _screen_margin_hit():
-		_interrupt()
+	if Globals.play_mode == Constants.PlayModes.Operator:
+		_throttle_update(delta)
+		if _screen_margin_hit():
+			_interrupt()
 
 
 func _unhandled_input(event):
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		_start()
-	if (
-		event is InputEventMouseButton
-		and event.button_index == MOUSE_BUTTON_LEFT
-		and not event.pressed
-	):
-		_finish()
+	if Globals.play_mode == Constants.PlayModes.Operator:
+		if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			_start()
+		if (
+			event is InputEventMouseButton
+			and event.button_index == MOUSE_BUTTON_LEFT
+			and not event.pressed
+		):
+			_finish()
 
 
 func _selecting():
