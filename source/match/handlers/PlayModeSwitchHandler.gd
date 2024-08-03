@@ -24,12 +24,12 @@ func _toggle_play_mode():
 		if _piloted is Pilot:
 			# enter ship
 			if pilotable != null:
+				_piloted.tree_exited.disconnect(enter_command_center)
 				_piloted.queue_free()
 				pilot_unit(pilotable)
 			# enter commandCenter
 			elif command_center != null:
-				Globals.play_mode = Constants.PlayModes.Operator
-				_match.find_child("IsometricCamera3D").make_current()
+				enter_command_center()
 				_piloted.queue_free()
 		else:
 			# exit ship
@@ -50,4 +50,11 @@ func _toggle_play_mode():
 func pilot_unit(unit):
 	unit.find_child("Camera3D").make_current()
 	unit.find_child("Movement").piloted = true
+	unit.tree_exited.connect(enter_command_center)
 	_piloted = unit
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+func enter_command_center():
+	Globals.play_mode = Constants.PlayModes.Operator
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	_match.find_child("IsometricCamera3D").make_current()

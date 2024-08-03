@@ -24,6 +24,7 @@ func _ready():
 func _show():
 	show()
 	get_tree().paused = true
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 
 func _on_new_unit(unit, _transform, _player):

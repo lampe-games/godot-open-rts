@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://dludph3owje50"]
+
+[ext_resource type="Script" path="res://source/generic-scenes-and-nodes/3d/Impact.gd" id="1_6k33i"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eswkr"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+billboard_mode = 1
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rj1vc"]
+initial_velocity_max = 0.25
+radial_velocity_max = 0.5
+gravity = Vector3(0, 0.5, 0)
+scale_max = 5.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_exo63"]
+size = Vector2(0.05, 0.05)
+
+[node name="Impact" type="Node3D"]
+script = ExtResource("1_6k33i")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_eswkr")
+emitting = false
+amount = 20
+one_shot = true
+explosiveness = 0.43
+process_material = SubResource("ParticleProcessMaterial_rj1vc")
+draw_pass_1 = SubResource("QuadMesh_exo63")
