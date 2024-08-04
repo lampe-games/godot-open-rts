@@ -15,7 +15,7 @@
 size = Vector2(20, 20)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_bco6l"]
-size = Vector3(20, 0.2, 20)
+size = Vector3(20, 1, 20)
 
 [node name="Demo" type="Node3D"]
 script = ExtResource("1_kv1a4")
@@ -52,10 +52,11 @@ script = ExtResource("3_hsuq8")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("PlaneMesh_38qwv")
 
-[node name="Area3D" type="Area3D" parent="MeshInstance3D"]
-collision_mask = 0
+[node name="Area3D" type="StaticBody3D" parent="MeshInstance3D"]
+collision_layer = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 shape = SubResource("BoxShape3D_bco6l")
 
 [node name="RockLargeA" parent="." instance=ExtResource("8_v2tc0")]

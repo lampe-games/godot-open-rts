@@ -3,11 +3,10 @@
 [ext_resource type="Script" path="res://source/match/handlers/ProjectileSystemHandler.gd" id="1_5vvgf"]
 [ext_resource type="Shader" path="res://source/match/handlers/ProjectileSystemHandler.gdshader" id="1_vgnij"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_aax4g"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qvnbb"]
 shader = ExtResource("1_vgnij")
 shader_parameter/projectile_pos = null
-shader_parameter/projectile_previous_pos = null
-shader_parameter/_projectile_active = null
+shader_parameter/projectile_active_mask = null
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qhfrs"]
 albedo_color = Color(0.527375, 0.184565, 0.708997, 1)
@@ -27,5 +26,5 @@ script = ExtResource("1_5vvgf")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 amount = 1000
-process_material = SubResource("ShaderMaterial_aax4g")
+process_material = SubResource("ShaderMaterial_qvnbb")
 draw_pass_1 = SubResource("SphereMesh_0sc1c")

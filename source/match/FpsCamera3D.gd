@@ -50,7 +50,7 @@ func _fire_ray():
 		#unit cannot attack
 		return
 		
-	var new_projectile = _PSH.Projectile.new_with_pos(global_position, -global_transform.basis.z)
+	var new_projectile = _PSH.Projectile.new_with_pos(global_position, -global_transform.basis.z, 1000)
 	new_projectile.speed = _unit.projectile_speed
 	_PSH._register_Projectile(new_projectile)
 		
