@@ -1,0 +1,62 @@
+[gd_scene load_steps=12 format=3 uid="uid://tsh8b5qioguw"]
+
+[ext_resource type="PackedScene" uid="uid://c2n4fxmgkv0vn" path="res://source/match/handlers/ProjectileSystemHandler.tscn" id="1_dkpid"]
+[ext_resource type="Script" path="res://demo.gd" id="1_kv1a4"]
+[ext_resource type="Script" path="res://DemoMatch.gd" id="2_ivema"]
+[ext_resource type="Script" path="res://source/match/FpsCamera3D.gd" id="3_hsuq8"]
+[ext_resource type="PackedScene" uid="uid://ccwgdcyfg8job" path="res://source/match/units/traits/Pilotable.tscn" id="4_f06un"]
+[ext_resource type="Script" path="res://DemoUnit.gd" id="5_4k75h"]
+[ext_resource type="PackedScene" uid="uid://cq6ebbwygfl6" path="res://source/match/handlers/PlayModeSwitchHandler.tscn" id="5_72f01"]
+[ext_resource type="PackedScene" uid="uid://btor1402wkw8k" path="res://source/match/decorations/RockLargeA.tscn" id="8_v2tc0"]
+
+[sub_resource type="Environment" id="Environment_g6rmh"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_38qwv"]
+size = Vector2(20, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bco6l"]
+size = Vector3(20, 0.2, 20)
+
+[node name="Demo" type="Node3D"]
+script = ExtResource("1_kv1a4")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_g6rmh")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.512043, 0.673161, -0.533541, 0, 0.621148, 0.783694, 0.85896, -0.401285, 0.318054, 0, 38.7614, 0)
+shadow_enabled = true
+shadow_blur = 0.05
+directional_shadow_split_1 = 0.45
+directional_shadow_split_2 = 0.5
+directional_shadow_split_3 = 0.55
+directional_shadow_blend_splits = true
+directional_shadow_pancake_size = 100.0
+
+[node name="Match" type="Node3D" parent="."]
+script = ExtResource("2_ivema")
+
+[node name="ProjectileSystemHandler" parent="Match" instance=ExtResource("1_dkpid")]
+
+[node name="PlayModeSwitchHandler" parent="Match" instance=ExtResource("5_72f01")]
+
+[node name="Unit" type="Node3D" parent="Match"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1878, 3.69312, 7.02734)
+script = ExtResource("5_4k75h")
+
+[node name="Pilotable" parent="Match/Unit" instance=ExtResource("4_f06un")]
+
+[node name="Camera3D" type="Camera3D" parent="Match/Unit"]
+script = ExtResource("3_hsuq8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_38qwv")
+
+[node name="Area3D" type="Area3D" parent="MeshInstance3D"]
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/Area3D"]
+shape = SubResource("BoxShape3D_bco6l")
+
+[node name="RockLargeA" parent="." instance=ExtResource("8_v2tc0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5576, 0, 0)

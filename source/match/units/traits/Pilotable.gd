@@ -4,7 +4,6 @@ const Pilot = preload("res://source/match/units/Pilot.gd")
 const CommandCenter = preload("res://source/match/units/CommandCenter.gd")
 
 @onready var _unit = get_parent()
-@onready var _movement = _unit.find_child("Movement")
 @onready var _area = find_child("Area3D")
 @onready var _UI = find_parent("Match").find_child("PlayMode")
 @onready var _SH = find_parent("Match").find_child("PlayModeSwitchHandler")

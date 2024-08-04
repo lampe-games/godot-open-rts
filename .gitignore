@@ -4,4 +4,3 @@ tmp/
 *.translation
 misc/
 build/
-*.import

@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://ccwgdcyfg8job" path="res://source/match/units/traits/Pilotable.tscn" id="8_lcav2"]
 [ext_resource type="Script" path="res://source/match/FpsCamera3D.gd" id="9_lj8hp"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_psm1c"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rfsjf"]
 albedo_color = Color(0.0460029, 0.283837, 1, 1)
 metallic = 0.8
 metallic_texture_channel = 3
@@ -17,7 +17,7 @@ roughness = 0.22
 subsurf_scatter_strength = 0.77
 
 [sub_resource type="SphereMesh" id="SphereMesh_hcmi7"]
-material = SubResource("StandardMaterial3D_psm1c")
+material = SubResource("StandardMaterial3D_rfsjf")
 radius = 0.25
 height = 0.5
 
