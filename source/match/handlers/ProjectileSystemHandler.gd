@@ -1,6 +1,7 @@
 extends Node3D
 
-@export var projectiles_num = 1000
+@export var projectiles_num:int = 1000
+@export var update_interval:float = 0.5
 
 const Terrain = preload("res://source/match/Terrain.gd")
 const Unit = preload("res://source/match/units/Unit.gd")
@@ -27,12 +28,16 @@ class Projectile:
 
 var _projectile_queue:PackedInt32Array = PackedInt32Array()
 var _projectile_active:PackedInt32Array = PackedInt32Array()
-var _projectile_active_mask = PackedInt32Array()
-var _projectile_speed:PackedInt32Array = PackedInt32Array()
+var _projectile_active_mask:PackedInt32Array = PackedInt32Array()
+var _projectile_speed:PackedFloat32Array = PackedFloat32Array()
 var _projectile_damage:PackedInt32Array = PackedInt32Array()
 var _projectile_pos:PackedVector3Array = PackedVector3Array()
 var _projectile_normals:PackedVector3Array = PackedVector3Array()
 var _projectile_eol:PackedInt64Array = PackedInt64Array()
+var _projectile_synced:PackedFloat32Array = PackedFloat32Array()
+
+var _now
+var _last_update
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -45,10 +50,16 @@ func _ready():
 	_projectile_damage.resize(projectiles_num)
 	_projectile_eol.resize(projectiles_num)
 	_projectile_active_mask.resize(projectiles_num)
+	_projectile_synced.resize(projectiles_num)
+	_last_update =  Time.get_ticks_msec()
+	Particles.process_material.set_shader_parameter("update_interval", update_interval)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
+	_now = Time.get_ticks_msec()
+	if _last_update + update_interval * 1000 >= _now:
+		return
 	_cleanup_old_projectiles()
 	_work_active_projectiles(delta)
 	_update_shader(delta)
@@ -69,6 +80,7 @@ func _register_Projectile(projectile):
 	_projectile_speed[idx] = projectile.speed
 	_projectile_damage[idx] = projectile.damage
 	_projectile_eol[idx] = projectile._eol
+	_projectile_synced[idx] = _now
 
 func _unregister_Projectile(projectileIdx):
 	var activeIdx = _projectile_active.find(projectileIdx)
@@ -83,6 +95,7 @@ func _work_active_projectiles(delta):
 		var collition = _check_collision(idx, delta)
 		if not collition:
 			_projectile_pos[idx] += _projectile_normals[idx] * _projectile_speed[idx] * delta
+			_projectile_synced[idx] = _now
 		else:
 			unregister_marked.append(idx)
 			_handle_collision(collition, idx)
@@ -94,8 +107,7 @@ func _cleanup_old_projectiles():
 	if not _projectile_active.size():
 		return
 	var idx = _projectile_active[0]
-	var now = Time.get_ticks_msec()
-	while _projectile_eol[idx] <= now:
+	while _projectile_eol[idx] <= _now:
 		_unregister_Projectile(idx)
 		if _projectile_active.size():
 			idx = _projectile_active[0]
@@ -106,7 +118,7 @@ func _check_collision(idx, delta):
 	var origin = _projectile_pos[idx]
 	var normal = _projectile_normals[idx]
 	
-	var step_range = _projectile_speed[idx] * delta # *1.0001
+	var step_range = _projectile_speed[idx] * update_interval * delta + 0.1
 		
 	var space_state = get_world_3d().direct_space_state
 	var query = PhysicsRayQueryParameters3D.create(origin,
@@ -131,4 +143,7 @@ func _miss(pos):
 
 func _update_shader(delta):
 	Particles.process_material.set_shader_parameter("projectile_pos", _projectile_pos)
+	Particles.process_material.set_shader_parameter("projectile_normals", _projectile_normals)
 	Particles.process_material.set_shader_parameter("projectile_active_mask", _projectile_active_mask)
+	Particles.process_material.set_shader_parameter("projectile_synced", _projectile_synced)
+	Particles.process_material.set_shader_parameter("projectile_speed", _projectile_speed)
