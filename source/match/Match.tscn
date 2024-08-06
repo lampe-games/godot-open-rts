@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://camns8fqod8d4"]
+[gd_scene load_steps=46 format=3 uid="uid://camns8fqod8d4"]
 
 [ext_resource type="Script" path="res://source/match/Match.gd" id="1_1555u"]
 [ext_resource type="Script" path="res://source/match/IsometricCamera3D.gd" id="1_qb2ry"]
@@ -29,6 +29,7 @@
 [ext_resource type="PackedScene" uid="uid://yn470qvc3eak" path="res://source/match/handlers/MatchEndHandler.tscn" id="26_4d7im"]
 [ext_resource type="PackedScene" uid="uid://ck6vrgdyg7hja" path="res://source/match/handlers/UnitGroupSelectionHandler.tscn" id="27_j2drv"]
 [ext_resource type="PackedScene" uid="uid://cq6ebbwygfl6" path="res://source/match/handlers/PlayModeSwitchHandler.tscn" id="30_aft50"]
+[ext_resource type="PackedScene" uid="uid://c2n4fxmgkv0vn" path="res://source/match/handlers/ProjectileSystemHandler.tscn" id="31_fbp3e"]
 [ext_resource type="PackedScene" uid="uid://b8p6lcwubx1tp" path="res://source/match/handlers/UnitVisibilityHandler.tscn" id="32_fci1c"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ysb0j"]
@@ -452,3 +453,5 @@ visible = false
 [node name="UnitVisibilityHandler" parent="Handlers" instance=ExtResource("32_fci1c")]
 
 [node name="PlayModeSwitchHandler" parent="Handlers" instance=ExtResource("30_aft50")]
+
+[node name="ProjectileSystemHandler" parent="Handlers" instance=ExtResource("31_fbp3e")]

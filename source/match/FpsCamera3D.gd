@@ -17,7 +17,7 @@ var _fire_free = false
 func _physics_process(delta):
 	if _fire_free:
 		_fire_ray()
-		#_fire_free = false
+		_fire_free = false
 
 func _unhandled_input(event):
 	if not current:
@@ -34,9 +34,9 @@ func _unhandled_input(event):
 	elif ( event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT 
 	and event.pressed and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED):
 		_fire_free = true
-	elif ( event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT 
-	and not event.pressed and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED):
-		_fire_free = false
+	#elif ( event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT 
+	#and not event.pressed and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED):
+	#	_fire_free = false
 
 func get_ray_intersection(mouse_pos):
 	return get_ray_intersection_with_plane(mouse_pos, reference_plane_for_rotation)
@@ -50,8 +50,9 @@ func _fire_ray():
 		#unit cannot attack
 		return
 		
-	var new_projectile = _PSH.Projectile.new_with_pos(global_position, -global_transform.basis.z, 1000)
+	var new_projectile = _PSH.Projectile.new_with_pos(global_position, -global_transform.basis.z, 3000)
 	new_projectile.speed = _unit.projectile_speed
+	new_projectile.damage = _unit.attack_damage
 	_PSH._register_Projectile(new_projectile)
 		
 	#var space_state = get_world_3d().direct_space_state

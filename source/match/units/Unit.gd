@@ -14,6 +14,7 @@ var hp = null:
 var hp_max = null:
 	set = _set_hp_max
 var attack_damage = null
+var projectile_speed = null
 var attack_interval = null
 var attack_range = null
 var attack_aim = null

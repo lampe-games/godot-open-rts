@@ -1,16 +1,18 @@
 extends Node3D
 
-@export var projectiles_num = 100
+@export var projectiles_num = 1000
 
 const Terrain = preload("res://source/match/Terrain.gd")
 const Unit = preload("res://source/match/units/Unit.gd")
+
+const Impact = preload("res://source/generic-scenes-and-nodes/3d/Impact.tscn")
 
 @onready var Particles = $GPUParticles3D
 
 class Projectile:
 	var pos :Vector3
 	var normal :Vector3
-	var damage :Unit
+	var damage :int
 	var speed :float
 	var _eol :int
 	
@@ -25,8 +27,9 @@ class Projectile:
 
 var _projectile_queue:PackedInt32Array = PackedInt32Array()
 var _projectile_active:PackedInt32Array = PackedInt32Array()
-#var _projectile_active_mask = PackedInt32Array()
+var _projectile_active_mask = PackedInt32Array()
 var _projectile_speed:PackedInt32Array = PackedInt32Array()
+var _projectile_damage:PackedInt32Array = PackedInt32Array()
 var _projectile_pos:PackedVector3Array = PackedVector3Array()
 var _projectile_normals:PackedVector3Array = PackedVector3Array()
 var _projectile_eol:PackedInt64Array = PackedInt64Array()
@@ -39,8 +42,9 @@ func _ready():
 		_projectile_queue[i]=i
 	_projectile_pos.resize(projectiles_num)
 	_projectile_speed.resize(projectiles_num)
+	_projectile_damage.resize(projectiles_num)
 	_projectile_eol.resize(projectiles_num)
-	#_projectile_active_mask.resize(projectiles_num)
+	_projectile_active_mask.resize(projectiles_num)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -58,16 +62,18 @@ func _register_Projectile(projectile):
 	var idx = _projectile_queue[0]
 	_projectile_queue.remove_at(0)
 	_projectile_active.append(idx)
-	#_projectile_active_mask[idx] = 1
+	_projectile_active_mask[idx] = 1
 	
 	_projectile_pos[idx] = projectile.pos
 	_projectile_normals[idx] = projectile.normal
 	_projectile_speed[idx] = projectile.speed
+	_projectile_damage[idx] = projectile.damage
 	_projectile_eol[idx] = projectile._eol
 
 func _unregister_Projectile(projectileIdx):
-	_projectile_active.remove_at(_projectile_active.find(projectileIdx))
-	#_projectile_active_mask[projectileIdx] = 0
+	var activeIdx = _projectile_active.find(projectileIdx)
+	_projectile_active.remove_at(activeIdx)
+	_projectile_active_mask[projectileIdx] = 0
 	_projectile_queue.append(projectileIdx)
 
 func _work_active_projectiles(delta):
@@ -79,17 +85,22 @@ func _work_active_projectiles(delta):
 			_projectile_pos[idx] += _projectile_normals[idx] * _projectile_speed[idx] * delta
 		else:
 			unregister_marked.append(idx)
+			_handle_collision(collition, idx)
 	
 	for idx in unregister_marked:
 		_unregister_Projectile(idx)
 
 func _cleanup_old_projectiles():
-	if _projectile_active.size()<=1:
+	if not _projectile_active.size():
 		return
 	var idx = _projectile_active[0]
-	while _projectile_eol[idx] <= Time.get_ticks_msec():
+	var now = Time.get_ticks_msec()
+	while _projectile_eol[idx] <= now:
 		_unregister_Projectile(idx)
-		idx = _projectile_active[0]
+		if _projectile_active.size():
+			idx = _projectile_active[0]
+		else:
+			break
 
 func _check_collision(idx, delta):
 	var origin = _projectile_pos[idx]
@@ -100,9 +111,24 @@ func _check_collision(idx, delta):
 	var space_state = get_world_3d().direct_space_state
 	var query = PhysicsRayQueryParameters3D.create(origin,
 				origin + normal * step_range)
+	query.collide_with_areas = true
 	var collision = space_state.intersect_ray(query)
 	return collision
 
+func _handle_collision(collision, idx):
+	if collision.collider is Terrain:
+		_miss(collision.position)
+		return
+	
+	var _target_unit = collision.collider
+	if _target_unit and _target_unit is Unit and _target_unit.player != Globals.player:
+		_target_unit.hp -= _projectile_damage[idx]
+
+func _miss(pos):
+	var impact = Impact.instantiate()
+	get_tree().get_root().add_child(impact)
+	impact.global_position = pos
+
 func _update_shader(delta):
 	Particles.process_material.set_shader_parameter("projectile_pos", _projectile_pos)
-	#Particles.process_material.set_shader_parameter("projectile_active_mask", _projectile_active_mask)
+	Particles.process_material.set_shader_parameter("projectile_active_mask", _projectile_active_mask)

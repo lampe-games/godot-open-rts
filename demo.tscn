@@ -1,15 +1,42 @@
-[gd_scene load_steps=12 format=3 uid="uid://tsh8b5qioguw"]
+[gd_scene load_steps=20 format=3 uid="uid://tsh8b5qioguw"]
 
 [ext_resource type="PackedScene" uid="uid://c2n4fxmgkv0vn" path="res://source/match/handlers/ProjectileSystemHandler.tscn" id="1_dkpid"]
 [ext_resource type="Script" path="res://demo.gd" id="1_kv1a4"]
 [ext_resource type="Script" path="res://DemoMatch.gd" id="2_ivema"]
 [ext_resource type="Script" path="res://source/match/FpsCamera3D.gd" id="3_hsuq8"]
+[ext_resource type="Script" path="res://source/match/Navigation.gd" id="3_m5q3o"]
 [ext_resource type="PackedScene" uid="uid://ccwgdcyfg8job" path="res://source/match/units/traits/Pilotable.tscn" id="4_f06un"]
+[ext_resource type="Script" path="res://source/match/AirNavigation.gd" id="4_w3feg"]
 [ext_resource type="Script" path="res://DemoUnit.gd" id="5_4k75h"]
 [ext_resource type="PackedScene" uid="uid://cq6ebbwygfl6" path="res://source/match/handlers/PlayModeSwitchHandler.tscn" id="5_72f01"]
+[ext_resource type="Script" path="res://source/match/TerrainNavigation.gd" id="5_ocefc"]
+[ext_resource type="PackedScene" uid="uid://bj8c6tdt6o1yt" path="res://source/match/players/Player.tscn" id="8_go0lg"]
 [ext_resource type="PackedScene" uid="uid://btor1402wkw8k" path="res://source/match/decorations/RockLargeA.tscn" id="8_v2tc0"]
+[ext_resource type="PackedScene" uid="uid://i58ffvwxbbwm" path="res://source/match/units/Tank.tscn" id="11_r78re"]
+[ext_resource type="PackedScene" uid="uid://b7c1crf36x1li" path="res://source/match/Map.tscn" id="12_hatve"]
 
 [sub_resource type="Environment" id="Environment_g6rmh"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_pi1qa"]
+geometry_source_geometry_mode = 2
+geometry_source_group_name = &"air_navigation_input"
+cell_size = 0.4
+cell_height = 0.4
+agent_height = 2.0
+agent_radius = 0.8
+agent_max_climb = 0.0
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_5tadr"]
+geometry_parsed_geometry_type = 2
+geometry_collision_mask = 4278190082
+geometry_source_geometry_mode = 2
+geometry_source_group_name = &"terrain_navigation_input"
+cell_size = 0.3
+cell_height = 0.3
+agent_height = 1.8
+agent_radius = 0.9
+agent_max_climb = 0.0
+edge_max_error = 1.0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_38qwv"]
 size = Vector2(20, 20)
@@ -36,26 +63,59 @@ directional_shadow_pancake_size = 100.0
 [node name="Match" type="Node3D" parent="."]
 script = ExtResource("2_ivema")
 
-[node name="ProjectileSystemHandler" parent="Match" instance=ExtResource("1_dkpid")]
+[node name="Navigation" type="Node3D" parent="Match"]
+script = ExtResource("3_m5q3o")
 
-[node name="PlayModeSwitchHandler" parent="Match" instance=ExtResource("5_72f01")]
+[node name="Air" type="Node3D" parent="Match/Navigation"]
+script = ExtResource("4_w3feg")
 
-[node name="Unit" type="Node3D" parent="Match"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1878, 3.69312, 7.02734)
+[node name="ReferenceMesh" type="MeshInstance3D" parent="Match/Navigation/Air" groups=["air_navigation_input"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+visible = false
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="Match/Navigation/Air"]
+navigation_mesh = SubResource("NavigationMesh_pi1qa")
+
+[node name="Terrain" type="Node3D" parent="Match/Navigation"]
+script = ExtResource("5_ocefc")
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="Match/Navigation/Terrain"]
+navigation_mesh = SubResource("NavigationMesh_5tadr")
+
+[node name="Handlers" type="Node3D" parent="Match"]
+
+[node name="PlayModeSwitchHandler" parent="Match/Handlers" instance=ExtResource("5_72f01")]
+
+[node name="ProjectileSystemHandler" parent="Match/Handlers" instance=ExtResource("1_dkpid")]
+
+[node name="Units" type="Node3D" parent="Match"]
+
+[node name="Player" parent="Match/Units" instance=ExtResource("8_go0lg")]
+
+[node name="Unit" type="Node3D" parent="Match/Units/Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.718098, 2.80378, 2.95477)
 script = ExtResource("5_4k75h")
 
-[node name="Pilotable" parent="Match/Unit" instance=ExtResource("4_f06un")]
+[node name="Pilotable" parent="Match/Units/Player/Unit" instance=ExtResource("4_f06un")]
 
-[node name="Camera3D" type="Camera3D" parent="Match/Unit"]
+[node name="Camera3D" type="Camera3D" parent="Match/Units/Player/Unit"]
+current = true
 script = ExtResource("3_hsuq8")
+
+[node name="Tank" parent="Match/Units/Player" instance=ExtResource("11_r78re")]
+transform = Transform3D(0.496686, 0, 0.86793, 0, 1, 0, -0.86793, 0, 0.496686, 2.42704, 0.111101, -0.0127888)
+
+[node name="Map" parent="Match" instance=ExtResource("12_hatve")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 20, 0)
+visible = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("PlaneMesh_38qwv")
 
-[node name="Area3D" type="StaticBody3D" parent="MeshInstance3D"]
+[node name="TerrainShape" type="StaticBody3D" parent="MeshInstance3D"]
 collision_layer = 3
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/Area3D"]
+[node name="ActualShape" type="CollisionShape3D" parent="MeshInstance3D/TerrainShape"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 shape = SubResource("BoxShape3D_bco6l")
 
