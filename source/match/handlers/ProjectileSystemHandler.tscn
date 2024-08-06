@@ -26,7 +26,7 @@ script = ExtResource("1_5vvgf")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 amount = 1000
-explosiveness = 1.0
+lifetime = 0.01
 visibility_aabb = AABB(-400, -4, -400, 800, 8, 800)
 process_material = SubResource("ShaderMaterial_qvnbb")
 draw_pass_1 = SubResource("SphereMesh_0sc1c")

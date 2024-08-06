@@ -9,10 +9,10 @@ void start() {
 
 void process() {
 	// if instance is not active
-	//if ( projectile_active_mask[INDEX] == 0 ) {
-		//ACTIVE = false;
-	//} else {
-		//ACTIVE = true;
-	TRANSFORM[3].xyz = projectile_pos[INDEX];
-	//}
+	if ( projectile_active_mask[INDEX] == 0 ) {
+		ACTIVE = false;
+	} else {
+		ACTIVE = true;
+		TRANSFORM[3].xyz = projectile_pos[INDEX];
+	}
 }

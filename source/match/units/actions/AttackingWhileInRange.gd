@@ -83,8 +83,9 @@ func _hit_target():
 	#projectile.target_unit = _target_unit
 	#_unit.add_child(projectile)
 	var projectile_origin = _unit.find_child("ProjectileOrigin")
-	var dir = (_target_unit.global_position - projectile_origin.global_position).normalized()
-	var new_projectile = _PSH.Projectile.new_with_pos(projectile_origin.global_position, dir, 3000)
+	var dir = ( (_target_unit.global_position + Vector3.UP*0.25) - projectile_origin.global_position ).normalized()
+	var lifetime = float(_unit.attack_range) / float(_unit.projectile_speed)
+	var new_projectile = _PSH.Projectile.new_with_pos(projectile_origin.global_position, dir, lifetime*1000)
 	new_projectile.speed = _unit.projectile_speed
 	new_projectile.damage = _unit.attack_damage
 	_PSH._register_Projectile(new_projectile)

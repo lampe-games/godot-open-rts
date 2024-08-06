@@ -49,12 +49,13 @@ func _fire_ray():
 	if not attack_range:
 		#unit cannot attack
 		return
-		
-	var new_projectile = _PSH.Projectile.new_with_pos(global_position, -global_transform.basis.z, 3000)
+	
+	var lifetime = float(_unit.attack_range) / float(_unit.projectile_speed)
+	var new_projectile = _PSH.Projectile.new_with_pos(global_position, -global_transform.basis.z, lifetime*1000)
 	new_projectile.speed = _unit.projectile_speed
 	new_projectile.damage = _unit.attack_damage
 	_PSH._register_Projectile(new_projectile)
-		
+	
 	#var space_state = get_world_3d().direct_space_state
 	#var query = PhysicsRayQueryParameters3D.create(global_position,
 	#			global_position - global_transform.basis.z * attack_range)
