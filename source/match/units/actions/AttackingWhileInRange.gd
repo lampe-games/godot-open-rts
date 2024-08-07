@@ -8,6 +8,7 @@ var _range_check_timer = null
 
 @onready var _unit = Utils.NodeEx.find_parent_with_group(self, "units")
 @onready var _unit_movement_trait = _unit.find_child("Movement")
+@onready var _PSH = _unit.find_parent("Match").find_child("ProjectileSystemHandler")
 
 
 func _init(target_unit):
@@ -71,16 +72,24 @@ func _hit_target():
 	_unit.set_meta(
 		"next_attack_availability_time", Time.get_ticks_msec() + int(_unit.attack_interval * 1000.0)
 	)
-	var projectile = (
-		load(
-			Constants.Match.Units.PROJECTILES[_unit.get_script().resource_path.replace(
-				".gd", ".tscn"
-			)]
-		)
-		. instantiate()
-	)
-	projectile.target_unit = _target_unit
-	_unit.add_child(projectile)
+	#var projectile = (
+	#	load(
+	#		Constants.Match.Units.PROJECTILES[_unit.get_script().resource_path.replace(
+	#			".gd", ".tscn"
+	#		)]
+	#	)
+	#	. instantiate()
+	#)
+	#projectile.target_unit = _target_unit
+	#_unit.add_child(projectile)
+	var projectile_origin = _unit.find_child("ProjectileOrigin")
+	var dir = ( (_target_unit.global_position + Vector3.UP*0.25) - projectile_origin.global_position ).normalized()
+	var lifetime = float(_unit.attack_range) / float(_unit.projectile_speed) + 0.1
+	var new_projectile = _PSH.Projectile.new_with_pos(projectile_origin.global_position, dir, lifetime*1000)
+	new_projectile.speed = _unit.projectile_speed
+	new_projectile.damage = _unit.attack_damage
+	_PSH._register_Projectile(new_projectile)
+	
 	_schedule_hit()
 
 

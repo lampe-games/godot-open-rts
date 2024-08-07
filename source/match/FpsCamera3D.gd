@@ -9,6 +9,8 @@ const Impact = preload("res://source/generic-scenes-and-nodes/3d/Impact.tscn")
 @export var reference_plane_for_rotation = Plane(Vector3.UP, 0.0)
 
 @onready var _unit = get_parent()
+@onready var _match = find_parent("Match")
+@onready var _PSH = _match.find_child("ProjectileSystemHandler")
 
 var _fire_free = false
 
@@ -32,6 +34,9 @@ func _unhandled_input(event):
 	elif ( event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT 
 	and event.pressed and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED):
 		_fire_free = true
+	#elif ( event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT 
+	#and not event.pressed and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED):
+	#	_fire_free = false
 
 func get_ray_intersection(mouse_pos):
 	return get_ray_intersection_with_plane(mouse_pos, reference_plane_for_rotation)
@@ -44,22 +49,28 @@ func _fire_ray():
 	if not attack_range:
 		#unit cannot attack
 		return
-		
-	var space_state = get_world_3d().direct_space_state
-	var query = PhysicsRayQueryParameters3D.create(global_position,
-				global_position - global_transform.basis.z * attack_range)
-	var collision = space_state.intersect_ray(query)
-	if not collision:
-		return
-		
-	print(collision)
-	if collision["collider"] is Terrain:
-		_miss(collision["position"])
-		return
 	
-	var _target_unit = collision["collider"].get_parent()
-	if _target_unit and _target_unit is Unit and _target_unit.player != Globals.player:
-		_fire(_target_unit)
+	var lifetime = float(_unit.attack_range) / float(_unit.projectile_speed)
+	var new_projectile = _PSH.Projectile.new_with_pos(global_position, -global_transform.basis.z, lifetime*1000)
+	new_projectile.speed = _unit.projectile_speed
+	new_projectile.damage = _unit.attack_damage
+	_PSH._register_Projectile(new_projectile)
+	
+	#var space_state = get_world_3d().direct_space_state
+	#var query = PhysicsRayQueryParameters3D.create(global_position,
+	#			global_position - global_transform.basis.z * attack_range)
+	#var collision = space_state.intersect_ray(query)
+	#if not collision:
+	#	return
+	#	
+	#print(collision)
+	#if collision["collider"] is Terrain:
+	#	_miss(collision["position"])
+	#	return
+	#
+	#var _target_unit = collision["collider"].get_parent()
+	#if _target_unit and _target_unit is Unit and _target_unit.player != Globals.player:
+	#	_fire(_target_unit)
 
 func _fire(_target_unit):
 	var now = Time.get_ticks_msec()
