@@ -2,11 +2,11 @@
 
 [ext_resource type="PackedScene" uid="uid://b7c1crf36x1li" path="res://source/match/Map.tscn" id="1_tv8fs"]
 [ext_resource type="Material" uid="uid://co8vfcoqqs5i8" path="res://source/match/resources/materials/terrain.material.tres" id="2_574aj"]
-[ext_resource type="Terrain3DStorage" uid="uid://lalq1xnmbjdl" path="res://assets/maps/demo/terrain_storage.res" id="3_bkbrs"]
+[ext_resource type="Terrain3DStorage" uid="uid://lalq1xnmbjdl" path="res://assets/terrain_storage.res" id="3_bkbrs"]
 [ext_resource type="PackedScene" uid="uid://bf3jjdafqvh0w" path="res://source/match/units/non-player/ResourceA.tscn" id="3_uixp0"]
 [ext_resource type="Terrain3DMaterial" uid="uid://1qf0ffebhg2v" path="res://assets/maps/demo/material.tres" id="4_1jknq"]
 [ext_resource type="PackedScene" uid="uid://bufgjfa3ne3uk" path="res://source/match/units/non-player/ResourceB.tscn" id="4_lrggj"]
-[ext_resource type="Terrain3DAssets" uid="uid://dal3jhw6241qg" path="res://assets/maps/demo/assets.tres" id="5_33x37"]
+[ext_resource type="Terrain3DAssets" uid="uid://dal3jhw6241qg" path="res://assets/assets.tres" id="5_33x37"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_frqq2"]
 resource_local_to_scene = true
@@ -28,6 +28,7 @@ storage = ExtResource("3_bkbrs")
 material = ExtResource("4_1jknq")
 assets = ExtResource("5_33x37")
 mesh_size = 64
+mesh_vertex_spacing = 0.25
 
 [node name="Marker3D" type="Marker3D" parent="SpawnPoints" index="0"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 303.457, 105.867, 345.606)

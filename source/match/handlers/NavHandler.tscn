@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b373fjcto1l4h"]
+
+[ext_resource type="Script" path="res://source/match/handlers/NavHandler.gd" id="1_6yf1x"]
+
+[node name="NavHandler" type="Node3D"]
+script = ExtResource("1_6yf1x")
