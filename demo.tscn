@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://tsh8b5qioguw"]
+[gd_scene load_steps=16 format=3 uid="uid://tsh8b5qioguw"]
 
 [ext_resource type="PackedScene" uid="uid://c2n4fxmgkv0vn" path="res://source/match/handlers/ProjectileSystemHandler.tscn" id="1_dkpid"]
 [ext_resource type="Script" path="res://demo.gd" id="1_kv1a4"]
@@ -11,9 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://cq6ebbwygfl6" path="res://source/match/handlers/PlayModeSwitchHandler.tscn" id="5_72f01"]
 [ext_resource type="Script" path="res://source/match/TerrainNavigation.gd" id="5_ocefc"]
 [ext_resource type="PackedScene" uid="uid://bj8c6tdt6o1yt" path="res://source/match/players/Player.tscn" id="8_go0lg"]
-[ext_resource type="PackedScene" uid="uid://btor1402wkw8k" path="res://source/match/decorations/RockLargeA.tscn" id="8_v2tc0"]
-[ext_resource type="PackedScene" uid="uid://i58ffvwxbbwm" path="res://source/match/units/Tank.tscn" id="11_r78re"]
-[ext_resource type="PackedScene" uid="uid://b7c1crf36x1li" path="res://source/match/Map.tscn" id="12_hatve"]
+[ext_resource type="PackedScene" uid="uid://dmlef1nchuam4" path="res://source/match/maps/3Dmap/3Dmap.tscn" id="12_kfcua"]
 
 [sub_resource type="Environment" id="Environment_g6rmh"]
 
@@ -37,12 +35,6 @@ agent_height = 1.8
 agent_radius = 0.9
 agent_max_climb = 0.0
 edge_max_error = 1.0
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_38qwv"]
-size = Vector2(20, 20)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_bco6l"]
-size = Vector3(20, 1, 20)
 
 [node name="Demo" type="Node3D"]
 script = ExtResource("1_kv1a4")
@@ -93,7 +85,7 @@ navigation_mesh = SubResource("NavigationMesh_5tadr")
 [node name="Player" parent="Match/Units" instance=ExtResource("8_go0lg")]
 
 [node name="Unit" type="Node3D" parent="Match/Units/Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.718098, 2.80378, 2.95477)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.718098, 5.36827, 2.95477)
 script = ExtResource("5_4k75h")
 
 [node name="Pilotable" parent="Match/Units/Player/Unit" instance=ExtResource("4_f06un")]
@@ -102,22 +94,4 @@ script = ExtResource("5_4k75h")
 current = true
 script = ExtResource("3_hsuq8")
 
-[node name="Tank" parent="Match/Units/Player" instance=ExtResource("11_r78re")]
-transform = Transform3D(0.496686, 0, 0.86793, 0, 1, 0, -0.86793, 0, 0.496686, 2.42704, 0.111101, -0.0127888)
-
-[node name="Map" parent="Match" instance=ExtResource("12_hatve")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 20, 0)
-visible = false
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("PlaneMesh_38qwv")
-
-[node name="TerrainShape" type="StaticBody3D" parent="MeshInstance3D"]
-collision_layer = 3
-
-[node name="ActualShape" type="CollisionShape3D" parent="MeshInstance3D/TerrainShape"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-shape = SubResource("BoxShape3D_bco6l")
-
-[node name="RockLargeA" parent="." instance=ExtResource("8_v2tc0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5576, 0, 0)
+[node name="Map" parent="Match" instance=ExtResource("12_kfcua")]

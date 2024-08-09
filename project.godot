@@ -44,6 +44,10 @@ window/size/viewport_height=1080
 
 project/assembly_name="Open RTS"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/terrain_3d/plugin.cfg")
+
 [gui]
 
 timers/tooltip_delay_sec=0.0
