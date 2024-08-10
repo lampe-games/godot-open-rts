@@ -34,11 +34,14 @@ func _spawn_marker(pos):
 	dm.global_position = pos
 
 func find_path(src, dst, costFunc):
-	_hmnavmesh.find_path(costFunc, src, dst)
+	var result = _hmnavmesh.find_path(costFunc, src, dst)
+	return result
 
 func find_path_with_max_climb_angle(costFunc,
 		src, dst, angle):
-	_hmnavmesh.find_path_with_max_climb_angle(costFunc, src, dst, angle)
+	var result = _hmnavmesh.find_path_with_max_climb_angle(
+		costFunc, src, dst, angle)
+	return result
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

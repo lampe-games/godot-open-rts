@@ -16,8 +16,7 @@ func _physics_process(delta):
 	_calculate_velocity(delta)
 
 func _calculate_velocity(delta):
-	#var path = _NavHandler.find_path(_Unit.global_position, target, null)
-	var path = []
+	var path = _NavHandler.find_path(_Unit.global_position, target, null)
 	var dir
 	if not path:
 		dir = Vector3()
