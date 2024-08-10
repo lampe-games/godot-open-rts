@@ -16,7 +16,7 @@ func initialize_by_scanning(
 	print("will scan now")
 	slices_width = max(0.001, slices_width)
 	var slices_x = ceil(abs(max_x - min_x) / slices_width)
-	var slices_z = ceil(abs(max_y - min_y) / slices_width)
+	var slices_z = ceil(abs(max_z - min_z) / slices_width)
 	var space_state = world_3d.direct_space_state
 	print("SLICES: " + str(slices_x) + "," + str(slices_z))
 	_height_field = []
@@ -98,10 +98,15 @@ static func dir_to_offset(dir):
 func find_path(passability_check_object,
 		start, target, get_world_coords):
 	return find_path_ex(passability_check_object,
-		start, target, true)
+		start, target, true, null)
+
+func find_path_with_max_climb_angle(passability_check_object,
+		start, target, get_world_coords, angle):
+	return find_path_ex(passability_check_object,
+		start, target, true, angle)
 
 func find_path_ex(passability_check_object,
-		start, target, get_world_coords):
+		start, target, get_world_coords, max_climb_angle):
 	if typeof(start) == TYPE_VECTOR2:
 		start = Vector3(start.x, 0, start.y)
 	if typeof(target) == TYPE_VECTOR2:
@@ -157,8 +162,12 @@ func find_path_ex(passability_check_object,
 					passability_check_object.check_path_step_cost(
 					self, Vector2(srcx, srcz), Vector2(target_x, target_z),
 					step_distance, src_height, target_height) != INF:
-				_goalIsNonpassableResult = false
-				break
+				if (max_climb_angle == null or
+						abs(Vector2(step_distance,
+							target_height - src_height).angle()) <
+							max_climb_angle):
+					_goalIsNonpassableResult = false
+					break
 		x += 1
 
 	var goalIsNonpassable = _goalIsNonpassableResult
@@ -198,7 +207,12 @@ func find_path_ex(passability_check_object,
 			tx + tz * mapWidth
 		]
 		var cost = 1.0
-		if passability_check_object != null:
+		if (max_climb_angle != null and
+				abs(Vector2(step_distance,
+					target_height - src_height).angle()) >
+					max_climb_angle):
+			cost = INF
+		elif passability_check_object != null:
 			cost = passability_check_object.check_path_step_cost(
 				 self, Vector2(x, z), Vector2(tx, tz),
 				 step_distance, src_height, target_height)
@@ -299,7 +313,12 @@ func find_path_ex(passability_check_object,
 					tx + tz * mapWidth
 				]
 				var cost = 1.0
-				if passability_check_object != null:
+				if (max_climb_angle != null and
+						abs(Vector2(step_distance,
+							target_height - src_height).angle()) >
+							max_climb_angle):
+					cost = INF
+				elif passability_check_object != null:
 					cost = passability_check_object.check_path_step_cost(
 						 self, Vector2(x, z), Vector2(tx, tz),
 						 step_distance, src_height, target_height)
