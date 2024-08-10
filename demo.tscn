@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://tsh8b5qioguw"]
+[gd_scene load_steps=21 format=3 uid="uid://tsh8b5qioguw"]
 
 [ext_resource type="PackedScene" uid="uid://c2n4fxmgkv0vn" path="res://source/match/handlers/ProjectileSystemHandler.tscn" id="1_dkpid"]
 [ext_resource type="Script" path="res://demo.gd" id="1_kv1a4"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://dmlef1nchuam4" path="res://source/match/maps/3Dmap/3Dmap.tscn" id="12_kfcua"]
 [ext_resource type="PackedScene" uid="uid://bem5u20vcnnd7" path="res://source/match/units/traits/DirectMovement.tscn" id="13_qthh1"]
 [ext_resource type="PackedScene" uid="uid://dg66oaqsqty53" path="res://source/DebugMarker3D.tscn" id="13_x4ese"]
+[ext_resource type="PackedScene" uid="uid://i58ffvwxbbwm" path="res://source/match/units/Tank.tscn" id="14_vdgu8"]
 
 [sub_resource type="Environment" id="Environment_g6rmh"]
 
@@ -92,7 +93,7 @@ navigation_mesh = SubResource("NavigationMesh_5tadr")
 [node name="Player" parent="Match/Units" instance=ExtResource("8_go0lg")]
 
 [node name="Unit" type="CharacterBody3D" parent="Match/Units/Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.3784, 65.2314, 61.9315)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.0811, 43.6598, 65.3101)
 motion_mode = 1
 script = ExtResource("5_4k75h")
 
@@ -106,6 +107,9 @@ script = ExtResource("3_hsuq8")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Match/Units/Player/Unit"]
 shape = SubResource("CylinderShape3D_ht2rm")
+
+[node name="Tank" parent="Match/Units/Player" instance=ExtResource("14_vdgu8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.49, 0, 7.80647)
 
 [node name="DebugMarker3D" parent="Match/Units" instance=ExtResource("13_x4ese")]
 

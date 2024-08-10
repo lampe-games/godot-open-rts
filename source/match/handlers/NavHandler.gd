@@ -24,6 +24,12 @@ func _ready():
 	)
 	pass # Replace with function body.
 
+func find_path(src, dst, costFunc):
+	_hmnavmesh.find_path(costFunc, src, dst)
+
+func find_path_with_max_climb_angle(costFunc,
+		src, dst, angle):
+	_hmnavmesh.find_path_with_max_climb_angle(costFunc, src, dst, angle)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

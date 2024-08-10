@@ -36,8 +36,8 @@ func initialize_by_scanning(
 				origin, target)
 			var collision = space_state.intersect_ray(query)
 			var height = min_y
-			if collision != null:
-				height = collision.y
+			if collision:
+				height = collision.position.y
 			_height_field[i + k * slices_x] = height
 			k += 1
 			posz += slices_width
@@ -61,15 +61,15 @@ func pos_to_offset(pos):
 
 func offset_to_pos_no_height(offset):
 	assert(typeof(offset) == TYPE_ARRAY)
-	var xpos = _dimensions[0] + _slices_width * float(offset.x)
-	var zpos = _dimensions[4] + _slices_width * float(offset.y)
+	var xpos = _dimensions[0] + _slices_width * float(offset[0])
+	var zpos = _dimensions[4] + _slices_width * float(offset[1])
 	return Vector3(xpos, 0, zpos)
 
 func offset_to_pos(offset):
 	var offset_clean_x = \
-		max(0, min(_field_size_x - 1, int(round(offset[1]))))
+		max(0, min(_field_size_x - 1, int(round(offset[0]))))
 	var offset_clean_z = \
-		max(0, min(_field_size_z - 1, int(round(offset[2]))))
+		max(0, min(_field_size_z - 1, int(round(offset[1]))))
 	var pos = offset_to_pos_no_height([offset_clean_x, offset_clean_z])
 	pos.y = _height_field[offset_clean_x + offset_clean_z * _field_size_x]
 	return pos
@@ -96,12 +96,12 @@ static func dir_to_offset(dir):
 		assert(false)
 
 func find_path(passability_check_object,
-		start, target, get_world_coords):
+		start, target):
 	return find_path_ex(passability_check_object,
 		start, target, true, null)
 
 func find_path_with_max_climb_angle(passability_check_object,
-		start, target, get_world_coords, angle):
+		start, target, angle):
 	return find_path_ex(passability_check_object,
 		start, target, true, angle)
 
@@ -239,12 +239,12 @@ func find_path_ex(passability_check_object,
 			prevCount = openListHeap.count()
 			var heapAsList = openListHeap.to_list()
 			var i2 = 0
-			while i2 < heapAsList.length - 1:
+			while i2 < heapAsList.size() - 1:
 				if (heapAsList[i2][1] > heapAsList[i2 + 1][1]):
 					OS.alert("heap has wrong sorting")
 				i2 += 1
 			_bestItemDebugScore = -(
-				heapAsList[heapAsList.length - 1][1]
+				heapAsList[heapAsList.size() - 1][1]
 			)
 		var openListEntryPair = openListHeap.pop()
 		var openListEntry = openListEntryPair[0]
@@ -337,7 +337,7 @@ func find_path_ex(passability_check_object,
 				"getDirTowardsTarget: openList entries -> [")
 			var heapEntries = openListHeap.to_list()
 			var j = 0;
-			while j < heapEntries.length:
+			while j < heapEntries.size():
 				if j > 0:
 					t += ", "
 				t += ("(x: " + heapEntries[j][0][0] +
@@ -419,7 +419,7 @@ func find_path_ex(passability_check_object,
 
 	# Construct final path in proper order:
 	var path = []
-	var i3 = path.len - 1
+	var i3 = reverse_path.size() - 1
 	while i3 >= 0:
 		path.append(reverse_path[i3])
 		i3 -= 1

@@ -4,18 +4,18 @@
 [ext_resource type="Script" path="res://source/match/units/Tank.gd" id="1_npbka"]
 [ext_resource type="PackedScene" uid="uid://bm8n8g2h8yi1p" path="res://assets/models/kenney-spacekit/craft_cargoB.glb" id="2_464dm"]
 [ext_resource type="PackedScene" uid="uid://3c1h14nqdumt" path="res://source/match/units/traits/Selection.tscn" id="2_mbcqe"]
-[ext_resource type="PackedScene" uid="uid://ivlo0e66qocl" path="res://source/match/units/traits/Movement.tscn" id="3_4m8ma"]
 [ext_resource type="PackedScene" uid="uid://chmayxp3itowx" path="res://assets/models/kenney-spacekit/craft_miner.glb" id="3_putds"]
 [ext_resource type="PackedScene" uid="uid://c3ssj2p6voauk" path="res://source/match/units/traits/HealthBar.tscn" id="4_7l0rt"]
 [ext_resource type="PackedScene" uid="uid://d4cm4yhtf11ur" path="res://source/match/units/traits/Targetability.tscn" id="8_ca2nt"]
 [ext_resource type="Script" path="res://source/match/FpsCamera3D.gd" id="9_qyt8g"]
+[ext_resource type="PackedScene" uid="uid://cimnqhlthmxf0" path="res://source/match/units/traits/NavMovement.tscn" id="10_6mdiq"]
 [ext_resource type="PackedScene" uid="uid://ccwgdcyfg8job" path="res://source/match/units/traits/Pilotable.tscn" id="10_6okqq"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_sjc11"]
 height = 0.6
 radius = 0.8
 
-[node name="Tank" type="Area3D"]
+[node name="Tank" type="CharacterBody3D"]
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_npbka")
@@ -44,17 +44,6 @@ radius = 0.9
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
 radius = 0.9
 
-[node name="Movement" parent="." instance=ExtResource("3_4m8ma")]
-path_desired_distance = 0.5
-target_desired_distance = 0.5
-path_height_offset = 0.5
-path_max_distance = 0.51
-radius = 0.9
-neighbor_distance = 8.0
-max_neighbors = 40
-time_horizon_agents = 3.0
-speed = 2.75
-
 [node name="HealthBar" parent="." instance=ExtResource("4_7l0rt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
 size = Vector2(160, 10)
@@ -68,3 +57,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.675637, -0.431718)
 script = ExtResource("9_qyt8g")
 
 [node name="Pilotable" parent="." instance=ExtResource("10_6okqq")]
+
+[node name="NavMovement" parent="." instance=ExtResource("10_6mdiq")]

@@ -1,4 +1,4 @@
-extends Area3D
+extends CharacterBody3D
 
 signal selected
 signal deselected

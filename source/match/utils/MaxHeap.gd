@@ -8,7 +8,7 @@ func insert(item, score):
 		return
 	var heap = _contents
 	while true:
-		if heap.length == 0:
+		if heap.size() == 0:
 			heap.append(item)
 			heap.append(score)
 			heap.append(null)
@@ -29,7 +29,7 @@ func insert(item, score):
 func _count_heap(heap):
 	while true:
 		var c = 0
-		if heap.length == 0:
+		if heap.size() == 0:
 			return c
 		c += 1
 		if heap[2] != null:
@@ -46,7 +46,7 @@ func to_list():
 
 func _convert_heap_to_list(heap):
 	var result = []
-	if heap.length == 0:
+	if heap.size() == 0:
 		return result
 	result.append([heap[0], heap[1]])
 	if heap[2] != null:
@@ -61,12 +61,12 @@ func _convert_heap_to_list(heap):
 	return result
 
 func is_empty():
-	if _contents.length == 0:
+	if _contents.size() == 0:
 		return true
 	return false
 
 func pop():
-	if _contents.length == 0:
+	if _contents.size() == 0:
 		return null
 	var heap = _contents
 	var node = heap
@@ -78,7 +78,7 @@ func pop():
 		# Replace top node contents with right or left side:
 		var popItem = [heap[0], heap[1]];
 		if heap[2] == null and heap[3] == null:
-			heap.length = 0
+			heap.clear()
 			return popItem
 		if heap[2] == null or heap[3] == null:
 			# Just take whatever child is left as the top:
