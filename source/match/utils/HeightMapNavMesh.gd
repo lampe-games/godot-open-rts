@@ -23,7 +23,7 @@ func initialize_by_scanning(
 	if _debug:
 		print("HeightMapNavMesh.gd: initialize_by_scanning(): " +
 			"slice count: " + str(slices_x) + "," + str(slices_z))
-	_height_field = []
+	_height_field = PackedFloat32Array()
 	var i = 0
 	while i < slices_x * slices_z:
 		_height_field.append(0.0)
@@ -65,40 +65,40 @@ func pos_to_offset(pos):
 	var zoffset = min(max(0, round(
 		float(pos.z - _dimensions[4]) / float(_slices_width)
 	)), _field_size_z)
-	return [int(xoffset), int(zoffset)]
+	return Vector2i(int(xoffset), int(zoffset))
 
 func offset_to_pos_no_height(offset):
-	assert(typeof(offset) == TYPE_ARRAY)
-	var xpos = _dimensions[0] + _slices_width * float(offset[0])
-	var zpos = _dimensions[4] + _slices_width * float(offset[1])
+	assert(typeof(offset) == TYPE_VECTOR2I)
+	var xpos = _dimensions[0] + _slices_width * float(offset.x)
+	var zpos = _dimensions[4] + _slices_width * float(offset.y)
 	return Vector3(xpos, 0, zpos)
 
 func offset_to_pos(offset):
 	var offset_clean_x = \
-		max(0, min(_field_size_x - 1, int(round(offset[0]))))
+		max(0, min(_field_size_x - 1, int(round(offset.x))))
 	var offset_clean_z = \
-		max(0, min(_field_size_z - 1, int(round(offset[1]))))
-	var pos = offset_to_pos_no_height([offset_clean_x, offset_clean_z])
+		max(0, min(_field_size_z - 1, int(round(offset.y))))
+	var pos = offset_to_pos_no_height(Vector2i(offset_clean_x, offset_clean_z))
 	pos.y = _height_field[offset_clean_x + offset_clean_z * _field_size_x]
 	return pos
 
 static func dir_to_offset(dir):
 	if dir == 0:  # Forward
-		return [1, 0]
+		return Vector2i(1, 0)
 	elif dir == 1:  # Forward right
-		return [1, 1]
+		return Vector2i(1, 1)
 	elif dir == 2:  # Right
-		return [0, 1]
+		return Vector2i(0, 1)
 	elif dir == 3:  # Backward right
-		return [-1, 1]
+		return Vector2i(-1, 1)
 	elif dir == 4:  # Backward
-		return [-1, 0]
+		return Vector2i(-1, 0)
 	elif dir == 5:  # Backward left
-		return [-1, -1]
+		return Vector2i(-1, -1)
 	elif dir == 6:  # Left
-		return [0, -1]
+		return Vector2i(0, -1)
 	elif dir == 7:  # Forward left
-		return [1, -1]
+		return Vector2i(1, -1)
 	else:
 		OS.alert("invalid direction for dir_to_offset")
 		assert(false)
@@ -413,9 +413,9 @@ func find_path_ex(passability_check_func,
 
 	var reverse_path = []
 	if get_world_coords == true:
-		reverse_path.append(offset_to_pos([bestNodeX, bestNodeZ]))
+		reverse_path.append(offset_to_pos(Vector2i(bestNodeX, bestNodeZ)))
 	else:
-		reverse_path.append([bestNodeX, bestNodeZ])
+		reverse_path.append(Vector2i(bestNodeX, bestNodeZ))
 
 	# Walk it back:
 	while (bestNodeFromX != startX or bestNodeFromZ != startZ):
@@ -425,9 +425,9 @@ func find_path_ex(passability_check_func,
 		bestNodeFromX = visitedSet[key][3]
 		bestNodeFromZ = visitedSet[key][4]
 		if get_world_coords == true:
-			reverse_path.append(offset_to_pos([bestNodeX, bestNodeZ]))
+			reverse_path.append(offset_to_pos(Vector2i(bestNodeX, bestNodeZ)))
 		else:
-			reverse_path.append([bestNodeX, bestNodeZ])
+			reverse_path.append(Vector2i(bestNodeX, bestNodeZ))
 
 	# Construct final path in proper order:
 	var path = []
