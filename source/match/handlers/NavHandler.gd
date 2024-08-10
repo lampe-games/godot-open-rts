@@ -25,11 +25,12 @@ func _ready():
 		extents[0], extents[1], extents[2], extents[3], extents[4], extents[5],
 		0.6
 	)
+	_spawn_marker(Vector3(20,2.5,15))
 	pass # Replace with function body.
 
 func _spawn_marker(pos):
 	var dm = _debugmarker.instantiate()
-	_gamematch.add_child(dm)
+	_gamematch.find_child("Units").add_child(dm)
 	dm.global_position = pos
 
 func find_path(src, dst, costFunc):

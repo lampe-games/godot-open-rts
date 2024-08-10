@@ -90,6 +90,9 @@ navigation_mesh = SubResource("NavigationMesh_5tadr")
 
 [node name="Units" type="Node3D" parent="Match"]
 
+[node name="DebugMarker3D" parent="Match/Units" instance=ExtResource("13_x4ese")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.6362, 2.65096, 14.8326)
+
 [node name="Player" parent="Match/Units" instance=ExtResource("8_go0lg")]
 
 [node name="Unit" type="CharacterBody3D" parent="Match/Units/Player"]
@@ -110,7 +113,5 @@ shape = SubResource("CylinderShape3D_ht2rm")
 
 [node name="Tank" parent="Match/Units/Player" instance=ExtResource("14_vdgu8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.49, 0, 7.80647)
-
-[node name="DebugMarker3D" parent="Match/Units" instance=ExtResource("13_x4ese")]
 
 [node name="Map" parent="Match" instance=ExtResource("12_kfcua")]

@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" path="res://source/match/Match.gd" id="1_1555u"]
 [ext_resource type="Script" path="res://source/match/IsometricCamera3D.gd" id="1_qb2ry"]
+[ext_resource type="PackedScene" uid="uid://dmlef1nchuam4" path="res://source/match/maps/3Dmap/3Dmap.tscn" id="4_h7bxo"]
 [ext_resource type="Script" path="res://source/match/FogOfWar.gd" id="5_eb52t"]
 [ext_resource type="PackedScene" uid="uid://co800e4shs7bh" path="res://source/generic-scenes-and-nodes/3d/RectangularSelection3D.tscn" id="5_yi0pu"]
 [ext_resource type="PackedScene" uid="uid://clbjgy724q2si" path="res://source/generic-scenes-and-nodes/2d/DynamicCircle2D.tscn" id="6_ux0ef"]
-[ext_resource type="Script" path="res://source/match/Terrain.gd" id="7_ccpu4"]
 [ext_resource type="Script" path="res://source/match/Navigation.gd" id="10_1wfp1"]
 [ext_resource type="PackedScene" uid="uid://b6n7cwv706x5n" path="res://source/match/debug/GodModeHud.tscn" id="10_p6gno"]
 [ext_resource type="Shader" path="res://source/shaders/3d/fog.gdshader" id="10_weh6c"]
@@ -146,11 +146,9 @@ environment = SubResource("Environment_qxcnu")
 
 [node name="RectangularSelection3D" parent="." instance=ExtResource("5_yi0pu")]
 
-[node name="Terrain" type="StaticBody3D" parent="."]
-collision_mask = 0
-script = ExtResource("7_ccpu4")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain"]
+[node name="Map" parent="." instance=ExtResource("4_h7bxo")]
+visible = false
+size = Vector2(100, 100)
 
 [node name="Fog" type="MeshInstance3D" parent="."]
 material_override = SubResource("ShaderMaterial_qw0ps")

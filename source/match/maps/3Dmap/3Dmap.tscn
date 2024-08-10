@@ -1,31 +1,17 @@
-[gd_scene load_steps=10 format=3 uid="uid://dmlef1nchuam4"]
+[gd_scene load_steps=8 format=3 uid="uid://dmlef1nchuam4"]
 
 [ext_resource type="PackedScene" uid="uid://b7c1crf36x1li" path="res://source/match/Map.tscn" id="1_tv8fs"]
 [ext_resource type="Script" path="res://source/match/maps/3Dmap/3Dmap.gd" id="2_24vdh"]
-[ext_resource type="Material" uid="uid://co8vfcoqqs5i8" path="res://source/match/resources/materials/terrain.material.tres" id="2_574aj"]
 [ext_resource type="Terrain3DStorage" uid="uid://lalq1xnmbjdl" path="res://assets/terrain_storage.res" id="3_bkbrs"]
 [ext_resource type="PackedScene" uid="uid://bf3jjdafqvh0w" path="res://source/match/units/non-player/ResourceA.tscn" id="3_uixp0"]
 [ext_resource type="Terrain3DMaterial" uid="uid://1qf0ffebhg2v" path="res://assets/maps/demo/material.tres" id="4_1jknq"]
 [ext_resource type="PackedScene" uid="uid://bufgjfa3ne3uk" path="res://source/match/units/non-player/ResourceB.tscn" id="4_lrggj"]
 [ext_resource type="Terrain3DAssets" uid="uid://dal3jhw6241qg" path="res://assets/assets.tres" id="5_33x37"]
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_frqq2"]
-resource_local_to_scene = true
-material = ExtResource("2_574aj")
-size = Vector2(50, 50)
-center_offset = Vector3(25, 0, 25)
-
 [node name="Map" instance=ExtResource("1_tv8fs")]
 script = ExtResource("2_24vdh")
 
-[node name="BlackBackgroundFixingAntiAliasingBug" parent="Geometry" index="0"]
-visible = false
-
-[node name="Terrain" parent="Geometry" index="1"]
-visible = false
-mesh = SubResource("PlaneMesh_frqq2")
-
-[node name="Terrain3D" type="Terrain3D" parent="Geometry" index="2"]
+[node name="Terrain3D" type="Terrain3D" parent="Geometry" index="0"]
 storage = ExtResource("3_bkbrs")
 material = ExtResource("4_1jknq")
 assets = ExtResource("5_33x37")
