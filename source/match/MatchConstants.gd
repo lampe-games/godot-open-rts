@@ -18,8 +18,8 @@ const MAPS = {
 	"res://source/match/maps/3Dmap/3Dmap.tscn":
 	{
 		"name": "3D map",
-		"players": 8,
-		"size": Vector2i(100, 100),
+		"players": 4,
+		"size": Vector2i(1024, 1024),
 	}
 }
 

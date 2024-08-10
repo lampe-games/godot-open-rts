@@ -89,7 +89,7 @@ navigation_mesh = SubResource("NavigationMesh_5tadr")
 [node name="Player" parent="Match/Units" instance=ExtResource("8_go0lg")]
 
 [node name="Unit" type="Node3D" parent="Match/Units/Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.718098, 5.36827, 2.95477)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.3784, 65.2314, 61.9315)
 script = ExtResource("5_4k75h")
 
 [node name="Pilotable" parent="Match/Units/Player/Unit" instance=ExtResource("4_f06un")]
