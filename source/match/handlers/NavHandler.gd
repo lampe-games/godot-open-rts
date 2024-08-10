@@ -16,8 +16,6 @@ var _hmnavmesh = null
 func _ready():
 	var extents = MapCollisionUtils.compute_terrain_extent(_map)
 	var terrain = _map.find_child("Terrain3D")
-	print(terrain.storage.get_height(Vector3(135,0,0)))
-	print(extents)
 	var world_3d = get_world_3d()
 	_hmnavmesh = HeightMapNavMeshClass.new()
 	_hmnavmesh.initialize_by_scanning(
@@ -25,8 +23,6 @@ func _ready():
 		extents[0], extents[1], extents[2], extents[3], extents[4], extents[5],
 		0.6
 	)
-	_spawn_marker(Vector3(20,2.5,15))
-	pass # Replace with function body.
 
 func _spawn_marker(pos):
 	var dm = _debugmarker.instantiate()
