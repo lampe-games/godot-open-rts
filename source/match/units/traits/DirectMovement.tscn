@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=3 uid="uid://bem5u20vcnnd7"]
+
+[ext_resource type="Script" path="res://source/match/units/traits/DirectMovement.gd" id="1_404f0"]
+
+[node name="DirectMovement" type="Node3D"]
+script = ExtResource("1_404f0")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MarginContainer" type="MarginContainer" parent="UI"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Panel" type="Panel" parent="UI/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="GridContainer" parent="UI/MarginContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="Pos" type="Label" parent="UI/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Pos"
+
+[node name="PosValue" type="Label" parent="UI/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "0,0,0"
+
+[node name="Velocity" type="Label" parent="UI/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Velocity"
+
+[node name="VelocityValue" type="Label" parent="UI/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "0,0,0"
