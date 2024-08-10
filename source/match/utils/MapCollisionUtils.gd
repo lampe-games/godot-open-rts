@@ -10,4 +10,4 @@ static func compute_terrain_extent(map):
 	var max_y = max(box.position.y, box.end.y)
 	var min_z = min(box.position.z, box.end.z)
 	var max_z = max(box.position.z, box.end.z)
-	return []
+	return [min_x, max_x, min_y, max_y, min_z, max_z]
