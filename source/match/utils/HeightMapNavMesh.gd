@@ -37,7 +37,7 @@ func initialize_by_scanning(
 			var collision = space_state.intersect_ray(query)
 			var height = min_y
 			if collision != null:
-				pass
+				height = collision.y
 			_height_field[i + k * slices_x] = height
 			k += 1
 			posz += slices_width
