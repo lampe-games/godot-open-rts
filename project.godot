@@ -238,3 +238,7 @@ locale/translations=PackedStringArray("res://assets/translations/match.en.transl
 [navigation]
 
 3d/use_edge_connections=false
+
+[network]
+
+limits/debugger/max_chars_per_second=9999999999
