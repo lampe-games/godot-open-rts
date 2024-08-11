@@ -61,10 +61,10 @@ func pos_to_offset(pos):
 		pos = Vector3(pos.x, 0, pos.y)
 	var xoffset = min(max(0, round(
 		float(pos.x - _dimensions[0]) / float(_slices_width)
-	)), _field_size_x)
+	)), _field_size_x - 1)
 	var zoffset = min(max(0, round(
 		float(pos.z - _dimensions[4]) / float(_slices_width)
-	)), _field_size_z)
+	)), _field_size_z - 1)
 	return Vector2i(int(xoffset), int(zoffset))
 
 func offset_to_pos_no_height(offset):
