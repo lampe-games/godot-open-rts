@@ -171,7 +171,7 @@ class Units:
 			"hp_max": 10,
 			"attack_damage": 2,
 			"projectile_speed": 10,
-			"movement_speed": 100.0,
+			"movement_speed": 500.0,
 			"attack_interval": 0.75,
 			"attack_range": 5.0,
 			"attack_aim": 0.6,

@@ -1,6 +1,6 @@
 extends Node3D
 
-
+@export var debugNavMesh = false
 
 const MapCollisionUtils = preload("res://source/match/utils/MapCollisionUtils.gd")
 const _debugmarker = preload("res://source/DebugMarker3D.tscn")
@@ -18,10 +18,13 @@ func _ready():
 	var terrain = _map.find_child("Terrain3D")
 	var world_3d = get_world_3d()
 	_hmnavmesh = HeightMapNavMeshClass.new()
-	_hmnavmesh.initialize_by_scanning(
+	var _spawn_marker_callback = _spawn_marker
+	if not debugNavMesh:
+		_spawn_marker_callback = null
+	_hmnavmesh.initialize_by_scanning_ex(
 		world_3d,
 		extents[0], extents[1], extents[2], extents[3], extents[4], extents[5],
-		2
+		2, terrain, _spawn_marker_callback
 	)
 
 func _spawn_marker(pos):
@@ -33,8 +36,8 @@ func find_path(src, dst, costFunc):
 	var result = _hmnavmesh.find_path(costFunc, src, dst)
 	return result
 
-func find_path_with_max_climb_angle(costFunc,
-		src, dst, angle):
+func find_path_with_max_climb_angle(
+		src, dst, costFunc, angle):
 	var result = _hmnavmesh.find_path_with_max_climb_angle(
 		costFunc, src, dst, angle)
 	return result

@@ -13,9 +13,22 @@ func initialize_by_scanning(
 		min_x, max_x, min_y, max_y, min_z, max_z,
 		slices_width
 		):
+	return initialize_by_scanning_ex(
+		world_3d,
+		min_x, max_x, min_y, max_y, min_z, max_z,
+		slices_width, null, null
+	)
+
+func initialize_by_scanning_ex(
+		world_3d,
+		min_x, max_x, min_y, max_y, min_z, max_z,
+		slices_width, terrain_3d_node,
+		debug_point_spawn_callback
+		):
 	if _debug:
 		print("HeightMapNavMesh.gd: initialize_by_scanning(): " +
 			"will scan now")
+	var use_physics_ray = false
 	slices_width = max(0.001, slices_width)
 	var slices_x = ceil(abs(max_x - min_x) / slices_width)
 	var slices_z = ceil(abs(max_z - min_z) / slices_width)
@@ -38,15 +51,30 @@ func initialize_by_scanning(
 		var posz = min_z
 		var k = 0
 		while k < slices_z:
-			var origin = Vector3(posx, max_z + 1.0, posz)
-			var target = Vector3(posx, min_z - 1.0, posz)
-			var query = PhysicsRayQueryParameters3D.create(
-				origin, target)
-			var collision = space_state.intersect_ray(query)
-			var height = min_y
-			if collision:
-				height = collision.position.y
+			var origin = Vector3(posx, max(max_z + 1.0, 999999), posz)
+			var target = Vector3(posx, min(min_z - 1.0, -999999), posz)
+			var height
+			if not use_physics_ray:
+				height = terrain_3d_node.storage.get_height(
+					Vector3(posx, 0, posz)
+				)
+			else:
+				var query = PhysicsRayQueryParameters3D.create(
+					origin, target)
+				query.set_collision_mask(1)
+				query.collide_with_areas = true
+				query.collide_with_bodies = true
+				query.hit_back_faces = true
+				query.hit_from_inside = true
+				var collision = space_state.intersect_ray(query)
+				height = min_y
+				if collision:
+					height = collision.position.y
 			_height_field[i + k * slices_x] = height
+			if debug_point_spawn_callback != null:
+				debug_point_spawn_callback.call(
+					Vector3(posx, height, posz)
+				)
 			k += 1
 			posz += slices_width
 		posx += slices_width
@@ -138,7 +166,8 @@ func find_path_ex(passability_check_func,
 			"HeightMapNavMesh.gd: " +
 			"find_path: Will find " +
 			"path for " + str(x) + "," + str(z) + " -> " +
-			str(target_x) + "," + str(target_z)
+			str(target_x) + "," + str(target_z) + " " +
+			"with max_climb_angle=" + str(max_climb_angle)
 		)
 
 	# Set up a few variables:
@@ -146,6 +175,8 @@ func find_path_ex(passability_check_func,
 	var _goalIsNonpassableResult = true
 	var _passablesrcx = -1
 	var _passablesrcy = -1
+	var startX = int(_startoffset[0])
+	var startZ = int(_startoffset[1])
 	x = -1
 	while x <= 1:
 		z = -1
@@ -177,8 +208,8 @@ func find_path_ex(passability_check_func,
 							max_climb_angle):
 					_goalIsNonpassableResult = false
 					break
+			z += 1
 		x += 1
-
 	var goalIsNonpassable = _goalIsNonpassableResult
 	if _debug:
 		print(
@@ -186,8 +217,7 @@ func find_path_ex(passability_check_func,
 			"find_path: " +
 			"Goal not passable: " + str(goalIsNonpassable)
 		)
-	var startX = int(_startoffset[0])
-	var startZ = int(_startoffset[1])
+	
 	var bestNodeX = int(_startoffset[0])
 	var bestNodeZ = int(_startoffset[1])
 	var bestNodeScore = (
@@ -307,7 +337,7 @@ func find_path_ex(passability_check_func,
 			reachedDestination = true
 
 		# Add new open list entries if not at destination yet:
-		if not reachedDestination:
+		if not reachedDestination or true:
 			var i2 = 0
 			while i2 < 8:
 				var offset = dir_to_offset(i2)
@@ -339,6 +369,10 @@ func find_path_ex(passability_check_func,
 							Vector2(target_x - tx, target_z - tz).length()) +
 						1
 					)
+					if _debug:
+						print("HeightMapNavMesh..gd: " +
+							"Adding point to initial open list: " +
+							str([tx, tx]))
 					openListHeap.insert(
 						[tx, tz, Vector2(offset[0], offset[1]).length(),
 						x, z], -_heuristic
@@ -444,5 +478,5 @@ func find_path_ex(passability_check_func,
 	if (bestNodeFromX != startX or bestNodeFromZ != startZ):
 		OS.alert("invalid walk back result")
 
-	# Return extracted direction
+	# Return extracted way point path
 	return path

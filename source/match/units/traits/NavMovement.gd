@@ -20,9 +20,9 @@ func _ready():
 func _exit_tree():
 	if path_visualizer != null:
 		path_visualizer.destroy()
+
 func move(movement_target: Vector3):
 	target = movement_target
-
 
 func stop():
 	target = _Unit.global_position
@@ -37,7 +37,9 @@ func _calculate_velocity(delta):
 	var dir = Vector3()
 	if not path:
 		if _Unit.global_position.distance_to(target) > 0.5:
-			path = _NavHandler.find_path(_Unit.global_position, target, null)
+			path = _NavHandler.find_path_with_max_climb_angle(
+				_Unit.global_position, target, null, PI * 0.125
+			)
 			path_index = 0
 			if path_visualizer != null:
 				path_visualizer.destroy()
