@@ -48,6 +48,44 @@ func find_path_with_max_climb_angle(
 		costFunc, src, dst, angle)
 	return result
 
+func enable_proplayer_float(layer_name):
+	pass
+
+func query_proplayer_max_value(layer_name, world_pos, world_radius):
+	pass
+
+func query_proplayer_min_value(layer_name, world_pos, world_radius):
+	pass
+
+func query_proplayer_rectangle_max_value(layer_name,
+		rectangle_center_world_pos, rectangle_size):
+	pass
+
+func query_proplayer_rectangle_min_value(layer_name,
+		rectangle_center_world_pos, rectangle_size):
+	pass
+
+func add_to_proplayer(layer_name, value, world_pos, world_radius):
+	pass
+
+func add_to_proplayer_rectangle(layer_name, value,
+		rectangle_center_world_pos, rectangle_size):
+	pass
+
+func subtract_from_proplayer(layer_name, value, world_pos, world_radius):
+	pass
+
+func subtract_from_proplayer_rectangle(layer_name, value,
+		rectangle_center_world_pos, rectangle_size):
+	pass
+
+func set_proplayer(layer_name, value, world_pos, world_radius):
+	pass
+
+func set_proplayer_rectangle(layer_name, value,
+		rectangle_center_world_pos, rectangle_size):
+	pass
+
 func create_path_visualizer(path):
 	var vis = NavHandlerPathVisualizerClass.new()
 	vis.set_nav_mesh(_hmnavmesh)
