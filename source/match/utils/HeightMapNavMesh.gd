@@ -16,7 +16,7 @@ func initialize_by_scanning(
 	if _debug:
 		print("HeightMapNavMesh.gd: initialize_by_scanning(): " +
 			"will scan now")
-	slices_width = max(10 + 0.001, slices_width)
+	slices_width = max(0.001, slices_width)
 	var slices_x = ceil(abs(max_x - min_x) / slices_width)
 	var slices_z = ceil(abs(max_z - min_z) / slices_width)
 	var space_state = world_3d.direct_space_state

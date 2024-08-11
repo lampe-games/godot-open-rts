@@ -27,7 +27,7 @@ func remove_visualization():
 			marker.get_parent().remove_child(marker)
 			marker.queue_free()
 		_marker_list = []
-	
+
 func update_visualization():
 	if _match == null or _path == null or _hmnavmesh == null:
 		return

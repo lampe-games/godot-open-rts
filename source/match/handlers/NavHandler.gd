@@ -21,7 +21,7 @@ func _ready():
 	_hmnavmesh.initialize_by_scanning(
 		world_3d,
 		extents[0], extents[1], extents[2], extents[3], extents[4], extents[5],
-		0.6
+		2
 	)
 
 func _spawn_marker(pos):
