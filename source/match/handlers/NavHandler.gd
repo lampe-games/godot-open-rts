@@ -8,7 +8,7 @@ const _debugmarker = preload("res://source/DebugMarker3D.tscn")
 @onready var _map = find_parent("Match").find_child("Map")
 @onready var _gamematch = find_parent("Match")
 @onready var HeightMapNavMeshClass = load("res://source/match/utils/HeightMapNavMesh.gd")
-
+@onready var NavHandlerPathVisualizerClass = load("res://source/match/handlers/NavHandlerPathVisualizer.gd")
 var _hmnavmesh = null
 
 
@@ -38,6 +38,13 @@ func find_path_with_max_climb_angle(costFunc,
 	var result = _hmnavmesh.find_path_with_max_climb_angle(
 		costFunc, src, dst, angle)
 	return result
+
+func create_path_visualizer(path):
+	var vis = NavHandlerPathVisualizerClass.new()
+	vis.set_nav_mesh(_hmnavmesh)
+	vis.set_match(_gamematch)
+	vis.set_path(path)
+	return vis
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

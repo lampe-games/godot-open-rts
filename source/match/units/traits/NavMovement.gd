@@ -7,11 +7,15 @@ extends Node3D
 var target = Vector3()
 var path = []
 var path_index = 0
+var path_visualizer = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
+func _exit_tree():
+	if path_visualizer != null:
+		path_visualizer.destroy()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
@@ -24,6 +28,10 @@ func _calculate_velocity(delta):
 		if _Unit.global_position.distance_to(target) > 0.5:
 			path = _NavHandler.find_path(_Unit.global_position, target, null)
 			path_index = 0
+			if path_visualizer != null:
+				path_visualizer.destroy()
+				path_visualizer = null
+			path_visualizer = _NavHandler.create_path_visualizer(path)
 		else:
 			return dir
 
