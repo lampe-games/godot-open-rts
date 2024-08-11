@@ -1,5 +1,7 @@
 extends Node3D
 
+signal movement_finished
+
 @onready var _Match = find_parent("Match")
 @onready var _NavHandler = _Match.find_child("NavHandler")
 @onready var _Unit = get_parent()
@@ -49,6 +51,7 @@ func _calculate_velocity(delta):
 			path_index += 1
 			if path_index >= path.size():
 				path = null
+				movement_finished.emit()
 				return Vector3()
 		dir = ((path[path_index]+Vector3(0,0.1,0)) - _Unit.global_position).normalized()
 	return dir * _Unit.movement_speed * delta
