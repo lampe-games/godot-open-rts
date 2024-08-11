@@ -8,6 +8,15 @@ var _field_size_z
 var _height_field = []
 var _max_heap_class = load("res://source/match/utils/MaxHeap.gd")
 
+func get_field_x_width():
+	return _field_size_x
+
+func get_field_z_width():
+	return _field_size_x
+
+func get_grid_slice_width():
+	return _slices_width
+
 func initialize_by_scanning(
 		world_3d,
 		min_x, max_x, min_y, max_y, min_z, max_z,
