@@ -24,7 +24,7 @@ func set_path(path):
 func remove_visualization():
 	if _marker_list != null:
 		for marker in _marker_list:
-			_match.remove_child(marker)
+			marker.get_parent().remove_child(marker)
 			marker.queue_free()
 		_marker_list = []
 	
