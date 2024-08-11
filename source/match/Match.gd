@@ -53,10 +53,12 @@ func _unhandled_input(event):
 
 
 func _set_map(a_map):
-	find_child("Map").queue_free()
-	a_map.name = "Map"
-	add_child(a_map)
-	a_map.owner = self
+	map = a_map
+	#var old_map = find_child("Map")
+	#a_map.name = "Map"
+	#add_child(a_map)
+	#a_map.owner = self
+	#old_map.queue_free()
 
 
 func _ignore(_value):

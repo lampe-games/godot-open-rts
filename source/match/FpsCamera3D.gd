@@ -23,7 +23,7 @@ func _unhandled_input(event):
 	if not current:
 		return
 		
-	if event is InputEventMouseMotion:
+	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		rotation.x -= event.relative.y * mouse_sensitivity
 		rotation_degrees.x = clamp(rotation_degrees.x, -90.0, 30.0)
 		_unit.rotation.y -= event.relative.x * mouse_sensitivity

@@ -35,6 +35,6 @@ func _physics_process(delta):
 			if _unit.velocity.length() < 0.1:
 				_unit.velocity = Vector3()
 		else:
-			_unit.velocity += (dir * _interim_speed)
+			_unit.velocity = dir * (_interim_speed * 100)
 		_UI_pos.text = str(_unit.global_position)
 		_UI_velocity.text = str(_unit.velocity)

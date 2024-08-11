@@ -12,7 +12,7 @@
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_hiufi"]
 height = 0.6
 
-[node name="Worker" type="Area3D"]
+[node name="Worker" type="CharacterBody3D"]
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_hapsg")

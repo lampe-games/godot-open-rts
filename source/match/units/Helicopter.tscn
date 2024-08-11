@@ -37,7 +37,7 @@ height = 0.1
 height = 0.8
 radius = 0.8
 
-[node name="Helicopter" type="Area3D"]
+[node name="Helicopter" type="CharacterBody3D"]
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_4fna5")

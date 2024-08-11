@@ -21,6 +21,8 @@ func _ready():
 
 
 func _try_navigating_selected_units_towards_position(target_point):
+	var selected_units = get_tree().get_nodes_in_group("selected_units")
+	var controlled_units = get_tree().get_nodes_in_group("controlled_units")
 	var terrain_units_to_move = get_tree().get_nodes_in_group("selected_units").filter(
 		func(unit): return (
 			unit.is_in_group("controlled_units")

@@ -8,6 +8,8 @@ var target = Vector3()
 var path = []
 var path_index = 0
 var path_visualizer = null
+var domain = Constants.Match.Navigation.Domain.TERRAIN
+var radius = 0.5
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -16,6 +18,13 @@ func _ready():
 func _exit_tree():
 	if path_visualizer != null:
 		path_visualizer.destroy()
+func move(movement_target: Vector3):
+	target = movement_target
+
+
+func stop():
+	target = _Unit.global_position
+	path = null
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):

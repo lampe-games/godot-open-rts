@@ -58,4 +58,4 @@ script = ExtResource("9_qyt8g")
 
 [node name="Pilotable" parent="." instance=ExtResource("10_6okqq")]
 
-[node name="NavMovement" parent="." instance=ExtResource("10_6mdiq")]
+[node name="Movement" parent="." instance=ExtResource("10_6mdiq")]

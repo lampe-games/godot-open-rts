@@ -14,7 +14,7 @@
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_2f8yw"]
 height = 0.3
 
-[node name="Drone" type="Area3D"]
+[node name="Drone" type="CharacterBody3D"]
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_5qo4j")

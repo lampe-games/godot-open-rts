@@ -73,6 +73,8 @@ func _get_radius():
 		return find_child("Movement").radius
 	if find_child("MovementObstacle") != null:
 		return find_child("MovementObstacle").radius
+	if find_child("NavMovement") != null:
+		return find_child("NavMovement").radius
 	return null
 
 
@@ -81,6 +83,8 @@ func _get_movement_domain():
 		return find_child("Movement").domain
 	if find_child("MovementObstacle") != null:
 		return find_child("MovementObstacle").domain
+	if find_child("NavMovement") != null:
+		return find_child("NavMovement").domain
 	return null
 
 
