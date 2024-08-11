@@ -23,8 +23,7 @@ var radius:
 	get = _get_radius
 var movement_domain:
 	get = _get_movement_domain
-var movement_speed:
-	get = _get_movement_speed
+var movement_speed = null
 var sight_range = null
 var player:
 	get:
@@ -85,14 +84,14 @@ func _get_movement_domain():
 	return null
 
 
-func _get_movement_speed():
-	if find_child("Movement") != null:
-		return find_child("Movement").speed
+func _get_actual_movement_speed():
+	if find_child("NavMovement") != null:
+		return find_child("NavMovement").speed
 	return 0.0
 
 
 func _is_movable():
-	return _get_movement_speed() > 0.0
+	return movement_speed > 0.0
 
 
 func _setup_color():

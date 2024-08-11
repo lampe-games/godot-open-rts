@@ -96,7 +96,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.6362, 2.65096, 14.8326)
 [node name="Player" parent="Match/Units" instance=ExtResource("8_go0lg")]
 
 [node name="Unit" type="CharacterBody3D" parent="Match/Units/Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.0811, 43.6598, 65.3101)
+transform = Transform3D(0.858396, 0, 0.512987, 0, 1, 0, -0.512987, 0, 0.858396, -10.8315, 14.0724, -8.78512)
 motion_mode = 1
 script = ExtResource("5_4k75h")
 
@@ -112,6 +112,6 @@ script = ExtResource("3_hsuq8")
 shape = SubResource("CylinderShape3D_ht2rm")
 
 [node name="Tank" parent="Match/Units/Player" instance=ExtResource("14_vdgu8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.49, 0, 7.80647)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.3936, 8.64286, -44.3931)
 
 [node name="Map" parent="Match" instance=ExtResource("12_kfcua")]

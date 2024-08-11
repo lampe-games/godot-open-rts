@@ -43,7 +43,6 @@ func _ready():
 	if settings.visibility == settings.Visibility.FULL:
 		fog_of_war.reveal()
 	MatchSignals.match_started.emit()
-	map.connect("map_updated", _setup_subsystems_dependent_on_map())
 
 
 func _unhandled_input(event):

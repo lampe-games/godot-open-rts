@@ -3,11 +3,11 @@
 [ext_resource type="Script" path="res://source/match/units/Helicopter.gd" id="1_4fna5"]
 [ext_resource type="PackedScene" uid="uid://cgsi062w5fjia" path="res://source/match/units/traits/Highlight.tscn" id="1_nqs7t"]
 [ext_resource type="PackedScene" uid="uid://3c1h14nqdumt" path="res://source/match/units/traits/Selection.tscn" id="2_lki1x"]
-[ext_resource type="PackedScene" uid="uid://ivlo0e66qocl" path="res://source/match/units/traits/Movement.tscn" id="3_4ms8e"]
 [ext_resource type="PackedScene" uid="uid://c3ssj2p6voauk" path="res://source/match/units/traits/HealthBar.tscn" id="4_fmrjm"]
 [ext_resource type="PackedScene" uid="uid://d1ekv61cse3bl" path="res://assets/models/kenney-spacekit/craft_racer.glb" id="6_3gekj"]
 [ext_resource type="PackedScene" uid="uid://b1r67ex7h3veu" path="res://source/match/units/traits/AirToTerrainMarker.tscn" id="7_5wh2l"]
 [ext_resource type="PackedScene" uid="uid://d4cm4yhtf11ur" path="res://source/match/units/traits/Targetability.tscn" id="8_ib4xd"]
+[ext_resource type="PackedScene" uid="uid://bem5u20vcnnd7" path="res://source/match/units/traits/DirectMovement.tscn" id="9_37ljt"]
 [ext_resource type="Script" path="res://source/match/FpsCamera3D.gd" id="9_sbnro"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_io5xm"]
@@ -79,15 +79,6 @@ radius = 0.8
 [node name="Selection" parent="." instance=ExtResource("2_lki1x")]
 radius = 0.8
 
-[node name="Movement" parent="." instance=ExtResource("3_4ms8e")]
-path_desired_distance = 0.1
-target_desired_distance = 0.1
-path_height_offset = 0.5
-radius = 0.8
-neighbor_distance = 8.0
-max_neighbors = 40
-domain = 0
-
 [node name="HealthBar" parent="." instance=ExtResource("4_fmrjm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
 size = Vector2(140, 10)
@@ -100,3 +91,5 @@ radius = 0.8
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.452916, -0.386677)
 script = ExtResource("9_sbnro")
+
+[node name="DirectMovement" parent="." instance=ExtResource("9_37ljt")]
