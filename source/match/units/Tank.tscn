@@ -17,7 +17,6 @@ radius = 0.8
 
 [node name="Tank" type="CharacterBody3D" groups=["units"]]
 collision_layer = 2
-collision_mask = 0
 script = ExtResource("1_npbka")
 
 [node name="Geometry" type="Node3D" parent="."]
