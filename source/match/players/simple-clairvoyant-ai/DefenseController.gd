@@ -126,12 +126,15 @@ func _construct_turret(turret_scene):
 	)
 	var unit_to_spawn = turret_scene.instantiate()
 	# TODO: introduce actual algorithm which takes enemy positions into account
+	var navigation_rid
+	if find_parent("Match").find_child("navigation"):
+		navigation_rid = find_parent("Match").navigation.get_navigation_map_rid_by_domain(
+			unit_to_spawn.movement_domain
+		)
 	var placement_position = Utils.Match.Unit.Placement.find_valid_position_radially(
 		ccs[0].global_position,
-		unit_to_spawn.radius + Constants.Match.Units.EMPTY_SPACE_RADIUS_SURROUNDING_STRUCTURE_M,
-		find_parent("Match").navigation.get_navigation_map_rid_by_domain(
-			unit_to_spawn.movement_domain
-		),
+		unit_to_spawn.structure_radius + Constants.Match.Units.EMPTY_SPACE_RADIUS_SURROUNDING_STRUCTURE_M,
+		navigation_rid,
 		get_tree()
 	)
 	var target_transform = Transform3D(Basis(), placement_position).looking_at(

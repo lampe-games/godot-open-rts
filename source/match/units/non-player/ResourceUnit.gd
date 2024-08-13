@@ -2,9 +2,7 @@ extends Area3D
 
 const ResourceDecayAnimation = preload("res://source/match/utils/ResourceDecayAnimation.tscn")
 
-var radius:
-	get:
-		return find_child("MovementObstacle").radius
+@export var radius = 5
 var global_position_yless:
 	get:
 		return global_position * Vector3(1, 0, 1)

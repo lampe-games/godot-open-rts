@@ -53,12 +53,10 @@ func _unhandled_input(event):
 
 
 func _set_map(a_map):
-	map = a_map
-	#var old_map = find_child("Map")
-	#a_map.name = "Map"
-	#add_child(a_map)
-	#a_map.owner = self
-	#old_map.queue_free()
+	assert(get_node_or_null("Map") == null, "map already set")
+	a_map.name = "Map"
+	add_child(a_map)
+	a_map.owner = self
 
 
 func _ignore(_value):
@@ -82,8 +80,9 @@ func _get_visible_players():
 
 
 func _setup_subsystems_dependent_on_map():
-	fog_of_war.resize(map.size)
-	_recalculate_camera_bounding_planes(map.size)
+	var mapsize = map.size
+	fog_of_war.resize(mapsize)
+	_recalculate_camera_bounding_planes(mapsize)
 
 
 func _recalculate_camera_bounding_planes(map_size: Vector2):

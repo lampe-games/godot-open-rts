@@ -1,10 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://ct0ejt0trkhrf"]
+[gd_scene load_steps=13 format=3 uid="uid://ct0ejt0trkhrf"]
 
 [ext_resource type="Script" path="res://source/match/units/CommandCenter.gd" id="1_hpo2s"]
 [ext_resource type="PackedScene" uid="uid://cgsi062w5fjia" path="res://source/match/units/traits/Highlight.tscn" id="2_c41i5"]
 [ext_resource type="PackedScene" uid="uid://bxx81l3t16rrs" path="res://source/match/units/structure-geometries/CommandCenter.tscn" id="2_hwq4d"]
 [ext_resource type="PackedScene" uid="uid://3c1h14nqdumt" path="res://source/match/units/traits/Selection.tscn" id="3_slmue"]
-[ext_resource type="PackedScene" uid="uid://d4cwip5hpxlmo" path="res://source/match/units/traits/MovementObstacle.tscn" id="4_f5u8t"]
 [ext_resource type="PackedScene" uid="uid://c3ssj2p6voauk" path="res://source/match/units/traits/HealthBar.tscn" id="5_xuulo"]
 [ext_resource type="PackedScene" uid="uid://c471ahpwuxv57" path="res://source/match/units/traits/StaticMovementObstacle.tscn" id="6_5gbe5"]
 [ext_resource type="PackedScene" uid="uid://b8jwlpdvxgrr6" path="res://source/match/units/traits/RallyPoint.tscn" id="8_8qw5y"]
@@ -26,6 +25,7 @@ size = Vector3(0.1, 5, 0.1)
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_hpo2s")
+structure_radius = 10
 
 [node name="Geometry" parent="." instance=ExtResource("2_hwq4d")]
 
@@ -40,10 +40,6 @@ radius = 2.0
 [node name="Selection" parent="." instance=ExtResource("3_slmue")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
 radius = 2.0
-
-[node name="MovementObstacle" parent="." instance=ExtResource("4_f5u8t")]
-radius = 2.0
-path_height_offset = 0.5
 
 [node name="StaticMovementObstacle" parent="." instance=ExtResource("6_5gbe5")]
 shape = SubResource("CylinderShape3D_2xy8f")

@@ -7,18 +7,19 @@ var piloted = false
 @onready var _UI_pos = find_child("PosValue")
 @onready var _UI_velocity = find_child("VelocityValue")
 
+var domain = Constants.Match.Navigation.Domain.TERRAIN
+var radius = 0.5
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+var target = Vector3()
 
+func move(movement_target: Vector3):
+	target = movement_target
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func stop():
+	target = _unit.global_position
 
 func _physics_process(delta):
-	var _interim_speed = _unit.speed * delta
+	var _interim_speed = _unit.movement_speed * delta
 	if not piloted:
 		var next_path_position: Vector3 = Vector3()#get_next_path_position()
 		var current_agent_position: Vector3 = _unit.global_position
@@ -30,11 +31,10 @@ func _physics_process(delta):
 		var xz_input = Input.get_vector("move_map_left", "move_map_right", "move_map_up", "move_map_down")
 		var y_input = Input.get_axis("move_lower", "move_higher")
 		var dir = Vector3(xz_input.x, y_input, xz_input.y).rotated(Vector3.UP, _unit.rotation.y)
-		if Input.is_action_pressed("frame_incrementer_step"):
-			_unit.velocity -= _unit.velocity.normalized()*_unit.speed * 10 * delta
-			if _unit.velocity.length() < 0.1:
-				_unit.velocity = Vector3()
+		if Input.is_action_pressed("shift_selecting"):
+			_unit.velocity = dir * _interim_speed * 100
 		else:
-			_unit.velocity = dir * (_interim_speed * 100)
+			_unit.velocity = dir * _interim_speed
 		_UI_pos.text = str(_unit.global_position)
 		_UI_velocity.text = str(_unit.velocity)
+	_unit.move_and_slide()

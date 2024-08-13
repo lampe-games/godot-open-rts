@@ -85,6 +85,10 @@ func _remove_element(element):
 
 func _finalize_production(former_queue_element):
 	var produced_unit = former_queue_element.unit_prototype.instantiate()
+	var navigation_map_rid = null
+	if find_parent("Match").find_child("navigation"):
+		navigation_map_rid = find_parent("Match").navigation.get_navigation_map_rid_by_domain(
+				produced_unit.movement_domain)
 	var placement_position = (
 		Utils
 		. Match
@@ -97,9 +101,7 @@ func _finalize_production(former_queue_element):
 			0.1,
 			Vector3(0, 0, 1),
 			false,
-			find_parent("Match").navigation.get_navigation_map_rid_by_domain(
-				produced_unit.movement_domain
-			),
+			navigation_map_rid,
 			get_tree()
 		)
 	)

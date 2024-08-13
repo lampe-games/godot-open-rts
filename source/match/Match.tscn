@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" path="res://source/match/Match.gd" id="1_1555u"]
 [ext_resource type="Script" path="res://source/match/IsometricCamera3D.gd" id="1_qb2ry"]
-[ext_resource type="PackedScene" uid="uid://dmlef1nchuam4" path="res://source/match/maps/3Dmap/3Dmap.tscn" id="4_h7bxo"]
 [ext_resource type="Script" path="res://source/match/FogOfWar.gd" id="5_eb52t"]
 [ext_resource type="PackedScene" uid="uid://co800e4shs7bh" path="res://source/generic-scenes-and-nodes/3d/RectangularSelection3D.tscn" id="5_yi0pu"]
 [ext_resource type="PackedScene" uid="uid://clbjgy724q2si" path="res://source/generic-scenes-and-nodes/2d/DynamicCircle2D.tscn" id="6_ux0ef"]
@@ -30,6 +29,7 @@
 [ext_resource type="PackedScene" uid="uid://ck6vrgdyg7hja" path="res://source/match/handlers/UnitGroupSelectionHandler.tscn" id="27_j2drv"]
 [ext_resource type="PackedScene" uid="uid://cq6ebbwygfl6" path="res://source/match/handlers/PlayModeSwitchHandler.tscn" id="30_aft50"]
 [ext_resource type="PackedScene" uid="uid://c2n4fxmgkv0vn" path="res://source/match/handlers/ProjectileSystemHandler.tscn" id="31_fbp3e"]
+[ext_resource type="PackedScene" uid="uid://b373fjcto1l4h" path="res://source/match/handlers/NavHandler.tscn" id="32_coyxa"]
 [ext_resource type="PackedScene" uid="uid://b8p6lcwubx1tp" path="res://source/match/handlers/UnitVisibilityHandler.tscn" id="32_fci1c"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ysb0j"]
@@ -132,7 +132,7 @@ size_max = 60
 bounding_planes = Array[Plane]([Plane(1, 0, 0, 0), Plane(-1, 0, 0, -50), Plane(0, 0, 1, 0), Plane(0, 0, -1, -50)])
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.512043, 0.673162, -0.533541, 0, 0.621148, 0.783694, 0.85896, -0.401285, 0.318054, 0, 38.7614, 0)
+transform = Transform3D(0.512043, 0.673161, -0.533541, 0, 0.621148, 0.783694, 0.85896, -0.401285, 0.318054, 976.482, 38.7614, 0)
 shadow_enabled = true
 shadow_blur = 0.05
 directional_shadow_split_1 = 0.45
@@ -146,10 +146,6 @@ environment = SubResource("Environment_qxcnu")
 
 [node name="RectangularSelection3D" parent="." instance=ExtResource("5_yi0pu")]
 
-[node name="Map" parent="." instance=ExtResource("4_h7bxo")]
-visible = false
-size = Vector2(100, 100)
-
 [node name="Fog" type="MeshInstance3D" parent="."]
 visible = false
 material_override = SubResource("ShaderMaterial_qw0ps")
@@ -159,11 +155,12 @@ mesh = SubResource("QuadMesh_pv7fp")
 
 [node name="FogOfWar" type="Node3D" parent="."]
 script = ExtResource("5_eb52t")
+texture_units_per_world_unit = 1
 
 [node name="CombinedViewport" type="SubViewport" parent="FogOfWar"]
 disable_3d = true
 handle_input_locally = false
-size = Vector2i(200, 200)
+size = Vector2i(100, 100)
 render_target_update_mode = 4
 
 [node name="Background" type="ColorRect" parent="FogOfWar/CombinedViewport"]
@@ -185,6 +182,7 @@ grow_vertical = 2
 disable_3d = true
 transparent_bg = true
 handle_input_locally = false
+size = Vector2i(100, 100)
 render_target_clear_mode = 2
 render_target_update_mode = 4
 
@@ -338,6 +336,7 @@ antialiased = true
 [node name="MinimapTextureRect" type="TextureRect" parent="HUD/MarginContainer/Minimap/MarginContainer"]
 layout_mode = 2
 texture = SubResource("ViewportTexture_8q44e")
+expand_mode = 1
 stretch_mode = 5
 
 [node name="MarginContainer2" type="MarginContainer" parent="HUD"]
@@ -454,3 +453,5 @@ visible = false
 [node name="PlayModeSwitchHandler" parent="Handlers" instance=ExtResource("30_aft50")]
 
 [node name="ProjectileSystemHandler" parent="Handlers" instance=ExtResource("31_fbp3e")]
+
+[node name="NavHandler" parent="Handlers" instance=ExtResource("32_coyxa")]

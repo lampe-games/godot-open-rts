@@ -1,10 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://b8pckq1xn44ss"]
+[gd_scene load_steps=11 format=3 uid="uid://b8pckq1xn44ss"]
 
 [ext_resource type="PackedScene" uid="uid://cgsi062w5fjia" path="res://source/match/units/traits/Highlight.tscn" id="1_5gp2d"]
 [ext_resource type="Script" path="res://source/match/units/AntiGroundTurret.gd" id="1_6hw4x"]
 [ext_resource type="PackedScene" uid="uid://3c1h14nqdumt" path="res://source/match/units/traits/Selection.tscn" id="2_f1d12"]
 [ext_resource type="PackedScene" uid="uid://bmiqncjpgsw2e" path="res://source/match/units/structure-geometries/AntiGroundTurret.tscn" id="2_tlome"]
-[ext_resource type="PackedScene" uid="uid://d4cwip5hpxlmo" path="res://source/match/units/traits/MovementObstacle.tscn" id="3_ds80w"]
 [ext_resource type="PackedScene" uid="uid://c3ssj2p6voauk" path="res://source/match/units/traits/HealthBar.tscn" id="4_r6emo"]
 [ext_resource type="PackedScene" uid="uid://c471ahpwuxv57" path="res://source/match/units/traits/StaticMovementObstacle.tscn" id="6_w6nbo"]
 [ext_resource type="PackedScene" uid="uid://d4cm4yhtf11ur" path="res://source/match/units/traits/Targetability.tscn" id="7_4hifs"]
@@ -51,10 +50,6 @@ radius = 0.6
 [node name="Selection" parent="." instance=ExtResource("2_f1d12")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
 radius = 0.6
-
-[node name="MovementObstacle" parent="." instance=ExtResource("3_ds80w")]
-radius = 0.6
-path_height_offset = 0.5
 
 [node name="StaticMovementObstacle" parent="." instance=ExtResource("6_w6nbo")]
 shape = SubResource("CylinderShape3D_t2frt")

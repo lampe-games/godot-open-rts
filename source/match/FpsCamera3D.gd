@@ -97,3 +97,7 @@ func _miss(pos):
 	var impact = Impact.instantiate()
 	get_tree().get_root().add_child(impact)
 	impact.global_position = pos
+
+# called by minimap
+func set_position_safely(target_position: Vector3):
+	pass

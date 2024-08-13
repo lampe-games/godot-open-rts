@@ -10,6 +10,9 @@ signal finished(topdown_polygon_2d)
 @export var screen_margin = 1
 @export var changed_signal_interval_lower_bound = 1.0 / 60.0 * 5.0  # s
 
+@onready var _match = find_parent("Match")
+@onready var terrain :Terrain3D = _match.find_child("Terrain3D") 
+
 var _rect_on_screen = null
 var _time_since_last_update = 0.0  # s
 
@@ -98,8 +101,9 @@ func _screen_rect_2d_to_topdown_polygon_2d(rect_2d):
 	]
 	var polygon_points_2d = []
 	for rect_point_2d in rect_points_2d:
-		var polygon_point_3d = get_viewport().get_camera_3d().get_ray_intersection_with_plane(
-			rect_point_2d, polygon_plane
-		)
+		var p_viewport_camera = get_viewport().get_camera_3d()
+		var camera_pos: Vector3 = p_viewport_camera.project_ray_origin(rect_point_2d)
+		var camera_dir: Vector3 = p_viewport_camera.project_ray_normal(rect_point_2d)
+		var polygon_point_3d = terrain.get_intersection(camera_pos,camera_dir)
 		polygon_points_2d.append(Vector2(polygon_point_3d.x, polygon_point_3d.z))
 	return polygon_points_2d

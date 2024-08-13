@@ -1,6 +1,8 @@
 extends Node3D
 
 signal movement_finished
+signal passive_movement_started
+signal passive_movement_finished
 
 @onready var _Match = find_parent("Match")
 @onready var _NavHandler = _Match.find_child("NavHandler")
@@ -24,15 +26,18 @@ func _exit_tree():
 
 func move(movement_target: Vector3):
 	target = movement_target
+	_moving = true
 
 func stop():
 	target = _Unit.global_position
 	path = null
+	_moving = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	_Unit.velocity = _calculate_velocity(delta)
-	_Unit.move_and_slide()
+	if _moving:
+		_Unit.velocity = _calculate_velocity(delta)
+		_Unit.move_and_slide()
 
 func _calculate_velocity(delta):
 	var dir = Vector3()
