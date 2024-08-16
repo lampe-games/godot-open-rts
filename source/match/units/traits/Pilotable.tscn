@@ -3,16 +3,13 @@
 [ext_resource type="Script" path="res://source/match/units/traits/Pilotable.gd" id="1_vuhfg"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_6hfjy"]
-height = 6.0
+height = 4.0
 radius = 1.0
 
-[node name="Pilotable" type="Node3D"]
+[node name="Pilotable" type="Area3D"]
+collision_layer = 8
+collision_mask = 8
 script = ExtResource("1_vuhfg")
 
-[node name="Area3D" type="Area3D" parent="."]
-collision_layer = 0
-collision_mask = 6
-input_ray_pickable = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CylinderShape3D_6hfjy")

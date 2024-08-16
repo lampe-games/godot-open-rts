@@ -107,4 +107,3 @@ func pop():
 		var leftHalf = node[2]
 		parent[3] = leftHalf  # Also removes 'node'
 	return [node[0], node[1]]
-

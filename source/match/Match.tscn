@@ -207,7 +207,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ScreenOverlay" type="MeshInstance3D" parent="FogOfWar"]
-visible = false
 material_override = SubResource("ShaderMaterial_5rcuq")
 cast_shadow = 0
 extra_cull_margin = 16384.0

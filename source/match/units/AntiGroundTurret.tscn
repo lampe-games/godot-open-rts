@@ -21,6 +21,7 @@ radius = 0.2
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_6hw4x")
+structure_radius = 2
 
 [node name="PositionSynchronizer" type="RemoteTransform3D" parent="."]
 remote_path = NodePath("../DetachTransform/Geometry")
