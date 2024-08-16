@@ -13,6 +13,7 @@ var _camera_movement_active = false
 @onready var _camera_indicator = find_child("CameraIndicator")
 @onready var _viewport_background = find_child("Background")
 @onready var _texture_rect = find_child("MinimapTextureRect")
+@onready var _terrain = _match.find_child("Terrain3D")
 
 
 func _ready():
@@ -160,11 +161,8 @@ func _issue_movement_action(position_2d_within_texture_rect):
 	)
 	if world_position_2d == null:
 		return
-	var abstract_world_position_3d = Vector3(world_position_2d.x, 0, world_position_2d.y)
-	var camera = get_viewport().get_camera_3d()
-	var target_point_on_colliding_surface = camera.get_ray_intersection(
-		camera.unproject_position(abstract_world_position_3d)
-	)
+	var world_position_3d = Vector3(world_position_2d.x, 0, world_position_2d.y)
+	var target_point_on_colliding_surface = Vector3(world_position_3d.x, _terrain.storage.get_height(world_position_3d), world_position_3d.z)
 	MatchSignals.terrain_targeted.emit(target_point_on_colliding_surface)
 
 

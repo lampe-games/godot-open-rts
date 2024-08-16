@@ -5,7 +5,6 @@
 [ext_resource type="Script" path="res://source/match/FogOfWar.gd" id="5_eb52t"]
 [ext_resource type="PackedScene" uid="uid://co800e4shs7bh" path="res://source/generic-scenes-and-nodes/3d/RectangularSelection3D.tscn" id="5_yi0pu"]
 [ext_resource type="PackedScene" uid="uid://clbjgy724q2si" path="res://source/generic-scenes-and-nodes/2d/DynamicCircle2D.tscn" id="6_ux0ef"]
-[ext_resource type="Script" path="res://source/match/Terrain.gd" id="7_ccpu4"]
 [ext_resource type="Script" path="res://source/match/Navigation.gd" id="10_1wfp1"]
 [ext_resource type="PackedScene" uid="uid://b6n7cwv706x5n" path="res://source/match/debug/GodModeHud.tscn" id="10_p6gno"]
 [ext_resource type="Shader" path="res://source/shaders/3d/fog.gdshader" id="10_weh6c"]
@@ -30,6 +29,7 @@
 [ext_resource type="PackedScene" uid="uid://ck6vrgdyg7hja" path="res://source/match/handlers/UnitGroupSelectionHandler.tscn" id="27_j2drv"]
 [ext_resource type="PackedScene" uid="uid://cq6ebbwygfl6" path="res://source/match/handlers/PlayModeSwitchHandler.tscn" id="30_aft50"]
 [ext_resource type="PackedScene" uid="uid://c2n4fxmgkv0vn" path="res://source/match/handlers/ProjectileSystemHandler.tscn" id="31_fbp3e"]
+[ext_resource type="PackedScene" uid="uid://b373fjcto1l4h" path="res://source/match/handlers/NavHandler.tscn" id="32_coyxa"]
 [ext_resource type="PackedScene" uid="uid://b8p6lcwubx1tp" path="res://source/match/handlers/UnitVisibilityHandler.tscn" id="32_fci1c"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ysb0j"]
@@ -132,7 +132,7 @@ size_max = 60
 bounding_planes = Array[Plane]([Plane(1, 0, 0, 0), Plane(-1, 0, 0, -50), Plane(0, 0, 1, 0), Plane(0, 0, -1, -50)])
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.512043, 0.673162, -0.533541, 0, 0.621148, 0.783694, 0.85896, -0.401285, 0.318054, 0, 38.7614, 0)
+transform = Transform3D(0.512043, 0.673161, -0.533541, 0, 0.621148, 0.783694, 0.85896, -0.401285, 0.318054, 976.482, 38.7614, 0)
 shadow_enabled = true
 shadow_blur = 0.05
 directional_shadow_split_1 = 0.45
@@ -146,13 +146,8 @@ environment = SubResource("Environment_qxcnu")
 
 [node name="RectangularSelection3D" parent="." instance=ExtResource("5_yi0pu")]
 
-[node name="Terrain" type="StaticBody3D" parent="."]
-collision_mask = 0
-script = ExtResource("7_ccpu4")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain"]
-
 [node name="Fog" type="MeshInstance3D" parent="."]
+visible = false
 material_override = SubResource("ShaderMaterial_qw0ps")
 cast_shadow = 0
 extra_cull_margin = 16384.0
@@ -160,6 +155,7 @@ mesh = SubResource("QuadMesh_pv7fp")
 
 [node name="FogOfWar" type="Node3D" parent="."]
 script = ExtResource("5_eb52t")
+texture_units_per_world_unit = 1
 
 [node name="CombinedViewport" type="SubViewport" parent="FogOfWar"]
 disable_3d = true
@@ -339,6 +335,7 @@ antialiased = true
 [node name="MinimapTextureRect" type="TextureRect" parent="HUD/MarginContainer/Minimap/MarginContainer"]
 layout_mode = 2
 texture = SubResource("ViewportTexture_8q44e")
+expand_mode = 1
 stretch_mode = 5
 
 [node name="MarginContainer2" type="MarginContainer" parent="HUD"]
@@ -455,3 +452,5 @@ visible = false
 [node name="PlayModeSwitchHandler" parent="Handlers" instance=ExtResource("30_aft50")]
 
 [node name="ProjectileSystemHandler" parent="Handlers" instance=ExtResource("31_fbp3e")]
+
+[node name="NavHandler" parent="Handlers" instance=ExtResource("32_coyxa")]

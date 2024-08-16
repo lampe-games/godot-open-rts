@@ -1,10 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://cfa8cpnpk5pcb"]
+[gd_scene load_steps=11 format=3 uid="uid://cfa8cpnpk5pcb"]
 
 [ext_resource type="Script" path="res://source/match/units/AntiAirTurret.gd" id="1_ec2s5"]
 [ext_resource type="PackedScene" uid="uid://cgsi062w5fjia" path="res://source/match/units/traits/Highlight.tscn" id="1_tbjvv"]
 [ext_resource type="PackedScene" uid="uid://cm3iqdsdeo625" path="res://source/match/units/structure-geometries/AntiAirTurret.tscn" id="2_bhouy"]
 [ext_resource type="PackedScene" uid="uid://3c1h14nqdumt" path="res://source/match/units/traits/Selection.tscn" id="2_ookx0"]
-[ext_resource type="PackedScene" uid="uid://d4cwip5hpxlmo" path="res://source/match/units/traits/MovementObstacle.tscn" id="3_hgb44"]
 [ext_resource type="PackedScene" uid="uid://c3ssj2p6voauk" path="res://source/match/units/traits/HealthBar.tscn" id="4_qhoj1"]
 [ext_resource type="PackedScene" uid="uid://c471ahpwuxv57" path="res://source/match/units/traits/StaticMovementObstacle.tscn" id="6_tt140"]
 [ext_resource type="PackedScene" uid="uid://d4cm4yhtf11ur" path="res://source/match/units/traits/Targetability.tscn" id="7_6bghh"]
@@ -22,6 +21,7 @@ radius = 0.2
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_ec2s5")
+structure_radius = 2
 
 [node name="PositionSynchronizer" type="RemoteTransform3D" parent="."]
 remote_path = NodePath("../DetachTransform/Geometry")
@@ -40,9 +40,6 @@ update_scale = false
 
 [node name="Geometry" parent="DetachTransform" instance=ExtResource("2_bhouy")]
 
-[node name="turret" parent="DetachTransform/Geometry/turret_double/tmpParent/turret_double2" index="0"]
-transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0, 0.3, -0.025)
-
 [node name="ProjectileOrigin" type="Marker3D" parent="DetachTransform/Geometry/turret_double/tmpParent/turret_double2/turret" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.326622, 0.12029, -0.315091)
 
@@ -57,10 +54,6 @@ radius = 0.6
 [node name="Selection" parent="." instance=ExtResource("2_ookx0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
 radius = 0.6
-
-[node name="MovementObstacle" parent="." instance=ExtResource("3_hgb44")]
-radius = 0.6
-path_height_offset = 0.5
 
 [node name="StaticMovementObstacle" parent="." instance=ExtResource("6_tt140")]
 shape = SubResource("CylinderShape3D_65kle")

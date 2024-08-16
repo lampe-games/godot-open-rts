@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dg66oaqsqty53"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_mx1gw"]
+
+[node name="DebugMarker3D" type="MeshInstance3D"]
+mesh = SubResource("BoxMesh_mx1gw")

@@ -3,18 +3,24 @@ const ADVERSARY_PLAYER_CIRCLE_COLOR = Color.RED
 const RESOURCE_CIRCLE_COLOR = Color.YELLOW
 const DEFAULT_CIRCLE_COLOR = Color.WHITE
 const MAPS = {
-	"res://source/match/maps/PlainAndSimple.tscn":
+#	"res://source/match/maps/PlainAndSimple.tscn":
+#	{
+#		"name": "Plain & Simple",
+#		"players": 4,
+#		"size": Vector2i(50, 50),
+#	},
+#	"res://source/match/maps/BigArena.tscn":
+#	{
+#		"name": "Big Arena",
+#		"players": 8,
+#		"size": Vector2i(100, 100),
+#	},
+	"res://source/match/maps/3Dmap/3Dmap.tscn":
 	{
-		"name": "Plain & Simple",
+		"name": "3D map",
 		"players": 4,
-		"size": Vector2i(50, 50),
-	},
-	"res://source/match/maps/BigArena.tscn":
-	{
-		"name": "Big Arena",
-		"players": 8,
-		"size": Vector2i(100, 100),
-	},
+		"size": Vector2i(1024, 1024),
+	}
 }
 
 
@@ -133,12 +139,14 @@ class Units:
 			"sight_range": 10.0,
 			"hp": 3,
 			"hp_max": 3,
+			"movement_speed": 100.0,
 		},
 		"res://source/match/units/Drone.tscn":
 		{
 			"sight_range": 10.0,
 			"hp": 6,
 			"hp_max": 6,
+			"movement_speed": 500.0,
 		},
 		"res://source/match/units/Worker.tscn":
 		{
@@ -146,6 +154,7 @@ class Units:
 			"hp": 6,
 			"hp_max": 6,
 			"resources_max": 2,
+			"movement_speed": 200.0,
 		},
 		"res://source/match/units/Helicopter.tscn":
 		{
@@ -154,6 +163,7 @@ class Units:
 			"hp_max": 10,
 			"attack_damage": 1,
 			"projectile_speed": 10,
+			"movement_speed": 300.0,
 			"attack_interval": 1.0,
 			"attack_range": 5.0,
 			"attack_domains": [Navigation.Domain.TERRAIN, Navigation.Domain.AIR],
@@ -165,6 +175,7 @@ class Units:
 			"hp_max": 10,
 			"attack_damage": 2,
 			"projectile_speed": 10,
+			"movement_speed": 100.0,
 			"attack_interval": 0.75,
 			"attack_range": 5.0,
 			"attack_aim": 0.6,

@@ -159,12 +159,13 @@ func _start_structure_placement(structure_prototype):
 	)
 	add_child(_active_blueprint_node)
 	var temporary_structure_instance = _pending_structure_prototype.instantiate()
-	_pending_structure_radius = temporary_structure_instance.radius
-	_pending_structure_navmap_rid = (
-		find_parent("Match")
-		. navigation
-		. get_navigation_map_rid_by_domain(temporary_structure_instance.movement_domain)
-	)
+	_pending_structure_radius = temporary_structure_instance.structure_radius
+	if find_parent("Match").find_child("navigation"):
+		_pending_structure_navmap_rid = (
+			find_parent("Match")
+			. navigation
+			. get_navigation_map_rid_by_domain(temporary_structure_instance.movement_domain)
+		)
 	temporary_structure_instance.free()
 
 

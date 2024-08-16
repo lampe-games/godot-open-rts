@@ -9,6 +9,7 @@ func _ready():
 	await super()
 	action_changed.connect(_on_action_changed)
 	action = WaitingForTargets.new()
+	find_child("Movement").domain = Constants.Match.Navigation.Domain.AIR
 
 
 func _physics_process(delta):

@@ -1,4 +1,4 @@
-extends Area3D
+extends CollisionObject3D
 
 signal selected
 signal deselected
@@ -23,8 +23,7 @@ var radius:
 	get = _get_radius
 var movement_domain:
 	get = _get_movement_domain
-var movement_speed:
-	get = _get_movement_speed
+var movement_speed = null
 var sight_range = null
 var player:
 	get:
@@ -74,7 +73,7 @@ func _get_radius():
 		return find_child("Movement").radius
 	if find_child("MovementObstacle") != null:
 		return find_child("MovementObstacle").radius
-	return null
+	return radius
 
 
 func _get_movement_domain():
@@ -85,14 +84,16 @@ func _get_movement_domain():
 	return null
 
 
-func _get_movement_speed():
+func _get_actual_movement_speed():
 	if find_child("Movement") != null:
 		return find_child("Movement").speed
 	return 0.0
 
 
 func _is_movable():
-	return _get_movement_speed() > 0.0
+	if movement_speed and movement_speed > 0.0:
+		return true
+	return false
 
 
 func _setup_color():
@@ -163,10 +164,12 @@ func _handle_unit_death():
 
 
 func _setup_default_properties_from_constants():
+	print("setting up unit properties for "+str(get_script().resource_path))
 	var default_properties = Constants.Match.Units.DEFAULT_PROPERTIES[
 		get_script().resource_path.replace(".gd", ".tscn")
 	]
 	for property in default_properties:
+		print(property, str(default_properties[property]))
 		set(property, default_properties[property])
 
 

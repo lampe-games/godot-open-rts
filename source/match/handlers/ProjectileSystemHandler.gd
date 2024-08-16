@@ -128,7 +128,7 @@ func _check_collision(idx, delta):
 	return collision
 
 func _handle_collision(collision, idx):
-	if collision.collider is Terrain:
+	if collision.collider is Terrain3D:
 		_miss(collision.position)
 		return
 	

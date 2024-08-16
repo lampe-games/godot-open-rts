@@ -3,18 +3,18 @@
 [ext_resource type="Script" path="res://source/match/units/Drone.gd" id="1_5qo4j"]
 [ext_resource type="PackedScene" uid="uid://cgsi062w5fjia" path="res://source/match/units/traits/Highlight.tscn" id="1_44soy"]
 [ext_resource type="PackedScene" uid="uid://3c1h14nqdumt" path="res://source/match/units/traits/Selection.tscn" id="2_5w4nl"]
-[ext_resource type="PackedScene" uid="uid://ivlo0e66qocl" path="res://source/match/units/traits/Movement.tscn" id="4_wemaw"]
 [ext_resource type="PackedScene" uid="uid://c3ssj2p6voauk" path="res://source/match/units/traits/HealthBar.tscn" id="5_vqiw1"]
 [ext_resource type="PackedScene" uid="uid://cmvtt1w71wso2" path="res://assets/models/kenney-spacekit/craft_speederA.glb" id="6_88s7t"]
 [ext_resource type="PackedScene" uid="uid://b1r67ex7h3veu" path="res://source/match/units/traits/AirToTerrainMarker.tscn" id="7_hxqr1"]
 [ext_resource type="PackedScene" uid="uid://d4cm4yhtf11ur" path="res://source/match/units/traits/Targetability.tscn" id="8_hsorq"]
 [ext_resource type="Script" path="res://source/match/FpsCamera3D.gd" id="9_rjp8e"]
+[ext_resource type="PackedScene" uid="uid://cimnqhlthmxf0" path="res://source/match/units/traits/NavMovement.tscn" id="10_c83qp"]
 [ext_resource type="PackedScene" uid="uid://ccwgdcyfg8job" path="res://source/match/units/traits/Pilotable.tscn" id="10_jkjuv"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_2f8yw"]
 height = 0.3
 
-[node name="Drone" type="Area3D"]
+[node name="Drone" type="CharacterBody3D"]
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_5qo4j")
@@ -34,15 +34,6 @@ radius = 0.6
 [node name="Selection" parent="." instance=ExtResource("2_5w4nl")]
 radius = 0.6
 
-[node name="Movement" parent="." instance=ExtResource("4_wemaw")]
-path_desired_distance = 0.1
-target_desired_distance = 0.1
-path_height_offset = 0.5
-radius = 0.6
-neighbor_distance = 8.0
-max_neighbors = 40
-domain = 0
-
 [node name="HealthBar" parent="." instance=ExtResource("5_vqiw1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 size = Vector2(100, 10)
@@ -57,3 +48,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.224432, -0.102811)
 script = ExtResource("9_rjp8e")
 
 [node name="Pilotable" parent="." instance=ExtResource("10_jkjuv")]
+
+[node name="Movement" parent="." instance=ExtResource("10_c83qp")]

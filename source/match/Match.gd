@@ -21,12 +21,10 @@ var visible_players = null:
 	set = _ignore,
 	get = _get_visible_players
 
-@onready var navigation = $Navigation
 @onready var fog_of_war = $FogOfWar
 
 @onready var _camera = $IsometricCamera3D
 @onready var _players = $Players
-@onready var _terrain = $Terrain
 @onready var _SH = $Handlers/PlayModeSwitchHandler
 
 
@@ -82,10 +80,9 @@ func _get_visible_players():
 
 
 func _setup_subsystems_dependent_on_map():
-	_terrain.update_shape(map.find_child("Terrain").mesh)
-	fog_of_war.resize(map.size)
-	_recalculate_camera_bounding_planes(map.size)
-	navigation.setup(map)
+	var mapsize = map.size
+	fog_of_war.resize(mapsize)
+	_recalculate_camera_bounding_planes(mapsize)
 
 
 func _recalculate_camera_bounding_planes(map_size: Vector2):
