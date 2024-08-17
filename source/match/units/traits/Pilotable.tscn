@@ -9,6 +9,7 @@ radius = 1.0
 [node name="Pilotable" type="Area3D"]
 collision_layer = 8
 collision_mask = 8
+input_ray_pickable = false
 script = ExtResource("1_vuhfg")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

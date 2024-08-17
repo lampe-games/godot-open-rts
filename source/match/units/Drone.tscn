@@ -50,3 +50,4 @@ script = ExtResource("9_rjp8e")
 [node name="Pilotable" parent="." instance=ExtResource("10_jkjuv")]
 
 [node name="Movement" parent="." instance=ExtResource("10_c83qp")]
+climb_angle = 1.396

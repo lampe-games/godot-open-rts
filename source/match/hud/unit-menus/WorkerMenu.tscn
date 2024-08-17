@@ -68,8 +68,8 @@ layout_mode = 2
 mouse_filter = 2
 
 [node name="PlaceCommandCenterButton" type="Button" parent="."]
+auto_translate_mode = 2
 layout_mode = 2
-auto_translate = false
 focus_mode = 0
 text = "CC"
 

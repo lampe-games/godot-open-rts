@@ -122,7 +122,7 @@ func _check_collision(idx, delta):
 		
 	var space_state = get_world_3d().direct_space_state
 	var query = PhysicsRayQueryParameters3D.create(origin,
-				origin + normal * step_range)
+				origin + normal * step_range, 0b110)
 	query.collide_with_areas = true
 	var collision = space_state.intersect_ray(query)
 	return collision
