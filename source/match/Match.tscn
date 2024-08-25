@@ -84,7 +84,9 @@ flip_faces = true
 size = Vector2(2, 2)
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_8emvl"]
-geometry_source_geometry_mode = 2
+geometry_parsed_geometry_type = 1
+geometry_collision_mask = 4278190088
+geometry_source_geometry_mode = 1
 geometry_source_group_name = &"air_navigation_input"
 cell_size = 0.4
 cell_height = 0.4
@@ -220,9 +222,14 @@ script = ExtResource("10_1wfp1")
 [node name="Air" type="Node3D" parent="Navigation"]
 script = ExtResource("16_ravsv")
 
-[node name="ReferenceMesh" type="MeshInstance3D" parent="Navigation/Air" groups=["air_navigation_input"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+[node name="ReferenceStaticCollider" type="StaticBody3D" parent="Navigation/Air" groups=["air_navigation_input"]]
 visible = false
+collision_layer = 8
+collision_mask = 0
+input_ray_pickable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Navigation/Air/ReferenceStaticCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="Navigation/Air"]
 navigation_mesh = SubResource("NavigationMesh_8emvl")
