@@ -27,7 +27,7 @@ uniform sampler2D depth_texture : hint_depth_texture;
 
 void vertex()
 {
-  POSITION = vec4(VERTEX, 1);
+  POSITION = vec4(VERTEX.xy, 1.0, 1.0);
 }
 
 void fragment()
