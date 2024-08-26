@@ -4,5 +4,4 @@
 
 [node name="FeatureFlags" type="Node"]
 script = ExtResource("1_wihie")
-allow_navigation_rebaking = false
 god_mode = true

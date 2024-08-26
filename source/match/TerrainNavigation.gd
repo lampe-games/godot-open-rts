@@ -61,19 +61,8 @@ func _rebake():
 	NavigationServer3D.parse_source_geometry_data(
 		_navigation_region.navigation_mesh, full_geometry, get_tree().root
 	)
-
-	# add pre-parsed map geometry manually
-	# TODO: get rid of it when NavigationServer3D.parse_source_geometry_data() adds `append` param
-	var new_indices = full_geometry.get_indices()
-	var original_indices_num = new_indices.size()
-	var new_vertices = full_geometry.get_vertices()
-	var original_vertices_num = new_vertices.size()
-	new_indices.append_array(_map_geometry.get_indices())
-	new_vertices.append_array(_map_geometry.get_vertices())
-	for i in range(original_indices_num, new_indices.size()):
-		new_indices[i] += original_vertices_num / 3
-	full_geometry.set_indices(new_indices)
-	full_geometry.set_vertices(new_vertices)
+	# add pre-parsed map geometry
+	full_geometry.merge(_map_geometry)
 
 	NavigationServer3D.bake_from_source_geometry_data_async(
 		_navigation_region.navigation_mesh, full_geometry, _on_bake_finished

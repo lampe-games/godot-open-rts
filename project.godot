@@ -215,4 +215,5 @@ locale/translations=PackedStringArray("res://assets/translations/match.en.transl
 
 [navigation]
 
+3d/merge_rasterizer_cell_scale=0.001
 3d/use_edge_connections=false
