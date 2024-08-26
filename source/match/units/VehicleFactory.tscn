@@ -43,7 +43,7 @@ radius = 1.5
 
 [node name="MovementObstacle" parent="." instance=ExtResource("3_cp6bx")]
 radius = 1.5
-path_height_offset = 0.5
+path_height_offset = 0.6
 
 [node name="StaticMovementObstacle" parent="." instance=ExtResource("6_rohol")]
 shape = SubResource("CylinderShape3D_x8l2r")

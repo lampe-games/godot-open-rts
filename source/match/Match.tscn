@@ -134,6 +134,7 @@ bounding_planes = Array[Plane]([Plane(1, 0, 0, 0), Plane(-1, 0, 0, -50), Plane(0
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.512043, 0.673162, -0.533541, 0, 0.621148, 0.783694, 0.85896, -0.401285, 0.318054, 0, 38.7614, 0)
 shadow_enabled = true
+shadow_bias = 0.3
 shadow_blur = 0.05
 directional_shadow_split_1 = 0.45
 directional_shadow_split_2 = 0.5
