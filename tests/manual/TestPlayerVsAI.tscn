@@ -65,22 +65,25 @@ transform = Transform3D(-0.22473, 0, 0.974421, 0, 1, 0, -0.974421, 0, -0.22473, 
 [node name="VehicleFactory" parent="Players/Human" index="3" instance=ExtResource("5_imqfl")]
 transform = Transform3D(0.802099, 0, 0.597191, 0, 1, 0, -0.597191, 0, 0.802099, 6.69677, 0, 5.61306)
 
-[node name="AntiGroundTurret" parent="Players/Human" index="4" instance=ExtResource("6_i5onm")]
+[node name="VehicleFactory2" parent="Players/Human" index="4" instance=ExtResource("5_imqfl")]
+transform = Transform3D(0.802099, 0, 0.597191, 0, 1, 0, -0.597191, 0, 0.802099, 4.65118, 0, 18.0781)
+
+[node name="AntiGroundTurret" parent="Players/Human" index="5" instance=ExtResource("6_i5onm")]
 transform = Transform3D(-0.452979, 0, -0.891521, 0, 1, 0, 0.891521, 0, -0.452979, 22.2618, 7.62939e-06, 9.86056)
 
-[node name="AntiAirTurret" parent="Players/Human" index="5" instance=ExtResource("7_hplpe")]
+[node name="AntiAirTurret" parent="Players/Human" index="6" instance=ExtResource("7_hplpe")]
 transform = Transform3D(-0.775077, 0, -0.631867, 0, 1, 0, 0.631867, 0, -0.775077, 20.3453, -3.8147e-06, 17.1744)
 
-[node name="Drone" parent="Players/Human" index="6" instance=ExtResource("8_8jgl1")]
+[node name="Drone" parent="Players/Human" index="7" instance=ExtResource("8_8jgl1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.9318, 0, 4.14556)
 
-[node name="Helicopter" parent="Players/Human" index="7" instance=ExtResource("9_52a3q")]
+[node name="Helicopter" parent="Players/Human" index="8" instance=ExtResource("9_52a3q")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.67897, 0, 3.61146)
 
-[node name="Tank" parent="Players/Human" index="8" instance=ExtResource("10_60e5v")]
+[node name="Tank" parent="Players/Human" index="9" instance=ExtResource("10_60e5v")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.2469, 0, 5.45996)
 
-[node name="Worker" parent="Players/Human" index="9" instance=ExtResource("11_mhynl")]
+[node name="Worker" parent="Players/Human" index="10" instance=ExtResource("11_mhynl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5856, 0, 14.6178)
 
 [node name="SimpleClairvoyantAI" parent="Players" index="1" instance=ExtResource("15_6w32d")]
