@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://d4iqf0mjt5ub3"]
+[gd_scene load_steps=3 format=3 uid="uid://d4iqf0mjt5ub3"]
 
 [ext_resource type="Script" path="res://source/match/hud/unit-menus/CommandCenterMenu.gd" id="1_88cbv"]
+[ext_resource type="Texture2D" uid="uid://qw08xoss4lj0" path="res://assets/ui/icons/Worker.png" id="2_jkjj1"]
 
 [node name="CommandCenterMenu" type="GridContainer"]
 columns = 4
@@ -58,6 +59,17 @@ layout_mode = 2
 layout_mode = 2
 focus_mode = 0
 text = "W"
+
+[node name="TextureRect" type="TextureRect" parent="ProduceWorkerButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_jkjj1")
+expand_mode = 1
 
 [node name="Padding14" type="Control" parent="."]
 custom_minimum_size = Vector2(48, 48)
