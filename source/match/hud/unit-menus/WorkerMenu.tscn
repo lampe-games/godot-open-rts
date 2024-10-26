@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://btvii654eytjr"]
+[gd_scene load_steps=7 format=3 uid="uid://btvii654eytjr"]
 
 [ext_resource type="Script" path="res://source/match/hud/unit-menus/WorkerMenu.gd" id="1_jbs0a"]
+[ext_resource type="Texture2D" uid="uid://sc5cu0dm3sgn" path="res://assets/ui/icons/CommandCenter.png" id="2_1d2t8"]
+[ext_resource type="Texture2D" uid="uid://bhrw5rae6vmw8" path="res://assets/ui/icons/AntiGroundTurret.png" id="2_72g55"]
+[ext_resource type="Texture2D" uid="uid://cv0qk8bjjc1eo" path="res://assets/ui/icons/AntiAirTurret.png" id="3_wyfuf"]
+[ext_resource type="Texture2D" uid="uid://dvdd6mno4d5da" path="res://assets/ui/icons/AircraftFactory.png" id="4_44m4x"]
+[ext_resource type="Texture2D" uid="uid://djmjxf3ikfrri" path="res://assets/ui/icons/VehicleFactory.png" id="4_f8mve"]
 
 [node name="WorkerMenu" type="GridContainer"]
 mouse_filter = 2
@@ -52,10 +57,32 @@ layout_mode = 2
 focus_mode = 0
 text = "AG"
 
+[node name="TextureRect" type="TextureRect" parent="PlaceAntiGroundTurretButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_72g55")
+expand_mode = 1
+
 [node name="PlaceAntiAirTurretButton" type="Button" parent="."]
 layout_mode = 2
 focus_mode = 0
 text = "AA"
+
+[node name="TextureRect" type="TextureRect" parent="PlaceAntiAirTurretButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_wyfuf")
+expand_mode = 1
 
 [node name="Padding12" type="Control" parent="."]
 custom_minimum_size = Vector2(48, 48)
@@ -68,20 +95,53 @@ layout_mode = 2
 mouse_filter = 2
 
 [node name="PlaceCommandCenterButton" type="Button" parent="."]
+auto_translate_mode = 2
 layout_mode = 2
-auto_translate = false
 focus_mode = 0
 text = "CC"
+
+[node name="TextureRect" type="TextureRect" parent="PlaceCommandCenterButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_1d2t8")
+expand_mode = 1
 
 [node name="PlaceVehicleFactoryButton" type="Button" parent="."]
 layout_mode = 2
 focus_mode = 0
 text = "VF"
 
+[node name="TextureRect" type="TextureRect" parent="PlaceVehicleFactoryButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("4_f8mve")
+expand_mode = 1
+
 [node name="PlaceAircraftFactoryButton" type="Button" parent="."]
 layout_mode = 2
 focus_mode = 0
 text = "AF"
+
+[node name="TextureRect" type="TextureRect" parent="PlaceAircraftFactoryButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("4_44m4x")
+expand_mode = 1
 
 [node name="Padding16" type="Control" parent="."]
 custom_minimum_size = Vector2(48, 48)

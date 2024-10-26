@@ -1,0 +1,71 @@
+[gd_scene load_steps=12 format=3 uid="uid://bw2x48ymhh377"]
+
+[ext_resource type="Texture2D" uid="uid://gt521dioyhp8" path="res://assets/ui/icons/ResourceA.png" id="1_qjaqr"]
+[ext_resource type="Texture2D" uid="uid://bfgqbcv4e3srx" path="res://assets/ui/icons/ResourceB.png" id="2_v3che"]
+[ext_resource type="Texture2D" uid="uid://sc5cu0dm3sgn" path="res://assets/ui/icons/CommandCenter.png" id="3_ua8s7"]
+[ext_resource type="Texture2D" uid="uid://djmjxf3ikfrri" path="res://assets/ui/icons/VehicleFactory.png" id="4_jvq2i"]
+[ext_resource type="Texture2D" uid="uid://dvdd6mno4d5da" path="res://assets/ui/icons/AircraftFactory.png" id="5_s7ytc"]
+[ext_resource type="Texture2D" uid="uid://bhrw5rae6vmw8" path="res://assets/ui/icons/AntiGroundTurret.png" id="6_qc4ii"]
+[ext_resource type="Texture2D" uid="uid://cv0qk8bjjc1eo" path="res://assets/ui/icons/AntiAirTurret.png" id="7_1qjkv"]
+[ext_resource type="Texture2D" uid="uid://qw08xoss4lj0" path="res://assets/ui/icons/Worker.png" id="8_3yik4"]
+[ext_resource type="Texture2D" uid="uid://cjtwt8jdvjor7" path="res://assets/ui/icons/Drone.png" id="9_xycx0"]
+[ext_resource type="Texture2D" uid="uid://cffcxtqooabct" path="res://assets/ui/icons/Helicopter.png" id="10_la0uy"]
+[ext_resource type="Texture2D" uid="uid://bqp6cemj1sw4" path="res://assets/ui/icons/Tank.png" id="11_m7km8"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+columns = 5
+
+[node name="Button" type="Button" parent="GridContainer"]
+layout_mode = 2
+icon = ExtResource("1_qjaqr")
+
+[node name="Button2" type="Button" parent="GridContainer"]
+layout_mode = 2
+icon = ExtResource("2_v3che")
+
+[node name="Button3" type="Button" parent="GridContainer"]
+layout_mode = 2
+icon = ExtResource("3_ua8s7")
+
+[node name="Button4" type="Button" parent="GridContainer"]
+layout_mode = 2
+icon = ExtResource("4_jvq2i")
+
+[node name="Button5" type="Button" parent="GridContainer"]
+layout_mode = 2
+icon = ExtResource("5_s7ytc")
+
+[node name="Button6" type="Button" parent="GridContainer"]
+layout_mode = 2
+icon = ExtResource("6_qc4ii")
+
+[node name="Button7" type="Button" parent="GridContainer"]
+layout_mode = 2
+icon = ExtResource("7_1qjkv")
+
+[node name="Button8" type="Button" parent="GridContainer"]
+layout_mode = 2
+icon = ExtResource("8_3yik4")
+
+[node name="Button9" type="Button" parent="GridContainer"]
+layout_mode = 2
+icon = ExtResource("9_xycx0")
+
+[node name="Button10" type="Button" parent="GridContainer"]
+layout_mode = 2
+icon = ExtResource("10_la0uy")
+
+[node name="Button11" type="Button" parent="GridContainer"]
+layout_mode = 2
+icon = ExtResource("11_m7km8")
