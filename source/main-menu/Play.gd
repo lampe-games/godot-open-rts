@@ -95,10 +95,8 @@ func _on_player_selected(selected_option_id, selected_player_id):
 			):
 				option_nodes[option_node_id].selected = (Constants.PlayerType.SIMPLE_CLAIRVOYANT_AI)
 	elif selected_option_id == Constants.PlayerType.NONE:
-		var option_nodes_with_player_controllers = (
-			find_child("GridContainer")
-			. find_children("OptionButton*")
-			. filter(func(option_node): return option_node.selected != Constants.PlayerType.NONE)
+		var option_nodes_with_player_controllers = find_child("GridContainer").find_children("OptionButton*").filter(
+			func(option_node): return option_node.selected != Constants.PlayerType.NONE
 		)
 		if option_nodes_with_player_controllers.size() < 2:
 			_start_button.disabled = true

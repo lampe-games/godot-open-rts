@@ -22,18 +22,20 @@ func _ready():
 
 func _try_navigating_selected_units_towards_position(target_point):
 	var terrain_units_to_move = get_tree().get_nodes_in_group("selected_units").filter(
-		func(unit): return (
-			unit.is_in_group("controlled_units")
-			and unit.movement_domain == Constants.Match.Navigation.Domain.TERRAIN
-			and Actions.Moving.is_applicable(unit)
-		)
+		func(unit):
+			return (
+				unit.is_in_group("controlled_units")
+				and unit.movement_domain == Constants.Match.Navigation.Domain.TERRAIN
+				and Actions.Moving.is_applicable(unit)
+			)
 	)
 	var air_units_to_move = get_tree().get_nodes_in_group("selected_units").filter(
-		func(unit): return (
-			unit.is_in_group("controlled_units")
-			and unit.movement_domain == Constants.Match.Navigation.Domain.AIR
-			and Actions.Moving.is_applicable(unit)
-		)
+		func(unit):
+			return (
+				unit.is_in_group("controlled_units")
+				and unit.movement_domain == Constants.Match.Navigation.Domain.AIR
+				and Actions.Moving.is_applicable(unit)
+			)
 	)
 	var new_unit_targets = Utils.Match.Unit.Movement.crowd_moved_to_new_pivot(
 		terrain_units_to_move, target_point
@@ -49,9 +51,8 @@ func _try_navigating_selected_units_towards_position(target_point):
 
 func _try_setting_rally_points(target_point: Vector3):
 	var controlled_structures = get_tree().get_nodes_in_group("selected_units").filter(
-		func(unit): return (
-			unit.is_in_group("controlled_units") and unit.find_child("RallyPoint") != null
-		)
+		func(unit):
+			return unit.is_in_group("controlled_units") and unit.find_child("RallyPoint") != null
 	)
 	for structure in controlled_structures:
 		var rally_point = structure.find_child("RallyPoint")
@@ -64,10 +65,11 @@ func _try_ordering_selected_workers_to_construct_structure(potential_structure):
 		return
 	var structure = potential_structure
 	var selected_constructors = get_tree().get_nodes_in_group("selected_units").filter(
-		func(unit): return (
-			unit.is_in_group("controlled_units")
-			and Actions.Constructing.is_applicable(unit, structure)
-		)
+		func(unit):
+			return (
+				unit.is_in_group("controlled_units")
+				and Actions.Constructing.is_applicable(unit, structure)
+			)
 	)
 	for unit in selected_constructors:
 		unit.action = Actions.Constructing.new(structure)

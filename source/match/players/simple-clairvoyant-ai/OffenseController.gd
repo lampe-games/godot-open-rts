@@ -214,28 +214,30 @@ func _enforce_units_production(structure, unit_scene, type):
 
 func _primary_structure():
 	var primary_structures = get_tree().get_nodes_in_group("units").filter(
-		func(unit): return (
-			(
-				unit is VehicleFactory
-				if _ai.primary_offensive_structure == _ai.OffensiveStructure.VEHICLE_FACTORY
-				else unit is AircraftFactory
+		func(unit):
+			return (
+				(
+					unit is VehicleFactory
+					if _ai.primary_offensive_structure == _ai.OffensiveStructure.VEHICLE_FACTORY
+					else unit is AircraftFactory
+				)
+				and unit.player == _player
 			)
-			and unit.player == _player
-		)
 	)
 	return primary_structures[0] if not primary_structures.is_empty() else null
 
 
 func _secondary_structure():
 	var secondary_structures = get_tree().get_nodes_in_group("units").filter(
-		func(unit): return (
-			(
-				unit is VehicleFactory
-				if _ai.secondary_offensive_structure == _ai.OffensiveStructure.VEHICLE_FACTORY
-				else unit is AircraftFactory
+		func(unit):
+			return (
+				(
+					unit is VehicleFactory
+					if _ai.secondary_offensive_structure == _ai.OffensiveStructure.VEHICLE_FACTORY
+					else unit is AircraftFactory
+				)
+				and unit.player == _player
 			)
-			and unit.player == _player
-		)
 	)
 	return secondary_structures[0] if not secondary_structures.is_empty() else null
 

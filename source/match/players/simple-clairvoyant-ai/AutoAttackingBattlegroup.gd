@@ -51,11 +51,14 @@ func _attack_next_adversary_unit():
 		return
 	var battlegroup_position = _attached_units[0].global_position
 	var adversary_units_sorted_by_distance = adversary_units.map(
-		func(adversary_unit): return {
-			"distance":
-			(adversary_unit.global_position * Vector3(1, 0, 1)).distance_to(battlegroup_position),
-			"unit": adversary_unit
-		}
+		func(adversary_unit):
+			return {
+				"distance":
+				(adversary_unit.global_position * Vector3(1, 0, 1)).distance_to(
+					battlegroup_position
+				),
+				"unit": adversary_unit
+			}
 	)
 	adversary_units_sorted_by_distance.sort_custom(
 		func(tuple_a, tuple_b): return tuple_a["distance"] < tuple_b["distance"]
@@ -63,9 +66,8 @@ func _attack_next_adversary_unit():
 	for tuple in adversary_units_sorted_by_distance:
 		var target_unit = tuple["unit"]
 		if _attached_units.any(
-			func(attached_unit): return Actions.AutoAttacking.is_applicable(
-				attached_unit, target_unit
-			)
+			func(attached_unit):
+				return Actions.AutoAttacking.is_applicable(attached_unit, target_unit)
 		):
 			target_unit.tree_exited.connect(_on_target_unit_died)
 			for attached_unit in _attached_units:

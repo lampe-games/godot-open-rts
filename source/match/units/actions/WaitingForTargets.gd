@@ -28,14 +28,15 @@ func is_idle():
 
 func _get_units_to_attack():
 	return get_tree().get_nodes_in_group("units").filter(
-		func(unit): return (
-			unit.player != _unit.player
-			and unit.movement_domain in _unit.attack_domains
-			and (
-				_unit.global_position_yless.distance_to(unit.global_position_yless)
-				<= _unit.sight_range
+		func(unit):
+			return (
+				unit.player != _unit.player
+				and unit.movement_domain in _unit.attack_domains
+				and (
+					_unit.global_position_yless.distance_to(unit.global_position_yless)
+					<= _unit.sight_range
+				)
 			)
-		)
 	)
 
 

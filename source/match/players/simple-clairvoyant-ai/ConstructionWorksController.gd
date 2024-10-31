@@ -28,9 +28,8 @@ func _on_refresh_timer_timeout():
 	if workers.any(func(worker): return worker.action != null and worker.action is Constructing):
 		return
 	var structures_to_construct = get_tree().get_nodes_in_group("units").filter(
-		func(unit): return (
-			unit is Structure and not unit.is_constructed() and unit.player == _player
-		)
+		func(unit):
+			return unit is Structure and not unit.is_constructed() and unit.player == _player
 	)
 	if not structures_to_construct.is_empty() and not workers.is_empty():
 		# TODO: introduce some algortihm based on distances
