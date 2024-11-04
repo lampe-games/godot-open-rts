@@ -5,7 +5,7 @@ static func find_resource_unit_closest_to_unit_yet_no_further_than(
 	if filter_predicate != null:
 		resource_units = resource_units.filter(filter_predicate)
 	# TODO: Make anonymous-inline again once GDToolkit and Godot bugs are fixed.
-	func mapper(resource_unit):
+	var mapper = func(resource_unit):
 		return {
 			"distance":
 			(unit.global_position * Vector3(1, 0, 1)).distance_to(
