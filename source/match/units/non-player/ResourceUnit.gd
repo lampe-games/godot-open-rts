@@ -18,3 +18,7 @@ func _animate_decay():
 	var decay_animation = ResourceDecayAnimation.instantiate()
 	decay_animation.global_transform = global_transform
 	get_parent().add_child.call_deferred(decay_animation)
+
+func _free_me():
+	MatchSignals.resource_depleted.emit(self)
+	queue_free()

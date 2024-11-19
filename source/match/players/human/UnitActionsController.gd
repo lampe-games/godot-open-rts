@@ -1,7 +1,8 @@
 extends Node
 
 const Structure = preload("res://source/match/units/Structure.gd")
-
+const Unit = preload("res://source/match/units/Unit.gd")
+const ResourceUnit = preload("res://source/match/units/non-player/ResourceUnit.gd")
 
 class Actions:
 	const Moving = preload("res://source/match/units/actions/Moving.gd")
@@ -49,15 +50,16 @@ func _try_navigating_selected_units_towards_position(target_point):
 		unit.action = Actions.Moving.new(new_target)
 
 
-func _try_setting_rally_points(target_point: Vector3):
+func _try_setting_rally_points(target):
+	# can a day exists an unit who can spawn units?
 	var controlled_structures = get_tree().get_nodes_in_group("selected_units").filter(
 		func(unit):
 			return unit.is_in_group("controlled_units") and unit.find_child("RallyPoint") != null
 	)
 	for structure in controlled_structures:
 		var rally_point = structure.find_child("RallyPoint")
-		if rally_point != null:
-			rally_point.global_position = target_point
+		if rally_point != null && (target is Vector3 || not (target.is_in_group("adversary_units"))):
+			rally_point.set_target(target)
 
 
 func _try_ordering_selected_workers_to_construct_structure(potential_structure):
@@ -80,29 +82,37 @@ func _navigate_selected_units_towards_unit(target_unit):
 	for unit in get_tree().get_nodes_in_group("selected_units"):
 		if not unit.is_in_group("controlled_units"):
 			continue
-		if Actions.CollectingResourcesSequentially.is_applicable(unit, target_unit):
-			unit.action = Actions.CollectingResourcesSequentially.new(target_unit)
+		
+		if navigate_unit_towards_unit(unit, target_unit):
 			units_navigated += 1
-		elif Actions.AutoAttacking.is_applicable(unit, target_unit):
-			unit.action = Actions.AutoAttacking.new(target_unit)
-			units_navigated += 1
-		elif Actions.Constructing.is_applicable(unit, target_unit):
-			unit.action = Actions.Constructing.new(target_unit)
-			units_navigated += 1
-		elif (
-			(
-				target_unit.is_in_group("adversary_units")
-				or target_unit.is_in_group("controlled_units")
-			)
-			and Actions.Following.is_applicable(unit)
-		):
-			unit.action = Actions.Following.new(target_unit)
-			units_navigated += 1
-		elif Actions.MovingToUnit.is_applicable(unit):
-			unit.action = Actions.MovingToUnit.new(target_unit)
-			units_navigated += 1
+
 	return units_navigated > 0
 
+# im not sure if an static function is a good solution here in godot, but liked to "move" a new spawned unit.
+static func navigate_unit_towards_unit(unit, target_unit):
+	var action_generated = false
+	if Actions.CollectingResourcesSequentially.is_applicable(unit, target_unit):
+		unit.action = Actions.CollectingResourcesSequentially.new(target_unit)
+		action_generated = true
+	elif Actions.AutoAttacking.is_applicable(unit, target_unit):
+		unit.action = Actions.AutoAttacking.new(target_unit)
+		action_generated = true
+	elif Actions.Constructing.is_applicable(unit, target_unit):
+		unit.action = Actions.Constructing.new(target_unit)
+		action_generated = true
+	elif (
+		(
+			target_unit.is_in_group("adversary_units")
+			or target_unit.is_in_group("controlled_units")
+		)
+		and Actions.Following.is_applicable(unit)
+	):
+		unit.action = Actions.Following.new(target_unit)
+		action_generated = true
+	elif Actions.MovingToUnit.is_applicable(unit):
+		unit.action = Actions.MovingToUnit.new(target_unit)
+		action_generated = true
+	return action_generated
 
 func _on_terrain_targeted(position):
 	_try_navigating_selected_units_towards_position(position)
@@ -114,6 +124,7 @@ func _on_unit_targeted(unit):
 		var targetability = unit.find_child("Targetability")
 		if targetability != null:
 			targetability.animate()
+	_try_setting_rally_points(unit)
 
 
 func _on_unit_spawned(unit):

@@ -4,7 +4,9 @@ signal element_enqueued(element)
 signal element_removed(element)
 
 const Moving = preload("res://source/match/units/actions/Moving.gd")
-
+const Unit = preload("res://source/match/units/Unit.gd")
+const ResourceUnit = preload("res://source/match/units/non-player/ResourceUnit.gd")
+const UnitActionsController = preload("res://source/match/players/human/UnitActionsController.gd")
 
 class ProductionQueueElement:
 	extends Resource
@@ -109,7 +111,10 @@ func _finalize_production(former_queue_element):
 
 	# Handle rally point
 	if _unit.has_node("RallyPoint") and Moving.is_applicable(produced_unit):
-		var rally_point = _unit.get_node("RallyPoint").global_position
+		var rally_point = _unit.get_node("RallyPoint").get_target()
 
-		if rally_point != _unit.global_position:
-			produced_unit.action = Moving.new(rally_point)
+		if rally_point:
+			if rally_point is Vector3 && rally_point != _unit.global_position:
+				produced_unit.action = Moving.new(rally_point)
+			elif rally_point is Unit || rally_point is ResourceUnit:
+				UnitActionsController.navigate_unit_towards_unit(produced_unit, rally_point)

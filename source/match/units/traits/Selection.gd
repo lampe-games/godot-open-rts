@@ -21,18 +21,34 @@ func _ready():
 	_circle.hide()
 
 
+func show_selection_circle():
+	_update_circle_color()
+	_circle.show()
+
+func hide_selection_circle():
+	_circle.hide()
+
+
 func select():
 	if _selected:
 		return
 	_selected = true
 	if not _unit.is_in_group("selected_units"):
 		_unit.add_to_group("selected_units")
-	_update_circle_color()
-	_circle.show()
+	show_selection_circle()
+
+	# also show as selected rally point, but not add to selection group
+	if(_unit.has_node("RallyPoint")):
+		var rally_point = _unit.get_node("RallyPoint").get_target()
+
+		if rally_point != null && not(rally_point is Vector3):
+			var rp_selection = rally_point.find_child("Selection")
+			if rp_selection != null:
+				rp_selection.show_selection_circle()
+
 	if "selected" in _unit:
 		_unit.selected.emit()
 	MatchSignals.unit_selected.emit(_unit)
-
 
 func deselect():
 	if not _selected:
@@ -40,7 +56,16 @@ func deselect():
 	_selected = false
 	if _unit.is_in_group("selected_units"):
 		_unit.remove_from_group("selected_units")
-	_circle.hide()
+	hide_selection_circle()
+
+	if(_unit.has_node("RallyPoint")):
+		var rally_point = _unit.get_node("RallyPoint").get_target()
+
+		if rally_point != null && not(rally_point is Vector3):
+			var rp_selection = rally_point.find_child("Selection")
+			if rp_selection != null:
+				rp_selection.hide_selection_circle()
+
 	if "deselected" in _unit:
 		_unit.deselected.emit()
 	MatchSignals.unit_deselected.emit(_unit)
