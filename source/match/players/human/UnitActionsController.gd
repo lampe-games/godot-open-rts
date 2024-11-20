@@ -1,8 +1,7 @@
 extends Node
 
 const Structure = preload("res://source/match/units/Structure.gd")
-const Unit = preload("res://source/match/units/Unit.gd")
-const ResourceUnit = preload("res://source/match/units/non-player/ResourceUnit.gd")
+
 
 class Actions:
 	const Moving = preload("res://source/match/units/actions/Moving.gd")
@@ -58,7 +57,10 @@ func _try_setting_rally_points(target):
 	)
 	for structure in controlled_structures:
 		var rally_point = structure.find_child("RallyPoint")
-		if rally_point != null && (target is Vector3 || not (target.is_in_group("adversary_units"))):
+		if (
+			rally_point != null
+			&& (target is Vector3 || not (target.is_in_group("adversary_units")))
+		):
 			rally_point.set_target(target)
 
 
@@ -82,11 +84,12 @@ func _navigate_selected_units_towards_unit(target_unit):
 	for unit in get_tree().get_nodes_in_group("selected_units"):
 		if not unit.is_in_group("controlled_units"):
 			continue
-		
+
 		if navigate_unit_towards_unit(unit, target_unit):
 			units_navigated += 1
 
 	return units_navigated > 0
+
 
 # im not sure if an static function is a good solution here in godot, but liked to "move" a new spawned unit.
 static func navigate_unit_towards_unit(unit, target_unit):
@@ -101,10 +104,7 @@ static func navigate_unit_towards_unit(unit, target_unit):
 		unit.action = Actions.Constructing.new(target_unit)
 		action_generated = true
 	elif (
-		(
-			target_unit.is_in_group("adversary_units")
-			or target_unit.is_in_group("controlled_units")
-		)
+		(target_unit.is_in_group("adversary_units") or target_unit.is_in_group("controlled_units"))
 		and Actions.Following.is_applicable(unit)
 	):
 		unit.action = Actions.Following.new(target_unit)
@@ -113,6 +113,7 @@ static func navigate_unit_towards_unit(unit, target_unit):
 		unit.action = Actions.MovingToUnit.new(target_unit)
 		action_generated = true
 	return action_generated
+
 
 func _on_terrain_targeted(position):
 	_try_navigating_selected_units_towards_position(position)

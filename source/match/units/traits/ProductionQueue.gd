@@ -8,6 +8,7 @@ const Unit = preload("res://source/match/units/Unit.gd")
 const ResourceUnit = preload("res://source/match/units/non-player/ResourceUnit.gd")
 const UnitActionsController = preload("res://source/match/players/human/UnitActionsController.gd")
 
+
 class ProductionQueueElement:
 	extends Resource
 	var unit_prototype = null
