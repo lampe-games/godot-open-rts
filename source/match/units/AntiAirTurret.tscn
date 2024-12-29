@@ -35,9 +35,6 @@ update_scale = false
 
 [node name="Geometry" parent="DetachTransform" instance=ExtResource("2_bhouy")]
 
-[node name="turret" parent="DetachTransform/Geometry/turret_double/tmpParent/turret_double2" index="0"]
-transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0, 0.3, -0.025)
-
 [node name="ProjectileOrigin" type="Marker3D" parent="DetachTransform/Geometry/turret_double/tmpParent/turret_double2/turret" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.326622, 0.12029, -0.315091)
 
