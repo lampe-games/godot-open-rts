@@ -1,6 +1,7 @@
 extends Camera3D
 
 # TODO: perform rotation calculations in 3D space
+# TODO: introduce _rotate_by() and simplify arrowkey rotation
 
 const EXPECTED_X_ROTATION_DEGREES = -30.0
 const EXPECTED_PROJECTION = PROJECTION_ORTHOGONAL
@@ -28,6 +29,7 @@ var _camera_point_3d = null
 var _rotation_pos = Vector2.ZERO
 var _arrowkey_rotation = false
 
+
 func _ready():
 	assert(projection == EXPECTED_PROJECTION, "unexpected projection")
 	assert(
@@ -54,24 +56,33 @@ func _physics_process(delta):
 
 
 func _process(_delta):
-	if !_is_rotating():
+	if not _is_rotating():
 		_move()
 	elif _arrowkey_rotation:
-		if (Input.is_action_pressed("rotate_map_clock")):
+		if Input.is_action_pressed("rotate_map_clockwise"):
 			_rotation_pos.x += _delta * arrowkey_rotation_speed
-		if (Input.is_action_pressed("rotate_map_counterclock")):
+		if Input.is_action_pressed("rotate_map_counterclockwise"):
 			_rotation_pos.x -= _delta * arrowkey_rotation_speed
 		_rotate(_rotation_pos)
 
 
 func _unhandled_input(event):
-	if !_is_rotating():
-		if Input.is_action_just_pressed("rotate_map_clock") or Input.is_action_just_pressed("rotate_map_counterclock"):
+	if not _is_rotating():
+		if (
+			Input.is_action_just_pressed("rotate_map_clockwise")
+			or Input.is_action_just_pressed("rotate_map_counterclockwise")
+		):
 			_arrowkey_rotation = true
 			_start_rotation(event)
 	else:
-		if Input.is_action_just_released("rotate_map_clock") or Input.is_action_just_released("rotate_map_counterclock")  :
-			if not (Input.is_action_pressed("rotate_map_clock") or Input.is_action_pressed("rotate_map_counterclock")):
+		if (
+			Input.is_action_just_released("rotate_map_clockwise")
+			or Input.is_action_just_released("rotate_map_counterclockwise")
+		):
+			if not (
+				Input.is_action_pressed("rotate_map_clockwise")
+				or Input.is_action_pressed("rotate_map_counterclockwise")
+			):
 				_arrowkey_rotation = false
 				_stop_rotation()
 	if event is InputEventMouseButton:
@@ -83,13 +94,21 @@ func _unhandled_input(event):
 			event.is_pressed() and event.button_index == MOUSE_BUTTON_MIDDLE and event.double_click
 		):
 			_reset_rotation()
-		elif event.is_pressed() and event.button_index == MOUSE_BUTTON_MIDDLE and !_arrowkey_rotation:
+		elif (
+			event.is_pressed()
+			and event.button_index == MOUSE_BUTTON_MIDDLE
+			and not _arrowkey_rotation
+		):
 			_start_rotation(event)
-		elif not event.is_pressed() and event.button_index == MOUSE_BUTTON_MIDDLE and !_arrowkey_rotation:
+		elif (
+			not event.is_pressed()
+			and event.button_index == MOUSE_BUTTON_MIDDLE
+			and not _arrowkey_rotation
+		):
 			_stop_rotation()
 	elif event is InputEventMouseMotion:
-		var rotation_pos = event.position #the mouse position
-		if !_arrowkey_rotation and _is_rotating():
+		var rotation_pos = event.position  #the mouse position
+		if not _arrowkey_rotation and _is_rotating():
 			_rotate(rotation_pos)
 
 
