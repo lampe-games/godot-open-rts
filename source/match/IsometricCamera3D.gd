@@ -1,7 +1,6 @@
 extends Camera3D
 
 # TODO: perform rotation calculations in 3D space
-# TODO: introduce _rotate_by() and simplify arrowkey rotation
 
 const EXPECTED_X_ROTATION_DEGREES = -30.0
 const EXPECTED_PROJECTION = PROJECTION_ORTHOGONAL
@@ -15,7 +14,7 @@ const EXPECTED_PROJECTION = PROJECTION_ORTHOGONAL
 @export var bounding_planes: Array[Plane] = []
 @export_group("Rotation")
 @export var rotation_speed = 0.005
-@export var arrowkey_rotation_speed = 200
+@export var arrowkey_rotation_speed = 2  # [rad/s]
 @export var default_y_rotation_degrees = 0.0
 @export var reference_plane_for_rotation = Plane(Vector3.UP, 0.0)
 @export_group("View")
@@ -26,8 +25,6 @@ var _movement_vector_2d = Vector2(0, 0)
 var _pivot_point_2d = null
 var _pivot_point_3d = null
 var _camera_point_3d = null
-var _rotation_pos = Vector2.ZERO
-var _arrowkey_rotation = false
 
 
 func _ready():
@@ -39,8 +36,8 @@ func _ready():
 
 
 func _physics_process(delta):
+	var real_delta = delta / Engine.time_scale
 	if _movement_vector_2d != Vector2(0, 0):
-		var real_delta = delta / Engine.time_scale
 		var scaled_movement_vector_2d = (
 			_movement_vector_2d.normalized()
 			* real_delta
@@ -53,38 +50,22 @@ func _physics_process(delta):
 		movement_vector_3d = movement_vector_3d.rotated(Vector3(0, 1, 0), rotation.y)
 		global_translate(movement_vector_3d)
 		_align_position_to_bounding_planes()
+	if not _is_rotating():
+		var angle_radians = 0
+		if Input.is_action_pressed("rotate_map_clockwise"):
+			angle_radians = real_delta * arrowkey_rotation_speed
+		if Input.is_action_pressed("rotate_map_counterclockwise"):
+			angle_radians = -real_delta * arrowkey_rotation_speed
+		if angle_radians != 0:
+			_rotate_by(angle_radians)
 
 
 func _process(_delta):
 	if not _is_rotating():
 		_move()
-	elif _arrowkey_rotation:
-		if Input.is_action_pressed("rotate_map_clockwise"):
-			_rotation_pos.x += _delta * arrowkey_rotation_speed
-		if Input.is_action_pressed("rotate_map_counterclockwise"):
-			_rotation_pos.x -= _delta * arrowkey_rotation_speed
-		_rotate(_rotation_pos)
 
 
 func _unhandled_input(event):
-	if not _is_rotating():
-		if (
-			Input.is_action_just_pressed("rotate_map_clockwise")
-			or Input.is_action_just_pressed("rotate_map_counterclockwise")
-		):
-			_arrowkey_rotation = true
-			_start_rotation(event)
-	else:
-		if (
-			Input.is_action_just_released("rotate_map_clockwise")
-			or Input.is_action_just_released("rotate_map_counterclockwise")
-		):
-			if not (
-				Input.is_action_pressed("rotate_map_clockwise")
-				or Input.is_action_pressed("rotate_map_counterclockwise")
-			):
-				_arrowkey_rotation = false
-				_stop_rotation()
 	if event is InputEventMouseButton:
 		if event.is_pressed() and event.button_index == MOUSE_BUTTON_WHEEL_UP:
 			_zoom_in()
@@ -94,22 +75,14 @@ func _unhandled_input(event):
 			event.is_pressed() and event.button_index == MOUSE_BUTTON_MIDDLE and event.double_click
 		):
 			_reset_rotation()
-		elif (
-			event.is_pressed()
-			and event.button_index == MOUSE_BUTTON_MIDDLE
-			and not _arrowkey_rotation
-		):
+		elif event.is_pressed() and event.button_index == MOUSE_BUTTON_MIDDLE:
 			_start_rotation(event)
-		elif (
-			not event.is_pressed()
-			and event.button_index == MOUSE_BUTTON_MIDDLE
-			and not _arrowkey_rotation
-		):
+		elif not event.is_pressed() and event.button_index == MOUSE_BUTTON_MIDDLE:
 			_stop_rotation()
 	elif event is InputEventMouseMotion:
-		var rotation_pos = event.position  #the mouse position
-		if not _arrowkey_rotation and _is_rotating():
-			_rotate(rotation_pos)
+		var mouse_pos = event.position
+		if _is_rotating():
+			_rotate(mouse_pos)
 
 
 func set_size_safely(a_size):
@@ -164,20 +137,16 @@ func _start_rotation(event):
 	_pivot_point_3d = _calculate_pivot_point_3d()
 	if _pivot_point_3d != null:
 		_movement_vector_2d = Vector2(0, 0)
-		if "position" in event:
-			_pivot_point_2d = event.position
-		else:
-			_pivot_point_2d = Vector2.ZERO
+		_pivot_point_2d = event.position
 		_camera_point_3d = global_transform.origin
 
 
 func _stop_rotation():
 	_pivot_point_2d = null
-	_rotation_pos = Vector2.ZERO
 
 
-func _rotate(rotation_pos):
-	var strength = rotation_pos.x - _pivot_point_2d.x
+func _rotate(mouse_pos):
+	var strength = mouse_pos.x - _pivot_point_2d.x
 	var camera_point_2d = Vector2(_camera_point_3d.x, _camera_point_3d.z)
 	var pivot_point_2d = Vector2(_pivot_point_3d.x, _pivot_point_3d.z)
 	var diff_vec = camera_point_2d - pivot_point_2d
@@ -187,6 +156,22 @@ func _rotate(rotation_pos):
 		new_camera_point_2d.x, _camera_point_3d.y, new_camera_point_2d.y
 	)
 	global_transform = global_transform.looking_at(_pivot_point_3d, Vector3(0, 1, 0))
+
+
+func _rotate_by(angle_radians: float):
+	var pivot_point_3d = _calculate_pivot_point_3d()
+	if pivot_point_3d == null:
+		return
+	var camera_point_3d = global_transform.origin
+	var camera_point_2d = Vector2(camera_point_3d.x, camera_point_3d.z)
+	var pivot_point_2d = Vector2(pivot_point_3d.x, pivot_point_3d.z)
+	var diff_vec = camera_point_2d - pivot_point_2d
+	var rotated_diff_vec = diff_vec.rotated(angle_radians)
+	var new_camera_point_2d = pivot_point_2d + rotated_diff_vec
+	global_transform.origin = Vector3(
+		new_camera_point_2d.x, camera_point_3d.y, new_camera_point_2d.y
+	)
+	global_transform = global_transform.looking_at(pivot_point_3d, Vector3(0, 1, 0))
 
 
 func _move():
