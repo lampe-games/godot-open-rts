@@ -57,8 +57,11 @@ func _handle_lmb_down_event(_event):
 
 func _handle_lmb_up_event(_event):
 	get_viewport().set_input_as_handled()
-	if _blueprint_position_is_valid():
+	var blueprint_position_validity = _calculate_blueprint_position_validity()
+	if blueprint_position_validity == BlueprintPositionValidity.VALID:
 		_finish_structure_placement()
+	elif blueprint_position_validity == BlueprintPositionValidity.NOT_ENOUGH_RESOURCES:
+		MatchSignals.not_enough_resources_for_construction.emit(_player)
 	_finish_blueprint_rotation()
 
 
@@ -82,10 +85,6 @@ func _handle_mouse_motion_event(_event):
 
 func _structure_placement_started():
 	return _active_blueprint_node != null
-
-
-func _blueprint_position_is_valid():
-	return _calculate_blueprint_position_validity() == BlueprintPositionValidity.VALID
 
 
 func _blueprint_rotation_started():
