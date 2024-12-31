@@ -1,7 +1,5 @@
 extends Camera3D
 
-# TODO: perform rotation calculations in 3D space
-
 const EXPECTED_X_ROTATION_DEGREES = -30.0
 const EXPECTED_PROJECTION = PROJECTION_ORTHOGONAL
 
@@ -9,7 +7,7 @@ const EXPECTED_PROJECTION = PROJECTION_ORTHOGONAL
 @export var size_min = 1
 @export var size_max = 20
 @export_group("Movement")
-@export var screen_margin_for_movement = 2
+@export var screen_margin_for_movement = 2  # px
 @export var movement_speed = 1.1
 @export var bounding_planes: Array[Plane] = []
 @export_group("Rotation")
@@ -159,19 +157,21 @@ func _reset_rotation():
 	var pivot_point = _calculate_pivot_point()
 	if pivot_point == null:
 		return
-	var camera_point_3d = global_transform.origin
-	var camera_point_2d = Vector2(camera_point_3d.x, camera_point_3d.z)
-	var pivot_point_2d = Vector2(pivot_point.x, pivot_point.z)
-	var pivot_to_camera_distance_2d = camera_point_2d.distance_to(pivot_point_2d)
-	var new_camera_point_2d = (
-		pivot_point_2d
+	var camera_position = global_position
+	var camera_position_yless = camera_position * Vector3(1, 0, 1)
+	var pivot_point_yless = pivot_point * Vector3(1, 0, 1)
+	var pivot_to_camera_distance_yless = camera_position_yless.distance_to(pivot_point_yless)
+	var new_camera_position_yless = (
+		pivot_point_yless
 		- (
-			Vector2(0.0, -1.0).normalized().rotated(deg_to_rad(-default_y_rotation_degrees))
-			* pivot_to_camera_distance_2d
+			Vector3(0, 0, -1).normalized().rotated(
+				-Vector3.UP, deg_to_rad(-default_y_rotation_degrees)
+			)
+			* pivot_to_camera_distance_yless
 		)
 	)
-	global_transform.origin = Vector3(
-		new_camera_point_2d.x, camera_point_3d.y, new_camera_point_2d.y
+	global_position = Vector3(
+		new_camera_position_yless.x, camera_position.y, new_camera_position_yless.z
 	)
 	global_transform = global_transform.looking_at(pivot_point, Vector3(0, 1, 0))
 
@@ -189,13 +189,9 @@ func _rotate_from_reference_position_by(reference_position: Vector3, angle_radia
 	var pivot_point = _calculate_pivot_point()
 	if pivot_point == null:
 		return
-
-	var diff_vec_yless = reference_position * Vector3(1, 0, 1) - pivot_point * Vector3(1, 0, 1)
-	var rotated_diff_vec_yless = diff_vec_yless.rotated(-Vector3.UP, angle_radians)
-	var rotated_reference_position = (
-		pivot_point
-		+ Vector3(rotated_diff_vec_yless.x, reference_position.y, rotated_diff_vec_yless.z)
-	)
+	var diff_vec = reference_position - pivot_point
+	var rotated_diff_vec = diff_vec.rotated(-Vector3.UP, angle_radians)
+	var rotated_reference_position = pivot_point + rotated_diff_vec
 	global_position = rotated_reference_position
 	global_transform = global_transform.looking_at(pivot_point, Vector3.UP)
 
