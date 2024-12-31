@@ -56,11 +56,7 @@ Everyone is free to fix bugs or perform refactoring just by opening PR. As for f
  
 ### Contributors
 
-<a href="https://github.com/lampe-games/godot-open-rts/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=lampe-games/godot-open-rts" />
-</a>
-
-Made with [contrib.rocks](https://contrib.rocks).
+See [contributors](https://github.com/lampe-games/godot-open-rts/graphs/contributors) page.
 
 ### Assets
  - 3D Space Kit by [Kenney](https://www.kenney.nl/assets/space-kit)
