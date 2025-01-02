@@ -223,6 +223,11 @@ class VoiceNarrator:
 		MATCH_ABORTED,
 		UNIT_LOST,
 		UNIT_PRODUCTION_STARTED,
+		UNIT_PRODUCTION_FINISHED,
+		UNIT_CONSTRUCTION_FINISHED,
+		UNIT_HELLO,
+		UNIT_ACK_1,
+		UNIT_ACK_2,
 		NOT_ENOUGH_RESOURCES,
 	}
 
@@ -235,6 +240,16 @@ class VoiceNarrator:
 		preload("res://assets/voice/english/ttsmaker-com-148-alayna-us/unit_lost.ogg"),
 		Events.UNIT_PRODUCTION_STARTED:
 		preload("res://assets/voice/english/ttsmaker-com-148-alayna-us/training.ogg"),
+		Events.UNIT_PRODUCTION_FINISHED:
+		preload("res://assets/voice/english/ttsmaker-com-148-alayna-us/unit_ready.ogg"),
+		Events.UNIT_CONSTRUCTION_FINISHED:
+		preload("res://assets/voice/english/ttsmaker-com-148-alayna-us/construction_complete.ogg"),
+		Events.UNIT_HELLO:
+		preload("res://assets/voice/english/ttsmaker-com-2704-jackson-us/sir.ogg"),
+		Events.UNIT_ACK_1:
+		preload("res://assets/voice/english/ttsmaker-com-2704-jackson-us/yes_sir.ogg"),
+		Events.UNIT_ACK_2:
+		preload("res://assets/voice/english/ttsmaker-com-2704-jackson-us/acknowledged.ogg"),
 		Events.NOT_ENOUGH_RESOURCES:
 		preload("res://assets/voice/english/ttsmaker-com-148-alayna-us/not_enough_resources.ogg"),
 	}

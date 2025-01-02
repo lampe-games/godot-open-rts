@@ -57,6 +57,7 @@ func _finish_construction():
 	_change_geometry_material(null)
 	if is_inside_tree():
 		constructed.emit()
+		MatchSignals.unit_construction_finished.emit(self)
 
 
 func _change_geometry_material(material):
