@@ -227,9 +227,14 @@ class VoiceNarrator:
 	}
 
 	const EVENT_TO_ASSET_MAPPING = {
-		Events.MATCH_STARTED: preload("res://assets/voice/english/battle_control_online.ogg"),
-		Events.MATCH_ABORTED: preload("res://assets/voice/english/battle_control_offline.ogg"),
-		Events.UNIT_LOST: preload("res://assets/voice/english/unit_lost.ogg"),
-		Events.UNIT_PRODUCTION_STARTED: preload("res://assets/voice/english/training.ogg"),
-		Events.NOT_ENOUGH_RESOURCES: preload("res://assets/voice/english/not_enough_resources.ogg"),
+		Events.MATCH_STARTED:
+		preload("res://assets/voice/english/ttsmaker-com-148-alayna-us/battle_control_online.ogg"),
+		Events.MATCH_ABORTED:
+		preload("res://assets/voice/english/ttsmaker-com-148-alayna-us/battle_control_offline.ogg"),
+		Events.UNIT_LOST:
+		preload("res://assets/voice/english/ttsmaker-com-148-alayna-us/unit_lost.ogg"),
+		Events.UNIT_PRODUCTION_STARTED:
+		preload("res://assets/voice/english/ttsmaker-com-148-alayna-us/training.ogg"),
+		Events.NOT_ENOUGH_RESOURCES:
+		preload("res://assets/voice/english/ttsmaker-com-148-alayna-us/not_enough_resources.ogg"),
 	}
