@@ -1,14 +1,9 @@
 extends Node
 
-# TODO: consider using 2 players - 1 for voice narrator and 1 for units
-# ...perhaps extract unit voices to other controller
-# TODO: avoid spamming unit voices
-
 const Structure = preload("res://source/match/units/Structure.gd")
 
 const UNDER_ATTACK_NOTIFICATION_THRESHOLD_MS = 10 * 1000
 
-var _last_ack_event = 0
 var _last_event_handled = null
 var _last_under_attack_notification_timestamp = 0
 
@@ -35,9 +30,6 @@ func _ready():
 	MatchSignals.unit_production_finished.connect(_on_production_finished)
 	MatchSignals.not_enough_resources_for_production.connect(_on_not_enough_resources)
 	MatchSignals.not_enough_resources_for_construction.connect(_on_not_enough_resources)
-	MatchSignals.unit_selected.connect(_on_unit_selected)
-	MatchSignals.unit_targeted.connect(_on_unit_action_requsted)
-	MatchSignals.terrain_targeted.connect(_on_unit_action_requsted)
 	MatchSignals.unit_construction_finished.connect(_on_construction_finished)
 
 
@@ -99,23 +91,3 @@ func _on_construction_finished(unit):
 func _on_not_enough_resources(player):
 	if player == get_parent():
 		_handle_event(Constants.Match.VoiceNarrator.Events.NOT_ENOUGH_RESOURCES)
-
-
-func _on_unit_selected(unit):
-	if not unit is Structure and unit.player == _player:
-		_handle_event(Constants.Match.VoiceNarrator.Events.UNIT_HELLO)
-	# TODO: handle building (add some sound?)
-
-
-func _on_unit_action_requsted(_ignore):
-	if get_tree().get_nodes_in_group("selected_units").any(
-		func(unit): return not unit is Structure and unit.player == _player
-	):
-		_handle_event(
-			(
-				Constants.Match.VoiceNarrator.Events.UNIT_ACK_1
-				if _last_ack_event == 0
-				else Constants.Match.VoiceNarrator.Events.UNIT_ACK_2
-			)
-		)
-		_last_ack_event = (_last_ack_event + 1) % 2

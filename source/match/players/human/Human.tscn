@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dh8dedilkhuoy"]
+[gd_scene load_steps=6 format=3 uid="uid://dh8dedilkhuoy"]
 
 [ext_resource type="Script" path="res://source/match/players/human/Human.gd" id="1_7iu1j"]
 [ext_resource type="Script" path="res://source/match/players/human/UnitActionsController.gd" id="1_m624e"]
 [ext_resource type="PackedScene" uid="uid://q5w474dvts3f" path="res://source/match/players/human/StructurePlacementHandler.tscn" id="2_bbqrb"]
 [ext_resource type="Script" path="res://source/match/players/human/VoiceNarratorController.gd" id="4_ljr74"]
+[ext_resource type="Script" path="res://source/match/players/human/UnitVoicesController.gd" id="5_i4ssw"]
 
 [node name="Human" type="Node3D"]
 script = ExtResource("1_7iu1j")
@@ -20,3 +21,8 @@ script = ExtResource("4_ljr74")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="VoiceNarratorController"]
 process_mode = 3
+
+[node name="UnitVoicesController" type="Node" parent="."]
+script = ExtResource("5_i4ssw")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="UnitVoicesController"]
