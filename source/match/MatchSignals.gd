@@ -9,6 +9,8 @@ signal schedule_navigation_rebake(domain)
 # notifications
 signal match_started
 signal match_aborted
+signal match_finished_with_victory
+signal match_finished_with_defeat
 signal terrain_targeted(position)
 signal unit_spawned(unit)
 signal unit_targeted(unit)

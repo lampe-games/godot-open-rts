@@ -7,6 +7,7 @@ extends Node
 const Structure = preload("res://source/match/units/Structure.gd")
 
 var _last_ack_event = 0
+var _last_event_handled = null
 
 @onready var _audio_player = find_child("AudioStreamPlayer")
 @onready var _player = get_parent()
@@ -18,6 +19,12 @@ func _ready():
 	)
 	MatchSignals.match_aborted.connect(
 		_handle_event.bind(Constants.Match.VoiceNarrator.Events.MATCH_ABORTED)
+	)
+	MatchSignals.match_finished_with_victory.connect(
+		_handle_event.bind(Constants.Match.VoiceNarrator.Events.MATCH_FINISHED_WITH_VICTORY)
+	)
+	MatchSignals.match_finished_with_defeat.connect(
+		_handle_event.bind(Constants.Match.VoiceNarrator.Events.MATCH_FINISHED_WITH_DEFEAT)
 	)
 	MatchSignals.unit_died.connect(_on_unit_died)
 	MatchSignals.unit_production_started.connect(_on_production_started)
@@ -31,6 +38,18 @@ func _ready():
 
 
 func _handle_event(event):
+	if (
+		_audio_player.playing
+		and (
+			_last_event_handled
+			in [
+				Constants.Match.VoiceNarrator.Events.MATCH_FINISHED_WITH_VICTORY,
+				Constants.Match.VoiceNarrator.Events.MATCH_FINISHED_WITH_DEFEAT
+			]
+		)
+	):
+		return
+	_last_event_handled = event
 	_audio_player.stream = Constants.Match.VoiceNarrator.EVENT_TO_ASSET_MAPPING[event]
 	_audio_player.play()
 

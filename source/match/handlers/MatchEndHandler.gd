@@ -21,6 +21,23 @@ func _ready():
 		unit.tree_exited.connect(_on_unit_tree_exited)
 
 
+func _handle_defeat():
+	_defeat_tile.show()
+	_show()
+	MatchSignals.match_finished_with_defeat.emit()
+
+
+func _handle_victory():
+	_victory_tile.show()
+	_show()
+	MatchSignals.match_finished_with_victory.emit()
+
+
+func _handle_finish():
+	_finish_tile.show()
+	_show()
+
+
 func _show():
 	show()
 	get_tree().paused = true
@@ -40,14 +57,11 @@ func _on_unit_tree_exited():
 		func(player): return player is Human
 	)
 	if not human_players.is_empty() and not players.has(human_players[0]):
-		_defeat_tile.show()
-		_show()
+		_handle_defeat()
 	elif not human_players.is_empty() and players.has(human_players[0]) and players.size() == 1:
-		_victory_tile.show()
-		_show()
+		_handle_victory()
 	elif players.size() == 1:
-		_finish_tile.show()
-		_show()
+		_handle_finish()
 
 
 func _on_exit_button_pressed():
