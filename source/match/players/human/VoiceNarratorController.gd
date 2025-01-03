@@ -6,8 +6,11 @@ extends Node
 
 const Structure = preload("res://source/match/units/Structure.gd")
 
+const UNDER_ATTACK_NOTIFICATION_THRESHOLD_MS = 10 * 1000
+
 var _last_ack_event = 0
 var _last_event_handled = null
+var _last_under_attack_notification_timestamp = 0
 
 @onready var _audio_player = find_child("AudioStreamPlayer")
 @onready var _player = get_parent()
@@ -26,6 +29,7 @@ func _ready():
 	MatchSignals.match_finished_with_defeat.connect(
 		_handle_event.bind(Constants.Match.VoiceNarrator.Events.MATCH_FINISHED_WITH_DEFEAT)
 	)
+	MatchSignals.unit_damaged.connect(_on_unit_damaged)
 	MatchSignals.unit_died.connect(_on_unit_died)
 	MatchSignals.unit_production_started.connect(_on_production_started)
 	MatchSignals.unit_production_finished.connect(_on_production_finished)
@@ -52,6 +56,24 @@ func _handle_event(event):
 	_last_event_handled = event
 	_audio_player.stream = Constants.Match.VoiceNarrator.EVENT_TO_ASSET_MAPPING[event]
 	_audio_player.play()
+
+
+func _on_unit_damaged(unit):
+	if unit.player != _player:
+		return
+	var current_timestamp = Time.get_ticks_msec()
+	if (
+		current_timestamp - _last_under_attack_notification_timestamp
+		> UNDER_ATTACK_NOTIFICATION_THRESHOLD_MS
+	):
+		_handle_event(
+			(
+				Constants.Match.VoiceNarrator.Events.BASE_UNDER_ATTACK
+				if unit is Structure
+				else Constants.Match.VoiceNarrator.Events.UNIT_UNDER_ATTACK
+			)
+		)
+	_last_under_attack_notification_timestamp = current_timestamp
 
 
 func _on_unit_died(unit):

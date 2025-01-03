@@ -56,7 +56,10 @@ func is_revealing():
 
 
 func _set_hp(value):
+	var old_hp = hp
 	hp = max(0, value)
+	if old_hp != null and hp < old_hp:
+		MatchSignals.unit_damaged.emit(self)
 	hp_changed.emit()
 	if hp == 0:
 		_handle_unit_death()

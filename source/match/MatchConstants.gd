@@ -223,6 +223,8 @@ class VoiceNarrator:
 		MATCH_ABORTED,
 		MATCH_FINISHED_WITH_VICTORY,
 		MATCH_FINISHED_WITH_DEFEAT,
+		BASE_UNDER_ATTACK,
+		UNIT_UNDER_ATTACK,
 		UNIT_LOST,
 		UNIT_PRODUCTION_STARTED,
 		UNIT_PRODUCTION_FINISHED,
@@ -242,6 +244,12 @@ class VoiceNarrator:
 		preload("res://assets/voice/english/ttsmaker-com-148-alayna-us/you_are_victorious.ogg"),
 		Events.MATCH_FINISHED_WITH_DEFEAT:
 		preload("res://assets/voice/english/ttsmaker-com-148-alayna-us/you_have_lost.ogg"),
+		Events.BASE_UNDER_ATTACK:
+		preload(
+			"res://assets/voice/english/ttsmaker-com-148-alayna-us/your_base_is_under_attack.ogg"
+		),
+		Events.UNIT_UNDER_ATTACK:
+		preload("res://assets/voice/english/ttsmaker-com-148-alayna-us/unit_under_attack.ogg"),
 		Events.UNIT_LOST:
 		preload("res://assets/voice/english/ttsmaker-com-148-alayna-us/unit_lost.ogg"),
 		Events.UNIT_PRODUCTION_STARTED:
