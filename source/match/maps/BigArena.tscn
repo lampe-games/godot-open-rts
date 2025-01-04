@@ -9,7 +9,7 @@
 [sub_resource type="PlaneMesh" id="PlaneMesh_43n1t"]
 resource_local_to_scene = true
 material = ExtResource("2_hmoqb")
-size = Vector2(100, 100)
+size = Vector2(104, 104)
 center_offset = Vector3(50, 0, 50)
 
 [node name="Map" instance=ExtResource("1_c0hq7")]

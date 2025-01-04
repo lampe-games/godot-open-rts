@@ -8,7 +8,7 @@
 [sub_resource type="PlaneMesh" id="PlaneMesh_frqq2"]
 resource_local_to_scene = true
 material = ExtResource("2_sguro")
-size = Vector2(50, 50)
+size = Vector2(54, 54)
 center_offset = Vector3(25, 0, 25)
 
 [node name="Map" instance=ExtResource("1_sqrvi")]

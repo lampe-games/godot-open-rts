@@ -13,7 +13,7 @@ size = Vector2(1000, 1000)
 [sub_resource type="PlaneMesh" id="PlaneMesh_ypksr"]
 resource_local_to_scene = true
 material = ExtResource("1_81yiw")
-size = Vector2(50, 50)
+size = Vector2(54, 54)
 center_offset = Vector3(25, 0, 25)
 
 [node name="Map" type="Node3D"]
@@ -24,9 +24,11 @@ script = ExtResource("1_1svvv")
 [node name="BlackBackgroundFixingAntiAliasingBug" type="MeshInstance3D" parent="Geometry"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 material_override = SubResource("StandardMaterial3D_ve5fg")
+cast_shadow = 0
 mesh = SubResource("PlaneMesh_0fj4w")
 
 [node name="Terrain" type="MeshInstance3D" parent="Geometry" groups=["terrain_navigation_input"]]
+cast_shadow = 0
 mesh = SubResource("PlaneMesh_ypksr")
 
 [node name="SpawnPoints" type="Node3D" parent="."]
