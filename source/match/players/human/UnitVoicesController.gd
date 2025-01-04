@@ -1,6 +1,7 @@
 extends Node
 
 const Structure = preload("res://source/match/units/Structure.gd")
+const ResourceUnit = preload("res://source/match/units/non-player/ResourceUnit.gd")
 
 var _last_ack_event = 0
 
@@ -22,7 +23,7 @@ func _handle_event(event):
 
 
 func _on_unit_selected(unit):
-	if not unit is Structure and unit.player == _player:
+	if not unit is Structure and not unit is ResourceUnit and unit.player == _player:
 		_handle_event(Constants.Match.VoiceNarrator.Events.UNIT_HELLO)
 	# TODO: handle building - perhaps with some sound instead of voice
 
