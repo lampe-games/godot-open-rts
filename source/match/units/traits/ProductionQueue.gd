@@ -108,9 +108,6 @@ func _finalize_production(former_queue_element):
 	)
 	MatchSignals.unit_production_finished.emit(produced_unit, _unit)
 
-	# Handle rally point
-	if _unit.has_node("RallyPoint") and Moving.is_applicable(produced_unit):
-		var rally_point = _unit.get_node("RallyPoint").global_position
-
-		if rally_point != _unit.global_position:
-			produced_unit.action = Moving.new(rally_point)
+	var rally_point = _unit.find_child("RallyPoint")
+	if rally_point != null:
+		MatchSignals.navigate_unit_to_rally_point.emit(produced_unit, rally_point)
