@@ -39,6 +39,7 @@ var type:
 	get = _get_type
 
 var _action_locked = false
+var _in_construction = true
 
 @onready var _match = find_parent("Match")
 
@@ -49,6 +50,7 @@ func _ready():
 	_setup_color()
 	_setup_default_properties_from_constants()
 	assert(_safety_checks())
+	MatchSignals.unit_construction_finished.connect(_on_construction_finished)
 
 
 func is_revealing():
@@ -58,7 +60,7 @@ func is_revealing():
 func _set_hp(value):
 	var old_hp = hp
 	hp = max(0, value)
-	if old_hp != null and hp < old_hp:
+	if old_hp != null and hp < old_hp and _in_construction == false:
 		MatchSignals.unit_damaged.emit(self)
 	hp_changed.emit()
 	if hp == 0:
@@ -174,3 +176,7 @@ func _setup_default_properties_from_constants():
 func _on_action_node_tree_exited(action_node):
 	assert(action_node == action, "unexpected action released")
 	action = null
+
+func _on_construction_finished(unit):
+	if unit == self:
+		_in_construction = false
